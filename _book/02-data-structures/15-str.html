@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.31">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>35&nbsp; Understanding Structure with str() – R for Public Health: A Problem-Based Learning Course</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -79,8 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-82f2f6d5827a576a8c9f217aaf8aa84a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -106,13 +101,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<style>html{ scroll-behavior: smooth; }</style>
-
-
+}</script><style>html{ scroll-behavior: smooth; }</style>
 <link rel="stylesheet" href="../styles.css">
 </head>
-
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
@@ -278,26 +269,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-data-structures/00-overview.html">Level 2: Data Structures in R</a></li><li class="breadcrumb-item"><a href="../02-data-structures/15-str.html"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code>str()</code></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-data-structures/00-overview.html">Level 2 — Data Structures in R</a></li><li class="breadcrumb-item"><a href="../02-data-structures/15-str.html"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code></code></span></a><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">R for Public Health: A Problem-Based Learning Course</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -314,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
@@ -323,13 +308,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 1: Getting Started with R</span></a>
+ <span class="menu-text">Level 1 — Getting Started with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../01-getting-started/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 1 — Getting Started with R</span></a>
@@ -456,17 +441,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 2: Data Structures in R</span></a>
+ <span class="menu-text">Level 2 — Data Structures in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 2 — Data Structures in R</span></a>
@@ -475,19 +460,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/01-vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code>c()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code></code></span></span></a><code><a href="https://rdrr.io/r/base/c.html">c()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/02-sequences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code>seq()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/03-rep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code>rep()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -559,33 +544,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/15-str.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code>str()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code></code></span></span></a><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/16-dimensions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code>nrow()</code>, <code>ncol()</code>, <code>dim()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>, <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code>, <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/17-length-names.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code>length()</code> and <code>names()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and <code><a href="https://rdrr.io/r/base/names.html">names()</a></code>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 3: Data Import and Export</span></a>
+ <span class="menu-text">Level 3 — Data Import and Export</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../03-data-import/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 3 — Data Import and Export</span></a>
@@ -664,17 +649,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 4: Data Cleaning with Base R</span></a>
+ <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
@@ -767,7 +752,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/15-ifelse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code>ifelse()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -783,17 +768,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 5: Tidyverse</span></a>
+ <span class="menu-text">Level 5 — Tidyverse</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 5 — Tidyverse</span></a>
@@ -808,7 +793,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/02-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code>filter()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -872,17 +857,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 6: Data Reshaping</span></a>
+ <span class="menu-text">Level 6 — Data Reshaping</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 6 — Data Reshaping</span></a>
@@ -967,17 +952,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 7: Descriptive Statistics</span></a>
+ <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
@@ -1004,7 +989,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/04-summary-function.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code>summary()</code> Function</span></span></a>
+ <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code></code></span></span></a><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> Function
   </div>
 </li>
           <li class="sidebar-item">
@@ -1022,7 +1007,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/07-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code>cor()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1032,17 +1017,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 8: Data Visualization with ggplot2</span></a>
+ <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
@@ -1115,17 +1100,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 9: Functions and Programming</span></a>
+ <span class="menu-text">Level 9 — Functions and Programming</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 9 — Functions and Programming</span></a>
@@ -1176,19 +1161,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/08-apply-family.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code>sapply()</code> and <code>lapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/09-purrr-map.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code>purrr::map()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code></code></span></span></a><code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/10-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code>stop()</code> and <code>warning()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code> and <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1198,17 +1183,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 10: Loops and Automation</span></a>
+ <span class="menu-text">Level 10 — Loops and Automation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 10 — Loops and Automation</span></a>
@@ -1247,7 +1232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/06-vapply-tapply.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code>vapply()</code> and <code>tapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">vapply()</a></code> and <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1263,17 +1248,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 11: Statistical Analysis in R</span></a>
+ <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
@@ -1330,7 +1315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/09-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code>lm()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1352,7 +1337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
@@ -1361,15 +1346,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../12-advanced-analysis/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 12 — Advanced Data Analysis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/01-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">142</span>&nbsp; <span class="chapter-title">Multiple Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/02-categorical-predictors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">143</span>&nbsp; <span class="chapter-title">Categorical Predictors in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/03-interaction-terms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">144</span>&nbsp; <span class="chapter-title">Interaction Terms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/04-confounding-adjustment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">145</span>&nbsp; <span class="chapter-title">Confounding and Adjustment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/05-model-comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">146</span>&nbsp; <span class="chapter-title">Comparing Nested Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/06-regression-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">147</span>&nbsp; <span class="chapter-title">Regression Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/07-multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">148</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/08-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">149</span>&nbsp; <span class="chapter-title">Predicting New Data with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/09-advanced-analysis-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">150</span>&nbsp; <span class="chapter-title">Level 12 Capstone: Choosing a Final Model</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
@@ -1378,15 +1417,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../13-advanced-r/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 13 — Advanced R Programming</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/01-environments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">151</span>&nbsp; <span class="chapter-title">Environments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/02-closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">152</span>&nbsp; <span class="chapter-title">Closures and Function Factories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/03-s3-object-system.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">153</span>&nbsp; <span class="chapter-title">A First Look at S3 Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/04-error-handling-trycatch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">154</span>&nbsp; <span class="chapter-title">Robust Error Handling with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/05-debugging-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">155</span>&nbsp; <span class="chapter-title">Debugging Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/06-functional-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">156</span>&nbsp; <span class="chapter-title">Functional Programming with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/funprog.html">Reduce()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/07-regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">157</span>&nbsp; <span class="chapter-title">Regular Expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/08-string-manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">158</span>&nbsp; <span class="chapter-title">String Manipulation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/09-working-with-dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">159</span>&nbsp; <span class="chapter-title">Working with Dates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/10-package-structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">160</span>&nbsp; <span class="chapter-title">The Anatomy of an R Package</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/11-advanced-r-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">161</span>&nbsp; <span class="chapter-title">Level 13 Capstone: A Resilient File-Reading Toolkit</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
@@ -1395,15 +1500,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../14-reproducible-research/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 14 — Reproducible Research</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/01-rmarkdown-vs-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">162</span>&nbsp; <span class="chapter-title">R Markdown vs.&nbsp;Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/02-yaml-front-matter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">163</span>&nbsp; <span class="chapter-title">YAML Front Matter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/03-code-chunks-inline-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">164</span>&nbsp; <span class="chapter-title">Code Chunks and Inline Code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/04-tables-and-figures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">165</span>&nbsp; <span class="chapter-title">Tables and Figures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/05-cross-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">166</span>&nbsp; <span class="chapter-title">Cross-References</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/06-citations-bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">167</span>&nbsp; <span class="chapter-title">Citations and Bibliographies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/07-parameterized-reports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">168</span>&nbsp; <span class="chapter-title">Parameterized Reports</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/08-output-formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">169</span>&nbsp; <span class="chapter-title">Choosing an Output Format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/09-projects-books-websites.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">170</span>&nbsp; <span class="chapter-title">Quarto Projects: Books and Websites</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/10-reproducible-research-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">171</span>&nbsp; <span class="chapter-title">Level 14 Capstone: A Complete Clinic Report Template</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
@@ -1412,26 +1577,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../15-capstone-projects/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 15 — Real-World Capstone Projects</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/01-capstone-hypertension-risk-factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">172</span>&nbsp; <span class="chapter-title">Capstone 1: Hypertension Risk Factors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/02-capstone-smoking-cardiovascular-risk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">173</span>&nbsp; <span class="chapter-title">Capstone 2: Smoking and Cardiovascular Risk</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/03-capstone-geographic-patterns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">174</span>&nbsp; <span class="chapter-title">Capstone 3: Geographic Patterns Across Counties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/04-capstone-longitudinal-blood-pressure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">175</span>&nbsp; <span class="chapter-title">Capstone 4: Longitudinal Blood Pressure and Attrition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/05-capstone-reproducible-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">176</span>&nbsp; <span class="chapter-title">Capstone 5: A Reproducible County Dashboard</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/06-independent-capstone-guidance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">177</span>&nbsp; <span class="chapter-title">Designing Your Own Independent Capstone</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">35.1</span> The R Concept</a></li>
+<li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">35.1</span> The R Concept</a></li>
   <li><a href="#demonstration" id="toc-demonstration" class="nav-link" data-scroll-target="#demonstration"><span class="header-section-number">35.2</span> Demonstration</a></li>
   <li><a href="#explore" id="toc-explore" class="nav-link" data-scroll-target="#explore"><span class="header-section-number">35.3</span> Explore</a></li>
   <li><a href="#solve-the-problem" id="toc-solve-the-problem" class="nav-link" data-scroll-target="#solve-the-problem"><span class="header-section-number">35.4</span> Solve the Problem</a></li>
@@ -1439,15 +1638,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#practice-problem" id="toc-practice-problem" class="nav-link" data-scroll-target="#practice-problem"><span class="header-section-number">35.6</span> Practice Problem</a></li>
   <li><a href="#challenge-problem" id="toc-challenge-problem" class="nav-link" data-scroll-target="#challenge-problem"><span class="header-section-number">35.7</span> Challenge Problem</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">35.8</span> Key Takeaways</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-data-structures/00-overview.html">Level 2: Data Structures in R</a></li><li class="breadcrumb-item"><a href="../02-data-structures/15-str.html"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code>str()</code></span></a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-data-structures/00-overview.html">Level 2 — Data Structures in R</a></li><li class="breadcrumb-item"><a href="../02-data-structures/15-str.html"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code></code></span></a><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span id="sec-str" class="quarto-section-identifier"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code>str()</code></span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
@@ -1462,66 +1656,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<div class="pbl-box pbl-problem">
+</header><div class="pbl-box pbl-problem">
 <p><strong>The Problem</strong></p>
 <p>A colleague sends you an R object saved from their analysis — you’re told it’s called <code>model_output</code>, but nothing else. Printing it directly floods your Console with a dense, confusing wall of text you don’t recognize. Before you can use it, you need a fast way to answer: what <em>kind</em> of object is this, how is it organized, and what’s actually inside it?</p>
 </div>
 <div class="pbl-box pbl-mission">
 <p><strong>Your Mission</strong></p>
-<p>Use <code>str()</code> to get a compact, readable overview of the structure of <em>any</em> R object — vector, factor, data frame, list, or matrix — without printing all of its contents.</p>
+<p>Use <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> to get a compact, readable overview of the structure of <em>any</em> R object — vector, factor, data frame, list, or matrix — without printing all of its contents.</p>
 </div>
 <div class="pbl-box pbl-think">
 <p><strong>Think Before Coding</strong></p>
 <ul>
-<li>You’ve already used <code>str()</code> once, in Level 1, on the <code>participants</code> data frame. What did it show you then?</li>
+<li>You’ve already used <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> once, in Level 1, on the <code>participants</code> data frame. What did it show you then?</li>
 <li>Do you think a function built to summarize a data frame’s structure might also work on completely different types of objects, like a list or a plain vector?</li>
 </ul>
 </div>
-<section id="the-r-concept" class="level2" data-number="35.1">
-<h2 data-number="35.1" class="anchored" data-anchor-id="the-r-concept"><span class="header-section-number">35.1</span> The R Concept</h2>
-<p><strong><code>str()</code></strong> (short for “structure”) is one of the most broadly useful functions in R precisely because it works on <em>any</em> object type and adapts its output to what it finds — a vector, a factor, a data frame, a list, a matrix, or the complicated nested output of a statistical model later in this course.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(object)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For a data frame, <code>str()</code> shows the number of rows and columns, each column’s name and type, and a short preview of its first few values — exactly what you saw in Level 1. But it works identically well on other structures:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))              <span class="co"># a simple numeric vector</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>))) <span class="co"># a factor, showing its levels</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="st">"text"</span>))  <span class="co"># a list, showing each named element's type</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This makes <code>str()</code> your first move whenever you encounter an unfamiliar object — before printing it in full, before guessing, before asking a colleague.</p>
-</section>
-<section id="demonstration" class="level2" data-number="35.2">
-<h2 data-number="35.2" class="anchored" data-anchor-id="demonstration"><span class="header-section-number">35.2</span> Demonstration</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">62</span>, <span class="dv">38</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="the-r-concept" class="level2" data-number="35.1"><h2 data-number="35.1" class="anchored" data-anchor-id="the-r-concept">
+<span class="header-section-number">35.1</span> The R Concept</h2>
+<p><strong><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code></strong> (short for “structure”) is one of the most broadly useful functions in R precisely because it works on <em>any</em> object type and adapts its output to what it finds — a vector, a factor, a data frame, a list, a matrix, or the complicated nested output of a statistical model later in this course.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For a data frame, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> shows the number of rows and columns, each column’s name and type, and a short preview of its first few values — exactly what you saw in Level 1. But it works identically well on other structures:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>              <span class="co"># a simple numeric vector</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Low"</span>, <span class="st">"High"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># a factor, showing its levels</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># a list, showing each named element's type</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This makes <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> your first move whenever you encounter an unfamiliar object — before printing it in full, before guessing, before asking a colleague.</p>
+</section><section id="demonstration" class="level2" data-number="35.2"><h2 data-number="35.2" class="anchored" data-anchor-id="demonstration">
+<span class="header-section-number">35.2</span> Demonstration</h2>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">45</span>, <span class="fl">62</span>, <span class="fl">38</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code> num [1:3] 45 62 38</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>, <span class="st">"Low"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Low"</span>, <span class="st">"High"</span>, <span class="st">"Low"</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Low"</span>, <span class="st">"High"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code> Factor w/ 2 levels "Low","High": 1 2 1</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>analysis_summary <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">study_name =</span> <span class="st">"Community Health Survey"</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_participants =</span> <span class="dv">100</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">complete =</span> <span class="cn">TRUE</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(analysis_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">analysis_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  study_name <span class="op">=</span> <span class="st">"Community Health Survey"</span>,</span>
+<span>  n_participants <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  complete <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">analysis_summary</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>List of 3
  $ study_name    : chr "Community Health Survey"
  $ n_participants: num 100
  $ complete      : logi TRUE</code></pre>
-</section>
-<section id="explore" class="level2" data-number="35.3">
-<h2 data-number="35.3" class="anchored" data-anchor-id="explore"><span class="header-section-number">35.3</span> Explore</h2>
-<p>Run <code>str(participants)</code> again, as you did back in Level 1, and now also try <code>str(matrix(1:6, nrow = 2))</code>. Notice <code>str()</code> reports something meaningfully different for each of the five structure types you’ve learned this level — vector, factor, data frame, list, and matrix — always adapted to that specific structure.</p>
-</section>
-<section id="solve-the-problem" class="level2" data-number="35.4">
-<h2 data-number="35.4" class="anchored" data-anchor-id="solve-the-problem"><span class="header-section-number">35.4</span> Solve the Problem</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"Two-sample t-test"</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="fl">4.2</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value =</span> <span class="fl">0.031</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">significant =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">groups =</span> <span class="fu">c</span>(<span class="st">"Smoker"</span>, <span class="st">"Non-smoker"</span>)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(model_output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="explore" class="level2" data-number="35.3"><h2 data-number="35.3" class="anchored" data-anchor-id="explore">
+<span class="header-section-number">35.3</span> Explore</h2>
+<p>Run <code>str(participants)</code> again, as you did back in Level 1, and now also try <code>str(matrix(1:6, nrow = 2))</code>. Notice <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> reports something meaningfully different for each of the five structure types you’ve learned this level — vector, factor, data frame, list, and matrix — always adapted to that specific structure.</p>
+</section><section id="solve-the-problem" class="level2" data-number="35.4"><h2 data-number="35.4" class="anchored" data-anchor-id="solve-the-problem">
+<span class="header-section-number">35.4</span> Solve the Problem</h2>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  method <span class="op">=</span> <span class="st">"Two-sample t-test"</span>,</span>
+<span>  estimate <span class="op">=</span> <span class="fl">4.2</span>,</span>
+<span>  p_value <span class="op">=</span> <span class="fl">0.031</span>,</span>
+<span>  significant <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Smoker"</span>, <span class="st">"Non-smoker"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">model_output</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>List of 5
  $ method     : chr "Two-sample t-test"
  $ estimate   : num 4.2
@@ -1529,69 +1729,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ significant: logi TRUE
  $ groups     : chr [1:2] "Smoker" "Non-smoker"</code></pre>
 <p>In one call, without printing a confusing wall of unexplained text, you now know exactly what your colleague’s object is: a list with five named elements, including a method label, two numeric results, a logical significance flag, and a two-element character vector of group names.</p>
-</section>
-<section id="interpret-the-result" class="level2" data-number="35.5">
-<h2 data-number="35.5" class="anchored" data-anchor-id="interpret-the-result"><span class="header-section-number">35.5</span> Interpret the Result</h2>
-<p><code>str()</code> reveals that <code>model_output</code> is a <code>list</code> of 5 elements, each with its own type — information you could not have gotten as quickly, or as clearly, by simply printing the object and reading through its default (and, for many object types including actual statistical model results later in the course, often much messier) display.</p>
+</section><section id="interpret-the-result" class="level2" data-number="35.5"><h2 data-number="35.5" class="anchored" data-anchor-id="interpret-the-result">
+<span class="header-section-number">35.5</span> Interpret the Result</h2>
+<p><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> reveals that <code>model_output</code> is a <code>list</code> of 5 elements, each with its own type — information you could not have gotten as quickly, or as clearly, by simply printing the object and reading through its default (and, for many object types including actual statistical model results later in the course, often much messier) display.</p>
 <div class="pbl-box pbl-mistake">
 <p><strong>Common Mistakes</strong></p>
 <ul>
-<li><strong>Only ever using <code>str()</code> on data frames.</strong> Its real value is that it works identically well on <em>any</em> object — vectors, factors, lists, matrices — making it your general-purpose “what is this?” tool, not a data-frame-only trick.</li>
-<li><strong>Printing a large or unfamiliar object directly instead of checking <code>str()</code> first.</strong> For a big list (especially the kind returned by statistical functions later in the course), a direct <code>print()</code> can flood your Console with far more than you need; <code>str()</code> gives you the shape first.</li>
-<li><strong>Confusing <code>str()</code> (structure) with <code>class()</code> (type label only).</strong> <code>class()</code> gives you one short label (<code>"list"</code>, <code>"data.frame"</code>); <code>str()</code> gives you that plus a breakdown of everything inside — use <code>class()</code> for a quick check, <code>str()</code> when you need the fuller picture.</li>
+<li>
+<strong>Only ever using <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> on data frames.</strong> Its real value is that it works identically well on <em>any</em> object — vectors, factors, lists, matrices — making it your general-purpose “what is this?” tool, not a data-frame-only trick.</li>
+<li>
+<strong>Printing a large or unfamiliar object directly instead of checking <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> first.</strong> For a big list (especially the kind returned by statistical functions later in the course), a direct <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> can flood your Console with far more than you need; <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> gives you the shape first.</li>
+<li>
+<strong>Confusing <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> (structure) with <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> (type label only).</strong> <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> gives you one short label (<code>"list"</code>, <code>"data.frame"</code>); <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> gives you that plus a breakdown of everything inside — use <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> for a quick check, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> when you need the fuller picture.</li>
 </ul>
 </div>
-</section>
-<section id="practice-problem" class="level2" data-number="35.6">
-<h2 data-number="35.6" class="anchored" data-anchor-id="practice-problem"><span class="header-section-number">35.6</span> Practice Problem</h2>
-<p>Run <code>str()</code> on <code>participants$sex</code> (a character vector) and separately on <code>participants$bmi_category</code> (the ordered factor you built earlier in this level, if you completed that page’s solution). Compare the two outputs.</p>
-</section>
-<section id="challenge-problem" class="level2" data-number="35.7">
-<h2 data-number="35.7" class="anchored" data-anchor-id="challenge-problem"><span class="header-section-number">35.7</span> Challenge Problem</h2>
-<p>Build a small nested list: <code>study &lt;- list(name = "Pilot Study", data = participants[1:5, ], sites = c("Riverdale", "Oakford"))</code>. Run <code>str(study)</code> and identify, from its output alone, how many rows and columns the nested data frame (<code>data</code>) has — without separately calling <code>nrow()</code> or <code>ncol()</code>.</p>
-</section>
-<section id="key-takeaways" class="level2" data-number="35.8">
-<h2 data-number="35.8" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">35.8</span> Key Takeaways</h2>
+</section><section id="practice-problem" class="level2" data-number="35.6"><h2 data-number="35.6" class="anchored" data-anchor-id="practice-problem">
+<span class="header-section-number">35.6</span> Practice Problem</h2>
+<p>Run <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> on <code>participants$sex</code> (a character vector) and separately on <code>participants$bmi_category</code> (the ordered factor you built earlier in this level, if you completed that page’s solution). Compare the two outputs.</p>
+</section><section id="challenge-problem" class="level2" data-number="35.7"><h2 data-number="35.7" class="anchored" data-anchor-id="challenge-problem">
+<span class="header-section-number">35.7</span> Challenge Problem</h2>
+<p>Build a small nested list: <code>study &lt;- list(name = "Pilot Study", data = participants[1:5, ], sites = c("Riverdale", "Oakford"))</code>. Run <code>str(study)</code> and identify, from its output alone, how many rows and columns the nested data frame (<code>data</code>) has — without separately calling <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> or <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code>.</p>
+</section><section id="key-takeaways" class="level2" data-number="35.8"><h2 data-number="35.8" class="anchored" data-anchor-id="key-takeaways">
+<span class="header-section-number">35.8</span> Key Takeaways</h2>
 <ul>
-<li><code>str()</code> works on any R object — vectors, factors, data frames, lists, matrices — and adapts its output to that structure.</li>
+<li>
+<code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> works on any R object — vectors, factors, data frames, lists, matrices — and adapts its output to that structure.</li>
 <li>It’s the fastest way to understand an unfamiliar object without printing its full, potentially overwhelming contents.</li>
-<li><code>class()</code> gives a one-line type label; <code>str()</code> gives a fuller structural breakdown — reach for <code>str()</code> whenever <code>class()</code> alone isn’t enough to understand what you’re looking at.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/class.html">class()</a></code> gives a one-line type label; <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> gives a fuller structural breakdown — reach for <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> whenever <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> alone isn’t enough to understand what you’re looking at.</li>
 </ul>
 <div class="pbl-box pbl-check">
 <p><strong>Knowledge Check</strong></p>
 <ol type="1">
-<li><p><strong>Multiple choice.</strong> Which of these object types does <code>str()</code> work on?</p>
+<li>
+<p><strong>Multiple choice.</strong> Which of these object types does <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> work on?</p>
 <ol type="a">
 <li>Only data frames</li>
 <li>Only vectors</li>
 <li>Any R object type</li>
 <li>Only lists</li>
-</ol></li>
-<li><p><strong>True or false.</strong> <code>str()</code> and <code>class()</code> always return exactly the same amount of information.</p></li>
-<li><p><strong>Predict the output.</strong></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p><strong>Find the error.</strong> A student assumes <code>str()</code> only works on data frames and writes a workaround to manually inspect a list element by element instead of just calling <code>str()</code> on the whole list. What did they overlook about <code>str()</code>’s design?</p></li>
 </ol>
-<details class="pbl-answer">
-<summary>
+</li>
+<li><p><strong>True or false.</strong> <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> and <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> always return exactly the same amount of information.</p></li>
+<li>
+<p><strong>Predict the output.</strong></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</li>
+<li><p><strong>Find the error.</strong> A student assumes <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> only works on data frames and writes a workaround to manually inspect a list element by element instead of just calling <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> on the whole list. What did they overlook about <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>’s design?</p></li>
+</ol>
+<details class="pbl-answer"><summary>
 Show answers
-</summary>
-<ol type="1">
-<li><strong>c)</strong> Any R object type.</li>
-<li><strong>False.</strong> <code>class()</code> gives a short type label; <code>str()</code> gives a fuller breakdown of the object’s contents and structure — they serve different, complementary purposes.</li>
+</summary><ol type="1">
+<li>
+<strong>c)</strong> Any R object type.</li>
+<li>
+<strong>False.</strong> <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> gives a short type label; <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> gives a fuller breakdown of the object’s contents and structure — they serve different, complementary purposes.</li>
 <li><code>chr [1:3] "a" "b" "c"</code></li>
-<li><code>str()</code> is explicitly designed to work on any object type, including lists — calling <code>str(mylist)</code> directly would have given the same (or better) insight in one line, with no manual element-by-element inspection needed.</li>
-</ol>
-</details>
+<li>
+<code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> is explicitly designed to work on any object type, including lists — calling <code>str(mylist)</code> directly would have given the same (or better) insight in one line, with no manual element-by-element inspection needed.</li>
+</ol></details>
 </div>
 
 
 <!-- -->
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2053,17 +2255,15 @@ Show answers
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../02-data-structures/14-tibbles.html" class="pagination-link" aria-label="Tibbles">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Tibbles</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../02-data-structures/16-dimensions.html" class="pagination-link" aria-label="Checking Dimensions: `nrow()`, `ncol()`, `dim()`">
-        <span class="nav-page-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code>nrow()</code>, <code>ncol()</code>, <code>dim()</code></span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
+        <span class="nav-page-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>, <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code>, <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> <i class="bi bi-arrow-right-short"></i>
+      
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Understanding Structure with `str()` {#sec-str}</span></span>
@@ -2091,141 +2291,147 @@ Show answers
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>**`str()`** (short for "structure") is one of the most broadly useful functions in R precisely because it works on *any* object type and adapts its output to what it finds — a vector, a factor, a data frame, a list, a matrix, or the complicated nested output of a statistical model later in this course.</span>
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(object)</span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>For a data frame, <span class="in">`str()`</span> shows the number of rows and columns, each column's name and type, and a short preview of its first few values — exactly what you saw in Level 1. But it works identically well on other structures:</span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))              <span class="co"># a simple numeric vector</span></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>))) <span class="co"># a factor, showing its levels</span></span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="st">"text"</span>))  <span class="co"># a list, showing each named element's type</span></span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>This makes <span class="in">`str()`</span> your first move whenever you encounter an unfamiliar object — before printing it in full, before guessing, before asking a colleague.</span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">62</span>, <span class="dv">38</span>))</span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(object)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>For a data frame, <span class="in">`str()`</span> shows the number of rows and columns, each column's name and type, and a short preview of its first few values — exactly what you saw in Level 1. But it works identically well on other structures:</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))              <span class="co"># a simple numeric vector</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>))) <span class="co"># a factor, showing its levels</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="st">"text"</span>))  <span class="co"># a list, showing each named element's type</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>This makes <span class="in">`str()`</span> your first move whenever you encounter an unfamiliar object — before printing it in full, before guessing, before asking a colleague.</span>
 <span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="in"> num [1:3] 45 62 38</span></span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>, <span class="st">"Low"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>)))</span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="in"> Factor w/ 2 levels "Low","High": 1 2 1</span></span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>analysis_summary <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>  <span class="at">study_name =</span> <span class="st">"Community Health Survey"</span>,</span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_participants =</span> <span class="dv">100</span>,</span>
-<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">complete =</span> <span class="cn">TRUE</span></span>
-<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(analysis_summary)</span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a><span class="in">List of 3</span></span>
-<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a><span class="in"> $ study_name    : chr "Community Health Survey"</span></span>
-<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a><span class="in"> $ n_participants: num 100</span></span>
-<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a><span class="in"> $ complete      : logi TRUE</span></span>
-<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
-<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`str(participants)`</span> again, as you did back in Level 1, and now also try <span class="in">`str(matrix(1:6, nrow = 2))`</span>. Notice <span class="in">`str()`</span> reports something meaningfully different for each of the five structure types you've learned this level — vector, factor, data frame, list, and matrix — always adapted to that specific structure.</span>
-<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
-<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"Two-sample t-test"</span>,</span>
-<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="fl">4.2</span>,</span>
-<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value =</span> <span class="fl">0.031</span>,</span>
-<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>  <span class="at">significant =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>  <span class="at">groups =</span> <span class="fu">c</span>(<span class="st">"Smoker"</span>, <span class="st">"Non-smoker"</span>)</span>
-<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">62</span>, <span class="dv">38</span>))</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="in"> num [1:3] 45 62 38</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>, <span class="st">"Low"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"High"</span>)))</span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a><span class="in"> Factor w/ 2 levels "Low","High": 1 2 1</span></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>analysis_summary <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>  <span class="at">study_name =</span> <span class="st">"Community Health Survey"</span>,</span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_participants =</span> <span class="dv">100</span>,</span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>  <span class="at">complete =</span> <span class="cn">TRUE</span></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(analysis_summary)</span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a><span class="in">List of 3</span></span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a><span class="in"> $ study_name    : chr "Community Health Survey"</span></span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a><span class="in"> $ n_participants: num 100</span></span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a><span class="in"> $ complete      : logi TRUE</span></span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(model_output)</span>
-<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a><span class="in">List of 5</span></span>
-<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a><span class="in"> $ method     : chr "Two-sample t-test"</span></span>
-<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a><span class="in"> $ estimate   : num 4.2</span></span>
-<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a><span class="in"> $ p_value    : num 0.031</span></span>
-<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a><span class="in"> $ significant: logi TRUE</span></span>
-<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a><span class="in"> $ groups     : chr [1:2] "Smoker" "Non-smoker"</span></span>
-<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>In one call, without printing a confusing wall of unexplained text, you now know exactly what your colleague's object is: a list with five named elements, including a method label, two numeric results, a logical significance flag, and a two-element character vector of group names.</span>
-<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
-<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a><span class="in">`str()`</span> reveals that <span class="in">`model_output`</span> is a <span class="in">`list`</span> of 5 elements, each with its own type — information you could not have gotten as quickly, or as clearly, by simply printing the object and reading through its default (and, for many object types including actual statistical model results later in the course, often much messier) display.</span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`str(participants)`</span> again, as you did back in Level 1, and now also try <span class="in">`str(matrix(1:6, nrow = 2))`</span>. Notice <span class="in">`str()`</span> reports something meaningfully different for each of the five structure types you've learned this level — vector, factor, data frame, list, and matrix — always adapted to that specific structure.</span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>model_output <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"Two-sample t-test"</span>,</span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="fl">4.2</span>,</span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value =</span> <span class="fl">0.031</span>,</span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a>  <span class="at">significant =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>  <span class="at">groups =</span> <span class="fu">c</span>(<span class="st">"Smoker"</span>, <span class="st">"Non-smoker"</span>)</span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
-<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(model_output)</span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Only ever using `str()` on data frames.** Its real value is that it works identically well on *any* object — vectors, factors, lists, matrices — making it your general-purpose "what is this?" tool, not a data-frame-only trick.</span>
-<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Printing a large or unfamiliar object directly instead of checking `str()` first.** For a big list (especially the kind returned by statistical functions later in the course), a direct <span class="in">`print()`</span> can flood your Console with far more than you need; <span class="in">`str()`</span> gives you the shape first.</span>
-<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confusing `str()` (structure) with `class()` (type label only).** <span class="in">`class()`</span> gives you one short label (<span class="in">`"list"`</span>, <span class="in">`"data.frame"`</span>); <span class="in">`str()`</span> gives you that plus a breakdown of everything inside — use <span class="in">`class()`</span> for a quick check, <span class="in">`str()`</span> when you need the fuller picture.</span>
-<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
-<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`str()`</span> on <span class="in">`participants$sex`</span> (a character vector) and separately on <span class="in">`participants$bmi_category`</span> (the ordered factor you built earlier in this level, if you completed that page's solution). Compare the two outputs.</span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a><span class="in">List of 5</span></span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a><span class="in"> $ method     : chr "Two-sample t-test"</span></span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a><span class="in"> $ estimate   : num 4.2</span></span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a><span class="in"> $ p_value    : num 0.031</span></span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a><span class="in"> $ significant: logi TRUE</span></span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a><span class="in"> $ groups     : chr [1:2] "Smoker" "Non-smoker"</span></span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>In one call, without printing a confusing wall of unexplained text, you now know exactly what your colleague's object is: a list with five named elements, including a method label, two numeric results, a logical significance flag, and a two-element character vector of group names.</span>
 <span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>Build a small nested list: <span class="in">`study &lt;- list(name = "Pilot Study", data = participants[1:5, ], sites = c("Riverdale", "Oakford"))`</span>. Run <span class="in">`str(study)`</span> and identify, from its output alone, how many rows and columns the nested data frame (<span class="in">`data`</span>) has — without separately calling <span class="in">`nrow()`</span> or <span class="in">`ncol()`</span>.</span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
 <span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a><span class="in">`str()`</span> reveals that <span class="in">`model_output`</span> is a <span class="in">`list`</span> of 5 elements, each with its own type — information you could not have gotten as quickly, or as clearly, by simply printing the object and reading through its default (and, for many object types including actual statistical model results later in the course, often much messier) display.</span>
 <span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`str()`</span> works on any R object — vectors, factors, data frames, lists, matrices — and adapts its output to that structure.</span>
-<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>It's the fastest way to understand an unfamiliar object without printing its full, potentially overwhelming contents.</span>
-<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`class()`</span> gives a one-line type label; <span class="in">`str()`</span> gives a fuller structural breakdown — reach for <span class="in">`str()`</span> whenever <span class="in">`class()`</span> alone isn't enough to understand what you're looking at.</span>
-<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
-<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
-<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** Which of these object types does <span class="in">`str()`</span> work on?</span>
-<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a>   a) Only data frames</span>
-<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a>   b) Only vectors</span>
-<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a>   c) Any R object type</span>
-<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a>   d) Only lists</span>
-<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** <span class="in">`str()`</span> and <span class="in">`class()`</span> always return exactly the same amount of information.</span>
-<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.**</span>
-<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
-<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a>   <span class="fu">str</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span>
-<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
-<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Find the error.** A student assumes <span class="in">`str()`</span> only works on data frames and writes a workaround to manually inspect a list element by element instead of just calling <span class="in">`str()`</span> on the whole list. What did they overlook about <span class="in">`str()`</span>'s design?</span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Only ever using `str()` on data frames.** Its real value is that it works identically well on *any* object — vectors, factors, lists, matrices — making it your general-purpose "what is this?" tool, not a data-frame-only trick.</span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Printing a large or unfamiliar object directly instead of checking `str()` first.** For a big list (especially the kind returned by statistical functions later in the course), a direct <span class="in">`print()`</span> can flood your Console with far more than you need; <span class="in">`str()`</span> gives you the shape first.</span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confusing `str()` (structure) with `class()` (type label only).** <span class="in">`class()`</span> gives you one short label (<span class="in">`"list"`</span>, <span class="in">`"data.frame"`</span>); <span class="in">`str()`</span> gives you that plus a breakdown of everything inside — use <span class="in">`class()`</span> for a quick check, <span class="in">`str()`</span> when you need the fuller picture.</span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`str()`</span> on <span class="in">`participants$sex`</span> (a character vector) and separately on <span class="in">`participants$bmi_category`</span> (the ordered factor you built earlier in this level, if you completed that page's solution). Compare the two outputs.</span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a>Build a small nested list: <span class="in">`study &lt;- list(name = "Pilot Study", data = participants[1:5, ], sites = c("Riverdale", "Oakford"))`</span>. Run <span class="in">`str(study)`</span> and identify, from its output alone, how many rows and columns the nested data frame (<span class="in">`data`</span>) has — without separately calling <span class="in">`nrow()`</span> or <span class="in">`ncol()`</span>.</span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`str()`</span> works on any R object — vectors, factors, data frames, lists, matrices — and adapts its output to that structure.</span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>It's the fastest way to understand an unfamiliar object without printing its full, potentially overwhelming contents.</span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`class()`</span> gives a one-line type label; <span class="in">`str()`</span> gives a fuller structural breakdown — reach for <span class="in">`str()`</span> whenever <span class="in">`class()`</span> alone isn't enough to understand what you're looking at.</span>
 <span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
-<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
 <span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**c)** Any R object type.</span>
-<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**False.** <span class="in">`class()`</span> gives a short type label; <span class="in">`str()`</span> gives a fuller breakdown of the object's contents and structure — they serve different, complementary purposes.</span>
-<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="in">`chr [1:3] "a" "b" "c"`</span></span>
-<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="in">`str()`</span> is explicitly designed to work on any object type, including lists — calling <span class="in">`str(mylist)`</span> directly would have given the same (or better) insight in one line, with no manual element-by-element inspection needed.</span>
-<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** Which of these object types does <span class="in">`str()`</span> work on?</span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a>   a) Only data frames</span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>   b) Only vectors</span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a>   c) Any R object type</span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a>   d) Only lists</span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** <span class="in">`str()`</span> and <span class="in">`class()`</span> always return exactly the same amount of information.</span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.**</span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a>   <span class="fu">str</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Find the error.** A student assumes <span class="in">`str()`</span> only works on data frames and writes a workaround to manually inspect a list element by element instead of just calling <span class="in">`str()`</span> on the whole list. What did they overlook about <span class="in">`str()`</span>'s design?</span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**c)** Any R object type.</span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**False.** <span class="in">`class()`</span> gives a short type label; <span class="in">`str()`</span> gives a fuller breakdown of the object's contents and structure — they serve different, complementary purposes.</span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="in">`chr [1:3] "a" "b" "c"`</span></span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="in">`str()`</span> is explicitly designed to work on any object type, including lists — calling <span class="in">`str(mylist)`</span> directly would have given the same (or better) insight in one line, with no manual element-by-element inspection needed.</span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>R for Public Health — a Problem-Based Learning course built with Quarto.</p>
 </div>   
@@ -2237,8 +2443,6 @@ Show answers
 </div>
   </div>
 </footer>
-
-
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>

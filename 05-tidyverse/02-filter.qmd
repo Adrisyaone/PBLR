@@ -23,23 +23,27 @@ Subset rows of a data frame based on one or more conditions, using `dplyr::filte
 
 **`filter()`** keeps only the rows where a condition is `TRUE`, using column names directly with no `df$` prefix and no comma-based row/column indexing:
 
-```r
+```{r}
+#| eval: false
 filter(df, condition)
 ```
 
-```r
+```{r}
+#| eval: false
 filter(participants, age >= 65 & systolic_bp >= 130)
 ```
 
 Multiple conditions can also be separated by commas instead of `&` — `filter()` treats a comma-separated list of conditions as "all of these must be true," identical to combining them with `&`:
 
-```r
+```{r}
+#| eval: false
 filter(participants, age >= 65, systolic_bp >= 130)   # equivalent to using &
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -53,7 +57,8 @@ nrow(base_r_result)
 [1] 4
 ```
 
-```r
+```{r}
+#| eval: false
 # dplyr - same result, more directly readable
 tidy_result <- filter(participants, age >= 65 & systolic_bp >= 130)
 nrow(tidy_result)
@@ -63,7 +68,8 @@ nrow(tidy_result)
 [1] 4
 ```
 
-```r
+```{r}
+#| eval: false
 identical(base_r_result, tidy_result)
 ```
 
@@ -77,7 +83,8 @@ Try `filter(participants, age >= 65, systolic_bp >= 130)` (commas instead of `&`
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")

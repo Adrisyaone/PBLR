@@ -23,7 +23,8 @@ Use `case_when()` to handle several conditions at once, cleanly, without nesting
 
 **`case_when()`**, from `dplyr` (arriving properly in Level 5), evaluates a series of conditions **in order**, top to bottom, and assigns the value from the **first** one that matches:
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 case_when(
   condition1 ~ value1,
@@ -35,7 +36,8 @@ case_when(
 
 Each line reads naturally: "condition `~` (results in) value." The final `TRUE ~ default_value` line acts as a catch-all — since `TRUE` always matches, it captures any row that didn't match an earlier condition (equivalent to the final `else` in a nested `ifelse()` chain, but far more readable at a glance).
 
-```r
+```{r}
+#| eval: false
 case_when(
   bmi < 18.5 ~ "Underweight",
   bmi < 25   ~ "Normal",
@@ -48,7 +50,8 @@ Notice this reads almost like a sentence: "if BMI is under 18.5, Underweight; if
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 bmi_values <- c(17.2, 22.5, 28.9, 33.1, NA)
@@ -69,7 +72,8 @@ Notice the `NA` BMI correctly produces `NA` in the result — even the catch-all
 
 Compare this to the equivalent, harder-to-read nested `ifelse()` from Level 2:
 
-```r
+```{r}
+#| eval: false
 ifelse(bmi_values < 18.5, "Underweight",
   ifelse(bmi_values < 25, "Normal",
     ifelse(bmi_values < 30, "Overweight", "Obese")))
@@ -83,7 +87,8 @@ Try adding a fifth category to the blood pressure classification: `"Normal"` (< 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 participants$bp_category <- case_when(

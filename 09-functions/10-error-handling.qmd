@@ -23,7 +23,8 @@ Add basic input validation to a function using `stop()` (for errors that should 
 
 **`stop()`** immediately halts a function's execution and raises an error with a custom message — appropriate when the function genuinely cannot produce a meaningful result:
 
-```r
+```{r}
+#| eval: false
 if (some_bad_condition) {
   stop("A clear message explaining what went wrong")
 }
@@ -31,7 +32,8 @@ if (some_bad_condition) {
 
 **`warning()`** prints a caution message but lets the function **continue running** — appropriate for situations worth flagging but not necessarily fatal:
 
-```r
+```{r}
+#| eval: false
 if (some_concerning_condition) {
   warning("A message noting something worth double-checking")
 }
@@ -39,7 +41,8 @@ if (some_concerning_condition) {
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 pct_missing <- function(x) {
   if (length(x) == 0) {
     stop("x has length 0 - cannot compute percent missing")
@@ -62,7 +65,8 @@ Try calling the updated `pct_missing()` on a valid column, like `participants$ag
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 pct_missing <- function(x) {
   if (length(x) == 0) {
     stop("x has length 0 - cannot compute percent missing")
@@ -82,7 +86,8 @@ pct_missing(participants$age)
 [1] 6
 ```
 
-```r
+```{r}
+#| eval: false
 pct_missing(c(NA, NA, NA))
 ```
 
@@ -92,7 +97,8 @@ In pct_missing(c(NA, NA, NA)) : Every value in x is missing - result will be 100
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 pct_missing(numeric(0))
 ```
 

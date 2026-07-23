@@ -23,7 +23,8 @@ Compute a 95% confidence interval for a sample mean, expressing the uncertainty 
 
 A **confidence interval** gives a range of plausible values for a population parameter (like the true mean), built around a sample estimate using its standard error. R's `t.test()` — primarily a hypothesis test (next page) — conveniently also reports a confidence interval for the mean as part of its output:
 
-```r
+```{r}
+#| eval: false
 t.test(x)$conf.int
 ```
 
@@ -33,7 +34,8 @@ $$\text{CI} = \bar{x} \pm t_{crit} \times SE$$
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 sbp <- participants$systolic_bp[!is.na(participants$systolic_bp)]
@@ -55,7 +57,8 @@ Try `t.test(sbp, conf.level = 0.99)$conf.int` — a 99% confidence interval inst
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 sbp <- participants$systolic_bp[!is.na(participants$systolic_bp)]
@@ -74,7 +77,8 @@ c(lower_bound, upper_bound)
 [1] 126.0201 133.6674
 ```
 
-```r
+```{r}
+#| eval: false
 t.test(sbp)$conf.int
 ```
 

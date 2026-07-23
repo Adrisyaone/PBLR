@@ -23,7 +23,8 @@ Learn the different ways to extract a single column from a data frame, and under
 
 There are three common ways to pull a single column out of a data frame, and they don't all return the same *type* of result:
 
-```r
+```{r}
+#| eval: false
 df$column        # returns the column as a bare vector
 df[["column"]]   # also returns the column as a bare vector - equivalent to $
 df["column"]     # returns a one-column DATA FRAME, not a bare vector
@@ -31,14 +32,16 @@ df["column"]     # returns a one-column DATA FRAME, not a bare vector
 
 The first two (`$` and `[[ ]]`) behave the same way for this purpose — both hand you the raw vector, ready for `mean()`, indexing, or anything else you'd do with a vector. The third, single-bracket form (`["column"]`), instead returns a *data frame* containing just that one column — useful when you specifically want to keep the rectangular structure (for example, to pass a single-column subset into a function that expects a data frame), but it will not behave like a plain vector if you try to use it as one.
 
-```r
+```{r}
+#| eval: false
 class(participants$age)        # "integer" or "numeric" - a bare vector
 class(participants["age"])     # "data.frame" - still a data frame!
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 class(participants$age)
@@ -48,7 +51,8 @@ class(participants$age)
 [1] "integer"
 ```
 
-```r
+```{r}
+#| eval: false
 class(participants[["age"]])
 ```
 
@@ -56,7 +60,8 @@ class(participants[["age"]])
 [1] "integer"
 ```
 
-```r
+```{r}
+#| eval: false
 class(participants["age"])
 ```
 
@@ -64,7 +69,8 @@ class(participants["age"])
 [1] "data.frame"
 ```
 
-```r
+```{r}
+#| eval: false
 # This works, because $ returns a bare vector
 mean(participants$age, na.rm = TRUE)
 ```
@@ -73,7 +79,8 @@ mean(participants$age, na.rm = TRUE)
 [1] 47.42553
 ```
 
-```r
+```{r}
+#| eval: false
 # This does NOT work as expected - participants["age"] is still a data frame
 mean(participants["age"], na.rm = TRUE)
 ```
@@ -92,12 +99,14 @@ Try `head(participants["age"])` versus `head(participants$age)` — notice the f
 
 The colleague's bug is now explainable: they used single-bracket `participants["age"]` somewhere expecting a plain vector, but got a one-column data frame instead — which is why a function like `mean()` failed on it. The fix is switching to `$` or `[[ ]]`:
 
-```r
+```{r}
+#| eval: false
 # Broken - passes a one-column data frame to mean()
 mean(participants["age"], na.rm = TRUE)
 ```
 
-```r
+```{r}
+#| eval: false
 # Fixed - passes a bare vector to mean()
 mean(participants[["age"]], na.rm = TRUE)
 ```

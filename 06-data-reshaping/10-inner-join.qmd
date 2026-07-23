@@ -23,11 +23,13 @@ Combine two data frames, keeping only rows whose key appears in **both**, using 
 
 **`inner_join()`** keeps only the rows whose key exists in **both** data frames — any row without a match on either side is dropped entirely, so the join itself introduces no *new* `NA`s (though `NA`s already present in either file's own columns, from earlier missingness, still come along for the ride):
 
-```r
+```{r}
+#| eval: false
 inner_join(df1, df2, by = "key_column")
 ```
 
-```r
+```{r}
+#| eval: false
 inner_join(baseline, followup, by = "id")
 ```
 
@@ -35,7 +37,8 @@ Unlike `left_join()`, `inner_join()`'s result can have *fewer* rows than either 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 baseline <- read.csv("data/baseline_enrollment.csv")
@@ -52,7 +55,8 @@ nrow(complete_cases)
 
 15 rows — exactly the number of ids found in both files with `intersect()` two pages ago.
 
-```r
+```{r}
+#| eval: false
 sum(is.na(complete_cases))
 ```
 
@@ -68,7 +72,8 @@ Try `range(complete_cases$id)`. Confirm the ids present are exactly 1 through 15
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 baseline <- read.csv("data/baseline_enrollment.csv")
@@ -83,7 +88,8 @@ nrow(complete_cases)
 [1] 15
 ```
 
-```r
+```{r}
+#| eval: false
 cor(complete_cases$baseline_bmi, complete_cases$followup_sbp, use = "complete.obs")
 ```
 

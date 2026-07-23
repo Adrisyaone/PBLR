@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.31">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>132&nbsp; Confidence Intervals – R for Public Health: A Problem-Based Learning Course</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -79,8 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-82f2f6d5827a576a8c9f217aaf8aa84a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -106,13 +101,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<style>html{ scroll-behavior: smooth; }</style>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -137,11 +127,8 @@ const typesetMath = (el) => {
 window.Quarto = {
   typesetMath
 };
-</script>
-
-<link rel="stylesheet" href="../styles.css">
+</script><link rel="stylesheet" href="../styles.css">
 </head>
-
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
@@ -307,26 +294,20 @@ window.Quarto = {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../11-statistics/00-overview.html">Level 11: Statistical Analysis in R</a></li><li class="breadcrumb-item"><a href="../11-statistics/03-confidence-intervals.html"><span class="chapter-number">132</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../11-statistics/00-overview.html">Level 11 — Statistical Analysis in R</a></li><li class="breadcrumb-item"><a href="../11-statistics/03-confidence-intervals.html"><span class="chapter-number">132</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">R for Public Health: A Problem-Based Learning Course</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -343,7 +324,7 @@ window.Quarto = {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
@@ -352,13 +333,13 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 1: Getting Started with R</span></a>
+ <span class="menu-text">Level 1 — Getting Started with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../01-getting-started/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 1 — Getting Started with R</span></a>
@@ -485,17 +466,17 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 2: Data Structures in R</span></a>
+ <span class="menu-text">Level 2 — Data Structures in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 2 — Data Structures in R</span></a>
@@ -504,19 +485,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/01-vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code>c()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code></code></span></span></a><code><a href="https://rdrr.io/r/base/c.html">c()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/02-sequences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code>seq()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/03-rep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code>rep()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -588,33 +569,33 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/15-str.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code>str()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code></code></span></span></a><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/16-dimensions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code>nrow()</code>, <code>ncol()</code>, <code>dim()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>, <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code>, <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/17-length-names.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code>length()</code> and <code>names()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and <code><a href="https://rdrr.io/r/base/names.html">names()</a></code>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 3: Data Import and Export</span></a>
+ <span class="menu-text">Level 3 — Data Import and Export</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../03-data-import/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 3 — Data Import and Export</span></a>
@@ -693,17 +674,17 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 4: Data Cleaning with Base R</span></a>
+ <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
@@ -796,7 +777,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/15-ifelse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code>ifelse()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -812,17 +793,17 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 5: Tidyverse</span></a>
+ <span class="menu-text">Level 5 — Tidyverse</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 5 — Tidyverse</span></a>
@@ -837,7 +818,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/02-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code>filter()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -901,17 +882,17 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 6: Data Reshaping</span></a>
+ <span class="menu-text">Level 6 — Data Reshaping</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 6 — Data Reshaping</span></a>
@@ -996,17 +977,17 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 7: Descriptive Statistics</span></a>
+ <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
@@ -1033,7 +1014,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/04-summary-function.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code>summary()</code> Function</span></span></a>
+ <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code></code></span></span></a><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> Function
   </div>
 </li>
           <li class="sidebar-item">
@@ -1051,7 +1032,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/07-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code>cor()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1061,17 +1042,17 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 8: Data Visualization with ggplot2</span></a>
+ <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
@@ -1144,17 +1125,17 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 9: Functions and Programming</span></a>
+ <span class="menu-text">Level 9 — Functions and Programming</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 9 — Functions and Programming</span></a>
@@ -1205,19 +1186,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/08-apply-family.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code>sapply()</code> and <code>lapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/09-purrr-map.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code>purrr::map()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code></code></span></span></a><code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/10-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code>stop()</code> and <code>warning()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code> and <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1227,17 +1208,17 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 10: Loops and Automation</span></a>
+ <span class="menu-text">Level 10 — Loops and Automation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 10 — Loops and Automation</span></a>
@@ -1276,7 +1257,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/06-vapply-tapply.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code>vapply()</code> and <code>tapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">vapply()</a></code> and <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1292,17 +1273,17 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 11: Statistical Analysis in R</span></a>
+ <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
@@ -1359,7 +1340,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/09-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code>lm()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1381,7 +1362,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
@@ -1390,15 +1371,69 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../12-advanced-analysis/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 12 — Advanced Data Analysis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/01-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">142</span>&nbsp; <span class="chapter-title">Multiple Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/02-categorical-predictors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">143</span>&nbsp; <span class="chapter-title">Categorical Predictors in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/03-interaction-terms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">144</span>&nbsp; <span class="chapter-title">Interaction Terms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/04-confounding-adjustment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">145</span>&nbsp; <span class="chapter-title">Confounding and Adjustment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/05-model-comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">146</span>&nbsp; <span class="chapter-title">Comparing Nested Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/06-regression-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">147</span>&nbsp; <span class="chapter-title">Regression Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/07-multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">148</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/08-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">149</span>&nbsp; <span class="chapter-title">Predicting New Data with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/09-advanced-analysis-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">150</span>&nbsp; <span class="chapter-title">Level 12 Capstone: Choosing a Final Model</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
@@ -1407,15 +1442,81 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../13-advanced-r/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 13 — Advanced R Programming</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/01-environments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">151</span>&nbsp; <span class="chapter-title">Environments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/02-closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">152</span>&nbsp; <span class="chapter-title">Closures and Function Factories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/03-s3-object-system.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">153</span>&nbsp; <span class="chapter-title">A First Look at S3 Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/04-error-handling-trycatch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">154</span>&nbsp; <span class="chapter-title">Robust Error Handling with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/05-debugging-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">155</span>&nbsp; <span class="chapter-title">Debugging Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/06-functional-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">156</span>&nbsp; <span class="chapter-title">Functional Programming with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/funprog.html">Reduce()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/07-regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">157</span>&nbsp; <span class="chapter-title">Regular Expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/08-string-manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">158</span>&nbsp; <span class="chapter-title">String Manipulation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/09-working-with-dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">159</span>&nbsp; <span class="chapter-title">Working with Dates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/10-package-structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">160</span>&nbsp; <span class="chapter-title">The Anatomy of an R Package</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/11-advanced-r-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">161</span>&nbsp; <span class="chapter-title">Level 13 Capstone: A Resilient File-Reading Toolkit</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
@@ -1424,15 +1525,75 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../14-reproducible-research/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 14 — Reproducible Research</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/01-rmarkdown-vs-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">162</span>&nbsp; <span class="chapter-title">R Markdown vs.&nbsp;Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/02-yaml-front-matter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">163</span>&nbsp; <span class="chapter-title">YAML Front Matter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/03-code-chunks-inline-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">164</span>&nbsp; <span class="chapter-title">Code Chunks and Inline Code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/04-tables-and-figures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">165</span>&nbsp; <span class="chapter-title">Tables and Figures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/05-cross-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">166</span>&nbsp; <span class="chapter-title">Cross-References</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/06-citations-bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">167</span>&nbsp; <span class="chapter-title">Citations and Bibliographies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/07-parameterized-reports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">168</span>&nbsp; <span class="chapter-title">Parameterized Reports</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/08-output-formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">169</span>&nbsp; <span class="chapter-title">Choosing an Output Format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/09-projects-books-websites.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">170</span>&nbsp; <span class="chapter-title">Quarto Projects: Books and Websites</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/10-reproducible-research-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">171</span>&nbsp; <span class="chapter-title">Level 14 Capstone: A Complete Clinic Report Template</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
@@ -1441,26 +1602,60 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../15-capstone-projects/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 15 — Real-World Capstone Projects</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/01-capstone-hypertension-risk-factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">172</span>&nbsp; <span class="chapter-title">Capstone 1: Hypertension Risk Factors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/02-capstone-smoking-cardiovascular-risk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">173</span>&nbsp; <span class="chapter-title">Capstone 2: Smoking and Cardiovascular Risk</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/03-capstone-geographic-patterns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">174</span>&nbsp; <span class="chapter-title">Capstone 3: Geographic Patterns Across Counties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/04-capstone-longitudinal-blood-pressure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">175</span>&nbsp; <span class="chapter-title">Capstone 4: Longitudinal Blood Pressure and Attrition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/05-capstone-reproducible-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">176</span>&nbsp; <span class="chapter-title">Capstone 5: A Reproducible County Dashboard</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/06-independent-capstone-guidance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">177</span>&nbsp; <span class="chapter-title">Designing Your Own Independent Capstone</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">132.1</span> The R Concept</a></li>
+<li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">132.1</span> The R Concept</a></li>
   <li><a href="#demonstration" id="toc-demonstration" class="nav-link" data-scroll-target="#demonstration"><span class="header-section-number">132.2</span> Demonstration</a></li>
   <li><a href="#explore" id="toc-explore" class="nav-link" data-scroll-target="#explore"><span class="header-section-number">132.3</span> Explore</a></li>
   <li><a href="#solve-the-problem" id="toc-solve-the-problem" class="nav-link" data-scroll-target="#solve-the-problem"><span class="header-section-number">132.4</span> Solve the Problem</a></li>
@@ -1468,15 +1663,10 @@ window.Quarto = {
   <li><a href="#practice-problem" id="toc-practice-problem" class="nav-link" data-scroll-target="#practice-problem"><span class="header-section-number">132.6</span> Practice Problem</a></li>
   <li><a href="#challenge-problem" id="toc-challenge-problem" class="nav-link" data-scroll-target="#challenge-problem"><span class="header-section-number">132.7</span> Challenge Problem</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">132.8</span> Key Takeaways</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../11-statistics/00-overview.html">Level 11: Statistical Analysis in R</a></li><li class="breadcrumb-item"><a href="../11-statistics/03-confidence-intervals.html"><span class="chapter-number">132</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../11-statistics/00-overview.html">Level 11 — Statistical Analysis in R</a></li><li class="breadcrumb-item"><a href="../11-statistics/03-confidence-intervals.html"><span class="chapter-number">132</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span id="sec-confidence-intervals" class="quarto-section-identifier"><span class="chapter-number">132</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
@@ -1491,10 +1681,7 @@ window.Quarto = {
   
 
 
-</header>
-
-
-<div class="pbl-box pbl-problem">
+</header><div class="pbl-box pbl-problem">
 <p><strong>The Problem</strong></p>
 <p>Level 7 reported the mean systolic blood pressure as 129.84 — a single number, computed from 96 non-missing participants out of a much larger population of people this study could have sampled. Your professor asks: if you’d sampled a different 96 participants, would you expect to get exactly 129.84 again, or somewhere nearby? How far off might the true population mean plausibly be from this one sample’s estimate?</p>
 </div>
@@ -1509,112 +1696,117 @@ window.Quarto = {
 <li>If a sample mean has some uncertainty around it, would you expect a <em>range</em> of plausible values to be more informative than a single number alone?</li>
 </ul>
 </div>
-<section id="the-r-concept" class="level2" data-number="132.1">
-<h2 data-number="132.1" class="anchored" data-anchor-id="the-r-concept"><span class="header-section-number">132.1</span> The R Concept</h2>
-<p>A <strong>confidence interval</strong> gives a range of plausible values for a population parameter (like the true mean), built around a sample estimate using its standard error. R’s <code>t.test()</code> — primarily a hypothesis test (next page) — conveniently also reports a confidence interval for the mean as part of its output:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x)<span class="sc">$</span>conf.int</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="the-r-concept" class="level2" data-number="132.1"><h2 data-number="132.1" class="anchored" data-anchor-id="the-r-concept">
+<span class="header-section-number">132.1</span> The R Concept</h2>
+<p>A <strong>confidence interval</strong> gives a range of plausible values for a population parameter (like the true mean), built around a sample estimate using its standard error. R’s <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> — primarily a hypothesis test (next page) — conveniently also reports a confidence interval for the mean as part of its output:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>The interval is built from the sample mean, the standard error (Page 2), and a critical value from the <strong>t-distribution</strong> (a close relative of the normal distribution, adjusted for the extra uncertainty of estimating the standard deviation from a limited sample):</p>
 <p><span class="math display">\[\text{CI} = \bar{x} \pm t_{crit} \times SE\]</span></p>
-</section>
-<section id="demonstration" class="level2" data-number="132.2">
-<h2 data-number="132.2" class="anchored" data-anchor-id="demonstration"><span class="header-section-number">132.2</span> Demonstration</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sbp <span class="ot">&lt;-</span> participants<span class="sc">$</span>systolic_bp[<span class="sc">!</span><span class="fu">is.na</span>(participants<span class="sc">$</span>systolic_bp)]</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sbp)<span class="sc">$</span>conf.int</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="demonstration" class="level2" data-number="132.2"><h2 data-number="132.2" class="anchored" data-anchor-id="demonstration">
+<span class="header-section-number">132.2</span> Demonstration</h2>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/participants.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sbp</span> <span class="op">&lt;-</span> <span class="va">participants</span><span class="op">$</span><span class="va">systolic_bp</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">participants</span><span class="op">$</span><span class="va">systolic_bp</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">sbp</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 126.0201 133.6674
 attr(,"conf.level")
 [1] 0.95</code></pre>
 <p>The sample mean (129.84) comes with a 95% confidence interval of roughly 126.02 to 133.67 — a range of plausible values for the true population mean, not just the single point estimate alone.</p>
-</section>
-<section id="explore" class="level2" data-number="132.3">
-<h2 data-number="132.3" class="anchored" data-anchor-id="explore"><span class="header-section-number">132.3</span> Explore</h2>
+</section><section id="explore" class="level2" data-number="132.3"><h2 data-number="132.3" class="anchored" data-anchor-id="explore">
+<span class="header-section-number">132.3</span> Explore</h2>
 <p>Try <code>t.test(sbp, conf.level = 0.99)$conf.int</code> — a 99% confidence interval instead of the default 95%. Notice the interval widens: a <em>higher</em> confidence level requires a <em>wider</em> range to remain equally confident of capturing the true population mean.</p>
-</section>
-<section id="solve-the-problem" class="level2" data-number="132.4">
-<h2 data-number="132.4" class="anchored" data-anchor-id="solve-the-problem"><span class="header-section-number">132.4</span> Solve the Problem</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sbp <span class="ot">&lt;-</span> participants<span class="sc">$</span>systolic_bp[<span class="sc">!</span><span class="fu">is.na</span>(participants<span class="sc">$</span>systolic_bp)]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sbp_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(sbp)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>sbp_se <span class="ot">&lt;-</span> <span class="fu">sd</span>(sbp) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(sbp))</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>t_critical <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="fu">length</span>(sbp) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> sbp_mean <span class="sc">-</span> t_critical <span class="sc">*</span> sbp_se</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> sbp_mean <span class="sc">+</span> t_critical <span class="sc">*</span> sbp_se</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(lower_bound, upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="solve-the-problem" class="level2" data-number="132.4"><h2 data-number="132.4" class="anchored" data-anchor-id="solve-the-problem">
+<span class="header-section-number">132.4</span> Solve the Problem</h2>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/participants.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sbp</span> <span class="op">&lt;-</span> <span class="va">participants</span><span class="op">$</span><span class="va">systolic_bp</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">participants</span><span class="op">$</span><span class="va">systolic_bp</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">sbp_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">sbp</span><span class="op">)</span></span>
+<span><span class="va">sbp_se</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">sbp</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">sbp</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">t_critical</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span><span class="fl">0.975</span>, df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">sbp</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">lower_bound</span> <span class="op">&lt;-</span> <span class="va">sbp_mean</span> <span class="op">-</span> <span class="va">t_critical</span> <span class="op">*</span> <span class="va">sbp_se</span></span>
+<span><span class="va">upper_bound</span> <span class="op">&lt;-</span> <span class="va">sbp_mean</span> <span class="op">+</span> <span class="va">t_critical</span> <span class="op">*</span> <span class="va">sbp_se</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">lower_bound</span>, <span class="va">upper_bound</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 126.0201 133.6674</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sbp)<span class="sc">$</span>conf.int</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">sbp</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 126.0201 133.6674
 attr(,"conf.level")
 [1] 0.95</code></pre>
-<p>Building the interval manually (mean ± critical value × SE) produces exactly the same result as <code>t.test()$conf.int</code> — confirming the formula and the built-in function agree, and showing explicitly what <code>t.test()</code> computes behind the scenes.</p>
-</section>
-<section id="interpret-the-result" class="level2" data-number="132.5">
-<h2 data-number="132.5" class="anchored" data-anchor-id="interpret-the-result"><span class="header-section-number">132.5</span> Interpret the Result</h2>
+<p>Building the interval manually (mean ± critical value × SE) produces exactly the same result as <code>t.test()$conf.int</code> — confirming the formula and the built-in function agree, and showing explicitly what <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> computes behind the scenes.</p>
+</section><section id="interpret-the-result" class="level2" data-number="132.5"><h2 data-number="132.5" class="anchored" data-anchor-id="interpret-the-result">
+<span class="header-section-number">132.5</span> Interpret the Result</h2>
 <p>You can now say something more precise than “the mean systolic blood pressure was 129.84”: you’re 95% confident the true population mean lies somewhere between 126.02 and 133.67 mmHg. This is a meaningfully different, more honest statement than reporting the single point estimate alone — it explicitly communicates the uncertainty that comes from having only 96 participants rather than the entire population.</p>
 <div class="pbl-box pbl-mistake">
 <p><strong>Common Mistakes</strong></p>
 <ul>
-<li><strong>Interpreting a 95% CI as “95% probability the true mean is in this range.”</strong> The more precise interpretation: if you repeated this sampling process many times, about 95% of the resulting confidence intervals would contain the true population mean — a subtle, but real, distinction from a probability statement about this one specific interval.</li>
-<li><strong>Assuming a narrower interval always means a better estimate.</strong> A narrower interval usually comes from a <em>larger</em> sample size, not necessarily a “better” one — comparing intervals from very different sample sizes without accounting for this can be misleading.</li>
-<li><strong>Forgetting confidence intervals depend on the same normality assumptions checked on Page 1.</strong> For very small samples with heavily skewed data, <code>t.test()</code>’s confidence interval can become less reliable — always sanity-check the underlying assumptions, not just run the function blindly.</li>
+<li>
+<strong>Interpreting a 95% CI as “95% probability the true mean is in this range.”</strong> The more precise interpretation: if you repeated this sampling process many times, about 95% of the resulting confidence intervals would contain the true population mean — a subtle, but real, distinction from a probability statement about this one specific interval.</li>
+<li>
+<strong>Assuming a narrower interval always means a better estimate.</strong> A narrower interval usually comes from a <em>larger</em> sample size, not necessarily a “better” one — comparing intervals from very different sample sizes without accounting for this can be misleading.</li>
+<li>
+<strong>Forgetting confidence intervals depend on the same normality assumptions checked on Page 1.</strong> For very small samples with heavily skewed data, <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>’s confidence interval can become less reliable — always sanity-check the underlying assumptions, not just run the function blindly.</li>
 </ul>
 </div>
-</section>
-<section id="practice-problem" class="level2" data-number="132.6">
-<h2 data-number="132.6" class="anchored" data-anchor-id="practice-problem"><span class="header-section-number">132.6</span> Practice Problem</h2>
-<p>Compute a 95% confidence interval for <code>bmi</code>’s mean using <code>t.test()</code>. Does the interval contain the value 27 (roughly the boundary between “Normal” and “Overweight,” Level 4’s <code>case_when()</code> categories)?</p>
-</section>
-<section id="challenge-problem" class="level2" data-number="132.7">
-<h2 data-number="132.7" class="anchored" data-anchor-id="challenge-problem"><span class="header-section-number">132.7</span> Challenge Problem</h2>
+</section><section id="practice-problem" class="level2" data-number="132.6"><h2 data-number="132.6" class="anchored" data-anchor-id="practice-problem">
+<span class="header-section-number">132.6</span> Practice Problem</h2>
+<p>Compute a 95% confidence interval for <code>bmi</code>’s mean using <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>. Does the interval contain the value 27 (roughly the boundary between “Normal” and “Overweight,” Level 4’s <code>case_when()</code> categories)?</p>
+</section><section id="challenge-problem" class="level2" data-number="132.7"><h2 data-number="132.7" class="anchored" data-anchor-id="challenge-problem">
+<span class="header-section-number">132.7</span> Challenge Problem</h2>
 <p>Compute confidence intervals for <code>age</code>’s mean at three different confidence levels (90%, 95%, 99%) using <code>t.test(age, conf.level = ...)</code>. Describe the pattern in how the interval’s width changes as the confidence level increases, and explain why that pattern makes sense.</p>
-</section>
-<section id="key-takeaways" class="level2" data-number="132.8">
-<h2 data-number="132.8" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">132.8</span> Key Takeaways</h2>
+</section><section id="key-takeaways" class="level2" data-number="132.8"><h2 data-number="132.8" class="anchored" data-anchor-id="key-takeaways">
+<span class="header-section-number">132.8</span> Key Takeaways</h2>
 <ul>
 <li>A confidence interval expresses a range of plausible values for a population parameter, built from a sample estimate and its standard error.</li>
-<li><code>t.test(x)$conf.int</code> computes this directly; the same interval can be built manually as <code>mean ± critical_value × SE</code>.</li>
+<li>
+<code>t.test(x)$conf.int</code> computes this directly; the same interval can be built manually as <code>mean ± critical_value × SE</code>.</li>
 <li>A higher confidence level produces a wider interval — there’s an inherent trade-off between how confident you are and how precise (narrow) the range can be.</li>
 </ul>
 <div class="pbl-box pbl-check">
 <p><strong>Knowledge Check</strong></p>
 <ol type="1">
-<li><p><strong>Multiple choice.</strong> What does a 95% confidence interval represent?</p>
+<li>
+<p><strong>Multiple choice.</strong> What does a 95% confidence interval represent?</p>
 <ol type="a">
 <li>There is a 95% probability the sample mean is correct</li>
 <li>A range of plausible values for the population parameter, with a procedure that captures it about 95% of the time across repeated sampling</li>
 <li>95% of the individual data points fall within this range</li>
 <li>The interval within which all future samples must fall</li>
-</ol></li>
+</ol>
+</li>
 <li><p><strong>True or false.</strong> A higher confidence level (say, 99% instead of 95%) always produces a narrower interval.</p></li>
 <li><p><strong>Predict the output.</strong> If the sample mean is 129.84 and the 95% CI is (126.02, 133.67), would a 90% CI be wider or narrower than this range?</p></li>
-<li><p><strong>Find the error.</strong></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># "There's a 95% chance the true population mean is 129.84."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li>
+<p><strong>Find the error.</strong></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># "There's a 95% chance the true population mean is 129.84."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</li>
 </ol>
-<details class="pbl-answer">
-<summary>
+<details class="pbl-answer"><summary>
 Show answers
-</summary>
-<ol type="1">
-<li><strong>b)</strong> A range of plausible values for the population parameter, with a procedure that captures the true value about 95% of the time across repeated sampling.</li>
-<li><strong>False.</strong> A higher confidence level requires a <em>wider</em> interval to maintain that higher level of confidence, not a narrower one.</li>
+</summary><ol type="1">
+<li>
+<strong>b)</strong> A range of plausible values for the population parameter, with a procedure that captures the true value about 95% of the time across repeated sampling.</li>
+<li>
+<strong>False.</strong> A higher confidence level requires a <em>wider</em> interval to maintain that higher level of confidence, not a narrower one.</li>
 <li>Narrower — a lower confidence level (90%) requires a smaller range to achieve that lower degree of confidence.</li>
 <li>This statement misinterprets both the point estimate and the confidence interval — the sample mean (129.84) is a single computed value, not a probabilistic claim, and the correct interpretation of a 95% CI is about the interval-generating <em>procedure</em> capturing the true mean across repeated sampling, not a 95% probability attached to any single specific value.</li>
-</ol>
-</details>
+</ol></details>
 </div>
 
 
 <!-- -->
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2076,9 +2268,7 @@ Show answers
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../11-statistics/02-central-limit-theorem.html" class="pagination-link" aria-label="The Central Limit Theorem">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">131</span>&nbsp; <span class="chapter-title">The Central Limit Theorem</span></span>
       </a>          
@@ -2114,127 +2304,131 @@ Show answers
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>A **confidence interval** gives a range of plausible values for a population parameter (like the true mean), built around a sample estimate using its standard error. R's <span class="in">`t.test()`</span> — primarily a hypothesis test (next page) — conveniently also reports a confidence interval for the mean as part of its output:</span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x)<span class="sc">$</span>conf.int</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>The interval is built from the sample mean, the standard error (Page 2), and a critical value from the **t-distribution** (a close relative of the normal distribution, adjusted for the extra uncertainty of estimating the standard deviation from a limited sample):</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>$$\text{CI} = \bar{x} \pm t_{crit} \times SE$$</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x)<span class="sc">$</span>conf.int</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>The interval is built from the sample mean, the standard error (Page 2), and a critical value from the **t-distribution** (a close relative of the normal distribution, adjusted for the extra uncertainty of estimating the standard deviation from a limited sample):</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>$$\text{CI} = \bar{x} \pm t_{crit} \times SE$$</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>sbp <span class="ot">&lt;-</span> participants<span class="sc">$</span>systolic_bp[<span class="sc">!</span><span class="fu">is.na</span>(participants<span class="sc">$</span>systolic_bp)]</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sbp)<span class="sc">$</span>conf.int</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 126.0201 133.6674</span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="in">attr(,"conf.level")</span></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 0.95</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>sbp <span class="ot">&lt;-</span> participants<span class="sc">$</span>systolic_bp[<span class="sc">!</span><span class="fu">is.na</span>(participants<span class="sc">$</span>systolic_bp)]</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sbp)<span class="sc">$</span>conf.int</span>
 <span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>The sample mean (129.84) comes with a 95% confidence interval of roughly 126.02 to 133.67 — a range of plausible values for the true population mean, not just the single point estimate alone.</span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>Try <span class="in">`t.test(sbp, conf.level = 0.99)$conf.int`</span> — a 99% confidence interval instead of the default 95%. Notice the interval widens: a *higher* confidence level requires a *wider* range to remain equally confident of capturing the true population mean.</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 126.0201 133.6674</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="in">attr(,"conf.level")</span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 0.95</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>The sample mean (129.84) comes with a 95% confidence interval of roughly 126.02 to 133.67 — a range of plausible values for the true population mean, not just the single point estimate alone.</span>
 <span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>sbp <span class="ot">&lt;-</span> participants<span class="sc">$</span>systolic_bp[<span class="sc">!</span><span class="fu">is.na</span>(participants<span class="sc">$</span>systolic_bp)]</span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>sbp_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(sbp)</span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>sbp_se <span class="ot">&lt;-</span> <span class="fu">sd</span>(sbp) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(sbp))</span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>t_critical <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="fu">length</span>(sbp) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> sbp_mean <span class="sc">-</span> t_critical <span class="sc">*</span> sbp_se</span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> sbp_mean <span class="sc">+</span> t_critical <span class="sc">*</span> sbp_se</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>Try <span class="in">`t.test(sbp, conf.level = 0.99)$conf.int`</span> — a 99% confidence interval instead of the default 95%. Notice the interval widens: a *higher* confidence level requires a *wider* range to remain equally confident of capturing the true population mean.</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
 <span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(lower_bound, upper_bound)</span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 126.0201 133.6674</span></span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sbp)<span class="sc">$</span>conf.int</span>
-<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 126.0201 133.6674</span></span>
-<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="in">attr(,"conf.level")</span></span>
-<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 0.95</span></span>
-<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>Building the interval manually (mean ± critical value × SE) produces exactly the same result as <span class="in">`t.test()$conf.int`</span> — confirming the formula and the built-in function agree, and showing explicitly what <span class="in">`t.test()`</span> computes behind the scenes.</span>
-<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
-<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>You can now say something more precise than "the mean systolic blood pressure was 129.84": you're 95% confident the true population mean lies somewhere between 126.02 and 133.67 mmHg. This is a meaningfully different, more honest statement than reporting the single point estimate alone — it explicitly communicates the uncertainty that comes from having only 96 participants rather than the entire population.</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>sbp <span class="ot">&lt;-</span> participants<span class="sc">$</span>systolic_bp[<span class="sc">!</span><span class="fu">is.na</span>(participants<span class="sc">$</span>systolic_bp)]</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>sbp_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(sbp)</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>sbp_se <span class="ot">&lt;-</span> <span class="fu">sd</span>(sbp) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(sbp))</span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>t_critical <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="fu">length</span>(sbp) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> sbp_mean <span class="sc">-</span> t_critical <span class="sc">*</span> sbp_se</span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> sbp_mean <span class="sc">+</span> t_critical <span class="sc">*</span> sbp_se</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(lower_bound, upper_bound)</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 126.0201 133.6674</span></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sbp)<span class="sc">$</span>conf.int</span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
-<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
-<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Interpreting a 95% CI as "95% probability the true mean is in this range."** The more precise interpretation: if you repeated this sampling process many times, about 95% of the resulting confidence intervals would contain the true population mean — a subtle, but real, distinction from a probability statement about this one specific interval.</span>
-<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Assuming a narrower interval always means a better estimate.** A narrower interval usually comes from a *larger* sample size, not necessarily a "better" one — comparing intervals from very different sample sizes without accounting for this can be misleading.</span>
-<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Forgetting confidence intervals depend on the same normality assumptions checked on Page 1.** For very small samples with heavily skewed data, <span class="in">`t.test()`</span>'s confidence interval can become less reliable — always sanity-check the underlying assumptions, not just run the function blindly.</span>
-<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 126.0201 133.6674</span></span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a><span class="in">attr(,"conf.level")</span></span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 0.95</span></span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>Building the interval manually (mean ± critical value × SE) produces exactly the same result as <span class="in">`t.test()$conf.int`</span> — confirming the formula and the built-in function agree, and showing explicitly what <span class="in">`t.test()`</span> computes behind the scenes.</span>
 <span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
 <span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>Compute a 95% confidence interval for <span class="in">`bmi`</span>'s mean using <span class="in">`t.test()`</span>. Does the interval contain the value 27 (roughly the boundary between "Normal" and "Overweight," Level 4's <span class="in">`case_when()`</span> categories)?</span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>You can now say something more precise than "the mean systolic blood pressure was 129.84": you're 95% confident the true population mean lies somewhere between 126.02 and 133.67 mmHg. This is a meaningfully different, more honest statement than reporting the single point estimate alone — it explicitly communicates the uncertainty that comes from having only 96 participants rather than the entire population.</span>
 <span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
-<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>Compute confidence intervals for <span class="in">`age`</span>'s mean at three different confidence levels (90%, 95%, 99%) using <span class="in">`t.test(age, conf.level = ...)`</span>. Describe the pattern in how the interval's width changes as the confidence level increases, and explain why that pattern makes sense.</span>
-<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
-<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A confidence interval expresses a range of plausible values for a population parameter, built from a sample estimate and its standard error.</span>
-<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`t.test(x)$conf.int`</span> computes this directly; the same interval can be built manually as <span class="in">`mean ± critical_value × SE`</span>.</span>
-<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A higher confidence level produces a wider interval — there's an inherent trade-off between how confident you are and how precise (narrow) the range can be.</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Interpreting a 95% CI as "95% probability the true mean is in this range."** The more precise interpretation: if you repeated this sampling process many times, about 95% of the resulting confidence intervals would contain the true population mean — a subtle, but real, distinction from a probability statement about this one specific interval.</span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Assuming a narrower interval always means a better estimate.** A narrower interval usually comes from a *larger* sample size, not necessarily a "better" one — comparing intervals from very different sample sizes without accounting for this can be misleading.</span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Forgetting confidence intervals depend on the same normality assumptions checked on Page 1.** For very small samples with heavily skewed data, <span class="in">`t.test()`</span>'s confidence interval can become less reliable — always sanity-check the underlying assumptions, not just run the function blindly.</span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
 <span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
-<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
-<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** What does a 95% confidence interval represent?</span>
-<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>   a) There is a 95% probability the sample mean is correct</span>
-<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a>   b) A range of plausible values for the population parameter, with a procedure that captures it about 95% of the time across repeated sampling</span>
-<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a>   c) 95% of the individual data points fall within this range</span>
-<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a>   d) The interval within which all future samples must fall</span>
-<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** A higher confidence level (say, 99% instead of 95%) always produces a narrower interval.</span>
-<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.** If the sample mean is 129.84 and the 95% CI is (126.02, 133.67), would a 90% CI be wider or narrower than this range?</span>
-<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Find the error.**</span>
-<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
-<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a>   <span class="co"># "There's a 95% chance the true population mean is 129.84."</span></span>
-<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
-<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
-<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a>Compute a 95% confidence interval for <span class="in">`bmi`</span>'s mean using <span class="in">`t.test()`</span>. Does the interval contain the value 27 (roughly the boundary between "Normal" and "Overweight," Level 4's <span class="in">`case_when()`</span> categories)?</span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>Compute confidence intervals for <span class="in">`age`</span>'s mean at three different confidence levels (90%, 95%, 99%) using <span class="in">`t.test(age, conf.level = ...)`</span>. Describe the pattern in how the interval's width changes as the confidence level increases, and explain why that pattern makes sense.</span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A confidence interval expresses a range of plausible values for a population parameter, built from a sample estimate and its standard error.</span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`t.test(x)$conf.int`</span> computes this directly; the same interval can be built manually as <span class="in">`mean ± critical_value × SE`</span>.</span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A higher confidence level produces a wider interval — there's an inherent trade-off between how confident you are and how precise (narrow) the range can be.</span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** What does a 95% confidence interval represent?</span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>   a) There is a 95% probability the sample mean is correct</span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>   b) A range of plausible values for the population parameter, with a procedure that captures it about 95% of the time across repeated sampling</span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a>   c) 95% of the individual data points fall within this range</span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a>   d) The interval within which all future samples must fall</span>
 <span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**b)** A range of plausible values for the population parameter, with a procedure that captures the true value about 95% of the time across repeated sampling.</span>
-<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**False.** A higher confidence level requires a *wider* interval to maintain that higher level of confidence, not a narrower one.</span>
-<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Narrower — a lower confidence level (90%) requires a smaller range to achieve that lower degree of confidence.</span>
-<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>This statement misinterprets both the point estimate and the confidence interval — the sample mean (129.84) is a single computed value, not a probabilistic claim, and the correct interpretation of a 95% CI is about the interval-generating *procedure* capturing the true mean across repeated sampling, not a 95% probability attached to any single specific value.</span>
-<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** A higher confidence level (say, 99% instead of 95%) always produces a narrower interval.</span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.** If the sample mean is 129.84 and the 95% CI is (126.02, 133.67), would a 90% CI be wider or narrower than this range?</span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Find the error.**</span>
+<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
+<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a>   <span class="co"># "There's a 95% chance the true population mean is 129.84."</span></span>
+<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-145"><a href="#cb9-145" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
+<span id="cb9-146"><a href="#cb9-146" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**b)** A range of plausible values for the population parameter, with a procedure that captures the true value about 95% of the time across repeated sampling.</span>
+<span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**False.** A higher confidence level requires a *wider* interval to maintain that higher level of confidence, not a narrower one.</span>
+<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Narrower — a lower confidence level (90%) requires a smaller range to achieve that lower degree of confidence.</span>
+<span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>This statement misinterprets both the point estimate and the confidence interval — the sample mean (129.84) is a single computed value, not a probabilistic claim, and the correct interpretation of a 95% CI is about the interval-generating *procedure* capturing the true mean across repeated sampling, not a 95% probability attached to any single specific value.</span>
+<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>R for Public Health — a Problem-Based Learning course built with Quarto.</p>
 </div>   
@@ -2246,8 +2440,6 @@ Show answers
 </div>
   </div>
 </footer>
-
-
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>

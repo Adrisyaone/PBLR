@@ -27,14 +27,16 @@ $$VIF = \frac{1}{1 - R^2}$$
 
 where $R^2$ comes from that auxiliary regression. A VIF near 1 indicates little correlation with other predictors (no problem); VIFs above about 5-10 are commonly flagged as concerning.
 
-```r
+```{r}
+#| eval: false
 library(car)
 vif(model)
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(car)
 
 participants <- read.csv("data/participants.csv")
@@ -58,7 +60,8 @@ Try manually reproducing `age`'s VIF: regress `age` on the other two predictors 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]

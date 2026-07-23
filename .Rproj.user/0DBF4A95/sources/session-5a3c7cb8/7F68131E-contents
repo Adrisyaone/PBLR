@@ -1,0 +1,157 @@
+# Capstone 1: Hypertension Risk Factors {#sec-capstone-hypertension}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+A clinic director wants to know which factors are associated with hypertension (defined, following Level 4's clinical threshold, as systolic blood pressure ≥ 140) among enrolled participants — not just individually, but weighed against each other simultaneously. You're handed `data/participants.csv` and asked for a complete, defensible answer: import the data, define the outcome, model the risk factors together, and report what the evidence actually supports.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Design and execute a complete risk-factor analysis from raw data to a modeled, interpreted conclusion — deciding for yourself which tools from Levels 1-12 apply at each step.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 4 built a five-category blood pressure classification with `case_when()`. Which single cutoff from that classification defines "hypertension" as a yes/no outcome?
+- Level 12 fit `glm(..., family = binomial)` for a binary outcome with multiple predictors at once. Which predictors (age, BMI, smoking status, county, sex) seem like plausible candidates worth testing together, based on everything explored in Levels 7, 8, and 11?
+:::
+
+## The R Concept
+
+This capstone doesn't introduce a new function — it asks you to sequence tools you already have:
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")                     # Level 3
+
+participants$hypertension <- as.numeric(participants$systolic_bp >= 140)  # Level 4
+participants$smoker_binary <- as.numeric(participants$smoker == "Yes")   # Level 11
+
+model <- glm(hypertension ~ age + bmi + smoker_binary,               # Level 12
+             data = participants, family = binomial)
+summary(model)
+exp(coef(model))    # odds ratios, Level 11
+```
+
+## Demonstration
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+
+participants$hypertension <- as.numeric(participants$systolic_bp >= 140)
+
+table(participants$hypertension, useNA = "ifany")
+```
+
+```
+
+   0    1 <NA>
+  67   29    4
+```
+
+## Explore
+
+Try `mean(participants$hypertension, na.rm = TRUE)` to confirm the overall hypertension rate (29 out of 96 non-missing participants, about 30.2%) before modeling anything — always understand your outcome's basic distribution first, exactly as Level 7's descriptive statistics taught.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+
+participants$hypertension <- as.numeric(participants$systolic_bp >= 140)
+participants$smoker_binary <- as.numeric(participants$smoker == "Yes")
+
+risk_model <- glm(hypertension ~ age + bmi + smoker_binary,
+                   data = participants, family = binomial)
+
+summary(risk_model)
+```
+
+```
+
+Call:
+glm(formula = hypertension ~ age + bmi + smoker_binary, family = binomial,
+    data = participants)
+
+Coefficients:
+              Estimate Std. Error z value Pr(>|z|)
+(Intercept)   -1.28975    1.71090  -0.754   0.4510
+age           -0.03980    0.01753  -2.270   0.0232 *
+bmi            0.06920    0.05724   1.209   0.2267
+smoker_binary  0.81265    0.57384   1.416   0.1568
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+    Null deviance: 99.253  on 84  degrees of freedom
+Residual deviance: 90.702  on 81  degrees of freedom
+AIC: 98.702
+```
+
+```{r}
+#| eval: false
+exp(coef(risk_model))
+```
+
+```
+  (Intercept)           age           bmi smoker_binary
+    0.2753423     0.9610013     1.0716032     2.2536559
+```
+
+Only `age` reaches statistical significance (p = 0.023) — and its odds ratio (0.961) is *below* 1, meaning **older** participants in this sample have somewhat **lower** odds of hypertension, not higher. `bmi` (OR = 1.07, p = 0.227) and `smoker_binary` (OR = 2.25, p = 0.157) both trend in the clinically expected direction — higher BMI and smoking associated with higher hypertension odds — but neither reaches significance in this sample of 85 complete-case participants.
+
+## Interpret the Result
+
+The age finding is not a fluke specific to this model — it's the exact same counter-intuitive pattern Level 8's trend line and Level 11's correlation test (r = −0.221, p = 0.036) already surfaced: in this particular dataset, older participants tend to have modestly *lower* blood pressure, and that same pattern carries through directly into hypertension risk. Meanwhile, smoking's odds ratio of 2.25 (roughly double the odds) is clinically substantial and consistent with real-world expectations, but this sample's size (only 25 smokers total, Level 7) isn't large enough to rule out chance as an explanation. A responsible report states all three of these findings honestly — one statistically confirmed but clinically counter-intuitive, one clinically plausible but not statistically confirmed, and one essentially inconclusive — rather than overstating any of them.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Reporting only the significant finding (age) and implying the others don't matter.** A non-significant odds ratio of 2.25 for smoking is still worth reporting as a suggestive, clinically important trend worth following up with a larger sample — "not significant" is not the same as "no effect."
+- **Interpreting age's negative coefficient as if it contradicts clinical knowledge about hypertension in general.** This result describes *this specific sample* of 85 participants — it doesn't overturn well-established population-level hypertension research, and the model should be reported with that caveat (exactly as Level 12's capstone emphasized).
+- **Skipping the missing-data check.** `hypertension` had 4 `NA` values (from missing `systolic_bp`) before modeling — always confirm, as this page's Explore step did, how many usable rows actually remain before trusting a model's conclusions.
+:::
+
+## Practice Problem
+
+Add `county` as a fourth predictor to `risk_model` (as a categorical predictor, Level 12 Page 2). Does any individual county show a statistically significant association with hypertension risk, after adjusting for age, BMI, and smoking status?
+
+## Challenge Problem
+
+Fit a second model using only `age` and `smoker_binary` (dropping `bmi`), and compare it to the three-predictor model above using `anova()` (Level 12 Page 5). Does removing `bmi` significantly change the model's fit? Use this result to justify whether `bmi` earns its place in a final, simplified model.
+
+## Key Takeaways
+
+- A real risk-factor analysis requires deciding, yourself, which tools apply and in what order — this capstone combined Level 3's import, Level 4's threshold-based outcome definition, Level 11's binary recoding, and Level 12's multiple logistic regression.
+- Statistical significance and clinical plausibility don't always align in the same sample — a responsible analysis reports both a significant-but-counterintuitive finding (age) and a plausible-but-inconclusive one (smoking) with equal honesty.
+- Every finding in this capstone describes this specific 100-participant sample — a foundational caveat that applies to every modeling result in this entire course, from Level 11 onward.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** In this capstone's model, which predictor reached statistical significance?
+   a) BMI
+   b) Smoking status
+   c) Age
+   d) None of the predictors
+
+2. **True or false.** Age's odds ratio below 1.0 in this model means older participants have *higher* odds of hypertension.
+
+3. **Predict the output.** Given smoking's odds ratio of 2.25 and a p-value of 0.157, should this finding be reported as statistically confirmed?
+
+4. **Short answer.** Why is it important to report smoking's non-significant but clinically substantial odds ratio, rather than omitting it because it "didn't reach significance"?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** Age — the only predictor with p < 0.05 in this model.
+2. **False.** An odds ratio below 1.0 (0.961 here) means each additional year of age is associated with *lower*, not higher, odds of hypertension in this sample.
+3. No — a p-value of 0.157 is above the conventional 0.05 threshold, meaning this sample doesn't provide strong statistical evidence for the association, even though the estimated effect size (OR = 2.25) is clinically substantial.
+4. Omitting a non-significant-but-substantial finding risks understating a real, clinically important pattern simply because this particular sample was too small to confirm it statistically — an honest report distinguishes "not proven" from "disproven," exactly as Level 11's capstone emphasized.
+
+</details>
+:::

@@ -23,7 +23,8 @@ Build your first plot using `ggplot2`'s "grammar of graphics" — a system for d
 
 **`ggplot2`** (part of the tidyverse) builds every plot from the same three ingredients, specified in layers:
 
-```r
+```{r}
+#| eval: false
 ggplot(data = df, mapping = aes(x = x_column, y = y_column)) +
   geom_point()
 ```
@@ -36,7 +37,8 @@ These pieces are combined with `+`, not `|>` — `ggplot2` predates the tidyvers
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")
@@ -53,7 +55,8 @@ Try swapping which variable goes on which axis: `aes(x = systolic_bp, y = bmi)`.
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")

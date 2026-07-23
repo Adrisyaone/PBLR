@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.31">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>80&nbsp; pivot_longer() – R for Public Health: A Problem-Based Learning Course</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -79,8 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-82f2f6d5827a576a8c9f217aaf8aa84a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -106,13 +101,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<style>html{ scroll-behavior: smooth; }</style>
-
-
+}</script><style>html{ scroll-behavior: smooth; }</style>
 <link rel="stylesheet" href="../styles.css">
 </head>
-
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
@@ -278,26 +269,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06-data-reshaping/00-overview.html">Level 6: Data Reshaping</a></li><li class="breadcrumb-item"><a href="../06-data-reshaping/02-pivot-longer.html"><span class="chapter-number">80</span>&nbsp; <span class="chapter-title"><code>pivot_longer()</code></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06-data-reshaping/00-overview.html">Level 6 — Data Reshaping</a></li><li class="breadcrumb-item"><a href="../06-data-reshaping/02-pivot-longer.html"><span class="chapter-number">80</span>&nbsp; <span class="chapter-title"><code></code></span></a><code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">R for Public Health: A Problem-Based Learning Course</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -314,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
@@ -323,13 +308,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 1: Getting Started with R</span></a>
+ <span class="menu-text">Level 1 — Getting Started with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../01-getting-started/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 1 — Getting Started with R</span></a>
@@ -456,17 +441,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 2: Data Structures in R</span></a>
+ <span class="menu-text">Level 2 — Data Structures in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 2 — Data Structures in R</span></a>
@@ -475,19 +460,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/01-vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code>c()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code></code></span></span></a><code><a href="https://rdrr.io/r/base/c.html">c()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/02-sequences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code>seq()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/03-rep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code>rep()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -559,33 +544,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/15-str.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code>str()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code></code></span></span></a><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/16-dimensions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code>nrow()</code>, <code>ncol()</code>, <code>dim()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>, <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code>, <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/17-length-names.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code>length()</code> and <code>names()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and <code><a href="https://rdrr.io/r/base/names.html">names()</a></code>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 3: Data Import and Export</span></a>
+ <span class="menu-text">Level 3 — Data Import and Export</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../03-data-import/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 3 — Data Import and Export</span></a>
@@ -664,17 +649,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 4: Data Cleaning with Base R</span></a>
+ <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
@@ -767,33 +752,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/15-ifelse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code>ifelse()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/16-if-else-dplyr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title"><code>if_else()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/17-case-when.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title"><code>case_when()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when()</a></code>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 5: Tidyverse</span></a>
+ <span class="menu-text">Level 5 — Tidyverse</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 5 — Tidyverse</span></a>
@@ -802,61 +787,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/01-select.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title"><code>select()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/02-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code>filter()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/03-arrange.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title"><code>arrange()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/04-mutate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title"><code>mutate()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/05-summarise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title"><code>summarise()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/06-group-by.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title"><code>group_by()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/07-count.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title"><code>count()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/08-distinct.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">74</span>&nbsp; <span class="chapter-title"><code>distinct()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">74</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/09-rename.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title"><code>rename()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/rename.html">rename()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/10-across.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title"><code>across()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -872,17 +857,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 6: Data Reshaping</span></a>
+ <span class="menu-text">Level 6 — Data Reshaping</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 6 — Data Reshaping</span></a>
@@ -897,25 +882,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/02-pivot-longer.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">80</span>&nbsp; <span class="chapter-title"><code>pivot_longer()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">80</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/03-pivot-wider.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">81</span>&nbsp; <span class="chapter-title"><code>pivot_wider()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">81</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/04-separate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">82</span>&nbsp; <span class="chapter-title"><code>separate()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">82</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://tidyr.tidyverse.org/reference/separate.html">separate()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/05-unite.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title"><code>unite()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://tidyr.tidyverse.org/reference/unite.html">unite()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -939,25 +924,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/09-left-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">87</span>&nbsp; <span class="chapter-title"><code>left_join()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">87</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/10-inner-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">88</span>&nbsp; <span class="chapter-title"><code>inner_join()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">88</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/11-right-full-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">89</span>&nbsp; <span class="chapter-title"><code>right_join()</code> and <code>full_join()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">89</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/12-semi-anti-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">90</span>&nbsp; <span class="chapter-title"><code>semi_join()</code> and <code>anti_join()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">90</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">semi_join()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -967,17 +952,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 7: Descriptive Statistics</span></a>
+ <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
@@ -1004,7 +989,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/04-summary-function.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code>summary()</code> Function</span></span></a>
+ <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code></code></span></span></a><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> Function
   </div>
 </li>
           <li class="sidebar-item">
@@ -1022,7 +1007,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/07-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code>cor()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1032,17 +1017,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 8: Data Visualization with ggplot2</span></a>
+ <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
@@ -1115,17 +1100,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 9: Functions and Programming</span></a>
+ <span class="menu-text">Level 9 — Functions and Programming</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 9 — Functions and Programming</span></a>
@@ -1176,19 +1161,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/08-apply-family.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code>sapply()</code> and <code>lapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/09-purrr-map.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code>purrr::map()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code></code></span></span></a><code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/10-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code>stop()</code> and <code>warning()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code> and <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1198,17 +1183,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 10: Loops and Automation</span></a>
+ <span class="menu-text">Level 10 — Loops and Automation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 10 — Loops and Automation</span></a>
@@ -1247,7 +1232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/06-vapply-tapply.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code>vapply()</code> and <code>tapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">vapply()</a></code> and <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1263,17 +1248,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 11: Statistical Analysis in R</span></a>
+ <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
@@ -1330,7 +1315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/09-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code>lm()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1352,7 +1337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
@@ -1361,15 +1346,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../12-advanced-analysis/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 12 — Advanced Data Analysis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/01-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">142</span>&nbsp; <span class="chapter-title">Multiple Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/02-categorical-predictors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">143</span>&nbsp; <span class="chapter-title">Categorical Predictors in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/03-interaction-terms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">144</span>&nbsp; <span class="chapter-title">Interaction Terms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/04-confounding-adjustment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">145</span>&nbsp; <span class="chapter-title">Confounding and Adjustment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/05-model-comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">146</span>&nbsp; <span class="chapter-title">Comparing Nested Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/06-regression-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">147</span>&nbsp; <span class="chapter-title">Regression Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/07-multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">148</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/08-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">149</span>&nbsp; <span class="chapter-title">Predicting New Data with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/09-advanced-analysis-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">150</span>&nbsp; <span class="chapter-title">Level 12 Capstone: Choosing a Final Model</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
@@ -1378,15 +1417,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../13-advanced-r/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 13 — Advanced R Programming</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/01-environments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">151</span>&nbsp; <span class="chapter-title">Environments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/02-closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">152</span>&nbsp; <span class="chapter-title">Closures and Function Factories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/03-s3-object-system.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">153</span>&nbsp; <span class="chapter-title">A First Look at S3 Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/04-error-handling-trycatch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">154</span>&nbsp; <span class="chapter-title">Robust Error Handling with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/05-debugging-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">155</span>&nbsp; <span class="chapter-title">Debugging Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/06-functional-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">156</span>&nbsp; <span class="chapter-title">Functional Programming with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/funprog.html">Reduce()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/07-regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">157</span>&nbsp; <span class="chapter-title">Regular Expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/08-string-manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">158</span>&nbsp; <span class="chapter-title">String Manipulation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/09-working-with-dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">159</span>&nbsp; <span class="chapter-title">Working with Dates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/10-package-structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">160</span>&nbsp; <span class="chapter-title">The Anatomy of an R Package</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/11-advanced-r-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">161</span>&nbsp; <span class="chapter-title">Level 13 Capstone: A Resilient File-Reading Toolkit</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
@@ -1395,15 +1500,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../14-reproducible-research/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 14 — Reproducible Research</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/01-rmarkdown-vs-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">162</span>&nbsp; <span class="chapter-title">R Markdown vs.&nbsp;Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/02-yaml-front-matter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">163</span>&nbsp; <span class="chapter-title">YAML Front Matter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/03-code-chunks-inline-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">164</span>&nbsp; <span class="chapter-title">Code Chunks and Inline Code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/04-tables-and-figures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">165</span>&nbsp; <span class="chapter-title">Tables and Figures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/05-cross-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">166</span>&nbsp; <span class="chapter-title">Cross-References</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/06-citations-bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">167</span>&nbsp; <span class="chapter-title">Citations and Bibliographies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/07-parameterized-reports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">168</span>&nbsp; <span class="chapter-title">Parameterized Reports</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/08-output-formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">169</span>&nbsp; <span class="chapter-title">Choosing an Output Format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/09-projects-books-websites.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">170</span>&nbsp; <span class="chapter-title">Quarto Projects: Books and Websites</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/10-reproducible-research-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">171</span>&nbsp; <span class="chapter-title">Level 14 Capstone: A Complete Clinic Report Template</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
@@ -1412,26 +1577,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../15-capstone-projects/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 15 — Real-World Capstone Projects</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/01-capstone-hypertension-risk-factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">172</span>&nbsp; <span class="chapter-title">Capstone 1: Hypertension Risk Factors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/02-capstone-smoking-cardiovascular-risk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">173</span>&nbsp; <span class="chapter-title">Capstone 2: Smoking and Cardiovascular Risk</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/03-capstone-geographic-patterns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">174</span>&nbsp; <span class="chapter-title">Capstone 3: Geographic Patterns Across Counties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/04-capstone-longitudinal-blood-pressure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">175</span>&nbsp; <span class="chapter-title">Capstone 4: Longitudinal Blood Pressure and Attrition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/05-capstone-reproducible-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">176</span>&nbsp; <span class="chapter-title">Capstone 5: A Reproducible County Dashboard</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/06-independent-capstone-guidance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">177</span>&nbsp; <span class="chapter-title">Designing Your Own Independent Capstone</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">80.1</span> The R Concept</a></li>
+<li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">80.1</span> The R Concept</a></li>
   <li><a href="#demonstration" id="toc-demonstration" class="nav-link" data-scroll-target="#demonstration"><span class="header-section-number">80.2</span> Demonstration</a></li>
   <li><a href="#explore" id="toc-explore" class="nav-link" data-scroll-target="#explore"><span class="header-section-number">80.3</span> Explore</a></li>
   <li><a href="#solve-the-problem" id="toc-solve-the-problem" class="nav-link" data-scroll-target="#solve-the-problem"><span class="header-section-number">80.4</span> Solve the Problem</a></li>
@@ -1439,15 +1638,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#practice-problem" id="toc-practice-problem" class="nav-link" data-scroll-target="#practice-problem"><span class="header-section-number">80.6</span> Practice Problem</a></li>
   <li><a href="#challenge-problem" id="toc-challenge-problem" class="nav-link" data-scroll-target="#challenge-problem"><span class="header-section-number">80.7</span> Challenge Problem</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">80.8</span> Key Takeaways</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06-data-reshaping/00-overview.html">Level 6: Data Reshaping</a></li><li class="breadcrumb-item"><a href="../06-data-reshaping/02-pivot-longer.html"><span class="chapter-number">80</span>&nbsp; <span class="chapter-title"><code>pivot_longer()</code></span></a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06-data-reshaping/00-overview.html">Level 6 — Data Reshaping</a></li><li class="breadcrumb-item"><a href="../06-data-reshaping/02-pivot-longer.html"><span class="chapter-number">80</span>&nbsp; <span class="chapter-title"><code></code></span></a><code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span id="sec-pivot-longer" class="quarto-section-identifier"><span class="chapter-number">80</span>&nbsp; <span class="chapter-title"><code>pivot_longer()</code></span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
@@ -1462,16 +1656,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<div class="pbl-box pbl-problem">
+</header><div class="pbl-box pbl-problem">
 <p><strong>The Problem</strong></p>
-<p>You need an actual <code>visit</code> column so you can <code>group_by(visit)</code> (Level 5) and compute the mean blood pressure at each clinic visit. Right now, “visit” is smeared across three column names (<code>sbp_visit1</code>, <code>sbp_visit2</code>, <code>sbp_visit3</code>) in your wide-format data — there’s no way to <code>group_by()</code> a value that doesn’t exist as a value yet.</p>
+<p>You need an actual <code>visit</code> column so you can <code>group_by(visit)</code> (Level 5) and compute the mean blood pressure at each clinic visit. Right now, “visit” is smeared across three column names (<code>sbp_visit1</code>, <code>sbp_visit2</code>, <code>sbp_visit3</code>) in your wide-format data — there’s no way to <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> a value that doesn’t exist as a value yet.</p>
 </div>
 <div class="pbl-box pbl-mission">
 <p><strong>Your Mission</strong></p>
-<p>Convert wide-format columns into long-format rows using <code>tidyr::pivot_longer()</code>.</p>
+<p>Convert wide-format columns into long-format rows using <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">tidyr::pivot_longer()</a></code>.</p>
 </div>
 <div class="pbl-box pbl-think">
 <p><strong>Think Before Coding</strong></p>
@@ -1480,38 +1671,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>If a function could take several columns and “stack” them into two new columns — one holding what the old column names were, one holding what the old column values were — what would you want those two new columns to be called for this dataset?</li>
 </ul>
 </div>
-<section id="the-r-concept" class="level2" data-number="80.1">
-<h2 data-number="80.1" class="anchored" data-anchor-id="the-r-concept"><span class="header-section-number">80.1</span> The R Concept</h2>
-<p><strong><code>pivot_longer()</code></strong>, from the <code>tidyr</code> package (part of the tidyverse, alongside <code>dplyr</code>), takes multiple columns and stacks them into two new columns: one holding the <em>former column names</em>, one holding the <em>former column values</em>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(df,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(col1, col2, col3),   <span class="co"># or a tidyselect helper like starts_with()</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"name_column"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"value_column"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(bp_wide,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"visit"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"sbp"</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><code>cols</code> accepts the same <code>starts_with()</code> / <code>ends_with()</code> / <code>contains()</code> helpers from Level 5’s <code>select()</code> — genuinely the same tidyselect syntax, reused here for a different purpose. Adding <code>names_prefix = "sbp_"</code> strips a shared prefix from the resulting names column, turning <code>"sbp_visit1"</code> into the cleaner <code>"visit1"</code>.</p>
-</section>
-<section id="demonstration" class="level2" data-number="80.2">
-<h2 data-number="80.2" class="anchored" data-anchor-id="demonstration"><span class="header-section-number">80.2</span> Demonstration</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>bp_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/bp_visits_wide.csv"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>bp_long_sbp <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(bp_wide,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"visit"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_prefix =</span> <span class="st">"sbp_"</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"sbp"</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(bp_long_sbp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="the-r-concept" class="level2" data-number="80.1"><h2 data-number="80.1" class="anchored" data-anchor-id="the-r-concept">
+<span class="header-section-number">80.1</span> The R Concept</h2>
+<p><strong><code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code></strong>, from the <code>tidyr</code> package (part of the tidyverse, alongside <code>dplyr</code>), takes multiple columns and stacks them into two new columns: one holding the <em>former column names</em>, one holding the <em>former column values</em>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pivot_longer</span><span class="op">(</span><span class="va">df</span>,</span>
+<span>  cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">col1</span>, <span class="va">col2</span>, <span class="va">col3</span><span class="op">)</span>,   <span class="co"># or a tidyselect helper like starts_with()</span></span>
+<span>  names_to <span class="op">=</span> <span class="st">"name_column"</span>,</span>
+<span>  values_to <span class="op">=</span> <span class="st">"value_column"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pivot_longer</span><span class="op">(</span><span class="va">bp_wide</span>,</span>
+<span>  cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="st">"sbp_visit"</span><span class="op">)</span>,</span>
+<span>  names_to <span class="op">=</span> <span class="st">"visit"</span>,</span>
+<span>  values_to <span class="op">=</span> <span class="st">"sbp"</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>cols</code> accepts the same <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with()</a></code> / <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with()</a></code> / <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains()</a></code> helpers from Level 5’s <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> — genuinely the same tidyselect syntax, reused here for a different purpose. Adding <code>names_prefix = "sbp_"</code> strips a shared prefix from the resulting names column, turning <code>"sbp_visit1"</code> into the cleaner <code>"visit1"</code>.</p>
+</section><section id="demonstration" class="level2" data-number="80.2"><h2 data-number="80.2" class="anchored" data-anchor-id="demonstration">
+<span class="header-section-number">80.2</span> Demonstration</h2>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">bp_wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/bp_visits_wide.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">bp_long_sbp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="va">bp_wide</span>,</span>
+<span>  cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"sbp_visit"</span><span class="op">)</span>,</span>
+<span>  names_to <span class="op">=</span> <span class="st">"visit"</span>,</span>
+<span>  names_prefix <span class="op">=</span> <span class="st">"sbp_"</span>,</span>
+<span>  values_to <span class="op">=</span> <span class="st">"sbp"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">bp_long_sbp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 84</code></pre>
 <p>28 participants × 3 visits = 84 rows, exactly as predicted at the end of the previous page.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bp_long_sbp[, <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"county"</span>, <span class="st">"visit"</span>, <span class="st">"sbp"</span>)], <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">bp_long_sbp</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"county"</span>, <span class="st">"visit"</span>, <span class="st">"sbp"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">6</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>  id   county  visit sbp
 1  1  Oakford visit1 125
 2  1  Oakford visit2 120
@@ -1519,31 +1717,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4  2 Riverdale visit1 123
 5  2 Riverdale visit2 121
 6  2 Riverdale visit3 129</code></pre>
-<p>Participant #1’s three visits are now three separate rows, with an actual <code>visit</code> column you could <code>group_by()</code> — exactly what wide format couldn’t offer.</p>
-</section>
-<section id="explore" class="level2" data-number="80.3">
-<h2 data-number="80.3" class="anchored" data-anchor-id="explore"><span class="header-section-number">80.3</span> Explore</h2>
+<p>Participant #1’s three visits are now three separate rows, with an actual <code>visit</code> column you could <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> — exactly what wide format couldn’t offer.</p>
+</section><section id="explore" class="level2" data-number="80.3"><h2 data-number="80.3" class="anchored" data-anchor-id="explore">
+<span class="header-section-number">80.3</span> Explore</h2>
 <p>Try <code>group_by(bp_long_sbp, visit)</code> followed by <code>summarise(mean_sbp = mean(sbp, na.rm = TRUE))</code> (Level 5). Confirm you can now compute a mean blood pressure <em>per visit</em> — something that was impossible without first reshaping.</p>
-</section>
-<section id="solve-the-problem" class="level2" data-number="80.4">
-<h2 data-number="80.4" class="anchored" data-anchor-id="solve-the-problem"><span class="header-section-number">80.4</span> Solve the Problem</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>bp_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/bp_visits_wide.csv"</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>bp_long_sbp <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(bp_wide,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>),</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"visit"</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_prefix =</span> <span class="st">"sbp_"</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"sbp"</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>visit_means <span class="ot">&lt;-</span> bp_long_sbp <span class="sc">|&gt;</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(visit) <span class="sc">|&gt;</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_sbp =</span> <span class="fu">round</span>(<span class="fu">mean</span>(sbp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>visit_means</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="solve-the-problem" class="level2" data-number="80.4"><h2 data-number="80.4" class="anchored" data-anchor-id="solve-the-problem">
+<span class="header-section-number">80.4</span> Solve the Problem</h2>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">bp_wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/bp_visits_wide.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">bp_long_sbp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="va">bp_wide</span>,</span>
+<span>  cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"sbp_visit"</span><span class="op">)</span>,</span>
+<span>  names_to <span class="op">=</span> <span class="st">"visit"</span>,</span>
+<span>  names_prefix <span class="op">=</span> <span class="st">"sbp_"</span>,</span>
+<span>  values_to <span class="op">=</span> <span class="st">"sbp"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">visit_means</span> <span class="op">&lt;-</span> <span class="va">bp_long_sbp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">visit</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_sbp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">sbp</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">visit_means</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code># A tibble: 3 x 2
   visit  mean_sbp
   &lt;chr&gt;     &lt;dbl&gt;
@@ -1551,69 +1749,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2 visit2   120.96
 3 visit3   120.69</code></pre>
 <p>Now that “visit” is a real column, <code>group_by(visit)</code> works exactly as it did for <code>county</code> in Level 5 — mean systolic blood pressure drops from 124.96 at visit 1 to 120.96 at visit 2, then levels off slightly at 120.69 by visit 3.</p>
-</section>
-<section id="interpret-the-result" class="level2" data-number="80.5">
-<h2 data-number="80.5" class="anchored" data-anchor-id="interpret-the-result"><span class="header-section-number">80.5</span> Interpret the Result</h2>
-<p>Blood pressure dropped noticeably between visit 1 and visit 2 on average, with a much smaller further change by visit 3 — a pattern impossible to see from the wide-format data without either writing three separate <code>mean()</code> calls or reshaping first. Note also that <code>visit3</code>’s mean is based on fewer participants (26, since 2 dropped out — visible if you check <code>n()</code> per group), a detail worth flagging before drawing conclusions, echoing Level 5’s small-group-size caution.</p>
+</section><section id="interpret-the-result" class="level2" data-number="80.5"><h2 data-number="80.5" class="anchored" data-anchor-id="interpret-the-result">
+<span class="header-section-number">80.5</span> Interpret the Result</h2>
+<p>Blood pressure dropped noticeably between visit 1 and visit 2 on average, with a much smaller further change by visit 3 — a pattern impossible to see from the wide-format data without either writing three separate <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> calls or reshaping first. Note also that <code>visit3</code>’s mean is based on fewer participants (26, since 2 dropped out — visible if you check <code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code> per group), a detail worth flagging before drawing conclusions, echoing Level 5’s small-group-size caution.</p>
 <div class="pbl-box pbl-mistake">
 <p><strong>Common Mistakes</strong></p>
 <ul>
-<li><strong>Forgetting <code>cols</code> needs to select only the columns you want stacked.</strong> If <code>bp_wide</code> also has <code>weight_visit1</code>/<code>weight_visit2</code>/<code>weight_visit3</code> columns and you only specify <code>cols = starts_with("sbp_visit")</code>, those weight columns stay wide — and get <strong>duplicated across every new long row</strong> for a participant, since each of their 3 sbp rows now repeats the same weight values. This isn’t wrong, just worth noticing (the next multiple-value page shows how to pivot both measurements together, avoiding the duplication).</li>
-<li><strong>Mixing up <code>names_to</code> and <code>values_to</code>.</strong> <code>names_to</code> names the column that will hold the <em>former column names</em> (like <code>"visit1"</code>); <code>values_to</code> names the column that will hold the <em>former column values</em> (like <code>125</code>). Swapping them produces a working but confusingly labeled result.</li>
-<li><strong>Forgetting <code>library(tidyr)</code>.</strong> <code>pivot_longer()</code> lives in the <code>tidyr</code> package, not <code>dplyr</code> — both are part of the tidyverse, but they’re technically separate packages.</li>
+<li>
+<strong>Forgetting <code>cols</code> needs to select only the columns you want stacked.</strong> If <code>bp_wide</code> also has <code>weight_visit1</code>/<code>weight_visit2</code>/<code>weight_visit3</code> columns and you only specify <code>cols = starts_with("sbp_visit")</code>, those weight columns stay wide — and get <strong>duplicated across every new long row</strong> for a participant, since each of their 3 sbp rows now repeats the same weight values. This isn’t wrong, just worth noticing (the next multiple-value page shows how to pivot both measurements together, avoiding the duplication).</li>
+<li>
+<strong>Mixing up <code>names_to</code> and <code>values_to</code>.</strong> <code>names_to</code> names the column that will hold the <em>former column names</em> (like <code>"visit1"</code>); <code>values_to</code> names the column that will hold the <em>former column values</em> (like <code>125</code>). Swapping them produces a working but confusingly labeled result.</li>
+<li>
+<strong>Forgetting <code><a href="https://tidyr.tidyverse.org">library(tidyr)</a></code>.</strong> <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> lives in the <code>tidyr</code> package, not <code>dplyr</code> — both are part of the tidyverse, but they’re technically separate packages.</li>
 </ul>
 </div>
-</section>
-<section id="practice-problem" class="level2" data-number="80.6">
-<h2 data-number="80.6" class="anchored" data-anchor-id="practice-problem"><span class="header-section-number">80.6</span> Practice Problem</h2>
-<p>Use <code>pivot_longer()</code> to reshape only the <code>weight_visit1</code>/<code>weight_visit2</code>/<code>weight_visit3</code> columns into long format, with <code>names_to = "visit"</code> and <code>values_to = "weight"</code>. Confirm the result has 84 rows.</p>
-</section>
-<section id="challenge-problem" class="level2" data-number="80.7">
-<h2 data-number="80.7" class="anchored" data-anchor-id="challenge-problem"><span class="header-section-number">80.7</span> Challenge Problem</h2>
-<p>After reshaping <code>sbp</code> to long format, use <code>group_by(visit)</code> and <code>summarise()</code> to compute both the mean <strong>and</strong> the count (<code>n()</code>) of non-missing <code>sbp</code> values per visit. Which visit has the smallest sample size, and why might that be (hint: recall the dropout pattern from <code>data/bp_visits_wide.csv</code>)?</p>
-</section>
-<section id="key-takeaways" class="level2" data-number="80.8">
-<h2 data-number="80.8" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">80.8</span> Key Takeaways</h2>
+</section><section id="practice-problem" class="level2" data-number="80.6"><h2 data-number="80.6" class="anchored" data-anchor-id="practice-problem">
+<span class="header-section-number">80.6</span> Practice Problem</h2>
+<p>Use <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> to reshape only the <code>weight_visit1</code>/<code>weight_visit2</code>/<code>weight_visit3</code> columns into long format, with <code>names_to = "visit"</code> and <code>values_to = "weight"</code>. Confirm the result has 84 rows.</p>
+</section><section id="challenge-problem" class="level2" data-number="80.7"><h2 data-number="80.7" class="anchored" data-anchor-id="challenge-problem">
+<span class="header-section-number">80.7</span> Challenge Problem</h2>
+<p>After reshaping <code>sbp</code> to long format, use <code>group_by(visit)</code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> to compute both the mean <strong>and</strong> the count (<code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code>) of non-missing <code>sbp</code> values per visit. Which visit has the smallest sample size, and why might that be (hint: recall the dropout pattern from <code>data/bp_visits_wide.csv</code>)?</p>
+</section><section id="key-takeaways" class="level2" data-number="80.8"><h2 data-number="80.8" class="anchored" data-anchor-id="key-takeaways">
+<span class="header-section-number">80.8</span> Key Takeaways</h2>
 <ul>
-<li><code>pivot_longer(df, cols = ..., names_to = "...", values_to = "...")</code> stacks multiple wide columns into two long columns: one for former names, one for former values.</li>
-<li><code>cols</code> accepts the same tidyselect helpers (<code>starts_with()</code>, etc.) as Level 5’s <code>select()</code>.</li>
-<li>Reshaping to long format is often the necessary first step before <code>group_by()</code>-based analysis across a repeated measurement like “visit.”</li>
+<li>
+<code>pivot_longer(df, cols = ..., names_to = "...", values_to = "...")</code> stacks multiple wide columns into two long columns: one for former names, one for former values.</li>
+<li>
+<code>cols</code> accepts the same tidyselect helpers (<code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with()</a></code>, etc.) as Level 5’s <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>.</li>
+<li>Reshaping to long format is often the necessary first step before <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>-based analysis across a repeated measurement like “visit.”</li>
 </ul>
 <div class="pbl-box pbl-check">
 <p><strong>Knowledge Check</strong></p>
 <ol type="1">
-<li><p><strong>Multiple choice.</strong> What does <code>names_to</code> specify in <code>pivot_longer()</code>?</p>
+<li>
+<p><strong>Multiple choice.</strong> What does <code>names_to</code> specify in <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>?</p>
 <ol type="a">
 <li>The name of the column holding former column values</li>
 <li>The name of the column holding former column names</li>
 <li>Which columns to pivot</li>
 <li>The final row count</li>
-</ol></li>
-<li><p><strong>True or false.</strong> <code>pivot_longer()</code>’s <code>cols</code> argument can use <code>starts_with()</code> and other tidyselect helpers from Level 5.</p></li>
-<li><p><strong>Predict the output.</strong> If a wide data frame has 10 rows and 4 columns matching a <code>pivot_longer()</code> call’s <code>cols</code>, how many rows will the long-format result have?</p></li>
-<li><p><strong>Find the error.</strong></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(bp_wide, <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>), <span class="at">names_to =</span> <span class="st">"sbp"</span>, <span class="at">values_to =</span> <span class="st">"visit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ol>
-<details class="pbl-answer">
-<summary>
+</li>
+<li><p><strong>True or false.</strong> <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>’s <code>cols</code> argument can use <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with()</a></code> and other tidyselect helpers from Level 5.</p></li>
+<li><p><strong>Predict the output.</strong> If a wide data frame has 10 rows and 4 columns matching a <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> call’s <code>cols</code>, how many rows will the long-format result have?</p></li>
+<li>
+<p><strong>Find the error.</strong></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="va">bp_wide</span>, cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"sbp_visit"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"sbp"</span>, values_to <span class="op">=</span> <span class="st">"visit"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</li>
+</ol>
+<details class="pbl-answer"><summary>
 Show answers
-</summary>
-<ol type="1">
-<li><strong>b)</strong> The name of the column holding former column names.</li>
-<li><strong>True.</strong> <code>pivot_longer()</code>’s <code>cols</code> argument uses the same tidyselect syntax as <code>select()</code>.</li>
+</summary><ol type="1">
+<li>
+<strong>b)</strong> The name of the column holding former column names.</li>
+<li>
+<strong>True.</strong> <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>’s <code>cols</code> argument uses the same tidyselect syntax as <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>.</li>
 <li>40 rows (10 rows × 4 pivoted columns).</li>
-<li><code>names_to</code> and <code>values_to</code> are swapped — this labels the <em>column names</em> (<code>"sbp_visit1"</code>, etc.) as <code>sbp</code> and the <em>blood pressure values</em> (<code>125</code>, etc.) as <code>visit</code>, exactly backwards. It should be <code>names_to = "visit", values_to = "sbp"</code>.</li>
-</ol>
-</details>
+<li>
+<code>names_to</code> and <code>values_to</code> are swapped — this labels the <em>column names</em> (<code>"sbp_visit1"</code>, etc.) as <code>sbp</code> and the <em>blood pressure values</em> (<code>125</code>, etc.) as <code>visit</code>, exactly backwards. It should be <code>names_to = "visit", values_to = "sbp"</code>.</li>
+</ol></details>
 </div>
 
 
 <!-- -->
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2075,17 +2275,15 @@ Show answers
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../06-data-reshaping/01-wide-vs-long.html" class="pagination-link" aria-label="Wide Format vs. Long Format">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">79</span>&nbsp; <span class="chapter-title">Wide Format vs.&nbsp;Long Format</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../06-data-reshaping/03-pivot-wider.html" class="pagination-link" aria-label="`pivot_wider()`">
-        <span class="nav-page-text"><span class="chapter-number">81</span>&nbsp; <span class="chapter-title"><code>pivot_wider()</code></span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
+        <span class="nav-page-text"><span class="chapter-number">81</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> <i class="bi bi-arrow-right-short"></i>
+      
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># `pivot_longer()` {#sec-pivot-longer}</span></span>
@@ -2113,158 +2311,163 @@ Show answers
 <span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>**`pivot_longer()`**, from the <span class="in">`tidyr`</span> package (part of the tidyverse, alongside <span class="in">`dplyr`</span>), takes multiple columns and stacks them into two new columns: one holding the *former column names*, one holding the *former column values*:</span>
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(df,</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(col1, col2, col3),   <span class="co"># or a tidyselect helper like starts_with()</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"name_column"</span>,</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"value_column"</span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(bp_wide,</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>),</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"visit"</span>,</span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"sbp"</span></span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="in">`cols`</span> accepts the same <span class="in">`starts_with()`</span> / <span class="in">`ends_with()`</span> / <span class="in">`contains()`</span> helpers from Level 5's <span class="in">`select()`</span> — genuinely the same tidyselect syntax, reused here for a different purpose. Adding <span class="in">`names_prefix = "sbp_"`</span> strips a shared prefix from the resulting names column, turning <span class="in">`"sbp_visit1"`</span> into the cleaner <span class="in">`"visit1"`</span>.</span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>bp_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/bp_visits_wide.csv"</span>)</span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>bp_long_sbp <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(bp_wide,</span>
-<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>),</span>
-<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"visit"</span>,</span>
-<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_prefix =</span> <span class="st">"sbp_"</span>,</span>
-<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"sbp"</span></span>
-<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(df,</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(col1, col2, col3),   <span class="co"># or a tidyselect helper like starts_with()</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"name_column"</span>,</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"value_column"</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(bp_wide,</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>),</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"visit"</span>,</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"sbp"</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="in">`cols`</span> accepts the same <span class="in">`starts_with()`</span> / <span class="in">`ends_with()`</span> / <span class="in">`contains()`</span> helpers from Level 5's <span class="in">`select()`</span> — genuinely the same tidyselect syntax, reused here for a different purpose. Adding <span class="in">`names_prefix = "sbp_"`</span> strips a shared prefix from the resulting names column, turning <span class="in">`"sbp_visit1"`</span> into the cleaner <span class="in">`"visit1"`</span>.</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(bp_long_sbp)</span>
-<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 84</span></span>
-<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>28 participants × 3 visits = 84 rows, exactly as predicted at the end of the previous page.</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>bp_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/bp_visits_wide.csv"</span>)</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>bp_long_sbp <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(bp_wide,</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>),</span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"visit"</span>,</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_prefix =</span> <span class="st">"sbp_"</span>,</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"sbp"</span></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bp_long_sbp[, <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"county"</span>, <span class="st">"visit"</span>, <span class="st">"sbp"</span>)], <span class="dv">6</span>)</span>
-<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="in">  id   county  visit sbp</span></span>
-<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a><span class="in">1  1  Oakford visit1 125</span></span>
-<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a><span class="in">2  1  Oakford visit2 120</span></span>
-<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a><span class="in">3  1  Oakford visit3 117</span></span>
-<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="in">4  2 Riverdale visit1 123</span></span>
-<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a><span class="in">5  2 Riverdale visit2 121</span></span>
-<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a><span class="in">6  2 Riverdale visit3 129</span></span>
-<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>Participant #1's three visits are now three separate rows, with an actual <span class="in">`visit`</span> column you could <span class="in">`group_by()`</span> — exactly what wide format couldn't offer.</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(bp_long_sbp)</span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 84</span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>28 participants × 3 visits = 84 rows, exactly as predicted at the end of the previous page.</span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bp_long_sbp[, <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"county"</span>, <span class="st">"visit"</span>, <span class="st">"sbp"</span>)], <span class="dv">6</span>)</span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
-<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a>Try <span class="in">`group_by(bp_long_sbp, visit)`</span> followed by <span class="in">`summarise(mean_sbp = mean(sbp, na.rm = TRUE))`</span> (Level 5). Confirm you can now compute a mean blood pressure *per visit* — something that was impossible without first reshaping.</span>
-<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
-<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a><span class="in">  id   county  visit sbp</span></span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a><span class="in">1  1  Oakford visit1 125</span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a><span class="in">2  1  Oakford visit2 120</span></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a><span class="in">3  1  Oakford visit3 117</span></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a><span class="in">4  2 Riverdale visit1 123</span></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a><span class="in">5  2 Riverdale visit2 121</span></span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a><span class="in">6  2 Riverdale visit3 129</span></span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>bp_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/bp_visits_wide.csv"</span>)</span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>Participant #1's three visits are now three separate rows, with an actual <span class="in">`visit`</span> column you could <span class="in">`group_by()`</span> — exactly what wide format couldn't offer.</span>
 <span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a>bp_long_sbp <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(bp_wide,</span>
-<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>),</span>
-<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"visit"</span>,</span>
-<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_prefix =</span> <span class="st">"sbp_"</span>,</span>
-<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"sbp"</span></span>
-<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>visit_means <span class="ot">&lt;-</span> bp_long_sbp <span class="sc">|&gt;</span></span>
-<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(visit) <span class="sc">|&gt;</span></span>
-<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_sbp =</span> <span class="fu">round</span>(<span class="fu">mean</span>(sbp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
-<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a>visit_means</span>
-<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a><span class="in"># A tibble: 3 x 2</span></span>
-<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a><span class="in">  visit  mean_sbp</span></span>
-<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a><span class="in">  &lt;chr&gt;     &lt;dbl&gt;</span></span>
-<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a><span class="in">1 visit1   124.96</span></span>
-<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a><span class="in">2 visit2   120.96</span></span>
-<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a><span class="in">3 visit3   120.69</span></span>
-<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>Now that "visit" is a real column, <span class="in">`group_by(visit)`</span> works exactly as it did for <span class="in">`county`</span> in Level 5 — mean systolic blood pressure drops from 124.96 at visit 1 to 120.96 at visit 2, then levels off slightly at 120.69 by visit 3.</span>
-<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
-<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a>Blood pressure dropped noticeably between visit 1 and visit 2 on average, with a much smaller further change by visit 3 — a pattern impossible to see from the wide-format data without either writing three separate <span class="in">`mean()`</span> calls or reshaping first. Note also that <span class="in">`visit3`</span>'s mean is based on fewer participants (26, since 2 dropped out — visible if you check <span class="in">`n()`</span> per group), a detail worth flagging before drawing conclusions, echoing Level 5's small-group-size caution.</span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>Try <span class="in">`group_by(bp_long_sbp, visit)`</span> followed by <span class="in">`summarise(mean_sbp = mean(sbp, na.rm = TRUE))`</span> (Level 5). Confirm you can now compute a mean blood pressure *per visit* — something that was impossible without first reshaping.</span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a>bp_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/bp_visits_wide.csv"</span>)</span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a>bp_long_sbp <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(bp_wide,</span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>),</span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"visit"</span>,</span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_prefix =</span> <span class="st">"sbp_"</span>,</span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"sbp"</span></span>
+<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a>visit_means <span class="ot">&lt;-</span> bp_long_sbp <span class="sc">|&gt;</span></span>
+<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(visit) <span class="sc">|&gt;</span></span>
+<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_sbp =</span> <span class="fu">round</span>(<span class="fu">mean</span>(sbp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
+<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a>visit_means</span>
+<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
-<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
-<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Forgetting `cols` needs to select only the columns you want stacked.** If `bp_wide` also has `weight_visit1`/`weight_visit2`/`weight_visit3` columns and you only specify `cols = starts_with("sbp_visit")`, those weight columns stay wide — and get **duplicated across every new long row** for a participant, since each of their 3 sbp rows now repeats the same weight values. This isn't wrong, just worth noticing (the next multiple-value page shows how to pivot both measurements together, avoiding the duplication).</span>
-<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Mixing up `names_to` and `values_to`.** <span class="in">`names_to`</span> names the column that will hold the *former column names* (like `"visit1"`); `values_to` names the column that will hold the *former column values* (like <span class="in">`125`</span>). Swapping them produces a working but confusingly labeled result.</span>
-<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Forgetting `library(tidyr)`.** <span class="in">`pivot_longer()`</span> lives in the <span class="in">`tidyr`</span> package, not <span class="in">`dplyr`</span> — both are part of the tidyverse, but they're technically separate packages.</span>
-<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
-<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`pivot_longer()`</span> to reshape only the <span class="in">`weight_visit1`</span>/<span class="in">`weight_visit2`</span>/<span class="in">`weight_visit3`</span> columns into long format, with <span class="in">`names_to = "visit"`</span> and <span class="in">`values_to = "weight"`</span>. Confirm the result has 84 rows.</span>
-<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
-<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a>After reshaping <span class="in">`sbp`</span> to long format, use <span class="in">`group_by(visit)`</span> and <span class="in">`summarise()`</span> to compute both the mean **and** the count (<span class="in">`n()`</span>) of non-missing <span class="in">`sbp`</span> values per visit. Which visit has the smallest sample size, and why might that be (hint: recall the dropout pattern from <span class="in">`data/bp_visits_wide.csv`</span>)?</span>
-<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
+<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a><span class="in"># A tibble: 3 x 2</span></span>
+<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a><span class="in">  visit  mean_sbp</span></span>
+<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a><span class="in">  &lt;chr&gt;     &lt;dbl&gt;</span></span>
+<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a><span class="in">1 visit1   124.96</span></span>
+<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a><span class="in">2 visit2   120.96</span></span>
+<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a><span class="in">3 visit3   120.69</span></span>
+<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a>Now that "visit" is a real column, <span class="in">`group_by(visit)`</span> works exactly as it did for <span class="in">`county`</span> in Level 5 — mean systolic blood pressure drops from 124.96 at visit 1 to 120.96 at visit 2, then levels off slightly at 120.69 by visit 3.</span>
+<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
+<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a>Blood pressure dropped noticeably between visit 1 and visit 2 on average, with a much smaller further change by visit 3 — a pattern impossible to see from the wide-format data without either writing three separate <span class="in">`mean()`</span> calls or reshaping first. Note also that <span class="in">`visit3`</span>'s mean is based on fewer participants (26, since 2 dropped out — visible if you check <span class="in">`n()`</span> per group), a detail worth flagging before drawing conclusions, echoing Level 5's small-group-size caution.</span>
+<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
+<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
 <span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pivot_longer(df, cols = ..., names_to = "...", values_to = "...")`</span> stacks multiple wide columns into two long columns: one for former names, one for former values.</span>
-<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`cols`</span> accepts the same tidyselect helpers (<span class="in">`starts_with()`</span>, etc.) as Level 5's <span class="in">`select()`</span>.</span>
-<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Reshaping to long format is often the necessary first step before <span class="in">`group_by()`</span>-based analysis across a repeated measurement like "visit."</span>
-<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
-<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
+<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Forgetting `cols` needs to select only the columns you want stacked.** If `bp_wide` also has `weight_visit1`/`weight_visit2`/`weight_visit3` columns and you only specify `cols = starts_with("sbp_visit")`, those weight columns stay wide — and get **duplicated across every new long row** for a participant, since each of their 3 sbp rows now repeats the same weight values. This isn't wrong, just worth noticing (the next multiple-value page shows how to pivot both measurements together, avoiding the duplication).</span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Mixing up `names_to` and `values_to`.** <span class="in">`names_to`</span> names the column that will hold the *former column names* (like `"visit1"`); `values_to` names the column that will hold the *former column values* (like <span class="in">`125`</span>). Swapping them produces a working but confusingly labeled result.</span>
+<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Forgetting `library(tidyr)`.** <span class="in">`pivot_longer()`</span> lives in the <span class="in">`tidyr`</span> package, not <span class="in">`dplyr`</span> — both are part of the tidyverse, but they're technically separate packages.</span>
+<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
 <span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** What does <span class="in">`names_to`</span> specify in <span class="in">`pivot_longer()`</span>?</span>
-<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a>   a) The name of the column holding former column values</span>
-<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a>   b) The name of the column holding former column names</span>
-<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a>   c) Which columns to pivot</span>
-<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a>   d) The final row count</span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`pivot_longer()`</span> to reshape only the <span class="in">`weight_visit1`</span>/<span class="in">`weight_visit2`</span>/<span class="in">`weight_visit3`</span> columns into long format, with <span class="in">`names_to = "visit"`</span> and <span class="in">`values_to = "weight"`</span>. Confirm the result has 84 rows.</span>
+<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
+<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a>After reshaping <span class="in">`sbp`</span> to long format, use <span class="in">`group_by(visit)`</span> and <span class="in">`summarise()`</span> to compute both the mean **and** the count (<span class="in">`n()`</span>) of non-missing <span class="in">`sbp`</span> values per visit. Which visit has the smallest sample size, and why might that be (hint: recall the dropout pattern from <span class="in">`data/bp_visits_wide.csv`</span>)?</span>
 <span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** <span class="in">`pivot_longer()`</span>'s <span class="in">`cols`</span> argument can use <span class="in">`starts_with()`</span> and other tidyselect helpers from Level 5.</span>
+<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
 <span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.** If a wide data frame has 10 rows and 4 columns matching a <span class="in">`pivot_longer()`</span> call's <span class="in">`cols`</span>, how many rows will the long-format result have?</span>
-<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Find the error.**</span>
-<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
-<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a>   <span class="fu">pivot_longer</span>(bp_wide, <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>), <span class="at">names_to =</span> <span class="st">"sbp"</span>, <span class="at">values_to =</span> <span class="st">"visit"</span>)</span>
-<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pivot_longer(df, cols = ..., names_to = "...", values_to = "...")`</span> stacks multiple wide columns into two long columns: one for former names, one for former values.</span>
+<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`cols`</span> accepts the same tidyselect helpers (<span class="in">`starts_with()`</span>, etc.) as Level 5's <span class="in">`select()`</span>.</span>
+<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Reshaping to long format is often the necessary first step before <span class="in">`group_by()`</span>-based analysis across a repeated measurement like "visit."</span>
+<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
+<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
 <span id="cb10-163"><a href="#cb10-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
-<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**b)** The name of the column holding former column names.</span>
-<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True.** <span class="in">`pivot_longer()`</span>'s <span class="in">`cols`</span> argument uses the same tidyselect syntax as <span class="in">`select()`</span>.</span>
-<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>40 rows (10 rows × 4 pivoted columns).</span>
-<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="in">`names_to`</span> and <span class="in">`values_to`</span> are swapped — this labels the *column names* (`"sbp_visit1"`, etc.) as `sbp` and the *blood pressure values* (<span class="in">`125`</span>, etc.) as <span class="in">`visit`</span>, exactly backwards. It should be <span class="in">`names_to = "visit", values_to = "sbp"`</span>.</span>
+<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** What does <span class="in">`names_to`</span> specify in <span class="in">`pivot_longer()`</span>?</span>
+<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a>   a) The name of the column holding former column values</span>
+<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a>   b) The name of the column holding former column names</span>
+<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a>   c) Which columns to pivot</span>
+<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a>   d) The final row count</span>
+<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** <span class="in">`pivot_longer()`</span>'s <span class="in">`cols`</span> argument can use <span class="in">`starts_with()`</span> and other tidyselect helpers from Level 5.</span>
 <span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.** If a wide data frame has 10 rows and 4 columns matching a <span class="in">`pivot_longer()`</span> call's <span class="in">`cols`</span>, how many rows will the long-format result have?</span>
+<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Find the error.**</span>
+<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
+<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a>   <span class="fu">pivot_longer</span>(bp_wide, <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"sbp_visit"</span>), <span class="at">names_to =</span> <span class="st">"sbp"</span>, <span class="at">values_to =</span> <span class="st">"visit"</span>)</span>
+<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
+<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**b)** The name of the column holding former column names.</span>
+<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True.** <span class="in">`pivot_longer()`</span>'s <span class="in">`cols`</span> argument uses the same tidyselect syntax as <span class="in">`select()`</span>.</span>
+<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>40 rows (10 rows × 4 pivoted columns).</span>
+<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="in">`names_to`</span> and <span class="in">`values_to`</span> are swapped — this labels the *column names* (`"sbp_visit1"`, etc.) as `sbp` and the *blood pressure values* (<span class="in">`125`</span>, etc.) as <span class="in">`visit`</span>, exactly backwards. It should be <span class="in">`names_to = "visit", values_to = "sbp"`</span>.</span>
+<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>R for Public Health — a Problem-Based Learning course built with Quarto.</p>
 </div>   
@@ -2276,8 +2479,6 @@ Show answers
 </div>
   </div>
 </footer>
-
-
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>

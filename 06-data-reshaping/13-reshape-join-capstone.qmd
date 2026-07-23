@@ -23,7 +23,8 @@ Chain reshaping and joining together in a single analysis: reshape to compute a 
 
 Real analyses frequently need both reshaping *and* joining — reshape one dataset into an analysis-ready shape, then join in additional variables from an entirely different source before the real analysis can happen:
 
-```r
+```{r}
+#| eval: false
 df |>
   pivot_longer(...) |>          # reshape to long
   filter(...) |>
@@ -34,7 +35,8 @@ df |>
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 library(tidyr)
 
@@ -55,7 +57,8 @@ nrow(bp_change)
 [1] 26
 ```
 
-```r
+```{r}
+#| eval: false
 bp_change_with_age <- left_join(bp_change, baseline[, c("id", "age")], by = "id")
 
 sum(is.na(bp_change_with_age$age))
@@ -73,7 +76,8 @@ Try `filter(bp_change_with_age, is.na(age))` and inspect which ids these are. Co
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 library(tidyr)
 

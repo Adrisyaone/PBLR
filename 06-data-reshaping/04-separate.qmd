@@ -23,11 +23,13 @@ Split one column into two or more columns using `tidyr::separate()`.
 
 **`separate()`** splits one column into multiple columns, based on a separator character:
 
-```r
+```{r}
+#| eval: false
 separate(df, col, into = c("new_col1", "new_col2"), sep = "separator")
 ```
 
-```r
+```{r}
+#| eval: false
 separate(bp_wide, clinic_site, into = c("county_check", "direction"), sep = "-")
 ```
 
@@ -35,7 +37,8 @@ separate(bp_wide, clinic_site, into = c("county_check", "direction"), sep = "-")
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(tidyr)
 
 bp_wide <- read.csv("data/bp_visits_wide.csv")
@@ -64,7 +67,8 @@ Try `table(bp_split$direction)`. With 28 participants across 4 directions (North
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(tidyr)
 
 bp_wide <- read.csv("data/bp_visits_wide.csv")
@@ -82,7 +86,8 @@ table(bp_split$direction)
     7     7     7     7
 ```
 
-```r
+```{r}
+#| eval: false
 identical(bp_split$county, bp_split$county_check)
 ```
 

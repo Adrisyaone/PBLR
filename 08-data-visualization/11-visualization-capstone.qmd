@@ -23,7 +23,8 @@ Combine `geom_point()`, `geom_smooth()`, color grouping, and full labeling into 
 
 When `color` (or `fill`) is mapped inside the initial `ggplot()` call, every subsequent layer — including `geom_smooth()` — automatically applies **per group**, without any extra code:
 
-```r
+```{r}
+#| eval: false
 ggplot(data = df, aes(x = x_col, y = y_col, color = grouping_col)) +
   geom_point() +
   geom_smooth(method = "lm")
@@ -33,7 +34,8 @@ This produces one trend line *per category* of the grouping variable, each color
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")
@@ -51,7 +53,8 @@ Try removing `se = FALSE` and comparing how much busier the plot looks with both
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")

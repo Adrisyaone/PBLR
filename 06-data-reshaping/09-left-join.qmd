@@ -23,11 +23,13 @@ Combine two data frames, keeping every row from the first ("left") data frame, u
 
 **`left_join()`** keeps every row from the first ("left") data frame, and attaches matching columns from the second ("right") data frame wherever a match exists — filling in `NA` where it doesn't:
 
-```r
+```{r}
+#| eval: false
 left_join(left_df, right_df, by = "key_column")
 ```
 
-```r
+```{r}
+#| eval: false
 left_join(baseline, followup, by = "id")
 ```
 
@@ -35,7 +37,8 @@ The result always has **at least as many rows as `left_df`** (exactly as many, u
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 baseline <- read.csv("data/baseline_enrollment.csv")
@@ -52,7 +55,8 @@ nrow(combined)
 
 All 20 baseline participants are present, exactly as many rows as `baseline` alone had.
 
-```r
+```{r}
+#| eval: false
 combined[combined$id %in% c(16, 17, 18), ]
 ```
 
@@ -71,7 +75,8 @@ Try `sum(is.na(combined$followup_sbp))`. You might expect exactly 5 (the dropout
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 baseline <- read.csv("data/baseline_enrollment.csv")
@@ -86,7 +91,8 @@ nrow(combined)
 [1] 20
 ```
 
-```r
+```{r}
+#| eval: false
 sum(is.na(combined$followup_sbp))
 ```
 
@@ -94,7 +100,8 @@ sum(is.na(combined$followup_sbp))
 [1] 6
 ```
 
-```r
+```{r}
+#| eval: false
 combined[combined$id == 11, c("id", "county", "followup_sbp")]
 ```
 

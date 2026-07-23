@@ -1,0 +1,152 @@
+# Tables and Figures {#sec-tables-and-figures}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 5's `group_by(county) %>% summarise()` produces a tidy data frame, and Level 8's `ggplot()` produces a plot object — but simply typing either one's variable name into a code chunk prints them in R's plain console style, not as a polished, captioned table or figure suitable for a real report. Your professor wants both to look publication-ready in the rendered document, with proper captions.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Render data frames as clean tables and `ggplot()` objects as properly captioned figures inside a Quarto document.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 5's `summarise()` output already displays reasonably as plain text. What would a table need, beyond raw text alignment, to look like a table in a published report (borders, header styling, a caption)?
+- Every figure in a scientific report needs a caption identifying what it shows. Would you rather add that caption as a separate line of prose, or as part of the code chunk that creates the plot itself?
+:::
+
+## The R Concept
+
+**`knitr::kable()`** turns a data frame into a properly formatted table in the rendered output, and chunk options add a caption:
+
+```{r}
+#| eval: false
+#| tbl-cap: "Mean blood pressure by county"
+knitr::kable(county_summary)
+```
+
+For figures, the `#| fig-cap` chunk option attaches a caption directly to a plot's output, and `#| fig-width` / `#| fig-height` control its size:
+
+```{r}
+#| eval: false
+#| fig-cap: "Systolic blood pressure by age, colored by smoking status"
+#| fig-width: 7
+#| fig-height: 5
+ggplot(participants, aes(x = age, y = systolic_bp, color = smoker)) +
+  geom_point()
+```
+
+## Demonstration
+
+```{r}
+#| eval: false
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+county_summary <- participants |>
+  group_by(county) |>
+  summarise(n = n(), mean_sbp = round(mean(systolic_bp, na.rm = TRUE), 1))
+
+knitr::kable(county_summary)
+```
+
+```
+|county      |  n| mean_sbp|
+|:-----------|--:|--------:|
+|Cedar Falls | 20|    128.2|
+|Millbrook   | 21|    133.3|
+|Oakford     | 17|    129.7|
+|Riverdale   | 16|    124.4|
+|Springvale  | 26|    131.5|
+```
+
+## Explore
+
+Try adding `#| tbl-cap: "Mean systolic blood pressure by county"` directly above this chunk (Quarto's convention: chunk options go on lines starting with `#|`, immediately inside the code chunk). Rendered, the table gains a numbered caption like "Table 1: Mean systolic blood pressure by county" — and Page 5 shows how to cross-reference that exact table by number elsewhere in the same document.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+```
+
+````
+ˋˋˋ{r}
+#| fig-cap: "Systolic blood pressure vs. age, colored by smoking status"
+#| fig-width: 7
+#| fig-height: 5
+ggplot(participants, aes(x = age, y = systolic_bp, color = smoker)) +
+  geom_point(alpha = 0.7) +
+  labs(x = "Age (years)", y = "Systolic Blood Pressure (mmHg)",
+       title = "Blood Pressure vs. Age by Smoking Status")
+ˋˋˋ
+````
+
+```
+[Renders a captioned scatter plot, sized 7 by 5 inches, with the caption
+ "Figure 1: Systolic blood pressure vs. age, colored by smoking status"
+ automatically numbered and placed according to this document's
+ fig-cap-location setting (bottom, per this course's own _quarto.yml).]
+```
+
+The `#| fig-cap` option attached a caption directly to the chunk producing the plot — no separate prose paragraph describing "the figure above" was needed, and the caption's wording lives right next to the code that generates the figure it describes, keeping the two in sync automatically.
+
+## Interpret the Result
+
+`knitr::kable()` and `#| fig-cap`/`#| tbl-cap` chunk options turn raw R output into report-ready tables and figures without leaving the reproducible-document workflow — no manual copy-pasting a plot into a separate image-editing tool, and no retyping a table's numbers into a word processor. Both stay directly tied to the underlying code, so re-running the same document with updated data automatically regenerates correctly-captioned tables and figures, with zero manual re-formatting.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Printing a raw data frame instead of using `knitr::kable()`.** Simply typing `county_summary` in a chunk shows R's plain console-style output, not a clean, bordered table — `knitr::kable()` is what actually produces report-quality formatting.
+- **Forgetting `#| fig-cap` and `#| tbl-cap` are chunk options, not something you type into prose.** These captions must be placed as `#|`-prefixed lines directly inside the code chunk that produces the figure or table — writing "Figure 1: ..." manually as prose bypasses Quarto's automatic numbering and cross-referencing (Page 5) entirely.
+- **Setting figure dimensions too large or small for the intended output format.** A `fig-width` sensible for a wide HTML page might look cramped or oversized in a narrower PDF page layout — Level 12/13's diagnostic plots and this level's figures should be sized with the final rendered format in mind.
+:::
+
+## Practice Problem
+
+Use `knitr::kable()` to render Level 7's cross-tabulation of `sex` and `smoker` as a formatted table, with a caption reading "Smoking status by sex."
+
+## Challenge Problem
+
+Recreate Level 8's faceted BMI-by-county histogram (from `09-facets.qmd`) as a properly captioned figure with `#| fig-cap`, `#| fig-width: 9`, and `#| fig-height: 6`, and explain in one sentence why a faceted plot with 5 panels might need a larger `fig-width` than the single-panel scatter plot demonstrated on this page.
+
+## Key Takeaways
+
+- `knitr::kable(data_frame)` renders a data frame as a clean, properly formatted table in a rendered Quarto document, rather than plain console-style text.
+- `#| fig-cap` and `#| tbl-cap` chunk options attach automatically-numbered captions directly to the code chunk producing a figure or table.
+- `#| fig-width` and `#| fig-height` control a figure's rendered size — worth adjusting based on the final output format (HTML vs. PDF) and the plot's complexity (a single panel vs. several facets).
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `knitr::kable()` do?
+   a) Creates a new data frame from a CSV file
+   b) Renders a data frame as a clean, formatted table in the output document
+   c) Automatically fits a regression model
+   d) Converts a table into a ggplot object
+
+2. **True or false.** `#| fig-cap` must be written as prose text below the figure, not as a chunk option.
+
+3. **Predict the output.** If a chunk includes `#| tbl-cap: "Mean systolic blood pressure by county"` above a `knitr::kable()` call, would the rendered table include an automatically-numbered caption?
+
+4. **Short answer.** Why does keeping a figure's caption inside the same code chunk that produces the figure (rather than as separate prose) help keep a document accurate over time?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Renders a data frame as a clean, formatted table in the output document.
+2. **False.** `#| fig-cap` is a chunk option, written as a `#|`-prefixed line directly inside the code chunk, not as separate prose text.
+3. Yes — the rendered table would display with an automatically-numbered caption, "Table 1: Mean systolic blood pressure by county" (or similar, depending on numbering elsewhere in the document).
+4. Keeping the caption directly with the code that generates the figure means the two can never drift out of sync — if the figure's content changes, the caption sits right there as an obvious reminder to check whether its wording still accurately describes what's shown.
+
+</details>
+:::

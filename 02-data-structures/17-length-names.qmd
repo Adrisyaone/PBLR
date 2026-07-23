@@ -23,7 +23,8 @@ Understand what `length()` actually measures on different object types, and use 
 
 **`length()`** measures the number of *top-level elements* in an object — but what counts as a "top-level element" depends entirely on the structure:
 
-```r
+```{r}
+#| eval: false
 length(vector)      # number of individual values
 length(list_obj)     # number of top-level list elements (as you saw last-but-one page)
 length(data_frame)   # number of COLUMNS - because a data frame is a list of columns!
@@ -33,7 +34,8 @@ This last one is the trap the intern fell into: a data frame is, structurally, a
 
 **`names()`** retrieves (or sets) the labels attached to an object's top-level elements:
 
-```r
+```{r}
+#| eval: false
 names(vector)       # element names, if any (as with named vectors)
 names(list_obj)      # the list's element names
 names(data_frame)    # the column names
@@ -41,7 +43,8 @@ names(data_frame)    # the column names
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 length(participants)
@@ -51,7 +54,8 @@ length(participants)
 [1] 8
 ```
 
-```r
+```{r}
+#| eval: false
 nrow(participants)
 ```
 
@@ -59,7 +63,8 @@ nrow(participants)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 names(participants)
 ```
 
@@ -68,7 +73,8 @@ names(participants)
 [6] "diastolic_bp" "bmi"          "smoker"
 ```
 
-```r
+```{r}
+#| eval: false
 # length() on the age COLUMN (a vector) behaves as expected
 length(participants$age)
 ```
@@ -83,7 +89,8 @@ Run `length(participants$age)` versus `length(participants)` side by side, and n
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 # What the intern actually needed:
 nrow(participants)    # 100 - the number of rows (participants)
 ```
@@ -92,7 +99,8 @@ nrow(participants)    # 100 - the number of rows (participants)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 # What length() actually measured:
 length(participants)  # 8 - the number of columns (variables)
 ```
@@ -101,7 +109,8 @@ length(participants)  # 8 - the number of columns (variables)
 [1] 8
 ```
 
-```r
+```{r}
+#| eval: false
 names(participants)   # the 8 column names, confirming what's being counted
 ```
 

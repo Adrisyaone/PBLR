@@ -23,7 +23,8 @@ Test whether two categorical variables are statistically associated, using a chi
 
 The **chi-square test of independence** compares a cross-tabulation's *observed* counts against the counts you'd *expect* if the two variables were completely unrelated, producing a p-value:
 
-```r
+```{r}
+#| eval: false
 chisq.test(table(var1, var2))
 ```
 
@@ -31,7 +32,8 @@ By default, R applies a continuity correction (Yates' correction) for 2×2 table
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 sex_smoker_table <- table(participants$sex, participants$smoker)
@@ -44,7 +46,8 @@ Female  42  10
 Male    33  15
 ```
 
-```r
+```{r}
+#| eval: false
 chisq.test(sex_smoker_table)
 ```
 
@@ -62,7 +65,8 @@ Try `chisq.test(sex_smoker_table)$expected` to see the counts that *would* be ex
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 sex_smoker_table <- table(participants$sex, participants$smoker)
@@ -77,7 +81,8 @@ X-squared
  1.335470
 ```
 
-```r
+```{r}
+#| eval: false
 test_result$p.value
 ```
 
@@ -85,7 +90,8 @@ test_result$p.value
 [1] 0.2478344
 ```
 
-```r
+```{r}
+#| eval: false
 test_result$expected
 ```
 

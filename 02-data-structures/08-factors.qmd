@@ -23,11 +23,13 @@ Convert a character variable into a factor with an explicitly defined, meaningfu
 
 A **factor** is R's data structure for categorical variables — data that takes on a limited set of distinct values (called **levels**). Unlike plain character data, a factor can have its levels placed in a specific, meaningful order that R will then respect everywhere: in tables, summaries, and plots.
 
-```r
+```{r}
+#| eval: false
 factor(x, levels = c(...))
 ```
 
-```r
+```{r}
+#| eval: false
 bmi_category <- c("Overweight", "Normal", "Obese", "Normal")
 bmi_factor <- factor(
   bmi_category,
@@ -39,7 +41,8 @@ Without the `levels` argument, `factor()` still works, but defaults to alphabeti
 
 For categories with a genuine ranking (like BMI category, or a Likert-style survey response), you can additionally mark the factor as **ordered**:
 
-```r
+```{r}
+#| eval: false
 factor(x, levels = c(...), ordered = TRUE)
 ```
 
@@ -47,7 +50,8 @@ An ordered factor supports `<` and `>` comparisons between categories (e.g., "Ov
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 bmi_category <- c("Overweight", "Normal", "Obese", "Normal", "Underweight")
 
 # Without specifying levels - defaults to alphabetical order
@@ -59,7 +63,8 @@ factor(bmi_category)
 Levels: Normal Obese Overweight Underweight
 ```
 
-```r
+```{r}
+#| eval: false
 # With explicit, clinically meaningful order
 bmi_factor <- factor(
   bmi_category,
@@ -73,7 +78,8 @@ bmi_factor
 Levels: Underweight Normal Overweight Obese
 ```
 
-```r
+```{r}
+#| eval: false
 table(bmi_factor)
 ```
 
@@ -91,7 +97,8 @@ Try creating an ordered version: `factor(bmi_category, levels = c("Underweight",
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Build the BMI category variable using base R conditional logic

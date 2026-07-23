@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.31">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>48&nbsp; Checking Imported Data – R for Public Health: A Problem-Based Learning Course</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -79,8 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-82f2f6d5827a576a8c9f217aaf8aa84a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -106,13 +101,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<style>html{ scroll-behavior: smooth; }</style>
-
-
+}</script><style>html{ scroll-behavior: smooth; }</style>
 <link rel="stylesheet" href="../styles.css">
 </head>
-
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
@@ -278,26 +269,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../03-data-import/00-overview.html">Level 3: Data Import and Export</a></li><li class="breadcrumb-item"><a href="../03-data-import/11-checking-imported-data.html"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Checking Imported Data</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../03-data-import/00-overview.html">Level 3 — Data Import and Export</a></li><li class="breadcrumb-item"><a href="../03-data-import/11-checking-imported-data.html"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Checking Imported Data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">R for Public Health: A Problem-Based Learning Course</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -314,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
@@ -323,13 +308,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 1: Getting Started with R</span></a>
+ <span class="menu-text">Level 1 — Getting Started with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../01-getting-started/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 1 — Getting Started with R</span></a>
@@ -456,17 +441,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 2: Data Structures in R</span></a>
+ <span class="menu-text">Level 2 — Data Structures in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 2 — Data Structures in R</span></a>
@@ -475,19 +460,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/01-vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code>c()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code></code></span></span></a><code><a href="https://rdrr.io/r/base/c.html">c()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/02-sequences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code>seq()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/03-rep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code>rep()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -559,33 +544,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/15-str.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code>str()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code></code></span></span></a><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/16-dimensions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code>nrow()</code>, <code>ncol()</code>, <code>dim()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>, <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code>, <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/17-length-names.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code>length()</code> and <code>names()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and <code><a href="https://rdrr.io/r/base/names.html">names()</a></code>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 3: Data Import and Export</span></a>
+ <span class="menu-text">Level 3 — Data Import and Export</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../03-data-import/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 3 — Data Import and Export</span></a>
@@ -664,17 +649,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 4: Data Cleaning with Base R</span></a>
+ <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
@@ -767,7 +752,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/15-ifelse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code>ifelse()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -783,17 +768,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 5: Tidyverse</span></a>
+ <span class="menu-text">Level 5 — Tidyverse</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 5 — Tidyverse</span></a>
@@ -808,7 +793,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/02-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code>filter()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -872,17 +857,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 6: Data Reshaping</span></a>
+ <span class="menu-text">Level 6 — Data Reshaping</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 6 — Data Reshaping</span></a>
@@ -967,17 +952,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 7: Descriptive Statistics</span></a>
+ <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
@@ -1004,7 +989,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/04-summary-function.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code>summary()</code> Function</span></span></a>
+ <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code></code></span></span></a><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> Function
   </div>
 </li>
           <li class="sidebar-item">
@@ -1022,7 +1007,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/07-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code>cor()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1032,17 +1017,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 8: Data Visualization with ggplot2</span></a>
+ <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
@@ -1115,17 +1100,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 9: Functions and Programming</span></a>
+ <span class="menu-text">Level 9 — Functions and Programming</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 9 — Functions and Programming</span></a>
@@ -1176,19 +1161,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/08-apply-family.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code>sapply()</code> and <code>lapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/09-purrr-map.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code>purrr::map()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code></code></span></span></a><code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/10-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code>stop()</code> and <code>warning()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code> and <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1198,17 +1183,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 10: Loops and Automation</span></a>
+ <span class="menu-text">Level 10 — Loops and Automation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 10 — Loops and Automation</span></a>
@@ -1247,7 +1232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/06-vapply-tapply.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code>vapply()</code> and <code>tapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">vapply()</a></code> and <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1263,17 +1248,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 11: Statistical Analysis in R</span></a>
+ <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
@@ -1330,7 +1315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/09-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code>lm()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1352,7 +1337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
@@ -1361,15 +1346,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../12-advanced-analysis/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 12 — Advanced Data Analysis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/01-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">142</span>&nbsp; <span class="chapter-title">Multiple Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/02-categorical-predictors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">143</span>&nbsp; <span class="chapter-title">Categorical Predictors in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/03-interaction-terms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">144</span>&nbsp; <span class="chapter-title">Interaction Terms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/04-confounding-adjustment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">145</span>&nbsp; <span class="chapter-title">Confounding and Adjustment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/05-model-comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">146</span>&nbsp; <span class="chapter-title">Comparing Nested Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/06-regression-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">147</span>&nbsp; <span class="chapter-title">Regression Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/07-multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">148</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/08-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">149</span>&nbsp; <span class="chapter-title">Predicting New Data with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/09-advanced-analysis-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">150</span>&nbsp; <span class="chapter-title">Level 12 Capstone: Choosing a Final Model</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
@@ -1378,15 +1417,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../13-advanced-r/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 13 — Advanced R Programming</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/01-environments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">151</span>&nbsp; <span class="chapter-title">Environments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/02-closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">152</span>&nbsp; <span class="chapter-title">Closures and Function Factories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/03-s3-object-system.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">153</span>&nbsp; <span class="chapter-title">A First Look at S3 Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/04-error-handling-trycatch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">154</span>&nbsp; <span class="chapter-title">Robust Error Handling with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/05-debugging-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">155</span>&nbsp; <span class="chapter-title">Debugging Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/06-functional-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">156</span>&nbsp; <span class="chapter-title">Functional Programming with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/funprog.html">Reduce()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/07-regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">157</span>&nbsp; <span class="chapter-title">Regular Expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/08-string-manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">158</span>&nbsp; <span class="chapter-title">String Manipulation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/09-working-with-dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">159</span>&nbsp; <span class="chapter-title">Working with Dates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/10-package-structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">160</span>&nbsp; <span class="chapter-title">The Anatomy of an R Package</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/11-advanced-r-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">161</span>&nbsp; <span class="chapter-title">Level 13 Capstone: A Resilient File-Reading Toolkit</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
@@ -1395,15 +1500,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../14-reproducible-research/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 14 — Reproducible Research</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/01-rmarkdown-vs-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">162</span>&nbsp; <span class="chapter-title">R Markdown vs.&nbsp;Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/02-yaml-front-matter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">163</span>&nbsp; <span class="chapter-title">YAML Front Matter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/03-code-chunks-inline-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">164</span>&nbsp; <span class="chapter-title">Code Chunks and Inline Code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/04-tables-and-figures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">165</span>&nbsp; <span class="chapter-title">Tables and Figures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/05-cross-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">166</span>&nbsp; <span class="chapter-title">Cross-References</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/06-citations-bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">167</span>&nbsp; <span class="chapter-title">Citations and Bibliographies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/07-parameterized-reports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">168</span>&nbsp; <span class="chapter-title">Parameterized Reports</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/08-output-formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">169</span>&nbsp; <span class="chapter-title">Choosing an Output Format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/09-projects-books-websites.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">170</span>&nbsp; <span class="chapter-title">Quarto Projects: Books and Websites</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/10-reproducible-research-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">171</span>&nbsp; <span class="chapter-title">Level 14 Capstone: A Complete Clinic Report Template</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
@@ -1412,26 +1577,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../15-capstone-projects/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 15 — Real-World Capstone Projects</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/01-capstone-hypertension-risk-factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">172</span>&nbsp; <span class="chapter-title">Capstone 1: Hypertension Risk Factors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/02-capstone-smoking-cardiovascular-risk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">173</span>&nbsp; <span class="chapter-title">Capstone 2: Smoking and Cardiovascular Risk</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/03-capstone-geographic-patterns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">174</span>&nbsp; <span class="chapter-title">Capstone 3: Geographic Patterns Across Counties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/04-capstone-longitudinal-blood-pressure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">175</span>&nbsp; <span class="chapter-title">Capstone 4: Longitudinal Blood Pressure and Attrition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/05-capstone-reproducible-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">176</span>&nbsp; <span class="chapter-title">Capstone 5: A Reproducible County Dashboard</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/06-independent-capstone-guidance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">177</span>&nbsp; <span class="chapter-title">Designing Your Own Independent Capstone</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">48.1</span> The R Concept</a></li>
+<li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">48.1</span> The R Concept</a></li>
   <li><a href="#demonstration" id="toc-demonstration" class="nav-link" data-scroll-target="#demonstration"><span class="header-section-number">48.2</span> Demonstration</a></li>
   <li><a href="#explore" id="toc-explore" class="nav-link" data-scroll-target="#explore"><span class="header-section-number">48.3</span> Explore</a></li>
   <li><a href="#solve-the-problem" id="toc-solve-the-problem" class="nav-link" data-scroll-target="#solve-the-problem"><span class="header-section-number">48.4</span> Solve the Problem</a></li>
@@ -1439,15 +1638,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#practice-problem" id="toc-practice-problem" class="nav-link" data-scroll-target="#practice-problem"><span class="header-section-number">48.6</span> Practice Problem</a></li>
   <li><a href="#challenge-problem" id="toc-challenge-problem" class="nav-link" data-scroll-target="#challenge-problem"><span class="header-section-number">48.7</span> Challenge Problem</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">48.8</span> Key Takeaways</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../03-data-import/00-overview.html">Level 3: Data Import and Export</a></li><li class="breadcrumb-item"><a href="../03-data-import/11-checking-imported-data.html"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Checking Imported Data</span></a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../03-data-import/00-overview.html">Level 3 — Data Import and Export</a></li><li class="breadcrumb-item"><a href="../03-data-import/11-checking-imported-data.html"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Checking Imported Data</span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span id="sec-checking-imported-data" class="quarto-section-identifier"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Checking Imported Data</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
@@ -1462,10 +1656,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<div class="pbl-box pbl-problem">
+</header><div class="pbl-box pbl-problem">
 <p><strong>The Problem</strong></p>
 <p>You’ve now learned, across this level, that a file can have extra header rows, disguised missing-value codes, and inconsistent capitalization — each discovered somewhat by accident, one page at a time. Before your next real analysis, you want a single, repeatable checklist you run on <em>any</em> freshly imported dataset, so you catch all of these problems immediately, together, rather than stumbling onto them one at a time.</p>
 </div>
@@ -1480,43 +1671,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>If you had to explain to a new intern “always run these steps first, no matter what file you just imported,” what would you tell them to check, in order?</li>
 </ul>
 </div>
-<section id="the-r-concept" class="level2" data-number="48.1">
-<h2 data-number="48.1" class="anchored" data-anchor-id="the-r-concept"><span class="header-section-number">48.1</span> The R Concept</h2>
+<section id="the-r-concept" class="level2" data-number="48.1"><h2 data-number="48.1" class="anchored" data-anchor-id="the-r-concept">
+<span class="header-section-number">48.1</span> The R Concept</h2>
 <p>There’s no single function that catches everything — but combining tools from this level and Level 2 into one consistent post-import routine catches nearly every common problem:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data)                       <span class="co"># does row/column count match expectations? (Level 2)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)                     <span class="co"># are column names sensible, not garbled? (this level)</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data)                       <span class="co"># did every column import as the expected type? (Level 1/2)</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)                      <span class="co"># do the first few rows look right, at a glance?</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(data, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))   <span class="co"># how much missing data per column?</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(data[<span class="fu">sapply</span>(data, is.character)], <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)))  <span class="co"># hidden duplicate categories?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>                       <span class="co"># does row/column count match expectations? (Level 2)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>                     <span class="co"># are column names sensible, not garbled? (this level)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>                       <span class="co"># did every column import as the expected type? (Level 1/2)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>                      <span class="co"># do the first few rows look right, at a glance?</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">data</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>   <span class="co"># how much missing data per column?</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">is.character</span><span class="op">)</span><span class="op">]</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  <span class="co"># hidden duplicate categories?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Don’t worry about the <code>sapply()</code> syntax yet
+Don’t worry about the <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> syntax yet
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The last two lines use <code>sapply()</code> to run a check across <em>every</em> column at once, rather than one at a time — you haven’t formally learned it yet (Level 10 covers it properly), but you can already read what it’s <em>for</em>: applying the same check to every column automatically instead of retyping it once per column.</p>
+<p>The last two lines use <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> to run a check across <em>every</em> column at once, rather than one at a time — you haven’t formally learned it yet (Level 10 covers it properly), but you can already read what it’s <em>for</em>: applying the same check to every column automatically instead of retyping it once per column.</p>
 </div>
 </div>
 <p>Running this checklist takes seconds and turns “I hope this imported correctly” into “I’ve verified this imported correctly,” every time.</p>
-</section>
-<section id="demonstration" class="level2" data-number="48.2">
-<h2 data-number="48.2" class="anchored" data-anchor-id="demonstration"><span class="header-section-number">48.2</span> Demonstration</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>participants_messy <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/participants_messy.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">"NA"</span>, <span class="st">"999"</span>, <span class="st">"N/A"</span>, <span class="st">"Unknown"</span>, <span class="st">""</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(participants_messy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="demonstration" class="level2" data-number="48.2"><h2 data-number="48.2" class="anchored" data-anchor-id="demonstration">
+<span class="header-section-number">48.2</span> Demonstration</h2>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">participants_messy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span></span>
+<span>  <span class="st">"data/participants_messy.csv"</span>, skip <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  na.strings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">"999"</span>, <span class="st">"N/A"</span>, <span class="st">"Unknown"</span>, <span class="st">""</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">participants_messy</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 20  8</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(participants_messy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">participants_messy</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] "id"           "age"          "sex"          "county"       "systolic_bp"
 [6] "diastolic_bp" "bmi"          "smoker"</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(participants_messy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">participants_messy</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>'data.frame':   20 obs. of  8 variables:
  $ id          : int  1 2 3 4 5 6 7 8 9 10 ...
  $ age         : int  46 53 59 45 61 18 62 NA 33 36 ...
@@ -1526,93 +1724,95 @@ Don’t worry about the <code>sapply()</code> syntax yet
  $ diastolic_bp: int  79 80 77 72 79 64 64 53 88 86 ...
  $ bmi         : num  35.1 27.7 28.3 30.4 21.5 24 19.7 29.7 22.4 NA ...
  $ smoker      : chr  "No" "No" "No" "No" ...</code></pre>
-</section>
-<section id="explore" class="level2" data-number="48.3">
-<h2 data-number="48.3" class="anchored" data-anchor-id="explore"><span class="header-section-number">48.3</span> Explore</h2>
+</section><section id="explore" class="level2" data-number="48.3"><h2 data-number="48.3" class="anchored" data-anchor-id="explore">
+<span class="header-section-number">48.3</span> Explore</h2>
 <p>Run <code>sapply(participants_messy, function(x) sum(is.na(x)))</code> and look for which columns have any missing data at all. Then run <code>sapply(participants_messy[sapply(participants_messy, is.character)], function(x) length(unique(x)))</code> and compare <code>county</code>’s count to <code>sex</code>’s and <code>smoker</code>’s — one of these three text columns should stand out as far messier than the other two.</p>
-</section>
-<section id="solve-the-problem" class="level2" data-number="48.4">
-<h2 data-number="48.4" class="anchored" data-anchor-id="solve-the-problem"><span class="header-section-number">48.4</span> Solve the Problem</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>participants_messy <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/participants_messy.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">"NA"</span>, <span class="st">"999"</span>, <span class="st">"N/A"</span>, <span class="st">"Unknown"</span>, <span class="st">""</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Full checklist, run every time</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(participants_messy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="solve-the-problem" class="level2" data-number="48.4"><h2 data-number="48.4" class="anchored" data-anchor-id="solve-the-problem">
+<span class="header-section-number">48.4</span> Solve the Problem</h2>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">participants_messy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span></span>
+<span>  <span class="st">"data/participants_messy.csv"</span>, skip <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  na.strings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">"999"</span>, <span class="st">"N/A"</span>, <span class="st">"Unknown"</span>, <span class="st">""</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Full checklist, run every time</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">participants_messy</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 20  8</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(participants_messy, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">participants_messy</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>          id          age          sex       county  systolic_bp diastolic_bp
            0            2            0            0            2            0
          bmi       smoker
            2            1</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(participants_messy[<span class="fu">sapply</span>(participants_messy, is.character)],</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">participants_messy</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">participants_messy</span>, <span class="va">is.character</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>       <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>   sex county smoker
      2     13      2</code></pre>
 <p>In four short commands, you now know: the data has the expected 20 rows and 8 columns; <code>age</code>, <code>systolic_bp</code>, and <code>bmi</code> have some missing values (2, 2, and 2 respectively) that need <code>na.rm = TRUE</code> in any summary; and <code>county</code> has 13 apparent categories where <code>sex</code> and <code>smoker</code> have a clean, expected 2 each — immediately flagging <code>county</code> as the column needing cleanup before any analysis grouped by it.</p>
-</section>
-<section id="interpret-the-result" class="level2" data-number="48.5">
-<h2 data-number="48.5" class="anchored" data-anchor-id="interpret-the-result"><span class="header-section-number">48.5</span> Interpret the Result</h2>
+</section><section id="interpret-the-result" class="level2" data-number="48.5"><h2 data-number="48.5" class="anchored" data-anchor-id="interpret-the-result">
+<span class="header-section-number">48.5</span> Interpret the Result</h2>
 <p>This four-step checklist — dimensions, missingness per column, and distinct-category counts per text column — took seconds to run and surfaced every major issue this level has covered: the right row/column count, exactly which columns have missing data and how much, and precisely which text column (<code>county</code>) needs standardizing before it can be trusted. This is the routine worth running on <em>every</em> new dataset you import, for the rest of this course.</p>
 <div class="pbl-box pbl-mistake">
 <p><strong>Common Mistakes</strong></p>
 <ul>
-<li><strong>Running this checklist once and considering the data “clean.”</strong> This checklist <em>diagnoses</em> problems — it doesn’t fix them. <code>county</code>’s 13 categories still need Level 4’s systematic cleaning tools before analysis.</li>
-<li><strong>Skipping the checklist on “simple-looking” files.</strong> Even a clean-looking 20-row file hid a disguised missing-value code (<code>999</code>) and 13 fragmented category values — appearances after a quick glance are not a substitute for actually running the checks.</li>
-<li><strong>Checking dimensions and stopping there.</strong> <code>dim()</code> confirms row/column <em>count</em> is right, but says nothing about whether the <em>contents</em> imported correctly — always follow it with the type and missingness checks too.</li>
+<li>
+<strong>Running this checklist once and considering the data “clean.”</strong> This checklist <em>diagnoses</em> problems — it doesn’t fix them. <code>county</code>’s 13 categories still need Level 4’s systematic cleaning tools before analysis.</li>
+<li>
+<strong>Skipping the checklist on “simple-looking” files.</strong> Even a clean-looking 20-row file hid a disguised missing-value code (<code>999</code>) and 13 fragmented category values — appearances after a quick glance are not a substitute for actually running the checks.</li>
+<li>
+<strong>Checking dimensions and stopping there.</strong> <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> confirms row/column <em>count</em> is right, but says nothing about whether the <em>contents</em> imported correctly — always follow it with the type and missingness checks too.</li>
 </ul>
 </div>
-</section>
-<section id="practice-problem" class="level2" data-number="48.6">
-<h2 data-number="48.6" class="anchored" data-anchor-id="practice-problem"><span class="header-section-number">48.6</span> Practice Problem</h2>
+</section><section id="practice-problem" class="level2" data-number="48.6"><h2 data-number="48.6" class="anchored" data-anchor-id="practice-problem">
+<span class="header-section-number">48.6</span> Practice Problem</h2>
 <p>Run this full checklist on the clean <code>data/participants.csv</code> file (imported the normal way, no <code>skip</code> or special <code>na.strings</code> needed) instead of the messy file. Confirm every column shows sensible missingness counts and that <code>sex</code>, <code>county</code>, and <code>smoker</code> all show plausible, small numbers of distinct categories.</p>
-</section>
-<section id="challenge-problem" class="level2" data-number="48.7">
-<h2 data-number="48.7" class="anchored" data-anchor-id="challenge-problem"><span class="header-section-number">48.7</span> Challenge Problem</h2>
-<p>Imagine a new intern asks you: “Why bother with all these checks if <code>read.csv()</code> already ran successfully with no error message?” Write a two-to-three sentence answer, using at least one specific example from this level, explaining why a successful import is not the same as a <em>correct</em> import.</p>
-</section>
-<section id="key-takeaways" class="level2" data-number="48.8">
-<h2 data-number="48.8" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">48.8</span> Key Takeaways</h2>
+</section><section id="challenge-problem" class="level2" data-number="48.7"><h2 data-number="48.7" class="anchored" data-anchor-id="challenge-problem">
+<span class="header-section-number">48.7</span> Challenge Problem</h2>
+<p>Imagine a new intern asks you: “Why bother with all these checks if <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> already ran successfully with no error message?” Write a two-to-three sentence answer, using at least one specific example from this level, explaining why a successful import is not the same as a <em>correct</em> import.</p>
+</section><section id="key-takeaways" class="level2" data-number="48.8"><h2 data-number="48.8" class="anchored" data-anchor-id="key-takeaways">
+<span class="header-section-number">48.8</span> Key Takeaways</h2>
 <ul>
 <li>A successful, error-free import is not the same as a correct one — always verify dimensions, column types, missingness, and category counts afterward.</li>
-<li><code>dim()</code>, <code>names()</code>, <code>str()</code>, and per-column missingness/uniqueness checks together form a fast, repeatable routine worth running on every new dataset.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>, <code><a href="https://rdrr.io/r/base/names.html">names()</a></code>, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>, and per-column missingness/uniqueness checks together form a fast, repeatable routine worth running on every new dataset.</li>
 <li>This checklist diagnoses problems; fixing them (like standardizing <code>county</code>’s 13 fragmented categories into 5) is Level 4’s job.</li>
 </ul>
 <div class="pbl-box pbl-check">
 <p><strong>Knowledge Check</strong></p>
 <ol type="1">
-<li><p><strong>Multiple choice.</strong> What does a successful <code>read.csv()</code> call with no error message guarantee?</p>
+<li>
+<p><strong>Multiple choice.</strong> What does a successful <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> call with no error message guarantee?</p>
 <ol type="a">
 <li>The data is completely clean and ready for analysis</li>
 <li>Only that R was able to read the file into a data frame - nothing about its correctness</li>
 <li>That there are no missing values</li>
 <li>That all column names are unique</li>
-</ol></li>
-<li><p><strong>True or false.</strong> <code>dim()</code> alone is sufficient to confirm a dataset imported correctly.</p></li>
+</ol>
+</li>
+<li><p><strong>True or false.</strong> <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> alone is sufficient to confirm a dataset imported correctly.</p></li>
 <li><p><strong>Predict the output.</strong> If a data frame has 50 rows and one column, <code>age</code>, with 5 missing values, what would <code>sum(is.na(df$age))</code> return?</p></li>
 <li><p><strong>Write the code.</strong> Write the single line of code to count the number of distinct values in a column called <code>region</code>, in a data frame called <code>survey</code>.</p></li>
 </ol>
-<details class="pbl-answer">
-<summary>
+<details class="pbl-answer"><summary>
 Show answers
-</summary>
-<ol type="1">
-<li><strong>b)</strong> Only that R was able to read the file into a data frame — it says nothing about whether the contents are correct.</li>
-<li><strong>False.</strong> <code>dim()</code> confirms row/column count only; it says nothing about column types, missing data, or hidden category duplicates.</li>
+</summary><ol type="1">
+<li>
+<strong>b)</strong> Only that R was able to read the file into a data frame — it says nothing about whether the contents are correct.</li>
+<li>
+<strong>False.</strong> <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> confirms row/column count only; it says nothing about column types, missing data, or hidden category duplicates.</li>
 <li><code>[1] 5</code></li>
 <li><code>length(unique(survey$region))</code></li>
-</ol>
-</details>
+</ol></details>
 </div>
 
 
 <!-- -->
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2074,9 +2274,7 @@ Show answers
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../03-data-import/10-missing-values-import.html" class="pagination-link" aria-label="Handling Missing Values on Import">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Handling Missing Values on Import</span></span>
       </a>          
@@ -2112,160 +2310,167 @@ Show answers
 <span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>There's no single function that catches everything — but combining tools from this level and Level 2 into one consistent post-import routine catches nearly every common problem:</span>
 <span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data)                       <span class="co"># does row/column count match expectations? (Level 2)</span></span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)                     <span class="co"># are column names sensible, not garbled? (this level)</span></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data)                       <span class="co"># did every column import as the expected type? (Level 1/2)</span></span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)                      <span class="co"># do the first few rows look right, at a glance?</span></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(data, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))   <span class="co"># how much missing data per column?</span></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(data[<span class="fu">sapply</span>(data, is.character)], <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)))  <span class="co"># hidden duplicate categories?</span></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## Don't worry about the `sapply()` syntax yet</span></span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>The last two lines use <span class="in">`sapply()`</span> to run a check across *every* column at once, rather than one at a time — you haven't formally learned it yet (Level 10 covers it properly), but you can already read what it's *for*: applying the same check to every column automatically instead of retyping it once per column.</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>Running this checklist takes seconds and turns "I hope this imported correctly" into "I've verified this imported correctly," every time.</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>participants_messy <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/participants_messy.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>,</span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">"NA"</span>, <span class="st">"999"</span>, <span class="st">"N/A"</span>, <span class="st">"Unknown"</span>, <span class="st">""</span>)</span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(participants_messy)</span>
-<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 20  8</span></span>
-<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(participants_messy)</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data)                       <span class="co"># does row/column count match expectations? (Level 2)</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)                     <span class="co"># are column names sensible, not garbled? (this level)</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data)                       <span class="co"># did every column import as the expected type? (Level 1/2)</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)                      <span class="co"># do the first few rows look right, at a glance?</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(data, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))   <span class="co"># how much missing data per column?</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(data[<span class="fu">sapply</span>(data, is.character)], <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)))  <span class="co"># hidden duplicate categories?</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Don't worry about the `sapply()` syntax yet</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>The last two lines use <span class="in">`sapply()`</span> to run a check across *every* column at once, rather than one at a time — you haven't formally learned it yet (Level 10 covers it properly), but you can already read what it's *for*: applying the same check to every column automatically instead of retyping it once per column.</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>Running this checklist takes seconds and turns "I hope this imported correctly" into "I've verified this imported correctly," every time.</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>participants_messy <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/participants_messy.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">"NA"</span>, <span class="st">"999"</span>, <span class="st">"N/A"</span>, <span class="st">"Unknown"</span>, <span class="st">""</span>)</span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(participants_messy)</span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 20  8</span></span>
 <span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a><span class="in">[1] "id"           "age"          "sex"          "county"       "systolic_bp"</span></span>
-<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a><span class="in">[6] "diastolic_bp" "bmi"          "smoker"</span></span>
-<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(participants_messy)</span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(participants_messy)</span>
 <span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a><span class="in">'data.frame':   20 obs. of  8 variables:</span></span>
-<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a><span class="in"> $ id          : int  1 2 3 4 5 6 7 8 9 10 ...</span></span>
-<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a><span class="in"> $ age         : int  46 53 59 45 61 18 62 NA 33 36 ...</span></span>
-<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a><span class="in"> $ sex         : chr  "Female" "Female" "Female" "Female" ...</span></span>
-<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a><span class="in"> $ county      : chr  "Oakford" "riverdale" "OAKFORD " "Millbrook" ...</span></span>
-<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a><span class="in"> $ systolic_bp : int  125 123 130 117 139 117 110 100 149 131 ...</span></span>
-<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a><span class="in"> $ diastolic_bp: int  79 80 77 72 79 64 64 53 88 86 ...</span></span>
-<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a><span class="in"> $ bmi         : num  35.1 27.7 28.3 30.4 21.5 24 19.7 29.7 22.4 NA ...</span></span>
-<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a><span class="in"> $ smoker      : chr  "No" "No" "No" "No" ...</span></span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a><span class="in">[1] "id"           "age"          "sex"          "county"       "systolic_bp"</span></span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a><span class="in">[6] "diastolic_bp" "bmi"          "smoker"</span></span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(participants_messy)</span>
 <span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
-<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`sapply(participants_messy, function(x) sum(is.na(x)))`</span> and look for which columns have any missing data at all. Then run <span class="in">`sapply(participants_messy[sapply(participants_messy, is.character)], function(x) length(unique(x)))`</span> and compare <span class="in">`county`</span>'s count to <span class="in">`sex`</span>'s and <span class="in">`smoker`</span>'s — one of these three text columns should stand out as far messier than the other two.</span>
-<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
-<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a>participants_messy <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/participants_messy.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>,</span>
-<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">"NA"</span>, <span class="st">"999"</span>, <span class="st">"N/A"</span>, <span class="st">"Unknown"</span>, <span class="st">""</span>)</span>
-<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a><span class="in">'data.frame':   20 obs. of  8 variables:</span></span>
+<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a><span class="in"> $ id          : int  1 2 3 4 5 6 7 8 9 10 ...</span></span>
+<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a><span class="in"> $ age         : int  46 53 59 45 61 18 62 NA 33 36 ...</span></span>
+<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a><span class="in"> $ sex         : chr  "Female" "Female" "Female" "Female" ...</span></span>
+<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a><span class="in"> $ county      : chr  "Oakford" "riverdale" "OAKFORD " "Millbrook" ...</span></span>
+<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a><span class="in"> $ systolic_bp : int  125 123 130 117 139 117 110 100 149 131 ...</span></span>
+<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a><span class="in"> $ diastolic_bp: int  79 80 77 72 79 64 64 53 88 86 ...</span></span>
+<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a><span class="in"> $ bmi         : num  35.1 27.7 28.3 30.4 21.5 24 19.7 29.7 22.4 NA ...</span></span>
+<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a><span class="in"> $ smoker      : chr  "No" "No" "No" "No" ...</span></span>
+<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb14-93"><a href="#cb14-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-94"><a href="#cb14-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Full checklist, run every time</span></span>
-<span id="cb14-95"><a href="#cb14-95" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(participants_messy)</span>
-<span id="cb14-96"><a href="#cb14-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-94"><a href="#cb14-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
+<span id="cb14-95"><a href="#cb14-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-96"><a href="#cb14-96" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`sapply(participants_messy, function(x) sum(is.na(x)))`</span> and look for which columns have any missing data at all. Then run <span class="in">`sapply(participants_messy[sapply(participants_messy, is.character)], function(x) length(unique(x)))`</span> and compare <span class="in">`county`</span>'s count to <span class="in">`sex`</span>'s and <span class="in">`smoker`</span>'s — one of these three text columns should stand out as far messier than the other two.</span>
 <span id="cb14-97"><a href="#cb14-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 20  8</span></span>
-<span id="cb14-100"><a href="#cb14-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-101"><a href="#cb14-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-102"><a href="#cb14-102" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-103"><a href="#cb14-103" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(participants_messy, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))</span>
-<span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a><span class="in">          id          age          sex       county  systolic_bp diastolic_bp</span></span>
-<span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a><span class="in">           0            2            0            0            2            0</span></span>
-<span id="cb14-109"><a href="#cb14-109" aria-hidden="true" tabindex="-1"></a><span class="in">         bmi       smoker</span></span>
-<span id="cb14-110"><a href="#cb14-110" aria-hidden="true" tabindex="-1"></a><span class="in">           2            1</span></span>
+<span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
+<span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-102"><a href="#cb14-102" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-103"><a href="#cb14-103" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a>participants_messy <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/participants_messy.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">"NA"</span>, <span class="st">"999"</span>, <span class="st">"N/A"</span>, <span class="st">"Unknown"</span>, <span class="st">""</span>)</span>
+<span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-109"><a href="#cb14-109" aria-hidden="true" tabindex="-1"></a><span class="co"># Full checklist, run every time</span></span>
+<span id="cb14-110"><a href="#cb14-110" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(participants_messy)</span>
 <span id="cb14-111"><a href="#cb14-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb14-112"><a href="#cb14-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-113"><a href="#cb14-113" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb14-114"><a href="#cb14-114" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(participants_messy[<span class="fu">sapply</span>(participants_messy, is.character)],</span>
-<span id="cb14-115"><a href="#cb14-115" aria-hidden="true" tabindex="-1"></a>       <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)))</span>
-<span id="cb14-116"><a href="#cb14-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-117"><a href="#cb14-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-118"><a href="#cb14-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-119"><a href="#cb14-119" aria-hidden="true" tabindex="-1"></a><span class="in">   sex county smoker</span></span>
-<span id="cb14-120"><a href="#cb14-120" aria-hidden="true" tabindex="-1"></a><span class="in">     2     13      2</span></span>
-<span id="cb14-121"><a href="#cb14-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-122"><a href="#cb14-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-123"><a href="#cb14-123" aria-hidden="true" tabindex="-1"></a>In four short commands, you now know: the data has the expected 20 rows and 8 columns; <span class="in">`age`</span>, <span class="in">`systolic_bp`</span>, and <span class="in">`bmi`</span> have some missing values (2, 2, and 2 respectively) that need <span class="in">`na.rm = TRUE`</span> in any summary; and <span class="in">`county`</span> has 13 apparent categories where <span class="in">`sex`</span> and <span class="in">`smoker`</span> have a clean, expected 2 each — immediately flagging <span class="in">`county`</span> as the column needing cleanup before any analysis grouped by it.</span>
-<span id="cb14-124"><a href="#cb14-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-125"><a href="#cb14-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
-<span id="cb14-126"><a href="#cb14-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-127"><a href="#cb14-127" aria-hidden="true" tabindex="-1"></a>This four-step checklist — dimensions, missingness per column, and distinct-category counts per text column — took seconds to run and surfaced every major issue this level has covered: the right row/column count, exactly which columns have missing data and how much, and precisely which text column (<span class="in">`county`</span>) needs standardizing before it can be trusted. This is the routine worth running on *every* new dataset you import, for the rest of this course.</span>
-<span id="cb14-128"><a href="#cb14-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-129"><a href="#cb14-129" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
-<span id="cb14-130"><a href="#cb14-130" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
-<span id="cb14-131"><a href="#cb14-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-132"><a href="#cb14-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Running this checklist once and considering the data "clean."** This checklist *diagnoses* problems — it doesn't fix them. <span class="in">`county`</span>'s 13 categories still need Level 4's systematic cleaning tools before analysis.</span>
-<span id="cb14-133"><a href="#cb14-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Skipping the checklist on "simple-looking" files.** Even a clean-looking 20-row file hid a disguised missing-value code (<span class="in">`999`</span>) and 13 fragmented category values — appearances after a quick glance are not a substitute for actually running the checks.</span>
-<span id="cb14-134"><a href="#cb14-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Checking dimensions and stopping there.** <span class="in">`dim()`</span> confirms row/column *count* is right, but says nothing about whether the *contents* imported correctly — always follow it with the type and missingness checks too.</span>
-<span id="cb14-135"><a href="#cb14-135" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb14-136"><a href="#cb14-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-137"><a href="#cb14-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
+<span id="cb14-113"><a href="#cb14-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-114"><a href="#cb14-114" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 20  8</span></span>
+<span id="cb14-115"><a href="#cb14-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-116"><a href="#cb14-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-119"><a href="#cb14-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-120"><a href="#cb14-120" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb14-121"><a href="#cb14-121" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(participants_messy, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))</span>
+<span id="cb14-122"><a href="#cb14-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-123"><a href="#cb14-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-124"><a href="#cb14-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-125"><a href="#cb14-125" aria-hidden="true" tabindex="-1"></a><span class="in">          id          age          sex       county  systolic_bp diastolic_bp</span></span>
+<span id="cb14-126"><a href="#cb14-126" aria-hidden="true" tabindex="-1"></a><span class="in">           0            2            0            0            2            0</span></span>
+<span id="cb14-127"><a href="#cb14-127" aria-hidden="true" tabindex="-1"></a><span class="in">         bmi       smoker</span></span>
+<span id="cb14-128"><a href="#cb14-128" aria-hidden="true" tabindex="-1"></a><span class="in">           2            1</span></span>
+<span id="cb14-129"><a href="#cb14-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-130"><a href="#cb14-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-133"><a href="#cb14-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-134"><a href="#cb14-134" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb14-135"><a href="#cb14-135" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(participants_messy[<span class="fu">sapply</span>(participants_messy, is.character)],</span>
+<span id="cb14-136"><a href="#cb14-136" aria-hidden="true" tabindex="-1"></a>       <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)))</span>
+<span id="cb14-137"><a href="#cb14-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb14-138"><a href="#cb14-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-139"><a href="#cb14-139" aria-hidden="true" tabindex="-1"></a>Run this full checklist on the clean <span class="in">`data/participants.csv`</span> file (imported the normal way, no <span class="in">`skip`</span> or special <span class="in">`na.strings`</span> needed) instead of the messy file. Confirm every column shows sensible missingness counts and that <span class="in">`sex`</span>, <span class="in">`county`</span>, and <span class="in">`smoker`</span> all show plausible, small numbers of distinct categories.</span>
-<span id="cb14-140"><a href="#cb14-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-141"><a href="#cb14-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
-<span id="cb14-142"><a href="#cb14-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-143"><a href="#cb14-143" aria-hidden="true" tabindex="-1"></a>Imagine a new intern asks you: "Why bother with all these checks if <span class="in">`read.csv()`</span> already ran successfully with no error message?" Write a two-to-three sentence answer, using at least one specific example from this level, explaining why a successful import is not the same as a *correct* import.</span>
-<span id="cb14-144"><a href="#cb14-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-145"><a href="#cb14-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
-<span id="cb14-146"><a href="#cb14-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-147"><a href="#cb14-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A successful, error-free import is not the same as a correct one — always verify dimensions, column types, missingness, and category counts afterward.</span>
-<span id="cb14-148"><a href="#cb14-148" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`dim()`</span>, <span class="in">`names()`</span>, <span class="in">`str()`</span>, and per-column missingness/uniqueness checks together form a fast, repeatable routine worth running on every new dataset.</span>
-<span id="cb14-149"><a href="#cb14-149" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>This checklist diagnoses problems; fixing them (like standardizing <span class="in">`county`</span>'s 13 fragmented categories into 5) is Level 4's job.</span>
-<span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
-<span id="cb14-152"><a href="#cb14-152" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
-<span id="cb14-153"><a href="#cb14-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-154"><a href="#cb14-154" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** What does a successful <span class="in">`read.csv()`</span> call with no error message guarantee?</span>
-<span id="cb14-155"><a href="#cb14-155" aria-hidden="true" tabindex="-1"></a>   a) The data is completely clean and ready for analysis</span>
-<span id="cb14-156"><a href="#cb14-156" aria-hidden="true" tabindex="-1"></a>   b) Only that R was able to read the file into a data frame - nothing about its correctness</span>
-<span id="cb14-157"><a href="#cb14-157" aria-hidden="true" tabindex="-1"></a>   c) That there are no missing values</span>
-<span id="cb14-158"><a href="#cb14-158" aria-hidden="true" tabindex="-1"></a>   d) That all column names are unique</span>
+<span id="cb14-139"><a href="#cb14-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-140"><a href="#cb14-140" aria-hidden="true" tabindex="-1"></a><span class="in">   sex county smoker</span></span>
+<span id="cb14-141"><a href="#cb14-141" aria-hidden="true" tabindex="-1"></a><span class="in">     2     13      2</span></span>
+<span id="cb14-142"><a href="#cb14-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-143"><a href="#cb14-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-144"><a href="#cb14-144" aria-hidden="true" tabindex="-1"></a>In four short commands, you now know: the data has the expected 20 rows and 8 columns; <span class="in">`age`</span>, <span class="in">`systolic_bp`</span>, and <span class="in">`bmi`</span> have some missing values (2, 2, and 2 respectively) that need <span class="in">`na.rm = TRUE`</span> in any summary; and <span class="in">`county`</span> has 13 apparent categories where <span class="in">`sex`</span> and <span class="in">`smoker`</span> have a clean, expected 2 each — immediately flagging <span class="in">`county`</span> as the column needing cleanup before any analysis grouped by it.</span>
+<span id="cb14-145"><a href="#cb14-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-146"><a href="#cb14-146" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
+<span id="cb14-147"><a href="#cb14-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-148"><a href="#cb14-148" aria-hidden="true" tabindex="-1"></a>This four-step checklist — dimensions, missingness per column, and distinct-category counts per text column — took seconds to run and surfaced every major issue this level has covered: the right row/column count, exactly which columns have missing data and how much, and precisely which text column (<span class="in">`county`</span>) needs standardizing before it can be trusted. This is the routine worth running on *every* new dataset you import, for the rest of this course.</span>
+<span id="cb14-149"><a href="#cb14-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
+<span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
+<span id="cb14-152"><a href="#cb14-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-153"><a href="#cb14-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Running this checklist once and considering the data "clean."** This checklist *diagnoses* problems — it doesn't fix them. <span class="in">`county`</span>'s 13 categories still need Level 4's systematic cleaning tools before analysis.</span>
+<span id="cb14-154"><a href="#cb14-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Skipping the checklist on "simple-looking" files.** Even a clean-looking 20-row file hid a disguised missing-value code (<span class="in">`999`</span>) and 13 fragmented category values — appearances after a quick glance are not a substitute for actually running the checks.</span>
+<span id="cb14-155"><a href="#cb14-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Checking dimensions and stopping there.** <span class="in">`dim()`</span> confirms row/column *count* is right, but says nothing about whether the *contents* imported correctly — always follow it with the type and missingness checks too.</span>
+<span id="cb14-156"><a href="#cb14-156" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb14-157"><a href="#cb14-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-158"><a href="#cb14-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
 <span id="cb14-159"><a href="#cb14-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-160"><a href="#cb14-160" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** <span class="in">`dim()`</span> alone is sufficient to confirm a dataset imported correctly.</span>
+<span id="cb14-160"><a href="#cb14-160" aria-hidden="true" tabindex="-1"></a>Run this full checklist on the clean <span class="in">`data/participants.csv`</span> file (imported the normal way, no <span class="in">`skip`</span> or special <span class="in">`na.strings`</span> needed) instead of the messy file. Confirm every column shows sensible missingness counts and that <span class="in">`sex`</span>, <span class="in">`county`</span>, and <span class="in">`smoker`</span> all show plausible, small numbers of distinct categories.</span>
 <span id="cb14-161"><a href="#cb14-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-162"><a href="#cb14-162" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.** If a data frame has 50 rows and one column, <span class="in">`age`</span>, with 5 missing values, what would <span class="in">`sum(is.na(df$age))`</span> return?</span>
+<span id="cb14-162"><a href="#cb14-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
 <span id="cb14-163"><a href="#cb14-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-164"><a href="#cb14-164" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Write the code.** Write the single line of code to count the number of distinct values in a column called <span class="in">`region`</span>, in a data frame called <span class="in">`survey`</span>.</span>
+<span id="cb14-164"><a href="#cb14-164" aria-hidden="true" tabindex="-1"></a>Imagine a new intern asks you: "Why bother with all these checks if <span class="in">`read.csv()`</span> already ran successfully with no error message?" Write a two-to-three sentence answer, using at least one specific example from this level, explaining why a successful import is not the same as a *correct* import.</span>
 <span id="cb14-165"><a href="#cb14-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-166"><a href="#cb14-166" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
-<span id="cb14-167"><a href="#cb14-167" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb14-168"><a href="#cb14-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-169"><a href="#cb14-169" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**b)** Only that R was able to read the file into a data frame — it says nothing about whether the contents are correct.</span>
-<span id="cb14-170"><a href="#cb14-170" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**False.** <span class="in">`dim()`</span> confirms row/column count only; it says nothing about column types, missing data, or hidden category duplicates.</span>
-<span id="cb14-171"><a href="#cb14-171" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="in">`[1] 5`</span></span>
-<span id="cb14-172"><a href="#cb14-172" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="in">`length(unique(survey$region))`</span></span>
-<span id="cb14-173"><a href="#cb14-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-174"><a href="#cb14-174" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb14-175"><a href="#cb14-175" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb14-166"><a href="#cb14-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
+<span id="cb14-167"><a href="#cb14-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-168"><a href="#cb14-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A successful, error-free import is not the same as a correct one — always verify dimensions, column types, missingness, and category counts afterward.</span>
+<span id="cb14-169"><a href="#cb14-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`dim()`</span>, <span class="in">`names()`</span>, <span class="in">`str()`</span>, and per-column missingness/uniqueness checks together form a fast, repeatable routine worth running on every new dataset.</span>
+<span id="cb14-170"><a href="#cb14-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>This checklist diagnoses problems; fixing them (like standardizing <span class="in">`county`</span>'s 13 fragmented categories into 5) is Level 4's job.</span>
+<span id="cb14-171"><a href="#cb14-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-172"><a href="#cb14-172" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
+<span id="cb14-173"><a href="#cb14-173" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
+<span id="cb14-174"><a href="#cb14-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-175"><a href="#cb14-175" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** What does a successful <span class="in">`read.csv()`</span> call with no error message guarantee?</span>
+<span id="cb14-176"><a href="#cb14-176" aria-hidden="true" tabindex="-1"></a>   a) The data is completely clean and ready for analysis</span>
+<span id="cb14-177"><a href="#cb14-177" aria-hidden="true" tabindex="-1"></a>   b) Only that R was able to read the file into a data frame - nothing about its correctness</span>
+<span id="cb14-178"><a href="#cb14-178" aria-hidden="true" tabindex="-1"></a>   c) That there are no missing values</span>
+<span id="cb14-179"><a href="#cb14-179" aria-hidden="true" tabindex="-1"></a>   d) That all column names are unique</span>
+<span id="cb14-180"><a href="#cb14-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-181"><a href="#cb14-181" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** <span class="in">`dim()`</span> alone is sufficient to confirm a dataset imported correctly.</span>
+<span id="cb14-182"><a href="#cb14-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-183"><a href="#cb14-183" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.** If a data frame has 50 rows and one column, <span class="in">`age`</span>, with 5 missing values, what would <span class="in">`sum(is.na(df$age))`</span> return?</span>
+<span id="cb14-184"><a href="#cb14-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-185"><a href="#cb14-185" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Write the code.** Write the single line of code to count the number of distinct values in a column called <span class="in">`region`</span>, in a data frame called <span class="in">`survey`</span>.</span>
+<span id="cb14-186"><a href="#cb14-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-187"><a href="#cb14-187" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
+<span id="cb14-188"><a href="#cb14-188" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb14-189"><a href="#cb14-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-190"><a href="#cb14-190" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**b)** Only that R was able to read the file into a data frame — it says nothing about whether the contents are correct.</span>
+<span id="cb14-191"><a href="#cb14-191" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**False.** <span class="in">`dim()`</span> confirms row/column count only; it says nothing about column types, missing data, or hidden category duplicates.</span>
+<span id="cb14-192"><a href="#cb14-192" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="in">`[1] 5`</span></span>
+<span id="cb14-193"><a href="#cb14-193" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="in">`length(unique(survey$region))`</span></span>
+<span id="cb14-194"><a href="#cb14-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-195"><a href="#cb14-195" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb14-196"><a href="#cb14-196" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>R for Public Health — a Problem-Based Learning course built with Quarto.</p>
 </div>   
@@ -2277,8 +2482,6 @@ Show answers
 </div>
   </div>
 </footer>
-
-
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>

@@ -23,21 +23,24 @@ Remove duplicate rows from a data frame, keeping exactly one copy of each.
 
 Two equivalent approaches remove duplicate rows, keeping the first occurrence of each:
 
-```r
+```{r}
+#| eval: false
 df[!duplicated(df), ]   # keep only rows where duplicated() is FALSE
 unique(df)               # shortcut: does exactly the same thing for a whole data frame
 ```
 
 `unique()`, which you first met on vectors in Level 2, works the same way on entire data frames — it's really just a more convenient wrapper around `!duplicated(df)`.
 
-```r
+```{r}
+#| eval: false
 nrow(df)                  # before
 nrow(unique(df))          # after - should be nrow(df) - sum(duplicated(df))
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 participants_dup <- rbind(participants, participants[1, ])
@@ -48,7 +51,8 @@ nrow(participants_dup)
 [1] 101
 ```
 
-```r
+```{r}
+#| eval: false
 # Approach 1: explicit logical indexing
 participants_fixed <- participants_dup[!duplicated(participants_dup), ]
 nrow(participants_fixed)
@@ -58,7 +62,8 @@ nrow(participants_fixed)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 # Approach 2: the unique() shortcut - identical result
 participants_fixed2 <- unique(participants_dup)
 nrow(participants_fixed2)
@@ -68,7 +73,8 @@ nrow(participants_fixed2)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 identical(participants_fixed, participants_fixed2)
 ```
 
@@ -82,7 +88,8 @@ Confirm `identical(participants_fixed, participants)` — after removing the dup
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants_dup <- rbind(participants, participants[1, ])
 
 nrow(participants_dup)
@@ -92,7 +99,8 @@ nrow(participants_dup)
 [1] 101
 ```
 
-```r
+```{r}
+#| eval: false
 participants_clean <- unique(participants_dup)
 
 nrow(participants_clean)
@@ -102,7 +110,8 @@ nrow(participants_clean)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 sum(duplicated(participants_clean))
 ```
 

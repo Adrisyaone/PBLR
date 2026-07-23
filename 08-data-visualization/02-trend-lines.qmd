@@ -23,7 +23,8 @@ Add a trend line to a scatter plot using `geom_smooth()`, layered on top of `geo
 
 **`geom_smooth()`** adds a fitted trend line (with a shaded confidence band by default) on top of existing data, layered with `+` exactly like any other geom:
 
-```r
+```{r}
+#| eval: false
 ggplot(data = df, aes(x = x_col, y = y_col)) +
   geom_point() +
   geom_smooth(method = "lm")
@@ -33,7 +34,8 @@ ggplot(data = df, aes(x = x_col, y = y_col)) +
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")
@@ -51,7 +53,8 @@ Try the same plot with `age` and `systolic_bp` instead of `bmi`. Given Level 7's
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")

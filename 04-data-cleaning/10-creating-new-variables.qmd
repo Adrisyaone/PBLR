@@ -23,19 +23,22 @@ Create a brand-new column in a data frame, calculated from one or more existing 
 
 Assigning to a column name that **doesn't yet exist** in a data frame creates it, exactly as assigning to a brand-new object name creates that object (Level 1):
 
-```r
+```{r}
+#| eval: false
 df$new_column <- <some calculation using existing columns>
 ```
 
 Because columns are vectors of matching length (Level 2), arithmetic between two columns happens **element-wise** — row 1's calculation uses row 1's values from each column, row 2 uses row 2's values, and so on, automatically, all at once.
 
-```r
+```{r}
+#| eval: false
 df$pulse_pressure <- df$systolic_bp - df$diastolic_bp
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Before: no such column exists
@@ -46,7 +49,8 @@ participants <- read.csv("data/participants.csv")
 [1] FALSE
 ```
 
-```r
+```{r}
+#| eval: false
 participants$pulse_pressure <- participants$systolic_bp - participants$diastolic_bp
 
 "pulse_pressure" %in% names(participants)
@@ -56,7 +60,8 @@ participants$pulse_pressure <- participants$systolic_bp - participants$diastolic
 [1] TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 head(participants[, c("systolic_bp", "diastolic_bp", "pulse_pressure")])
 ```
 
@@ -76,7 +81,8 @@ Run `summary(participants$pulse_pressure)` to see the range of pulse pressure va
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 participants$pulse_pressure <- participants$systolic_bp - participants$diastolic_bp
@@ -88,7 +94,8 @@ mean(participants$pulse_pressure, na.rm = TRUE)
 [1] 49.35417
 ```
 
-```r
+```{r}
+#| eval: false
 sum(is.na(participants$pulse_pressure))
 ```
 

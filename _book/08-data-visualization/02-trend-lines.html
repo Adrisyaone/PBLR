@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.31">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>101&nbsp; Adding Trend Lines with geom_smooth() – R for Public Health: A Problem-Based Learning Course</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -79,8 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-82f2f6d5827a576a8c9f217aaf8aa84a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -106,13 +101,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<style>html{ scroll-behavior: smooth; }</style>
-
-
+}</script><style>html{ scroll-behavior: smooth; }</style>
 <link rel="stylesheet" href="../styles.css">
 </head>
-
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
@@ -278,26 +269,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../08-data-visualization/00-overview.html">Level 8: Data Visualization with ggplot2</a></li><li class="breadcrumb-item"><a href="../08-data-visualization/02-trend-lines.html"><span class="chapter-number">101</span>&nbsp; <span class="chapter-title">Adding Trend Lines with <code>geom_smooth()</code></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../08-data-visualization/00-overview.html">Level 8 — Data Visualization with ggplot2</a></li><li class="breadcrumb-item"><a href="../08-data-visualization/02-trend-lines.html"><span class="chapter-number">101</span>&nbsp; <span class="chapter-title">Adding Trend Lines with <code></code></span></a><code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">R for Public Health: A Problem-Based Learning Course</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -314,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
@@ -323,13 +308,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 1: Getting Started with R</span></a>
+ <span class="menu-text">Level 1 — Getting Started with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../01-getting-started/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 1 — Getting Started with R</span></a>
@@ -456,17 +441,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 2: Data Structures in R</span></a>
+ <span class="menu-text">Level 2 — Data Structures in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 2 — Data Structures in R</span></a>
@@ -475,19 +460,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/01-vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code>c()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code></code></span></span></a><code><a href="https://rdrr.io/r/base/c.html">c()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/02-sequences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code>seq()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/03-rep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code>rep()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -559,33 +544,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/15-str.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code>str()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code></code></span></span></a><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/16-dimensions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code>nrow()</code>, <code>ncol()</code>, <code>dim()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>, <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code>, <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/17-length-names.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code>length()</code> and <code>names()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and <code><a href="https://rdrr.io/r/base/names.html">names()</a></code>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 3: Data Import and Export</span></a>
+ <span class="menu-text">Level 3 — Data Import and Export</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../03-data-import/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 3 — Data Import and Export</span></a>
@@ -664,17 +649,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 4: Data Cleaning with Base R</span></a>
+ <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
@@ -767,7 +752,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/15-ifelse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code>ifelse()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -783,17 +768,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 5: Tidyverse</span></a>
+ <span class="menu-text">Level 5 — Tidyverse</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 5 — Tidyverse</span></a>
@@ -808,7 +793,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/02-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code>filter()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -872,17 +857,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 6: Data Reshaping</span></a>
+ <span class="menu-text">Level 6 — Data Reshaping</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 6 — Data Reshaping</span></a>
@@ -967,17 +952,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 7: Descriptive Statistics</span></a>
+ <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
@@ -1004,7 +989,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/04-summary-function.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code>summary()</code> Function</span></span></a>
+ <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code></code></span></span></a><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> Function
   </div>
 </li>
           <li class="sidebar-item">
@@ -1022,7 +1007,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/07-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code>cor()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1032,17 +1017,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 8: Data Visualization with ggplot2</span></a>
+ <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
@@ -1057,13 +1042,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/02-trend-lines.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">101</span>&nbsp; <span class="chapter-title">Adding Trend Lines with <code>geom_smooth()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">101</span>&nbsp; <span class="chapter-title">Adding Trend Lines with <code></code></span></span></a><code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/03-bar-charts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">Bar Charts with <code>geom_bar()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">Bar Charts with <code></code></span></span></a><code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1075,13 +1060,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/05-boxplots.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">104</span>&nbsp; <span class="chapter-title">Boxplots with <code>geom_boxplot()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">104</span>&nbsp; <span class="chapter-title">Boxplots with <code></code></span></span></a><code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/06-line-plots.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">105</span>&nbsp; <span class="chapter-title">Line Plots with <code>geom_line()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">105</span>&nbsp; <span class="chapter-title">Line Plots with <code></code></span></span></a><code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1105,7 +1090,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/10-saving-plots.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">109</span>&nbsp; <span class="chapter-title">Saving Plots with <code>ggsave()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">109</span>&nbsp; <span class="chapter-title">Saving Plots with <code></code></span></span></a><code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1115,17 +1100,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 9: Functions and Programming</span></a>
+ <span class="menu-text">Level 9 — Functions and Programming</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 9 — Functions and Programming</span></a>
@@ -1176,19 +1161,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/08-apply-family.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code>sapply()</code> and <code>lapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/09-purrr-map.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code>purrr::map()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code></code></span></span></a><code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/10-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code>stop()</code> and <code>warning()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code> and <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1198,17 +1183,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 10: Loops and Automation</span></a>
+ <span class="menu-text">Level 10 — Loops and Automation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 10 — Loops and Automation</span></a>
@@ -1247,7 +1232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/06-vapply-tapply.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code>vapply()</code> and <code>tapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">vapply()</a></code> and <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1263,17 +1248,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 11: Statistical Analysis in R</span></a>
+ <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
@@ -1330,7 +1315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/09-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code>lm()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1352,7 +1337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
@@ -1361,15 +1346,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../12-advanced-analysis/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 12 — Advanced Data Analysis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/01-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">142</span>&nbsp; <span class="chapter-title">Multiple Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/02-categorical-predictors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">143</span>&nbsp; <span class="chapter-title">Categorical Predictors in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/03-interaction-terms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">144</span>&nbsp; <span class="chapter-title">Interaction Terms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/04-confounding-adjustment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">145</span>&nbsp; <span class="chapter-title">Confounding and Adjustment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/05-model-comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">146</span>&nbsp; <span class="chapter-title">Comparing Nested Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/06-regression-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">147</span>&nbsp; <span class="chapter-title">Regression Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/07-multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">148</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/08-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">149</span>&nbsp; <span class="chapter-title">Predicting New Data with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/09-advanced-analysis-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">150</span>&nbsp; <span class="chapter-title">Level 12 Capstone: Choosing a Final Model</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
@@ -1378,15 +1417,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../13-advanced-r/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 13 — Advanced R Programming</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/01-environments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">151</span>&nbsp; <span class="chapter-title">Environments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/02-closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">152</span>&nbsp; <span class="chapter-title">Closures and Function Factories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/03-s3-object-system.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">153</span>&nbsp; <span class="chapter-title">A First Look at S3 Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/04-error-handling-trycatch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">154</span>&nbsp; <span class="chapter-title">Robust Error Handling with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/05-debugging-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">155</span>&nbsp; <span class="chapter-title">Debugging Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/06-functional-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">156</span>&nbsp; <span class="chapter-title">Functional Programming with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/funprog.html">Reduce()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/07-regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">157</span>&nbsp; <span class="chapter-title">Regular Expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/08-string-manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">158</span>&nbsp; <span class="chapter-title">String Manipulation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/09-working-with-dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">159</span>&nbsp; <span class="chapter-title">Working with Dates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/10-package-structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">160</span>&nbsp; <span class="chapter-title">The Anatomy of an R Package</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/11-advanced-r-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">161</span>&nbsp; <span class="chapter-title">Level 13 Capstone: A Resilient File-Reading Toolkit</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
@@ -1395,15 +1500,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../14-reproducible-research/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 14 — Reproducible Research</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/01-rmarkdown-vs-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">162</span>&nbsp; <span class="chapter-title">R Markdown vs.&nbsp;Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/02-yaml-front-matter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">163</span>&nbsp; <span class="chapter-title">YAML Front Matter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/03-code-chunks-inline-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">164</span>&nbsp; <span class="chapter-title">Code Chunks and Inline Code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/04-tables-and-figures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">165</span>&nbsp; <span class="chapter-title">Tables and Figures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/05-cross-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">166</span>&nbsp; <span class="chapter-title">Cross-References</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/06-citations-bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">167</span>&nbsp; <span class="chapter-title">Citations and Bibliographies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/07-parameterized-reports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">168</span>&nbsp; <span class="chapter-title">Parameterized Reports</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/08-output-formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">169</span>&nbsp; <span class="chapter-title">Choosing an Output Format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/09-projects-books-websites.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">170</span>&nbsp; <span class="chapter-title">Quarto Projects: Books and Websites</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/10-reproducible-research-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">171</span>&nbsp; <span class="chapter-title">Level 14 Capstone: A Complete Clinic Report Template</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
@@ -1412,26 +1577,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../15-capstone-projects/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 15 — Real-World Capstone Projects</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/01-capstone-hypertension-risk-factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">172</span>&nbsp; <span class="chapter-title">Capstone 1: Hypertension Risk Factors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/02-capstone-smoking-cardiovascular-risk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">173</span>&nbsp; <span class="chapter-title">Capstone 2: Smoking and Cardiovascular Risk</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/03-capstone-geographic-patterns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">174</span>&nbsp; <span class="chapter-title">Capstone 3: Geographic Patterns Across Counties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/04-capstone-longitudinal-blood-pressure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">175</span>&nbsp; <span class="chapter-title">Capstone 4: Longitudinal Blood Pressure and Attrition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/05-capstone-reproducible-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">176</span>&nbsp; <span class="chapter-title">Capstone 5: A Reproducible County Dashboard</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/06-independent-capstone-guidance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">177</span>&nbsp; <span class="chapter-title">Designing Your Own Independent Capstone</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">101.1</span> The R Concept</a></li>
+<li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">101.1</span> The R Concept</a></li>
   <li><a href="#demonstration" id="toc-demonstration" class="nav-link" data-scroll-target="#demonstration"><span class="header-section-number">101.2</span> Demonstration</a></li>
   <li><a href="#explore" id="toc-explore" class="nav-link" data-scroll-target="#explore"><span class="header-section-number">101.3</span> Explore</a></li>
   <li><a href="#solve-the-problem" id="toc-solve-the-problem" class="nav-link" data-scroll-target="#solve-the-problem"><span class="header-section-number">101.4</span> Solve the Problem</a></li>
@@ -1439,15 +1638,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#practice-problem" id="toc-practice-problem" class="nav-link" data-scroll-target="#practice-problem"><span class="header-section-number">101.6</span> Practice Problem</a></li>
   <li><a href="#challenge-problem" id="toc-challenge-problem" class="nav-link" data-scroll-target="#challenge-problem"><span class="header-section-number">101.7</span> Challenge Problem</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">101.8</span> Key Takeaways</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../08-data-visualization/00-overview.html">Level 8: Data Visualization with ggplot2</a></li><li class="breadcrumb-item"><a href="../08-data-visualization/02-trend-lines.html"><span class="chapter-number">101</span>&nbsp; <span class="chapter-title">Adding Trend Lines with <code>geom_smooth()</code></span></a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../08-data-visualization/00-overview.html">Level 8 — Data Visualization with ggplot2</a></li><li class="breadcrumb-item"><a href="../08-data-visualization/02-trend-lines.html"><span class="chapter-number">101</span>&nbsp; <span class="chapter-title">Adding Trend Lines with <code></code></span></a><code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span id="sec-trend-lines" class="quarto-section-identifier"><span class="chapter-number">101</span>&nbsp; <span class="chapter-title">Adding Trend Lines with <code>geom_smooth()</code></span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
@@ -1462,124 +1656,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<div class="pbl-box pbl-problem">
+</header><div class="pbl-box pbl-problem">
 <p><strong>The Problem</strong></p>
 <p>The BMI-blood pressure scatter plot from the previous page shows a scattered cloud of points, but your professor asks a harder question to answer just by squinting at the cloud: “Is there an overall upward trend hiding in that scatter, even if it’s weak?” You need a line summarizing the general direction of the relationship, layered right on top of the raw points.</p>
 </div>
 <div class="pbl-box pbl-mission">
 <p><strong>Your Mission</strong></p>
-<p>Add a trend line to a scatter plot using <code>geom_smooth()</code>, layered on top of <code>geom_point()</code>.</p>
+<p>Add a trend line to a scatter plot using <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>, layered on top of <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>.</p>
 </div>
 <div class="pbl-box pbl-think">
 <p><strong>Think Before Coding</strong></p>
 <ul>
-<li>If <code>ggplot2</code> layers stack using <code>+</code>, what would you expect happens if you add a second <code>geom_*()</code> layer after <code>geom_point()</code>, using the exact same <code>aes()</code> mapping?</li>
+<li>If <code>ggplot2</code> layers stack using <code>+</code>, what would you expect happens if you add a second <code>geom_*()</code> layer after <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>, using the exact same <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> mapping?</li>
 <li>Level 7’s correlation between BMI and blood pressure was positive (0.16), though weak. What direction would you expect a trend line summarizing that relationship to slope?</li>
 </ul>
 </div>
-<section id="the-r-concept" class="level2" data-number="101.1">
-<h2 data-number="101.1" class="anchored" data-anchor-id="the-r-concept"><span class="header-section-number">101.1</span> The R Concept</h2>
-<p><strong><code>geom_smooth()</code></strong> adds a fitted trend line (with a shaded confidence band by default) on top of existing data, layered with <code>+</code> exactly like any other geom:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x_col, <span class="at">y =</span> y_col)) <span class="sc">+</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="the-r-concept" class="level2" data-number="101.1"><h2 data-number="101.1" class="anchored" data-anchor-id="the-r-concept">
+<span class="header-section-number">101.1</span> The R Concept</h2>
+<p><strong><code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code></strong> adds a fitted trend line (with a shaded confidence band by default) on top of existing data, layered with <code>+</code> exactly like any other geom:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x_col</span>, y <span class="op">=</span> <span class="va">y_col</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p><code>method = "lm"</code> fits a straight line (linear model, previewing Level 11); omitting <code>method</code> lets <code>ggplot2</code> choose a curved, more flexible trend line instead, which can be useful for spotting non-linear patterns a straight line would miss.</p>
-</section>
-<section id="demonstration" class="level2" data-number="101.2">
-<h2 data-number="101.2" class="anchored" data-anchor-id="demonstration"><span class="header-section-number">101.2</span> Demonstration</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> participants, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> systolic_bp)) <span class="sc">+</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="demonstration" class="level2" data-number="101.2"><h2 data-number="101.2" class="anchored" data-anchor-id="demonstration">
+<span class="header-section-number">101.2</span> Demonstration</h2>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/participants.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">participants</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bmi</span>, y <span class="op">=</span> <span class="va">systolic_bp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>This adds a straight trend line through the scattered points, sloping gently upward — consistent with the weak positive correlation (0.16) from Level 7 — along with a shaded gray band showing the uncertainty around that line. Because the underlying relationship is weak, the line’s upward slope is subtle, and the confidence band is fairly wide relative to the data’s spread.</p>
-</section>
-<section id="explore" class="level2" data-number="101.3">
-<h2 data-number="101.3" class="anchored" data-anchor-id="explore"><span class="header-section-number">101.3</span> Explore</h2>
+</section><section id="explore" class="level2" data-number="101.3"><h2 data-number="101.3" class="anchored" data-anchor-id="explore">
+<span class="header-section-number">101.3</span> Explore</h2>
 <p>Try the same plot with <code>age</code> and <code>systolic_bp</code> instead of <code>bmi</code>. Given Level 7’s correlation there was <strong>negative</strong> (-0.22, both weak but opposite in sign from the BMI relationship), predict which direction the trend line will slope before running the code, then confirm.</p>
-</section>
-<section id="solve-the-problem" class="level2" data-number="101.4">
-<h2 data-number="101.4" class="anchored" data-anchor-id="solve-the-problem"><span class="header-section-number">101.4</span> Solve the Problem</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>age_bp_trend <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> participants, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> systolic_bp)) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>age_bp_trend</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="solve-the-problem" class="level2" data-number="101.4"><h2 data-number="101.4" class="anchored" data-anchor-id="solve-the-problem">
+<span class="header-section-number">101.4</span> Solve the Problem</h2>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/participants.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">age_bp_trend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">participants</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="va">systolic_bp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">age_bp_trend</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>The trend line here slopes gently <em>downward</em> as age increases — matching the negative correlation (-0.22) found in Level 7. As with the BMI plot, the relationship is weak enough that the line’s slope is subtle and the surrounding confidence band is fairly wide, visually reinforcing that this isn’t a strong, dependable pattern.</p>
-</section>
-<section id="interpret-the-result" class="level2" data-number="101.5">
-<h2 data-number="101.5" class="anchored" data-anchor-id="interpret-the-result"><span class="header-section-number">101.5</span> Interpret the Result</h2>
+</section><section id="interpret-the-result" class="level2" data-number="101.5"><h2 data-number="101.5" class="anchored" data-anchor-id="interpret-the-result">
+<span class="header-section-number">101.5</span> Interpret the Result</h2>
 <p>Both trend lines make Level 7’s correlation coefficients visually concrete: a gentle upward line for the weak positive BMI-BP relationship, and a gentle downward line for the weak negative age-BP relationship. In both cases, the <em>direction</em> of the trend line matches the sign of the correlation exactly, while its <em>subtlety</em> (a nearly flat slope, a wide confidence band) reflects just how weak both relationships are — exactly consistent with correlation magnitudes both under 0.25 in absolute value.</p>
 <div class="pbl-box pbl-mistake">
 <p><strong>Common Mistakes</strong></p>
 <ul>
-<li><strong>Interpreting a fitted trend line as proof of a strong relationship.</strong> A <code>geom_smooth()</code> line can be drawn through <em>any</em> scatter of points, even ones with essentially no real relationship — always look at how tightly the points hug the line, and how wide the confidence band is, not just whether a line was drawn at all.</li>
-<li><strong>Forgetting <code>method = "lm"</code> fits a straight line specifically.</strong> Without it, <code>geom_smooth()</code> defaults to a flexible curved fit (<code>loess</code>), which can look more dramatic than a straight-line relationship actually warrants — be explicit about which you intend.</li>
-<li><strong>Adding <code>geom_smooth()</code> without <code>geom_point()</code> first and expecting to see the raw data.</strong> <code>geom_smooth()</code> alone only shows the fitted line and confidence band — without <code>geom_point()</code>, the underlying scatter of individual observations disappears entirely.</li>
+<li>
+<strong>Interpreting a fitted trend line as proof of a strong relationship.</strong> A <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> line can be drawn through <em>any</em> scatter of points, even ones with essentially no real relationship — always look at how tightly the points hug the line, and how wide the confidence band is, not just whether a line was drawn at all.</li>
+<li>
+<strong>Forgetting <code>method = "lm"</code> fits a straight line specifically.</strong> Without it, <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> defaults to a flexible curved fit (<code>loess</code>), which can look more dramatic than a straight-line relationship actually warrants — be explicit about which you intend.</li>
+<li>
+<strong>Adding <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> without <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> first and expecting to see the raw data.</strong> <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> alone only shows the fitted line and confidence band — without <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>, the underlying scatter of individual observations disappears entirely.</li>
 </ul>
 </div>
-</section>
-<section id="practice-problem" class="level2" data-number="101.6">
-<h2 data-number="101.6" class="anchored" data-anchor-id="practice-problem"><span class="header-section-number">101.6</span> Practice Problem</h2>
+</section><section id="practice-problem" class="level2" data-number="101.6"><h2 data-number="101.6" class="anchored" data-anchor-id="practice-problem">
+<span class="header-section-number">101.6</span> Practice Problem</h2>
 <p>Build a scatter plot with a <code>geom_smooth(method = "lm")</code> trend line for <code>systolic_bp</code> against <code>diastolic_bp</code>. Given Level 7’s much stronger correlation (0.92) here, describe how you’d expect the points to hug the trend line more tightly than in either plot above.</p>
-</section>
-<section id="challenge-problem" class="level2" data-number="101.7">
-<h2 data-number="101.7" class="anchored" data-anchor-id="challenge-problem"><span class="header-section-number">101.7</span> Challenge Problem</h2>
-<p>Build the same BMI-blood pressure plot twice: once with <code>geom_smooth(method = "lm")</code> and once with <code>geom_smooth()</code> (no <code>method</code> specified, defaulting to <code>loess</code>). Compare the two trend lines — do they tell a meaningfully different story for this particular relationship, or do they look similar given how weak the underlying pattern is?</p>
-</section>
-<section id="key-takeaways" class="level2" data-number="101.8">
-<h2 data-number="101.8" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">101.8</span> Key Takeaways</h2>
+</section><section id="challenge-problem" class="level2" data-number="101.7"><h2 data-number="101.7" class="anchored" data-anchor-id="challenge-problem">
+<span class="header-section-number">101.7</span> Challenge Problem</h2>
+<p>Build the same BMI-blood pressure plot twice: once with <code>geom_smooth(method = "lm")</code> and once with <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> (no <code>method</code> specified, defaulting to <code>loess</code>). Compare the two trend lines — do they tell a meaningfully different story for this particular relationship, or do they look similar given how weak the underlying pattern is?</p>
+</section><section id="key-takeaways" class="level2" data-number="101.8"><h2 data-number="101.8" class="anchored" data-anchor-id="key-takeaways">
+<span class="header-section-number">101.8</span> Key Takeaways</h2>
 <ul>
-<li><code>geom_smooth()</code> adds a fitted trend line (with a confidence band) on top of a scatter plot, layered with <code>+</code>.</li>
-<li><code>method = "lm"</code> fits a straight line; omitting <code>method</code> fits a more flexible curve, useful for spotting non-linear patterns.</li>
-<li>A trend line’s slope direction should match the sign of the corresponding <code>cor()</code> value — always check the two against each other.</li>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> adds a fitted trend line (with a confidence band) on top of a scatter plot, layered with <code>+</code>.</li>
+<li>
+<code>method = "lm"</code> fits a straight line; omitting <code>method</code> fits a more flexible curve, useful for spotting non-linear patterns.</li>
+<li>A trend line’s slope direction should match the sign of the corresponding <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code> value — always check the two against each other.</li>
 </ul>
 <div class="pbl-box pbl-check">
 <p><strong>Knowledge Check</strong></p>
 <ol type="1">
-<li><p><strong>Multiple choice.</strong> What does <code>method = "lm"</code> specify inside <code>geom_smooth()</code>?</p>
+<li>
+<p><strong>Multiple choice.</strong> What does <code>method = "lm"</code> specify inside <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>?</p>
 <ol type="a">
 <li>A flexible curved fit</li>
 <li>A straight-line (linear) fit</li>
 <li>The plot’s color scheme</li>
 <li>The confidence level</li>
-</ol></li>
-<li><p><strong>True or false.</strong> A <code>geom_smooth()</code> trend line can be drawn even when the underlying relationship between two variables is very weak.</p></li>
+</ol>
+</li>
+<li><p><strong>True or false.</strong> A <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> trend line can be drawn even when the underlying relationship between two variables is very weak.</p></li>
 <li><p><strong>Predict the output.</strong> If two variables have a correlation of -0.22, which direction would you expect their <code>geom_smooth(method = "lm")</code> trend line to slope?</p></li>
-<li><p><strong>Find the error.</strong></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> participants, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> systolic_bp)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># intended to show both the raw data points and the trend line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li>
+<p><strong>Find the error.</strong></p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">participants</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bmi</span>, y <span class="op">=</span> <span class="va">systolic_bp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span>
+<span><span class="co"># intended to show both the raw data points and the trend line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</li>
 </ol>
-<details class="pbl-answer">
-<summary>
+<details class="pbl-answer"><summary>
 Show answers
-</summary>
-<ol type="1">
-<li><strong>b)</strong> A straight-line (linear) fit.</li>
-<li><strong>True.</strong> A trend line can be fit through any scatter of points, regardless of how weak the actual relationship is — the confidence band’s width and how loosely points scatter around the line are what reveal that weakness.</li>
+</summary><ol type="1">
+<li>
+<strong>b)</strong> A straight-line (linear) fit.</li>
+<li>
+<strong>True.</strong> A trend line can be fit through any scatter of points, regardless of how weak the actual relationship is — the confidence band’s width and how loosely points scatter around the line are what reveal that weakness.</li>
 <li>Downward (negative slope), since a negative correlation means the variables tend to move in opposite directions.</li>
-<li><code>geom_point()</code> is missing — this code only shows the trend line and confidence band, not the individual data points. It should be <code>geom_point() + geom_smooth(method = "lm")</code>.</li>
-</ol>
-</details>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> is missing — this code only shows the trend line and confidence band, not the individual data points. It should be <code>geom_point() + geom_smooth(method = "lm")</code>.</li>
+</ol></details>
 </div>
 
 
 <!-- -->
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2041,17 +2237,15 @@ Show answers
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../08-data-visualization/01-grammar-of-graphics.html" class="pagination-link" aria-label="The Grammar of Graphics">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">100</span>&nbsp; <span class="chapter-title">The Grammar of Graphics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../08-data-visualization/03-bar-charts.html" class="pagination-link" aria-label="Bar Charts with `geom_bar()`">
-        <span class="nav-page-text"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">Bar Charts with <code>geom_bar()</code></span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
+        <span class="nav-page-text"><span class="chapter-number">102</span>&nbsp; <span class="chapter-title">Bar Charts with <code></code></span></span></a><code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> <i class="bi bi-arrow-right-short"></i>
+      
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Adding Trend Lines with `geom_smooth()` {#sec-trend-lines}</span></span>
@@ -2079,108 +2273,111 @@ Show answers
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>**`geom_smooth()`** adds a fitted trend line (with a shaded confidence band by default) on top of existing data, layered with <span class="in">`+`</span> exactly like any other geom:</span>
 <span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x_col, <span class="at">y =</span> y_col)) <span class="sc">+</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="in">`method = "lm"`</span> fits a straight line (linear model, previewing Level 11); omitting <span class="in">`method`</span> lets <span class="in">`ggplot2`</span> choose a curved, more flexible trend line instead, which can be useful for spotting non-linear patterns a straight line would miss.</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x_col, <span class="at">y =</span> y_col)) <span class="sc">+</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="in">`method = "lm"`</span> fits a straight line (linear model, previewing Level 11); omitting <span class="in">`method`</span> lets <span class="in">`ggplot2`</span> choose a curved, more flexible trend line instead, which can be useful for spotting non-linear patterns a straight line would miss.</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
 <span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> participants, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> systolic_bp)) <span class="sc">+</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>This adds a straight trend line through the scattered points, sloping gently upward — consistent with the weak positive correlation (0.16) from Level 7 — along with a shaded gray band showing the uncertainty around that line. Because the underlying relationship is weak, the line's upward slope is subtle, and the confidence band is fairly wide relative to the data's spread.</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>Try the same plot with <span class="in">`age`</span> and <span class="in">`systolic_bp`</span> instead of <span class="in">`bmi`</span>. Given Level 7's correlation there was **negative** (-0.22, both weak but opposite in sign from the BMI relationship), predict which direction the trend line will slope before running the code, then confirm.</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> participants, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> systolic_bp)) <span class="sc">+</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>This adds a straight trend line through the scattered points, sloping gently upward — consistent with the weak positive correlation (0.16) from Level 7 — along with a shaded gray band showing the uncertainty around that line. Because the underlying relationship is weak, the line's upward slope is subtle, and the confidence band is fairly wide relative to the data's spread.</span>
 <span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>age_bp_trend <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> participants, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> systolic_bp)) <span class="sc">+</span></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>age_bp_trend</span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>Try the same plot with <span class="in">`age`</span> and <span class="in">`systolic_bp`</span> instead of <span class="in">`bmi`</span>. Given Level 7's correlation there was **negative** (-0.22, both weak but opposite in sign from the BMI relationship), predict which direction the trend line will slope before running the code, then confirm.</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>The trend line here slopes gently *downward* as age increases — matching the negative correlation (-0.22) found in Level 7. As with the BMI plot, the relationship is weak enough that the line's slope is subtle and the surrounding confidence band is fairly wide, visually reinforcing that this isn't a strong, dependable pattern.</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
 <span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>Both trend lines make Level 7's correlation coefficients visually concrete: a gentle upward line for the weak positive BMI-BP relationship, and a gentle downward line for the weak negative age-BP relationship. In both cases, the *direction* of the trend line matches the sign of the correlation exactly, while its *subtlety* (a nearly flat slope, a wide confidence band) reflects just how weak both relationships are — exactly consistent with correlation magnitudes both under 0.25 in absolute value.</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>age_bp_trend <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> participants, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> systolic_bp)) <span class="sc">+</span></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
 <span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>age_bp_trend</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Interpreting a fitted trend line as proof of a strong relationship.** A <span class="in">`geom_smooth()`</span> line can be drawn through *any* scatter of points, even ones with essentially no real relationship — always look at how tightly the points hug the line, and how wide the confidence band is, not just whether a line was drawn at all.</span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Forgetting `method = "lm"` fits a straight line specifically.** Without it, <span class="in">`geom_smooth()`</span> defaults to a flexible curved fit (<span class="in">`loess`</span>), which can look more dramatic than a straight-line relationship actually warrants — be explicit about which you intend.</span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Adding `geom_smooth()` without `geom_point()` first and expecting to see the raw data.** <span class="in">`geom_smooth()`</span> alone only shows the fitted line and confidence band — without <span class="in">`geom_point()`</span>, the underlying scatter of individual observations disappears entirely.</span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>Build a scatter plot with a <span class="in">`geom_smooth(method = "lm")`</span> trend line for <span class="in">`systolic_bp`</span> against <span class="in">`diastolic_bp`</span>. Given Level 7's much stronger correlation (0.92) here, describe how you'd expect the points to hug the trend line more tightly than in either plot above.</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>The trend line here slopes gently *downward* as age increases — matching the negative correlation (-0.22) found in Level 7. As with the BMI plot, the relationship is weak enough that the line's slope is subtle and the surrounding confidence band is fairly wide, visually reinforcing that this isn't a strong, dependable pattern.</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>Both trend lines make Level 7's correlation coefficients visually concrete: a gentle upward line for the weak positive BMI-BP relationship, and a gentle downward line for the weak negative age-BP relationship. In both cases, the *direction* of the trend line matches the sign of the correlation exactly, while its *subtlety* (a nearly flat slope, a wide confidence band) reflects just how weak both relationships are — exactly consistent with correlation magnitudes both under 0.25 in absolute value.</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
 <span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>Build the same BMI-blood pressure plot twice: once with <span class="in">`geom_smooth(method = "lm")`</span> and once with <span class="in">`geom_smooth()`</span> (no <span class="in">`method`</span> specified, defaulting to <span class="in">`loess`</span>). Compare the two trend lines — do they tell a meaningfully different story for this particular relationship, or do they look similar given how weak the underlying pattern is?</span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`geom_smooth()`</span> adds a fitted trend line (with a confidence band) on top of a scatter plot, layered with <span class="in">`+`</span>.</span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`method = "lm"`</span> fits a straight line; omitting <span class="in">`method`</span> fits a more flexible curve, useful for spotting non-linear patterns.</span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A trend line's slope direction should match the sign of the corresponding <span class="in">`cor()`</span> value — always check the two against each other.</span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Interpreting a fitted trend line as proof of a strong relationship.** A <span class="in">`geom_smooth()`</span> line can be drawn through *any* scatter of points, even ones with essentially no real relationship — always look at how tightly the points hug the line, and how wide the confidence band is, not just whether a line was drawn at all.</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Forgetting `method = "lm"` fits a straight line specifically.** Without it, <span class="in">`geom_smooth()`</span> defaults to a flexible curved fit (<span class="in">`loess`</span>), which can look more dramatic than a straight-line relationship actually warrants — be explicit about which you intend.</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Adding `geom_smooth()` without `geom_point()` first and expecting to see the raw data.** <span class="in">`geom_smooth()`</span> alone only shows the fitted line and confidence band — without <span class="in">`geom_point()`</span>, the underlying scatter of individual observations disappears entirely.</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>Build a scatter plot with a <span class="in">`geom_smooth(method = "lm")`</span> trend line for <span class="in">`systolic_bp`</span> against <span class="in">`diastolic_bp`</span>. Given Level 7's much stronger correlation (0.92) here, describe how you'd expect the points to hug the trend line more tightly than in either plot above.</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>Build the same BMI-blood pressure plot twice: once with <span class="in">`geom_smooth(method = "lm")`</span> and once with <span class="in">`geom_smooth()`</span> (no <span class="in">`method`</span> specified, defaulting to <span class="in">`loess`</span>). Compare the two trend lines — do they tell a meaningfully different story for this particular relationship, or do they look similar given how weak the underlying pattern is?</span>
 <span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** What does <span class="in">`method = "lm"`</span> specify inside <span class="in">`geom_smooth()`</span>?</span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>   a) A flexible curved fit</span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>   b) A straight-line (linear) fit</span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>   c) The plot's color scheme</span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>   d) The confidence level</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`geom_smooth()`</span> adds a fitted trend line (with a confidence band) on top of a scatter plot, layered with <span class="in">`+`</span>.</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`method = "lm"`</span> fits a straight line; omitting <span class="in">`method`</span> fits a more flexible curve, useful for spotting non-linear patterns.</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A trend line's slope direction should match the sign of the corresponding <span class="in">`cor()`</span> value — always check the two against each other.</span>
 <span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** A <span class="in">`geom_smooth()`</span> trend line can be drawn even when the underlying relationship between two variables is very weak.</span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.** If two variables have a correlation of -0.22, which direction would you expect their <span class="in">`geom_smooth(method = "lm")`</span> trend line to slope?</span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Find the error.**</span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="at">data =</span> participants, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> systolic_bp)) <span class="sc">+</span></span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>   <span class="co"># intended to show both the raw data points and the trend line</span></span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** What does <span class="in">`method = "lm"`</span> specify inside <span class="in">`geom_smooth()`</span>?</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>   a) A flexible curved fit</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>   b) A straight-line (linear) fit</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>   c) The plot's color scheme</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>   d) The confidence level</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** A <span class="in">`geom_smooth()`</span> trend line can be drawn even when the underlying relationship between two variables is very weak.</span>
 <span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**b)** A straight-line (linear) fit.</span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True.** A trend line can be fit through any scatter of points, regardless of how weak the actual relationship is — the confidence band's width and how loosely points scatter around the line are what reveal that weakness.</span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Downward (negative slope), since a negative correlation means the variables tend to move in opposite directions.</span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="in">`geom_point()`</span> is missing — this code only shows the trend line and confidence band, not the individual data points. It should be <span class="in">`geom_point() + geom_smooth(method = "lm")`</span>.</span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.** If two variables have a correlation of -0.22, which direction would you expect their <span class="in">`geom_smooth(method = "lm")`</span> trend line to slope?</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Find the error.**</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="at">data =</span> participants, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> systolic_bp)) <span class="sc">+</span></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>     <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>   <span class="co"># intended to show both the raw data points and the trend line</span></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**b)** A straight-line (linear) fit.</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True.** A trend line can be fit through any scatter of points, regardless of how weak the actual relationship is — the confidence band's width and how loosely points scatter around the line are what reveal that weakness.</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Downward (negative slope), since a negative correlation means the variables tend to move in opposite directions.</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="in">`geom_point()`</span> is missing — this code only shows the trend line and confidence band, not the individual data points. It should be <span class="in">`geom_point() + geom_smooth(method = "lm")`</span>.</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>R for Public Health — a Problem-Based Learning course built with Quarto.</p>
 </div>   
@@ -2192,8 +2389,6 @@ Show answers
 </div>
   </div>
 </footer>
-
-
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>

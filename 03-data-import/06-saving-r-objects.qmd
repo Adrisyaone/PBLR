@@ -23,17 +23,20 @@ Save an R object to disk in a way that preserves it exactly, ready to reload tom
 
 **`saveRDS()`** writes a single R object to disk as an `.rds` file, preserving its exact type and structure — the save-side counterpart to `readRDS()`:
 
-```r
+```{r}
+#| eval: false
 saveRDS(object, "path/to/file.rds")
 ```
 
-```r
+```{r}
+#| eval: false
 saveRDS(participants_cleaned, "data/participants_cleaned.rds")
 ```
 
 Reloading it later, in a future session, restores the object *exactly* as it was — same factor levels, same column types, same everything — with `readRDS()`:
 
-```r
+```{r}
+#| eval: false
 participants_cleaned <- readRDS("data/participants_cleaned.rds")
 ```
 
@@ -44,7 +47,8 @@ You may also encounter `save()` in older code, which can bundle *multiple* named
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants_cleaned <- participants
 participants_cleaned$bmi_category <- factor(
   ifelse(participants_cleaned$bmi < 18.5, "Underweight",
@@ -56,7 +60,8 @@ participants_cleaned$bmi_category <- factor(
 saveRDS(participants_cleaned, "data/participants_cleaned.rds")
 ```
 
-```r
+```{r}
+#| eval: false
 # Confirm it round-trips perfectly
 reloaded <- readRDS("data/participants_cleaned.rds")
 identical(participants_cleaned, reloaded)
@@ -72,12 +77,14 @@ Try saving the same object as a CSV instead (`write_csv(participants_cleaned, "t
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 # Today's cleaning work, ready to preserve exactly
 saveRDS(participants_cleaned, "data/participants_cleaned.rds")
 ```
 
-```r
+```{r}
+#| eval: false
 # Tomorrow, in a fresh R session:
 participants_cleaned <- readRDS("data/participants_cleaned.rds")
 

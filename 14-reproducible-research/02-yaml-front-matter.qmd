@@ -1,0 +1,138 @@
+# YAML Front Matter {#sec-yaml-front-matter}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+This entire course has a title, subtitle, author, sidebar, and two output formats (HTML and PDF) — none of which is written into any single lesson page. Your professor asks: where does this book-wide metadata actually live, and how would you set up the same thing for a report of your own?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Read and understand YAML front matter — the metadata block that controls how a Quarto document or project renders — using this course's own configuration file as a real example.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If every one of this course's 100+ pages needed its own title, author, and theme repeated at the top, how much duplicated setup would that require compared to one shared configuration file?
+- YAML uses indentation to show structure, similar to how R's nested lists (Level 2) organize related values together. Would you expect a `format:` section to be a sibling or a child of a `book:` section?
+:::
+
+## The R Concept
+
+**YAML** ("YAML Ain't Markup Language") is a plain-text format for structured configuration, using indentation instead of curly braces. A single `.qmd` file's YAML front matter sits between `---` markers at the very top:
+
+```yaml
+---
+title: "My Report"
+author: "Your Name"
+date: today
+format: html
+---
+```
+
+A whole Quarto **book** or **website** project has its own project-wide `_quarto.yml` file (not inside any individual page) controlling settings shared across every chapter — exactly the file that has been configuring this entire course since Level 1.
+
+## Demonstration
+
+```yaml
+# An excerpt from this course's own R-PBL/_quarto.yml:
+book:
+  title: "R for Public Health: A Problem-Based Learning Course"
+  subtitle: "From Zero to Advanced R for Epidemiology, Biostatistics, and Health Data Science"
+  author: "Public Health Data Science Program"
+  date: today
+  search: true
+  sidebar:
+    style: floating
+    collapse-level: 2
+    pinned: true
+```
+
+## Explore
+
+Open `R-PBL/_quarto.yml` directly and find the `format:` section — notice it defines settings for `html:` (theme, table of contents depth, code-folding) and `pdf:` (document class) *separately*, letting the exact same book content render into two very different-looking output formats from one shared source.
+
+## Solve the Problem
+
+```yaml
+# This course's actual format: section, controlling every page's HTML rendering:
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    highlight-style: github
+  pdf:
+    documentclass: scrbook
+    toc: true
+    number-sections: true
+```
+
+```
+Every single page in this course - every lesson, every callout box, every
+knowledge check - inherits these exact settings automatically: a
+table of contents 3 levels deep, numbered sections, the "flatly"/"darkly"
+Bootswatch themes, and GitHub-style code highlighting - all from this one
+shared configuration block, rather than being repeated 100+ times.
+```
+
+A single page's own YAML (if it needed a setting different from the book's shared default) could override just that one setting — for example, a specific page could add its own `---\nfig-width: 8\n---`-style front matter to widen its figures only, without affecting any other page.
+
+## Interpret the Result
+
+YAML front matter is what separates a document's *content* from its *presentation and configuration* — this course's 100+ lesson pages contain zero repeated title/theme/format setup, because all of that lives once, in `_quarto.yml`, and applies automatically everywhere. This is the same "don't repeat yourself" principle behind Level 9's functions and Level 13's packages, applied to document configuration instead of code.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Getting YAML indentation wrong.** Unlike R code, YAML's structure is defined *entirely* by consistent indentation (usually 2 spaces per level) — misaligning even one line can silently break the whole configuration or attach a setting to the wrong parent.
+- **Confusing a single document's front matter with a project-wide `_quarto.yml`.** A lone `.qmd` file's own `---`-delimited YAML controls just that file; a book or website project's shared settings belong in `_quarto.yml` at the project's root, not repeated in every chapter.
+- **Forgetting quotes around titles containing special characters.** A title containing a colon (like this course's `"R for Public Health: A Problem-Based Learning Course"`) needs to be wrapped in quotes — without them, YAML may misinterpret the colon as introducing a new key.
+:::
+
+## Practice Problem
+
+Write the YAML front matter for a single, standalone `.qmd` report titled `"Monthly Blood Pressure Summary"`, authored by you, rendering to HTML with a table of contents.
+
+## Challenge Problem
+
+Look at this course's `_quarto.yml` `execute:` section (near the bottom of the file). Explain, in your own words, what each of its four settings (`echo`, `warning`, `message`, `freeze`) controls for every single code chunk across the entire book, and why setting them once here is more efficient than repeating them in every chunk.
+
+## Key Takeaways
+
+- YAML front matter (between `---` markers) is a document's metadata block, controlling title, author, and output format using indentation-based structure.
+- A Quarto book or website project's shared, project-wide settings live in a single `_quarto.yml` file, not repeated inside every individual chapter.
+- Centralizing configuration in YAML (rather than repeating it in every document) mirrors the same "don't repeat yourself" principle behind functions (Level 9) and packages (Level 13).
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Where does a Quarto book's shared, project-wide configuration live?
+   a) Repeated at the top of every chapter file
+   b) In a single `_quarto.yml` file at the project's root
+   c) Inside the first code chunk of the book
+   d) It cannot be configured at all
+
+2. **True or false.** YAML uses curly braces `{}` to define nested structure, the same way R code does.
+
+3. **Predict the output.** If this course's `_quarto.yml` sets `toc-depth: 3` under `format: html:`, would that setting apply to every chapter, or only to chapters that repeat it themselves?
+
+4. **Short answer.** Why does a title containing a colon, like `"R for Public Health: A Problem-Based Learning Course"`, need to be wrapped in quotes in YAML?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** In a single `_quarto.yml` file at the project's root, shared across every chapter.
+2. **False.** YAML uses consistent indentation (not curly braces) to define nested structure.
+3. Every chapter — settings in the project-wide `_quarto.yml` apply automatically across the whole book unless an individual chapter's own front matter explicitly overrides them.
+4. Without quotes, YAML could misinterpret the colon inside the title as introducing a new key-value pair, breaking the intended single string into invalid or incorrect structure.
+
+</details>
+:::

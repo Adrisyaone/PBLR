@@ -5,7 +5,8 @@
 
 You import a participant's age from a form and try to calculate next year's age:
 
-```r
+```{r}
+#| eval: false
 age <- "34"
 age_next_year <- age + 1
 ```
@@ -40,7 +41,8 @@ Every value in R has a **data type**, and R treats different types differently, 
 
 You can check any object's type with `class()`:
 
-```r
+```{r}
+#| eval: false
 class(34)      # numeric
 class("34")    # character
 class(TRUE)    # logical
@@ -50,7 +52,8 @@ The error at the top of this page happened because `age <- "34"` created a *char
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 class(34)
 ```
 
@@ -58,7 +61,8 @@ class(34)
 [1] "numeric"
 ```
 
-```r
+```{r}
+#| eval: false
 class("34")
 ```
 
@@ -66,7 +70,8 @@ class("34")
 [1] "character"
 ```
 
-```r
+```{r}
+#| eval: false
 class(TRUE)
 ```
 
@@ -74,7 +79,8 @@ class(TRUE)
 [1] "logical"
 ```
 
-```r
+```{r}
+#| eval: false
 # The type mismatch that caused the original error
 age <- "34"
 class(age)
@@ -92,7 +98,8 @@ Run `class(age + 1)` after setting `age <- "34"` and confirm you see the same er
 
 The fix is to make sure `age` is stored as a numeric value, not text:
 
-```r
+```{r}
+#| eval: false
 age <- 34          # no quotes -> numeric
 class(age)
 ```
@@ -101,7 +108,8 @@ class(age)
 [1] "numeric"
 ```
 
-```r
+```{r}
+#| eval: false
 age_next_year <- age + 1
 age_next_year
 ```

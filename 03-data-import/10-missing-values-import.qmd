@@ -23,19 +23,22 @@ Correctly recognize custom, non-standard missing-value codes during import, inst
 
 By default, `read.csv()` only recognizes the literal text `"NA"` as a missing value. Any *other* placeholder — `"999"`, `"N/A"`, `"Unknown"`, `"-"`, or similar — is imported as if it were genuine data, silently, with no warning at all. The fix is the **`na.strings`** argument, where you explicitly list every code your data uses for "missing":
 
-```r
+```{r}
+#| eval: false
 read.csv("file.csv", na.strings = c("NA", "999", "N/A", "Unknown"))
 ```
 
 There's one more subtlety worth knowing precisely: **blank (empty) fields are automatically treated as missing for numeric columns by default, but not for character columns** — an empty cell in a numeric column becomes `NA` automatically, but an empty cell in a text column becomes `""` (an empty string, not `NA`) unless you add `""` to `na.strings` explicitly.
 
-```r
+```{r}
+#| eval: false
 read.csv("file.csv", na.strings = c("NA", "999", "N/A", "Unknown", ""))
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 # Default import - only "NA" is recognized as missing
 default_import <- read.csv("data/participants_messy.csv", skip = 2)
 
@@ -47,7 +50,8 @@ default_import$age
  [1]  46  53  59  45  61  18  62 999  33  36  62  39  NA  41  35  45  79  26  80  55
 ```
 
-```r
+```{r}
+#| eval: false
 mean(default_import$age, na.rm = TRUE)
 ```
 
@@ -57,7 +61,8 @@ mean(default_import$age, na.rm = TRUE)
 
 That mean is wildly, obviously wrong — nearly 99 years old on average is implausible for this sample, and it's because the fake `999` "age" got averaged in as if it were a real 999-year-old participant.
 
-```r
+```{r}
+#| eval: false
 # Correctly specifying every missing-value code actually used in this file
 participants_messy <- read.csv(
   "data/participants_messy.csv", skip = 2,
@@ -71,7 +76,8 @@ participants_messy$age
  [1] 46 53 59 45 61 18 62 NA 33 36 62 39 NA 41 35 45 79 26 80 55
 ```
 
-```r
+```{r}
+#| eval: false
 mean(participants_messy$age, na.rm = TRUE)
 ```
 
@@ -85,7 +91,8 @@ Run `sum(is.na(default_import$age))` versus `sum(is.na(participants_messy$age))`
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants_messy <- read.csv(
   "data/participants_messy.csv", skip = 2,
   na.strings = c("NA", "999", "N/A", "Unknown", "")
@@ -99,7 +106,8 @@ sum(is.na(participants_messy$age))
 [1] 2
 ```
 
-```r
+```{r}
+#| eval: false
 mean(participants_messy$age, na.rm = TRUE)
 ```
 

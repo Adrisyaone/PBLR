@@ -23,12 +23,14 @@ Understand `if_else()`, the tidyverse's stricter version of `ifelse()`, and why 
 
 **`if_else()`**, from the `dplyr` package (part of the tidyverse, arriving properly in Level 5), works exactly like `ifelse()` for straightforward cases, but is **stricter about types**: if the `TRUE` result and the `FALSE` result aren't compatible types, `if_else()` raises a clear error immediately, rather than silently coercing one of them into something unexpected.
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 if_else(condition, value_if_true, value_if_false)
 ```
 
-```r
+```{r}
+#| eval: false
 # ifelse() silently converts dates to plain numbers - a common, hard-to-spot bug
 ifelse(is_followup, visit_date, NA)
 
@@ -40,7 +42,8 @@ The fix, once you know about the problem, is usually to make the `NA` explicitly
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 # A straightforward case - if_else() behaves identically to ifelse()
@@ -52,7 +55,8 @@ if_else(ages >= 65, "Senior", "Non-senior")
 [1] "Senior"     "Non-senior" "Senior"
 ```
 
-```r
+```{r}
+#| eval: false
 # A type-mismatch case - ifelse() silently causes a problem, if_else() catches it
 is_followup <- c(TRUE, FALSE, TRUE)
 visit_date <- as.Date(c("2026-01-05", "2026-01-06", "2026-01-07"))
@@ -66,7 +70,8 @@ ifelse(is_followup, visit_date, NA)
 
 Notice the dates silently became plain numbers (each date's internal numeric representation) — exactly the bug from the opening problem.
 
-```r
+```{r}
+#| eval: false
 if_else(is_followup, visit_date, NA)
 ```
 
@@ -83,7 +88,8 @@ Fix the error by explicitly typing the `NA`: `if_else(is_followup, visit_date, a
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 is_followup <- c(TRUE, FALSE, TRUE)
@@ -97,7 +103,8 @@ visit_date_clean
 [1] "2026-01-05" NA           "2026-01-07"
 ```
 
-```r
+```{r}
+#| eval: false
 class(visit_date_clean)
 ```
 

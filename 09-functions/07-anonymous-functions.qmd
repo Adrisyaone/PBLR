@@ -23,13 +23,15 @@ Write a throwaway, unnamed ("anonymous") function for a one-off calculation, wit
 
 A function doesn't need to be assigned a name to be used immediately — this is called an **anonymous function**:
 
-```r
+```{r}
+#| eval: false
 function(x) max(x, na.rm = TRUE) - min(x, na.rm = TRUE)
 ```
 
 R also provides a shorter syntax for anonymous functions, using a backslash `\` instead of the full word `function`:
 
-```r
+```{r}
+#| eval: false
 \(x) max(x, na.rm = TRUE) - min(x, na.rm = TRUE)
 ```
 
@@ -37,7 +39,8 @@ Both versions define the exact same function — the `\(x)` shorthand is simply 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Anonymous function, called immediately - no name assigned
@@ -48,7 +51,8 @@ participants <- read.csv("data/participants.csv")
 [1] 23
 ```
 
-```r
+```{r}
+#| eval: false
 # The shorthand \(x) syntax - identical result
 (\(x) max(x, na.rm = TRUE) - min(x, na.rm = TRUE))(participants$bmi)
 ```
@@ -65,7 +69,8 @@ Try wrapping the same anonymous function around `participants$age` instead of `p
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 age_range_width <- (\(x) max(x, na.rm = TRUE) - min(x, na.rm = TRUE))(participants$age)
@@ -78,7 +83,8 @@ age_range_width
 [1] 63
 ```
 
-```r
+```{r}
+#| eval: false
 bmi_range_width
 ```
 

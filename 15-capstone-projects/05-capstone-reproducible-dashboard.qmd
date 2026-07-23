@@ -1,0 +1,175 @@
+# Capstone 5: A Reproducible County Dashboard {#sec-capstone-reproducible-dashboard}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Capstones 1 through 4 produced four separate, valuable analyses — but a clinic director doesn't want four disconnected scripts; she wants one polished report per county, combining a risk snapshot, a geographic comparison, and a longitudinal note, that she can regenerate for any of the five counties whenever new data arrives. This is precisely the parameterized-reporting problem Level 14 solved — now applied to a genuinely complete, multi-part report instead of a single table.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Build one parameterized Quarto template combining a risk-factor snapshot, a geographic comparison, and a longitudinal note into a single, reusable county dashboard report.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 14 Page 7 parameterized a report by `county`, filtering `participants` down to one clinic's rows. Could that same `params$county` value also control which comparison group a *geographic* section uses (that county vs. every other county)?
+- If this dashboard needs to show a hypertension rate specific to one county, but also needs the overall study-wide hypertension rate for context, would both numbers use the same filtered data frame, or two different ones?
+:::
+
+## The R Concept
+
+This capstone's template combines Level 15's own capstones 1 and 3 into one parameterized document, following Level 14's pattern:
+
+```yaml
+---
+title: "County Health Dashboard: ˋr params$countyˋ"
+params:
+  county: "Oakford"
+---
+```
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+participants$hypertension <- as.numeric(participants$systolic_bp >= 140)
+
+clinic_data   <- participants[participants$county == params$county, ]
+overall_rate  <- mean(participants$hypertension, na.rm = TRUE)
+county_rate   <- mean(clinic_data$hypertension, na.rm = TRUE)
+```
+
+## Demonstration
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+participants$hypertension <- as.numeric(participants$systolic_bp >= 140)
+
+clinic_data <- participants[participants$county == "Oakford", ]
+
+nrow(clinic_data)
+mean(clinic_data$hypertension, na.rm = TRUE)
+```
+
+```
+[1] 17
+```
+
+```
+[1] 0.2941176
+```
+
+## Explore
+
+Try recomputing the same two lines with `"Riverdale"` in place of `"Oakford"` — Riverdale's hypertension rate (21.4%, the lowest of all five counties) is noticeably below Oakford's (29.4%), even though Level 15's Capstone 3 already confirmed neither systolic BP nor BMI differs *significantly* by county overall. A dashboard can honestly present this county-specific number while still contextualizing it against that larger, non-significant finding.
+
+## Solve the Problem
+
+```yaml
+---
+title: "County Health Dashboard: ˋr params$countyˋ"
+params:
+  county: "Oakford"
+---
+
+## Risk Snapshot
+```
+
+```{r}
+#| eval: false
+#| label: tbl-county-snapshot
+#| tbl-cap: paste("Health snapshot for", params$county)
+participants <- read.csv("data/participants.csv")
+participants$hypertension <- as.numeric(participants$systolic_bp >= 140)
+
+clinic_data  <- participants[participants$county == params$county, ]
+overall_rate <- round(100 * mean(participants$hypertension, na.rm = TRUE), 1)
+county_rate  <- round(100 * mean(clinic_data$hypertension, na.rm = TRUE), 1)
+
+snapshot <- data.frame(
+  Metric = c("Patients", "Hypertension Rate (%)", "Study-wide Rate (%)", "Mean BMI"),
+  Value  = c(nrow(clinic_data), county_rate, overall_rate,
+             round(mean(clinic_data$bmi, na.rm = TRUE), 1))
+)
+knitr::kable(snapshot)
+```
+
+```
+|Metric                | Value|
+|:----------------------|-----:|
+|Patients               |  17.0|
+|Hypertension Rate (%)  |  29.4|
+|Study-wide Rate (%)    |  30.2|
+|Mean BMI               |  28.0|
+```
+
+```
+## Geographic Context
+
+As shown in @sec-capstone-geographic-patterns, neither blood pressure
+(F = 0.539, p = 0.708) nor BMI (F = 1.614, p = 0.178) differs
+significantly across all five counties overall — so ˋr params$countyˋ's
+individual numbers above should be read as a local snapshot, not as
+evidence of a distinct geographic health pattern.
+
+## References
+
+Report generated using R [@rcoreteam] and the tidyverse [@wickham2023r4ds].
+```
+
+Rendering this template with `params: county: "Oakford"` produces a snapshot table showing 17 patients, a 29.4% hypertension rate (just under the study-wide 30.2%), and a mean BMI of 28.0 — immediately followed by the honest geographic context from Capstone 3, correctly citing its cross-reference and this level's software citations.
+
+## Interpret the Result
+
+This dashboard demonstrates the full reproducible-research payoff: a single template, parameterized by county, that automatically produces a locally-relevant snapshot *while never losing the broader statistical context* that makes that snapshot meaningful. Rendering the same template for all five counties (Capstone 3's `for` loop pattern, Level 10) would produce five internally consistent reports, each correctly noting that no significant geographic pattern was found overall — exactly the kind of report a clinic director could trust, because it's generated the same verified way every time, for every county, rather than assembled by hand once and potentially never updated again.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Presenting a county's individual rate (like Oakford's 29.4%) without the study-wide context (30.2%) or the geographic ANOVA's non-significant result.** A reader seeing only "29.4%" with no comparison point might wrongly assume it represents a meaningfully distinct local pattern.
+- **Hardcoding the overall study-wide rate instead of computing it from the full `participants` data frame inside the same template.** If `participants.csv` is later updated, a hardcoded "30.2%" would silently become wrong, while `mean(participants$hypertension, na.rm = TRUE)` recalculates correctly every render.
+- **Forgetting a dashboard for one county still depends on data and conclusions computed from the *entire* dataset (like the ANOVA's p-value).** Parameterization filters some things (the county-specific snapshot) but not everything — the overall geographic conclusion is deliberately the same across every county's rendered report.
+:::
+
+## Practice Problem
+
+Add a fourth section to this dashboard template, "Longitudinal Note," reporting how many of Capstone 4's `bp_visits` participants belong to `params$county` specifically, and what fraction of *those* participants were categorized as "Improved."
+
+## Challenge Problem
+
+Write the R code (using `quarto::quarto_render()` inside a `for` loop, Level 10 and Level 14's challenge problems) that would render this complete dashboard once for each of the five counties, producing five files named `dashboard_<county>.html`. Explain briefly why this single script is more maintainable than five hand-written, county-specific report files.
+
+## Key Takeaways
+
+- A reproducible dashboard combines multiple capstone analyses (risk snapshot, geographic context) into one parameterized template, rather than four disconnected scripts.
+- Local, county-specific numbers should always be presented alongside the relevant study-wide context and statistical conclusions — parameterization changes what's filtered, not the underlying, honestly-reported statistical evidence.
+- The exact same discipline from Level 14 (inline code, cross-references, citations, parameters) scales up naturally from a single table to a genuinely complete, multi-section report.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Why does this dashboard template compute `overall_rate` from the full `participants` data frame rather than hardcoding it?
+   a) Hardcoding is not technically possible in Quarto
+   b) It ensures the study-wide context number stays correct automatically if the underlying data changes
+   c) `params$county` requires it
+   d) It has no effect on the report's correctness
+
+2. **True or false.** A county-specific hypertension rate should be reported without any broader statistical context.
+
+3. **Predict the output.** If this template is rendered with `params: county: "Riverdale"`, and Riverdale's hypertension rate is 21.4%, would the "Study-wide Rate (%)" row also change to a different value?
+
+4. **Short answer.** Why does rendering one parameterized template five times (once per county) produce a more trustworthy set of reports than five separately hand-written report files?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** It ensures the study-wide context number stays correct automatically if the underlying data changes, rather than risking a stale, hardcoded figure.
+2. **False.** A county-specific rate should always be presented alongside relevant broader context (like the study-wide rate and the geographic ANOVA's result), so a reader can correctly judge whether it represents a meaningful local pattern.
+3. No — the "Study-wide Rate (%)" is computed from the full `participants` data frame regardless of `params$county`, so it stays at 30.2% across every county's rendered report.
+4. A single template guarantees every county's report applies identical logic, computations, and statistical framing — five separately hand-written files risk subtle inconsistencies (different rounding, forgotten context, copy-paste errors) that a single, tested, parameterized source eliminates entirely.
+
+</details>
+:::

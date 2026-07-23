@@ -23,7 +23,8 @@ Write a `for` loop that repeats a block of code once for each element of a vecto
 
 A **`for` loop** repeats a block of code once for every element in a vector, giving each element a temporary name you choose:
 
-```r
+```{r}
+#| eval: false
 for (item in vector) {
   # code using item, repeated once per element of vector
 }
@@ -33,7 +34,8 @@ Each time through the loop, `item` takes on the next value in `vector`, in order
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 counties <- c("Cedar Falls", "Millbrook", "Oakford", "Riverdale", "Springvale")
 
 for (county in counties) {
@@ -57,7 +59,8 @@ Try looping over `1:5` instead of the county names: `for (i in 1:5) { print(i * 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 distinct_counties <- unique(participants$county)

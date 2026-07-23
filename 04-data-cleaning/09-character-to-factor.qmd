@@ -23,11 +23,13 @@ Convert a character column into a factor, with explicit control over which categ
 
 `as.factor(x)` performs a basic character-to-factor conversion, but — exactly like Level 2's factors page warned — it defaults to **alphabetical** level order, which is not necessarily the order you want for a reference category. Building the factor explicitly with `factor()` and a specified `levels` argument gives you full control:
 
-```r
+```{r}
+#| eval: false
 factor(x, levels = c("reference_category", "other_category"))
 ```
 
-```r
+```{r}
+#| eval: false
 smoker_factor <- factor(participants$smoker, levels = c("No", "Yes"))
 ```
 
@@ -40,7 +42,8 @@ If a factor already exists with the wrong reference level, `relevel(x, ref = "No
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 smoker_raw <- c("Yes", "No", "No", "Yes", "No")
 
 # Basic conversion - defaults to alphabetical order ("No" happens to come first anyway here)
@@ -52,7 +55,8 @@ as.factor(smoker_raw)
 Levels: No Yes
 ```
 
-```r
+```{r}
+#| eval: false
 # Explicit, deliberate order - not relying on alphabetical coincidence
 smoker_factor <- factor(smoker_raw, levels = c("No", "Yes"))
 smoker_factor
@@ -63,7 +67,8 @@ smoker_factor
 Levels: No Yes
 ```
 
-```r
+```{r}
+#| eval: false
 levels(smoker_factor)
 ```
 
@@ -77,7 +82,8 @@ Try a category pair where alphabetical order would *not* match your intended ref
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 participants$smoker_factor <- factor(participants$smoker, levels = c("No", "Yes"))
@@ -89,7 +95,8 @@ levels(participants$smoker_factor)
 [1] "No"  "Yes"
 ```
 
-```r
+```{r}
+#| eval: false
 table(participants$smoker_factor)
 ```
 

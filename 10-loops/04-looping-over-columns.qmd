@@ -23,7 +23,8 @@ Loop over every column of a data frame explicitly, using `names()` and double-br
 
 Looping over a data frame's columns means looping over its **column names**, then using **double-bracket indexing** (`df[[col_name]]`) to access each column's actual values — `df$col_name` doesn't work here, because `$` requires the literal column name typed directly, not a variable holding that name as text:
 
-```r
+```{r}
+#| eval: false
 for (col_name in names(df)) {
   column_values <- df[[col_name]]
   # code using column_values
@@ -32,7 +33,8 @@ for (col_name in names(df)) {
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 for (col_name in names(participants)) {
@@ -59,7 +61,8 @@ Try `participants$col_name` inside the loop (instead of `participants[[col_name]
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 for (col_name in names(participants)) {

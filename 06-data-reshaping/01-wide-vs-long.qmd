@@ -45,7 +45,8 @@ Both represent the *exact same information* — no data is gained or lost — bu
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 bp_wide <- read.csv("data/bp_visits_wide.csv")
 
 names(bp_wide)
@@ -57,7 +58,8 @@ names(bp_wide)
 [9] "weight_visit3"
 ```
 
-```r
+```{r}
+#| eval: false
 nrow(bp_wide)
 ```
 
@@ -73,7 +75,8 @@ Try `mean(bp_wide$sbp_visit1, na.rm = TRUE)`, then `mean(bp_wide$sbp_visit2, na.
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 bp_wide <- read.csv("data/bp_visits_wide.csv")
 
 # Wide format: three repeated columns, one row per participant

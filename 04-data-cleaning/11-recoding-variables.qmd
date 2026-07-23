@@ -23,7 +23,8 @@ Recode a variable's category labels — one existing value replaced with a new o
 
 Recoding a variable's labels uses exactly the same targeted-assignment pattern from the replacing-missing-values page, just with a real category condition instead of `is.na()`:
 
-```r
+```{r}
+#| eval: false
 df$new_col <- df$old_col                          # start from a copy
 df$new_col[df$old_col == "Yes"] <- "Current smoker"
 df$new_col[df$old_col == "No"]  <- "Non-smoker"
@@ -33,7 +34,8 @@ For a two-category recode like this one, `ifelse()` (covered properly two pages 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 smoker_raw <- c("Yes", "No", "No", "Yes", "No")
 
 smoker_label <- smoker_raw   # start from a copy, not the original
@@ -54,7 +56,8 @@ Try `table(smoker_raw, smoker_label)` — a cross-tabulation confirming every `"
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 participants$smoking_status <- participants$smoker

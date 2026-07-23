@@ -1,0 +1,28 @@
+{
+    "id": "B33AB116",
+    "path": "D:/my app/R-PBL/14-reproducible-research/10-reproducible-research-capstone.qmd",
+    "project_path": "14-reproducible-research/10-reproducible-research-capstone.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": true,
+    "created": 1784797168554.0,
+    "source_on_save": false,
+    "relative_order": 13,
+    "properties": {
+        "rmdVisualMode": "false",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "75,3",
+        "scrollLine": "64",
+        "quartoPreviewFormat": "html"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1784798506,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1784798737648,
+    "read_only": false,
+    "read_only_alternatives": []
+}

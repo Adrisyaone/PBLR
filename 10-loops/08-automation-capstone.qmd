@@ -23,13 +23,15 @@ Use `list.files()` to discover every clinic file automatically, then loop throug
 
 **`list.files()`** returns a character vector of filenames found in a directory, optionally filtered by pattern — exactly what's needed to discover "however many files happen to exist" without hardcoding a count:
 
-```r
+```{r}
+#| eval: false
 file_list <- list.files("data/clinics", pattern = "\\.csv$", full.names = TRUE)
 ```
 
 Combined with a `for` loop and result accumulation (Page 2), this reads and combines every discovered file automatically:
 
-```r
+```{r}
+#| eval: false
 all_data <- list()   # a list to accumulate each file's data frame
 
 for (i in seq_along(file_list)) {
@@ -41,7 +43,8 @@ combined <- do.call(rbind, all_data)   # stack all data frames into one
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 clinic_files <- list.files("data/clinics", pattern = "\\.csv$", full.names = TRUE)
 
 clinic_files
@@ -61,7 +64,8 @@ Try `length(clinic_files)`. Confirm it returns `5`, matching the number of count
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 clinic_files <- list.files("data/clinics", pattern = "\\.csv$", full.names = TRUE)
 
 all_clinics <- list()
@@ -79,7 +83,8 @@ nrow(combined_participants)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 table(combined_participants$county)
 ```
 
@@ -88,7 +93,8 @@ Cedar Falls   Millbrook     Oakford   Riverdale  Springvale
          20          21          17          16          26
 ```
 
-```r
+```{r}
+#| eval: false
 round(mean(combined_participants$age, na.rm = TRUE), 2)
 ```
 

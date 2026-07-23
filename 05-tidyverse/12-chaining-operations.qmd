@@ -23,7 +23,8 @@ Combine `filter()`, `group_by()`, `summarise()`, and `arrange()` into a single c
 
 A full analytical pipeline chains every relevant verb together, each one passing its result to the next:
 
-```r
+```{r}
+#| eval: false
 result <- df |>
   filter(condition) |>
   group_by(grouping_column) |>
@@ -35,7 +36,8 @@ Each step in this chain does exactly one job — filter narrows the rows, `group
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -71,7 +73,8 @@ Try removing the final `arrange(desc(mean_bp))` step and re-running the pipeline
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")

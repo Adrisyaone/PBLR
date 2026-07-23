@@ -23,11 +23,13 @@ Create a binary (0/1) indicator variable from a condition applied to an existing
 
 A logical comparison already produces exactly the right underlying information — `TRUE`/`FALSE` — and R's `as.numeric()` converts `TRUE` to `1` and `FALSE` to `0` automatically:
 
-```r
+```{r}
+#| eval: false
 as.numeric(condition)
 ```
 
-```r
+```{r}
+#| eval: false
 df$is_hypertensive <- as.numeric(df$systolic_bp >= 130)
 ```
 
@@ -40,7 +42,8 @@ Some analyses are perfectly happy with a plain logical (`TRUE`/`FALSE`) column i
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 sbp <- c(118, 132, 145, 121, 138)
 
 sbp >= 130
@@ -50,7 +53,8 @@ sbp >= 130
 [1] FALSE  TRUE  TRUE FALSE  TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 as.numeric(sbp >= 130)
 ```
 
@@ -64,7 +68,8 @@ Try `sum(as.numeric(sbp >= 130))` — since `1`s and `0`s sum directly to a coun
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 participants$is_hypertensive <- as.numeric(participants$systolic_bp >= 130)
@@ -77,7 +82,8 @@ table(participants$is_hypertensive, useNA = "always")
   50   46    4
 ```
 
-```r
+```{r}
+#| eval: false
 sum(participants$is_hypertensive, na.rm = TRUE)
 ```
 

@@ -5,7 +5,8 @@
 
 You inherit a script from a former intern that includes lines like:
 
-```r
+```{r}
+#| eval: false
 x <- 78
 y <- 1.70
 z <- x / y^2
@@ -45,7 +46,8 @@ Beyond the hard rules, there are **style conventions** — not enforced by R, bu
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 # Poor naming - technically valid R, but unreadable
 x <- 78
 y <- 1.70
@@ -53,7 +55,8 @@ z <- x / y^2
 temp2 <- z >= 25
 ```
 
-```r
+```{r}
+#| eval: false
 # Clear naming - communicates meaning without needing comments
 weight_kg <- 78
 height_m <- 1.70
@@ -63,7 +66,8 @@ is_overweight <- bmi >= 25
 
 Both blocks compute exactly the same thing and produce identical results — the difference is entirely about how quickly a human reader understands them.
 
-```r
+```{r}
+#| eval: false
 # This will cause an error - names can't start with a number
 2nd_visit_bp <- 130
 ```
@@ -80,7 +84,8 @@ Try creating an object called `TRUE_value <- 5` — does it work? Then try creat
 
 Rewriting the inherited script with clear names:
 
-```r
+```{r}
+#| eval: false
 weight_kg <- 78
 height_m <- 1.70
 bmi <- weight_kg / height_m^2

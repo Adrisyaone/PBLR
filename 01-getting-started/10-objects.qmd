@@ -28,25 +28,29 @@ Two ways to see what objects currently exist in your session:
 1. **The Environment pane** (top-right in RStudio) — lists every object live, updating automatically as you create, modify, or remove them.
 2. **`ls()`** — a function that lists all object names in your current session, directly in the Console.
 
-```r
+```{r}
+#| eval: false
 ls()
 ```
 
 To remove an object you no longer need:
 
-```r
+```{r}
+#| eval: false
 rm(bmi_rounded)
 ```
 
 And to clear everything at once (useful for starting fresh, though rarely needed mid-analysis):
 
-```r
+```{r}
+#| eval: false
 rm(list = ls())
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 weight_kg <- 78
 height_m <- 1.70
 bmi <- weight_kg / height_m^2
@@ -69,7 +73,8 @@ Run `rm(bmi_rounded)` and then `ls()` again. Confirm `bmi_rounded` is gone from 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 ls()
 ```
 

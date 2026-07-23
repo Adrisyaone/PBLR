@@ -23,13 +23,15 @@ Chain multiple operations together in the order you actually think about them, u
 
 The **native pipe**, `|>` (built into base R since version 4.1, no package required), takes whatever is on its left and inserts it as the **first argument** of the function on its right:
 
-```r
+```{r}
+#| eval: false
 x |> f()
 # is exactly equivalent to:
 f(x)
 ```
 
-```r
+```{r}
+#| eval: false
 participants |> filter(age >= 65)
 # is exactly equivalent to:
 filter(participants, age >= 65)
@@ -37,7 +39,8 @@ filter(participants, age >= 65)
 
 Chained together, a pipe reads top-to-bottom in the exact order the steps happen — no more inside-out nesting:
 
-```r
+```{r}
+#| eval: false
 participants |> filter(age >= 65) |> head(3)
 ```
 
@@ -45,7 +48,8 @@ This is identical to `head(filter(participants, age >= 65), 3)` — same result,
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -63,7 +67,8 @@ identical(nested_result, piped_result)
 [1] TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 piped_result
 ```
 
@@ -80,7 +85,8 @@ Try adding a third step to the pipeline: `participants |> filter(age >= 65) |> a
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")

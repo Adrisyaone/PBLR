@@ -23,7 +23,8 @@ Formally compare two nested models (one a simpler version of the other) using `a
 
 `anova()` applied to two *nested* fitted models (not a single categorical predictor, despite the same function name as Level 11 Page 10) performs a formal F-test of whether the larger model's extra predictors improve the fit significantly:
 
-```r
+```{r}
+#| eval: false
 model_small <- lm(outcome ~ x1, data = df)
 model_big   <- lm(outcome ~ x1 + x2 + x3, data = df)
 anova(model_small, model_big)
@@ -33,7 +34,8 @@ anova(model_small, model_big)
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
@@ -61,7 +63,8 @@ Try `AIC(model_small, model_big)` to see both models' AIC values side by side. A
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
@@ -78,7 +81,8 @@ comparison$`Pr(>F)`[2]
 [1] 0.2477964
 ```
 
-```r
+```{r}
+#| eval: false
 AIC(model_small, model_big)
 ```
 

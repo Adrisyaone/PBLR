@@ -23,7 +23,8 @@ Build a systematic, repeatable checklist for verifying any newly imported datase
 
 There's no single function that catches everything — but combining tools from this level and Level 2 into one consistent post-import routine catches nearly every common problem:
 
-```r
+```{r}
+#| eval: false
 dim(data)                       # does row/column count match expectations? (Level 2)
 names(data)                     # are column names sensible, not garbled? (this level)
 str(data)                       # did every column import as the expected type? (Level 1/2)
@@ -41,7 +42,8 @@ Running this checklist takes seconds and turns "I hope this imported correctly" 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants_messy <- read.csv(
   "data/participants_messy.csv", skip = 2,
   na.strings = c("NA", "999", "N/A", "Unknown", "")
@@ -54,7 +56,8 @@ dim(participants_messy)
 [1] 20  8
 ```
 
-```r
+```{r}
+#| eval: false
 names(participants_messy)
 ```
 
@@ -63,7 +66,8 @@ names(participants_messy)
 [6] "diastolic_bp" "bmi"          "smoker"
 ```
 
-```r
+```{r}
+#| eval: false
 str(participants_messy)
 ```
 
@@ -85,7 +89,8 @@ Run `sapply(participants_messy, function(x) sum(is.na(x)))` and look for which c
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants_messy <- read.csv(
   "data/participants_messy.csv", skip = 2,
   na.strings = c("NA", "999", "N/A", "Unknown", "")
@@ -99,7 +104,8 @@ dim(participants_messy)
 [1] 20  8
 ```
 
-```r
+```{r}
+#| eval: false
 sapply(participants_messy, function(x) sum(is.na(x)))
 ```
 
@@ -110,7 +116,8 @@ sapply(participants_messy, function(x) sum(is.na(x)))
            2            1
 ```
 
-```r
+```{r}
+#| eval: false
 sapply(participants_messy[sapply(participants_messy, is.character)],
        function(x) length(unique(x)))
 ```

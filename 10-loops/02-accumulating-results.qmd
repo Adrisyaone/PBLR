@@ -23,7 +23,8 @@ Store, or "accumulate," results produced inside a loop into a vector you can use
 
 To accumulate results, create an empty (or appropriately sized) vector **before** the loop starts, then assign into a specific position of it during each iteration:
 
-```r
+```{r}
+#| eval: false
 results <- vector("numeric", length(some_vector))   # pre-allocate
 
 for (i in seq_along(some_vector)) {
@@ -35,7 +36,8 @@ for (i in seq_along(some_vector)) {
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 counties <- unique(participants$county)
 
 county_counts <- vector("numeric", length(counties))   # pre-allocate 5 empty slots
@@ -61,7 +63,8 @@ Try `sum(county_counts)` after running the loop above. It should equal `100`, co
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 numeric_columns <- c("age", "systolic_bp", "diastolic_bp", "bmi")

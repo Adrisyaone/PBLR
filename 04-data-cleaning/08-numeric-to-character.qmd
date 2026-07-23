@@ -23,13 +23,15 @@ Convert a numeric variable into character text, including generating a formatted
 
 **`as.character(x)`** performs the basic conversion — a number becomes its text representation:
 
-```r
+```{r}
+#| eval: false
 as.character(42)   # "42"
 ```
 
 But a zero-padded, prefixed code like `"P001"` needs more than a bare conversion — it needs **formatting**. `sprintf()` (or the more R-idiomatic `formatC()`) builds a formatted string from a template:
 
-```r
+```{r}
+#| eval: false
 sprintf("P%03d", 1)     # "P001" - %03d means "an integer, zero-padded to 3 digits"
 sprintf("P%03d", 42)    # "P042"
 sprintf("P%03d", 100)   # "P100"
@@ -39,7 +41,8 @@ Reading `"P%03d"`: `P` is literal text that appears as-is; `%03d` is a placehold
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 as.character(42)
 ```
 
@@ -47,7 +50,8 @@ as.character(42)
 [1] "42"
 ```
 
-```r
+```{r}
+#| eval: false
 class(as.character(42))
 ```
 
@@ -55,7 +59,8 @@ class(as.character(42))
 [1] "character"
 ```
 
-```r
+```{r}
+#| eval: false
 # Basic conversion alone doesn't zero-pad
 as.character(1)
 ```
@@ -64,7 +69,8 @@ as.character(1)
 [1] "1"
 ```
 
-```r
+```{r}
+#| eval: false
 # sprintf() builds the exact formatted code needed
 sprintf("P%03d", 1)
 ```
@@ -73,7 +79,8 @@ sprintf("P%03d", 1)
 [1] "P001"
 ```
 
-```r
+```{r}
+#| eval: false
 sprintf("P%03d", c(1, 42, 100))
 ```
 
@@ -87,7 +94,8 @@ Try `sprintf("P%02d", 1)` (2 digits instead of 3) and `sprintf("P%04d", 1)` (4 d
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 participants$patient_code <- sprintf("P%03d", participants$id)
@@ -99,7 +107,8 @@ head(participants$patient_code)
 [1] "P001" "P002" "P003" "P004" "P005" "P006"
 ```
 
-```r
+```{r}
+#| eval: false
 class(participants$patient_code)
 ```
 
@@ -107,7 +116,8 @@ class(participants$patient_code)
 [1] "character"
 ```
 
-```r
+```{r}
+#| eval: false
 tail(participants$patient_code)
 ```
 

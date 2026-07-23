@@ -23,24 +23,28 @@ Count how many rows fall into each category of one or more columns, using `dplyr
 
 **`count()`** counts rows per group in one step — no `group_by()` needed first:
 
-```r
+```{r}
+#| eval: false
 count(df, column)
 ```
 
-```r
+```{r}
+#| eval: false
 count(participants, county)
 ```
 
 This is exactly equivalent to `summarise(group_by(participants, county), n = n())` from the previous page, but in a single readable call. You can also count combinations of multiple columns at once, and sort by frequency with `sort = TRUE`:
 
-```r
+```{r}
+#| eval: false
 count(participants, county, smoker)          # every county-by-smoker combination
 count(participants, county, sort = TRUE)     # counts ordered largest first
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -59,7 +63,8 @@ count(participants, county)
 
 Note the column is automatically named `n` — matching exactly what `table(participants$county)` reported back in Level 2, just returned as a proper data frame instead of a table object.
 
-```r
+```{r}
+#| eval: false
 count(participants, county, sort = TRUE)
 ```
 
@@ -80,7 +85,8 @@ Try `count(participants, smoker)` and confirm it matches Level 2's `table(partic
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")

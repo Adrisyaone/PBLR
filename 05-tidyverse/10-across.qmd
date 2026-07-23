@@ -23,11 +23,13 @@ Apply the same summary function to multiple columns at once, using `dplyr::acros
 
 **`across()`** applies one function to several columns inside `summarise()` or `mutate()`, instead of writing one summary expression per column:
 
-```r
+```{r}
+#| eval: false
 summarise(df, across(c(col1, col2, col3), ~ mean(.x, na.rm = TRUE)))
 ```
 
-```r
+```{r}
+#| eval: false
 summarise(participants, across(c(age, systolic_bp, diastolic_bp, bmi), ~ mean(.x, na.rm = TRUE)))
 ```
 
@@ -35,7 +37,8 @@ The `~` starts a short **formula-style function**, where `.x` stands in for "whi
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -58,7 +61,8 @@ Try naming the results by wrapping `across()`'s function argument in a named lis
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")

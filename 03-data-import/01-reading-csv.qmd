@@ -23,7 +23,8 @@ Import a CSV file using `readr::read_csv()`, and understand how it differs from 
 
 **`read_csv()`**, from the `readr` package (part of the tidyverse), reads CSV files with a few meaningful differences from base R's `read.csv()`:
 
-```r
+```{r}
+#| eval: false
 library(readr)
 my_data <- read_csv("path/to/file.csv")
 ```
@@ -33,7 +34,8 @@ my_data <- read_csv("path/to/file.csv")
 - It's meaningfully **faster** on large files, which matters once your datasets grow beyond a few hundred rows.
 - Unlike base R historically, it **never** converts character columns to factors automatically, and consistently treats blank fields as missing across all column types (a subtlety you'll see matters a lot on the missing-values page later in this level).
 
-```r
+```{r}
+#| eval: false
 participants <- read_csv("data/participants.csv")
 ```
 
@@ -50,7 +52,8 @@ dbl (5): id, age, systolic_bp, diastolic_bp, bmi
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(readr)
 
 participants <- read_csv("data/participants.csv")
@@ -64,7 +67,8 @@ chr (3): sex, county, smoker
 dbl (5): id, age, systolic_bp, diastolic_bp, bmi
 ```
 
-```r
+```{r}
+#| eval: false
 class(participants)
 ```
 
@@ -72,7 +76,8 @@ class(participants)
 [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"
 ```
 
-```r
+```{r}
+#| eval: false
 participants
 ```
 
@@ -92,7 +97,8 @@ Compare `class(read.csv("data/participants.csv"))` (base R, from Level 1) agains
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(readr)
 
 participants <- read_csv("data/participants.csv")

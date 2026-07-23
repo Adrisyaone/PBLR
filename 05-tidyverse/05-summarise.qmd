@@ -23,14 +23,16 @@ Collapse a data frame down to one or more summary statistics using `dplyr::summa
 
 **`summarise()`** collapses a data frame into a single summary row (or one row per group, as you'll see next page), using the same "no `df$` prefix" style as `mutate()`:
 
-```r
+```{r}
+#| eval: false
 summarise(df,
   stat1 = <summary function>(column1),
   stat2 = <summary function>(column2)
 )
 ```
 
-```r
+```{r}
+#| eval: false
 summarise(participants,
   n_participants = n(),
   mean_age = mean(age, na.rm = TRUE),
@@ -42,7 +44,8 @@ summarise(participants,
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -67,7 +70,8 @@ Try adding `min_age = min(age, na.rm = TRUE)` and `max_age = max(age, na.rm = TR
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")

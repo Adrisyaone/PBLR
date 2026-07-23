@@ -496,5 +496,86 @@
   },
   "12-advanced-analysis/09-advanced-analysis-capstone.qmd": {
     "09-advanced-analysis-capstone.html": "873f6783"
+  },
+  "13-advanced-r/01-environments.qmd": {
+    "01-environments.html": "454fc269"
+  },
+  "13-advanced-r/02-closures.qmd": {
+    "02-closures.html": "19b6074b"
+  },
+  "13-advanced-r/03-s3-object-system.qmd": {
+    "03-s3-object-system.html": "bc17f215"
+  },
+  "13-advanced-r/04-error-handling-trycatch.qmd": {
+    "04-error-handling-trycatch.html": "d436a159"
+  },
+  "13-advanced-r/05-debugging-tools.qmd": {
+    "05-debugging-tools.html": "d8057b42"
+  },
+  "13-advanced-r/06-functional-programming.qmd": {
+    "06-functional-programming.html": "e7c169ae"
+  },
+  "13-advanced-r/07-regular-expressions.qmd": {
+    "07-regular-expressions.html": "3ed68098"
+  },
+  "13-advanced-r/08-string-manipulation.qmd": {
+    "08-string-manipulation.html": "112bcc6d"
+  },
+  "13-advanced-r/09-working-with-dates.qmd": {
+    "09-working-with-dates.html": "a98da6f0"
+  },
+  "13-advanced-r/10-package-structure.qmd": {
+    "10-package-structure.html": "720da5e5"
+  },
+  "13-advanced-r/11-advanced-r-capstone.qmd": {
+    "11-advanced-r-capstone.html": "9bf58079"
+  },
+  "14-reproducible-research/01-rmarkdown-vs-quarto.qmd": {
+    "01-rmarkdown-vs-quarto.html": "773a5786"
+  },
+  "14-reproducible-research/02-yaml-front-matter.qmd": {
+    "02-yaml-front-matter.html": "537e6d71"
+  },
+  "14-reproducible-research/03-code-chunks-inline-code.qmd": {
+    "03-code-chunks-inline-code.html": "fb3ebd0f"
+  },
+  "14-reproducible-research/04-tables-and-figures.qmd": {
+    "04-tables-and-figures.html": "5d70c904"
+  },
+  "14-reproducible-research/05-cross-references.qmd": {
+    "05-cross-references.html": "ab832414"
+  },
+  "14-reproducible-research/06-citations-bibliography.qmd": {
+    "06-citations-bibliography.html": "ff83df0a"
+  },
+  "14-reproducible-research/07-parameterized-reports.qmd": {
+    "07-parameterized-reports.html": "22d49deb"
+  },
+  "14-reproducible-research/08-output-formats.qmd": {
+    "08-output-formats.html": "748ac725"
+  },
+  "14-reproducible-research/09-projects-books-websites.qmd": {
+    "09-projects-books-websites.html": "75d67006"
+  },
+  "14-reproducible-research/10-reproducible-research-capstone.qmd": {
+    "10-reproducible-research-capstone.html": "72827c89"
+  },
+  "15-capstone-projects/01-capstone-hypertension-risk-factors.qmd": {
+    "01-capstone-hypertension-risk-factors.html": "b35a77e9"
+  },
+  "15-capstone-projects/02-capstone-smoking-cardiovascular-risk.qmd": {
+    "02-capstone-smoking-cardiovascular-risk.html": "24789d68"
+  },
+  "15-capstone-projects/03-capstone-geographic-patterns.qmd": {
+    "03-capstone-geographic-patterns.html": "dc25c787"
+  },
+  "15-capstone-projects/04-capstone-longitudinal-blood-pressure.qmd": {
+    "04-capstone-longitudinal-blood-pressure.html": "b7311c9e"
+  },
+  "15-capstone-projects/05-capstone-reproducible-dashboard.qmd": {
+    "05-capstone-reproducible-dashboard.html": "30d183ea"
+  },
+  "15-capstone-projects/06-independent-capstone-guidance.qmd": {
+    "06-independent-capstone-guidance.html": "19b41f27"
   }
 }

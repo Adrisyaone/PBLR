@@ -23,7 +23,8 @@ Add readable titles, axis labels, and a cleaner visual theme to a plot using `la
 
 **`labs()`** sets a plot's title, subtitle, axis labels, and caption, all in one layer:
 
-```r
+```{r}
+#| eval: false
 + labs(
     title = "Plot Title",
     subtitle = "Optional subtitle",
@@ -35,13 +36,15 @@ Add readable titles, axis labels, and a cleaner visual theme to a plot using `la
 
 **`theme_*()`** functions replace `ggplot2`'s default gray-background theme with alternatives — `theme_minimal()`, `theme_bw()`, and `theme_classic()` are common, cleaner choices for reports:
 
-```r
+```{r}
+#| eval: false
 + theme_minimal()
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")
@@ -65,7 +68,8 @@ Try swapping `theme_minimal()` for `theme_bw()` or `theme_classic()`. All three 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")

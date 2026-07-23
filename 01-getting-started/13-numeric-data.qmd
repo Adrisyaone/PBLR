@@ -28,7 +28,8 @@ Two functions matter here:
 - **`is.numeric(x)`** — returns `TRUE` or `FALSE`, directly answering "is this numeric?"
 - **`as.numeric(x)`** — attempts to *convert* `x` into a numeric value. If `x` is text that clearly represents a number (like `"45"`), this works cleanly. If the text isn't a valid number (like `"forty-five"`), R will produce `NA` and a warning, rather than crashing.
 
-```r
+```{r}
+#| eval: false
 is.numeric(45)      # TRUE
 is.numeric("45")    # FALSE - it's character, even though it looks numeric
 as.numeric("45")    # converts "45" into the number 45
@@ -36,7 +37,8 @@ as.numeric("45")    # converts "45" into the number 45
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 age_text <- "45"
 is.numeric(age_text)
 ```
@@ -45,7 +47,8 @@ is.numeric(age_text)
 [1] FALSE
 ```
 
-```r
+```{r}
+#| eval: false
 age_numeric <- as.numeric(age_text)
 age_numeric
 ```
@@ -54,7 +57,8 @@ age_numeric
 [1] 45
 ```
 
-```r
+```{r}
+#| eval: false
 is.numeric(age_numeric)
 ```
 
@@ -62,7 +66,8 @@ is.numeric(age_numeric)
 [1] TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 # What happens with genuinely invalid text
 as.numeric("forty-five")
 ```
@@ -79,7 +84,8 @@ Try `as.numeric("45 ")` (with a trailing space, matching the opening problem) �
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 age_raw <- "45 "   # as it came in from the spreadsheet, with a trailing space
 is.numeric(age_raw)
 ```
@@ -88,7 +94,8 @@ is.numeric(age_raw)
 [1] FALSE
 ```
 
-```r
+```{r}
+#| eval: false
 age_fixed <- as.numeric(age_raw)
 age_fixed
 ```
@@ -97,7 +104,8 @@ age_fixed
 [1] 45
 ```
 
-```r
+```{r}
+#| eval: false
 is.numeric(age_fixed)
 ```
 

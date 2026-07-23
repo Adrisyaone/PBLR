@@ -23,7 +23,8 @@ Assemble a complete descriptive statistics report from `participants.csv`, combi
 
 A complete descriptive report typically combines, for each numeric variable: `mean()`, `median()`, `sd()`, `range()`, and a missing-value count; and for each categorical variable: `table()` and `prop.table()`. `dplyr`'s `group_by()` + `summarise()` (Level 5) extends this to grouped numeric summaries, like blood pressure by county.
 
-```r
+```{r}
+#| eval: false
 numeric_summary <- function(x) {
   c(
     n_valid = sum(!is.na(x)),
@@ -39,7 +40,8 @@ numeric_summary <- function(x) {
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -51,7 +53,8 @@ nrow(participants)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 round(mean(participants$age, na.rm = TRUE), 2)
 ```
 
@@ -59,7 +62,8 @@ round(mean(participants$age, na.rm = TRUE), 2)
 [1] 47.43
 ```
 
-```r
+```{r}
+#| eval: false
 round(sd(participants$age, na.rm = TRUE), 2)
 ```
 
@@ -67,7 +71,8 @@ round(sd(participants$age, na.rm = TRUE), 2)
 [1] 15.03
 ```
 
-```r
+```{r}
+#| eval: false
 round(prop.table(table(participants$sex)) * 100, 1)
 ```
 
@@ -82,7 +87,8 @@ Try wrapping the numeric-summary calculations above into a small reusable functi
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -119,7 +125,8 @@ n_total
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 age_mean
 ```
 
@@ -127,7 +134,8 @@ age_mean
 [1] 47.43
 ```
 
-```r
+```{r}
+#| eval: false
 sex_pct
 ```
 
@@ -136,7 +144,8 @@ Female   Male
   52.0   48.0
 ```
 
-```r
+```{r}
+#| eval: false
 bp_by_county
 ```
 

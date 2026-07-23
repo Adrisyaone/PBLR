@@ -23,7 +23,8 @@ Split a single plot into multiple small panels, one per category, using `facet_w
 
 **`facet_wrap()`** splits a plot into multiple small panels, one per category of a specified variable — each panel shares the same x- and y-axis scale by default, making the panels directly comparable to each other:
 
-```r
+```{r}
+#| eval: false
 ggplot(data = df, aes(x = numeric_column)) +
   geom_histogram(binwidth = ...) +
   facet_wrap(~ grouping_column)
@@ -33,7 +34,8 @@ The `~` (tilde) before the grouping column is required syntax, borrowed from R's
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")
@@ -51,7 +53,8 @@ Try adding `nrow = 1` inside `facet_wrap(~ county, nrow = 1)`, forcing all 5 pan
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")

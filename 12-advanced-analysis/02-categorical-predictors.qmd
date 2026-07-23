@@ -23,7 +23,8 @@ Use a categorical (factor) variable directly as an `lm()` predictor, and interpr
 
 When a character or factor column is used as an `lm()` predictor, R automatically converts it into **dummy variables**: one reference category (alphabetically first, by default) is "baked into" the intercept, and every other category gets its own coefficient representing its difference *from that reference category*.
 
-```r
+```{r}
+#| eval: false
 model <- lm(numeric_outcome ~ categorical_variable, data = df)
 summary(model)
 ```
@@ -32,7 +33,8 @@ With 5 counties, R creates 4 dummy coefficients (not 5) — the reference county
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 bp_county_lm <- lm(systolic_bp ~ county, data = participants)
@@ -71,7 +73,8 @@ Notice `Cedar Falls` never appears as its own coefficient — it's alphabeticall
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 bp_county_lm <- lm(systolic_bp ~ county, data = participants)
@@ -84,7 +87,8 @@ coef(bp_county_lm)
       128.157895         5.142105         1.547988        -3.800752         3.303644
 ```
 
-```r
+```{r}
+#| eval: false
 # Reconstruct Millbrook's predicted mean from the coefficients
 coef(bp_county_lm)["(Intercept)"] + coef(bp_county_lm)["countyMillbrook"]
 ```
@@ -93,7 +97,8 @@ coef(bp_county_lm)["(Intercept)"] + coef(bp_county_lm)["countyMillbrook"]
 [1] 133.3
 ```
 
-```r
+```{r}
+#| eval: false
 summary(bp_county_lm)$fstatistic
 ```
 

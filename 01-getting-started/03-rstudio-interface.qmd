@@ -34,7 +34,8 @@ The distinction that trips up beginners most: **the Source pane is for permanent
 
 You don't need special code to "see" panes — but you can generate something in each of the three panes that respond to code, to connect the concept to something concrete.
 
-```r
+```{r}
+#| eval: false
 # Running this creates an object -> it will appear in the Environment pane
 intern_name <- "Jordan"
 

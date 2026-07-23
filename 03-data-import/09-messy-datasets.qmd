@@ -25,19 +25,22 @@ Real exports are rarely as clean as a textbook example. Two of the most common p
 
 **Extra rows before the real header** — use the `skip` argument to tell `read.csv()` (or `read_csv()`) how many lines to skip before it starts looking for the header row:
 
-```r
+```{r}
+#| eval: false
 read.csv("file.csv", skip = 2)   # ignore the first 2 lines entirely
 ```
 
 **Inconsistent capitalization and stray whitespace** in text columns — these don't stop a file from importing (unlike a genuinely wrong data type, which you'll see two pages from now), but they silently create *duplicate-looking categories* that are actually the same real-world value. `trimws()` removes leading/trailing whitespace; wrapping a column in `tolower()` (or `toupper()`) standardizes case. Full systematic cleaning of variables like this belongs to Level 4 — for now, the goal is simply to *notice* the problem immediately after import, using `table()` or `unique()`.
 
-```r
+```{r}
+#| eval: false
 table(participants_messy$county)   # reveals how many distinct-looking values actually exist
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 # Naively reading without skip - the first "row" of data becomes garbage column names
 broken_attempt <- read.csv("data/participants_messy.csv")
 names(broken_attempt)
@@ -47,7 +50,8 @@ names(broken_attempt)
 [1] "Community.Health.Survey...Raw.Export"
 ```
 
-```r
+```{r}
+#| eval: false
 # Correctly skipping the 2 metadata lines before the real header
 participants_messy <- read.csv("data/participants_messy.csv", skip = 2)
 names(participants_messy)
@@ -58,7 +62,8 @@ names(participants_messy)
 [6] "diastolic_bp" "bmi"          "smoker"
 ```
 
-```r
+```{r}
+#| eval: false
 # Checking for hidden duplicate categories in a text column
 table(participants_messy$county)
 ```
@@ -78,7 +83,8 @@ Compare `length(unique(participants_messy$county))` (how many distinct-looking v
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants_messy <- read.csv("data/participants_messy.csv", skip = 2)
 
 nrow(participants_messy)
@@ -88,7 +94,8 @@ nrow(participants_messy)
 [1] 20
 ```
 
-```r
+```{r}
+#| eval: false
 length(unique(participants_messy$county))
 ```
 

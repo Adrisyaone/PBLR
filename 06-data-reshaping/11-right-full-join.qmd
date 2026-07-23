@@ -23,29 +23,34 @@ Keep every row from the second ("right") data frame using `dplyr::right_join()`,
 
 **`right_join()`** is `left_join()` with the roles reversed — it keeps every row of the **second** data frame, filling in `NA` for any first-data-frame columns that don't have a match:
 
-```r
+```{r}
+#| eval: false
 right_join(df1, df2, by = "key_column")
 # equivalent to:
 left_join(df2, df1, by = "key_column")   # with column order preserved differently
 ```
 
-```r
+```{r}
+#| eval: false
 right_join(baseline, followup, by = "id")
 ```
 
 **`full_join()`** goes further still, keeping **every** row from **both** data frames — matched where possible, `NA`-filled on whichever side lacks a match:
 
-```r
+```{r}
+#| eval: false
 full_join(df1, df2, by = "key_column")
 ```
 
-```r
+```{r}
+#| eval: false
 full_join(baseline, followup, by = "id")
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 baseline <- read.csv("data/baseline_enrollment.csv")
@@ -60,7 +65,8 @@ nrow(right_result)
 [1] 20
 ```
 
-```r
+```{r}
+#| eval: false
 right_result[right_result$id %in% c(21, 22), ]
 ```
 
@@ -72,7 +78,8 @@ right_result[right_result$id %in% c(21, 22), ]
 
 Participants 21 and 22 — new recruits with no baseline record — still appear, with `NA` filling in every baseline column.
 
-```r
+```{r}
+#| eval: false
 full_result <- full_join(baseline, followup, by = "id")
 
 nrow(full_result)
@@ -88,7 +95,8 @@ Try `sort(unique(full_result$id))`. Confirm it runs from 1 to 25 with no gaps �
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 baseline <- read.csv("data/baseline_enrollment.csv")
@@ -102,7 +110,8 @@ nrow(right_result)
 [1] 20
 ```
 
-```r
+```{r}
+#| eval: false
 sum(is.na(right_result$baseline_bmi))
 ```
 
@@ -110,7 +119,8 @@ sum(is.na(right_result$baseline_bmi))
 [1] 6
 ```
 
-```r
+```{r}
+#| eval: false
 full_result <- full_join(baseline, followup, by = "id")
 nrow(full_result)
 ```

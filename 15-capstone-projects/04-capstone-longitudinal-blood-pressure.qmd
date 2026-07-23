@@ -1,0 +1,188 @@
+# Capstone 4: Longitudinal Blood Pressure and Attrition {#sec-capstone-longitudinal-bp}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 11's paired t-test (Page 6) found blood pressure dropped significantly between visit 1 and visit 3 (p = 0.0025) — a single, aggregate number. Your professor wants a fuller picture: how many *individual* participants actually improved versus worsened, not just the average trend? And separately, a second dataset tracking baseline enrollment against a follow-up visit raises an uncomfortable question every longitudinal study faces — not everyone who enrolled came back. How much data was actually lost to follow-up, and does it change what can honestly be concluded?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Analyze individual-level change over time (not just the average), and separately investigate participant attrition between a baseline and follow-up dataset using join operations.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 11's paired t-test summarized 26 participants' blood pressure change into one average difference. Could each participant's own individual change also be computed and categorized, using `case_when()` (Level 4) or `ifelse()`?
+- Level 6 taught `left_join()`, `inner_join()`, and anti-joins for combining datasets with mismatched rows. If a baseline dataset has 20 participants and a follow-up dataset has 20 different-but-overlapping participants, which join would reveal exactly who dropped out?
+:::
+
+## The R Concept
+
+Individual-level change, categorized:
+
+```{r}
+#| eval: false
+bp_visits <- read.csv("data/bp_visits_wide.csv")
+bp_visits$change <- bp_visits$sbp_visit3 - bp_visits$sbp_visit1
+bp_visits$trend <- case_when(
+  bp_visits$change <= -5 ~ "Improved",
+  bp_visits$change >=  5 ~ "Worsened",
+  TRUE                   ~ "Stable"
+)
+```
+
+Attrition, using Level 6's join family:
+
+```{r}
+#| eval: false
+baseline <- read.csv("data/baseline_enrollment.csv")
+followup <- read.csv("data/followup_visit.csv")
+
+matched     <- inner_join(baseline, followup, by = "id")   # completed follow-up
+dropped_out <- anti_join(baseline, followup, by = "id")    # in baseline, missing at follow-up
+new_arrivals <- anti_join(followup, baseline, by = "id")   # at follow-up, not in baseline
+```
+
+## Demonstration
+
+```{r}
+#| eval: false
+bp_visits <- read.csv("data/bp_visits_wide.csv")
+
+bp_visits$change <- bp_visits$sbp_visit3 - bp_visits$sbp_visit1
+
+summary(bp_visits$change)
+```
+
+```
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's
+ -23.00   -9.00   -6.00   -5.00   -0.25   11.00       2
+```
+
+## Explore
+
+Try `sum(!is.na(bp_visits$change))` to confirm 26 participants have complete visit 1 and visit 3 measurements (2 are missing, matching Level 11's paired t-test sample size exactly). Before categorizing, always confirm you understand exactly how many rows will actually be classified versus excluded.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+library(dplyr)
+
+bp_visits <- read.csv("data/bp_visits_wide.csv")
+
+bp_visits <- bp_visits |>
+  mutate(
+    change = sbp_visit3 - sbp_visit1,
+    trend = case_when(
+      change <= -5 ~ "Improved",
+      change >=  5 ~ "Worsened",
+      TRUE         ~ "Stable"
+    )
+  )
+
+table(bp_visits$trend, useNA = "ifany")
+```
+
+```
+Improved   Stable Worsened     <NA>
+      15        8        3        2
+```
+
+```{r}
+#| eval: false
+baseline <- read.csv("data/baseline_enrollment.csv")
+followup <- read.csv("data/followup_visit.csv")
+
+matched      <- inner_join(baseline, followup, by = "id")
+dropped_out  <- anti_join(baseline, followup, by = "id")
+new_arrivals <- anti_join(followup, baseline, by = "id")
+
+nrow(matched)
+nrow(dropped_out)
+nrow(new_arrivals)
+```
+
+```
+[1] 15
+```
+
+```
+[1] 5
+```
+
+```
+[1] 5
+```
+
+```{r}
+#| eval: false
+# Did anyone's smoking status change between baseline and follow-up?
+# (baseline_enrollment.csv has no smoker column of its own, so compare
+#  against participants.csv's original smoker status for the same ids)
+participants <- read.csv("data/participants.csv")
+baseline_smoker <- participants[participants$id %in% matched$id, c("id", "smoker")]
+comparison <- merge(baseline_smoker, matched[, c("id", "followup_smoker")], by = "id")
+sum(comparison$smoker != comparison$followup_smoker)
+```
+
+```
+[1] 0
+```
+
+Of 28 participants with multi-visit blood pressure data, 15 improved (dropped 5+ mmHg) and only 3 worsened (rose 5+ mmHg) between visit 1 and visit 3 — consistent with, and adding real texture to, Level 11's significant average decrease. Separately, of the 20 baseline enrollees, 5 (25%) did not return for follow-up, while 5 entirely new participants appear at follow-up who were never in the baseline data. Among the 15 who did complete both visits, **zero** had a different smoking status recorded at follow-up than at baseline.
+
+## Interpret the Result
+
+The individual-level breakdown (15 improved, 8 stable, 3 worsened) confirms Level 11's average blood pressure decrease wasn't driven by a handful of extreme outliers — a clear majority of individuals genuinely improved. The attrition analysis, though, adds an important caveat any real longitudinal study must confront: 25% of the baseline cohort was lost to follow-up, and the follow-up dataset gained an equal number of new participants — meaning any "before vs. after" comparison using *only* matched individuals describes a specific 15-person subgroup, not the original 20-person baseline cohort, and definitely not a stable, unchanging population. Finding zero smoking-status changes among the matched cohort is a genuine (if modest) finding — it means none of this particular capstone's tracked participants quit or started smoking during the study window, not that smoking status never changes over time in general.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Reporting the average change (Level 11's paired t-test) without also checking the individual-level breakdown.** An average decrease could theoretically come from a few participants improving dramatically while most stayed flat or worsened slightly — the `case_when()` breakdown here confirms that's not what happened, but that confirmation required checking, not assuming.
+- **Ignoring attrition and treating the baseline and follow-up datasets as if they described the same 20 people.** `anti_join()` revealed a 25% dropout rate — any longitudinal conclusion using only the matched 15 people should explicitly note this, since dropout is rarely random (health status often influences whether someone returns for follow-up).
+- **Concluding "smoking status never changes" from zero changes in this 15-person matched subgroup.** This is a specific, small-sample finding about this particular cohort and time window, not a general claim about smoking behavior — exactly the same caution Level 11 and 12 repeatedly emphasized about generalizing beyond a given sample.
+:::
+
+## Practice Problem
+
+Using `dropped_out` (the 5 baseline participants missing from follow-up), check whether their baseline BMI or age differs noticeably from the 15 who did return, using `mean()` comparisons (Level 7). Would a systematic difference between those who dropped out and those who stayed change how you'd interpret the follow-up results?
+
+## Challenge Problem
+
+Compute each of the 26 complete participants' percent change in blood pressure (rather than raw mmHg change): `(sbp_visit3 - sbp_visit1) / sbp_visit1 * 100`. Does categorizing "Improved"/"Stable"/"Worsened" using a percent-change threshold (for example, ±4%) produce a meaningfully different breakdown than the raw 5 mmHg threshold used in this capstone?
+
+## Key Takeaways
+
+- Individual-level categorization (via `case_when()`) reveals whether an average trend reflects a broad pattern or a few extreme cases — an essential complement to Level 11's aggregate paired t-test.
+- `anti_join()` (Level 6) is the right tool for identifying exactly which participants were lost between two time points — a 25% dropout rate in this capstone is too large to ignore when interpreting follow-up results.
+- Attrition is rarely random in real longitudinal studies — any conclusion drawn only from participants who completed follow-up should explicitly note who was excluded and why that might matter.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What did the individual-level breakdown of blood pressure change reveal?
+   a) Most participants worsened, contradicting Level 11's average finding
+   b) A clear majority (15 of 26) improved, consistent with Level 11's average decrease
+   c) Exactly half improved and half worsened
+   d) No participants had complete data for both visits
+
+2. **True or false.** All 20 baseline-enrolled participants also appear in the follow-up dataset.
+
+3. **Predict the output.** If `anti_join(baseline, followup, by = "id")` returns 5 rows, what does that represent?
+
+4. **Short answer.** Why does a 25% dropout rate matter when interpreting a longitudinal comparison that only uses the matched participants?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A clear majority (15 of 26) improved, consistent with and adding detail to Level 11's significant average decrease.
+2. **False.** 5 of the 20 baseline participants (25%) do not appear in the follow-up dataset — they were lost to follow-up.
+3. The 5 baseline participants who did **not** appear in the follow-up dataset — those lost to follow-up.
+4. If participants who dropped out differ systematically from those who stayed (for example, if people with worsening health were less likely to return), any conclusion drawn only from the matched participants could be biased and not representative of the full original baseline cohort.
+
+</details>
+:::

@@ -23,7 +23,8 @@ Understand what a function fundamentally is — a reusable, named piece of code 
 
 A **function** is a named, reusable block of code that takes zero or more **inputs** (called *arguments* or *parameters*), does something with them, and produces an **output** (called the *return value*). Every function you've used since Level 1 — `mean()`, `sum()`, `read.csv()`, `filter()`, `ggplot()` — follows this exact same pattern:
 
-```r
+```{r}
+#| eval: false
 function_name(input1, input2, ...)   # produces some output
 ```
 
@@ -31,7 +32,8 @@ function_name(input1, input2, ...)   # produces some output
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Using a built-in function - input goes in, output comes out
@@ -42,7 +44,8 @@ mean(participants$age, na.rm = TRUE)
 [1] 47.42553
 ```
 
-```r
+```{r}
+#| eval: false
 # The pattern you'll replicate: some calculation, wrapped up and named
 sum(is.na(participants$age)) / length(participants$age) * 100
 ```
@@ -59,7 +62,8 @@ Try running `sum(is.na(participants$systolic_bp)) / length(participants$systolic
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 age_pct_missing <- sum(is.na(participants$age)) / length(participants$age) * 100
@@ -73,7 +77,8 @@ age_pct_missing
 [1] 6
 ```
 
-```r
+```{r}
+#| eval: false
 bp_pct_missing
 ```
 
@@ -81,7 +86,8 @@ bp_pct_missing
 [1] 4
 ```
 
-```r
+```{r}
+#| eval: false
 bmi_pct_missing
 ```
 

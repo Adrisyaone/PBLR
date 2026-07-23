@@ -23,7 +23,8 @@ Extract one or more complete rows from a data frame, keeping every column.
 
 Data frames are indexed with **two** positions inside the brackets, separated by a comma: `df[rows, columns]`. Leaving either side blank means "all of them":
 
-```r
+```{r}
+#| eval: false
 df[row_number, ]     # one full row, every column (note the comma!)
 df[, column_number]  # one full column, every row
 df[row_number, column_number]  # a single specific cell
@@ -31,7 +32,8 @@ df[row_number, column_number]  # a single specific cell
 
 This comma is what distinguishes row-and-column indexing from the single-bracket column shortcut you saw on the last page (`df["age"]`, no comma, meant something entirely different — a column by name).
 
-```r
+```{r}
+#| eval: false
 participants[42, ]      # participant #42's complete record, every column
 participants[1:5, ]     # the first 5 participants, every column
 participants[42, "age"] # just participant #42's age - a specific cell
@@ -39,7 +41,8 @@ participants[42, "age"] # just participant #42's age - a specific cell
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 participants[42, ]
@@ -50,7 +53,8 @@ participants[42, ]
 42 42  53 Male Springvale         135           86 30.4    Yes
 ```
 
-```r
+```{r}
+#| eval: false
 participants[1:3, ]
 ```
 
@@ -61,7 +65,8 @@ participants[1:3, ]
 3  3  59 Female  Oakford         130           77 28.3     No
 ```
 
-```r
+```{r}
+#| eval: false
 participants[42, "age"]
 ```
 
@@ -75,7 +80,8 @@ Try `participants[42]` — the same thing, but *without* the comma. Notice this 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Participant #42's entire record, every column

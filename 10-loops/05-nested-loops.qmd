@@ -23,7 +23,8 @@ Write a loop inside another loop (a "nested loop") to iterate over every combina
 
 A **nested loop** places one `for` loop entirely inside another — the inner loop runs completely, start to finish, for *every single* iteration of the outer loop:
 
-```r
+```{r}
+#| eval: false
 for (outer_item in outer_vector) {
   for (inner_item in inner_vector) {
     # runs once for every combination of outer_item and inner_item
@@ -35,7 +36,8 @@ If the outer loop has `n` items and the inner loop has `m` items, the innermost 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 counties <- c("Cedar Falls", "Millbrook")
 smoking_statuses <- c("No", "Yes")
 
@@ -61,7 +63,8 @@ Try adding a third county to the `counties` vector and re-running. With 3 counti
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 counties <- unique(participants$county)

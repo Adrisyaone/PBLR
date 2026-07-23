@@ -23,11 +23,13 @@ Collapse several existing categories into a smaller number of broader groups.
 
 Combining categories extends the recoding pattern from the last page, using **`%in%`** to check membership in a *set* of values rather than equality with just one:
 
-```r
+```{r}
+#| eval: false
 x %in% c("value1", "value2")   # TRUE if x matches ANY of these, not just one
 ```
 
-```r
+```{r}
+#| eval: false
 df$new_col[df$old_col %in% c("CategoryA", "CategoryB")] <- "Combined Group"
 ```
 
@@ -35,7 +37,8 @@ This is the natural extension of `==` (from the recoding page) to "matches one o
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 county <- c("Cedar Falls", "Millbrook", "Oakford", "Riverdale", "Springvale", "Cedar Falls")
 
 # Check membership in a set, rather than equality with a single value
@@ -46,7 +49,8 @@ county %in% c("Cedar Falls", "Millbrook")
 [1]  TRUE  TRUE FALSE FALSE FALSE  TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 region <- county   # start from a copy, same pattern as recoding
 region[county %in% c("Cedar Falls", "Millbrook")] <- "North Region"
 region[county %in% c("Oakford", "Riverdale", "Springvale")] <- "South Region"
@@ -65,7 +69,8 @@ Run `table(county, region)` — a cross-tabulation confirming every one of the f
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 participants$region <- participants$county
@@ -80,7 +85,8 @@ North Region South Region
           41           59
 ```
 
-```r
+```{r}
+#| eval: false
 # Verify every county mapped correctly and completely
 table(participants$county, participants$region)
 ```

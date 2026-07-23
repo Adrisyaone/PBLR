@@ -44,7 +44,8 @@ The single most common beginner mistake is confusing `=` (assignment) with `==` 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 age <- 68
 is_senior <- age >= 65
 is_senior
@@ -54,7 +55,8 @@ is_senior
 [1] TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 smoker_status <- "Yes"
 is_smoker <- smoker_status == "Yes"
 is_smoker
@@ -64,7 +66,8 @@ is_smoker
 [1] TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 # Combining two conditions with &
 high_risk <- is_senior & is_smoker
 high_risk
@@ -74,7 +77,8 @@ high_risk
 [1] TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 # Flipping a logical value with !
 is_nonsmoker <- !is_smoker
 is_nonsmoker
@@ -90,7 +94,8 @@ Change `age` to `50` and rerun `is_senior <- age >= 65`. What do you get, and do
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 age <- 71
 smoker_status <- "Yes"
 
@@ -104,7 +109,8 @@ is_senior
 [1] TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 is_smoker
 ```
 

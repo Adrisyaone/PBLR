@@ -1,0 +1,164 @@
+# Working with Dates {#sec-working-with-dates}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+This course's dataset has never included a date column — but real public health data almost always does: enrollment dates, visit dates, diagnosis dates. Your professor is planning a new study and asks you to prepare, in advance, the R skills needed to calculate how much time has passed between two dates, and to display dates in a clean, readable format — skills none of the previous 12 levels have needed, but nearly every real dataset eventually will.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Parse text into proper R date objects, calculate the time elapsed between two dates, and format dates for clean, readable display.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 2 covered numeric, character, and logical data types. If a "date" were just stored as plain text (like `"2024-01-15"`), could R correctly calculate that `"2024-03-22"` comes after it, using ordinary text comparison?
+- If two dates are 67 days apart, would you expect R to report that difference as a plain number, or does it need special handling?
+:::
+
+## The R Concept
+
+**`as.Date()`** converts text into a proper R date object, which R can then correctly compare, sort, and do arithmetic on:
+
+```{r}
+#| eval: false
+enrollment_date <- as.Date("2024-01-15")
+followup_date   <- as.Date("2024-03-22")
+
+followup_date - enrollment_date   # a proper time difference, not just subtraction of text
+```
+
+`format()` controls how a date is *displayed* (without changing the underlying date), and `weekdays()` extracts the day-of-week name directly:
+
+```{r}
+#| eval: false
+format(enrollment_date, "%B %d, %Y")   # e.g. "January 15, 2024"
+weekdays(enrollment_date)              # e.g. "Monday"
+```
+
+## Demonstration
+
+```{r}
+#| eval: false
+enrollment_date <- as.Date("2024-01-15")
+followup_date   <- as.Date("2024-03-22")
+
+followup_date - enrollment_date
+```
+
+```
+Time difference of 67 days
+```
+
+```{r}
+#| eval: false
+weekdays(enrollment_date)
+```
+
+```
+[1] "Monday"
+```
+
+```{r}
+#| eval: false
+format(enrollment_date, "%B %d, %Y")
+```
+
+```
+[1] "January 15, 2024"
+```
+
+## Explore
+
+Try `class(enrollment_date)` to confirm `as.Date()` produces a genuine `"Date"` object, not just a character string that happens to look like one. Try `enrollment_date + 30` — adding a plain number to a Date object correctly advances it by that many *days*, something plain text arithmetic could never do.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+enrollment_dates <- as.Date(c("2024-01-15", "2024-02-03", "2024-03-22"))
+
+weekdays(enrollment_dates)
+```
+
+```
+[1] "Monday"   "Saturday" "Friday"
+```
+
+```{r}
+#| eval: false
+days_since_first <- enrollment_dates - enrollment_dates[1]
+days_since_first
+```
+
+```
+Time differences in days
+[1]  0 19 67
+```
+
+```{r}
+#| eval: false
+formatted_dates <- format(enrollment_dates, "%B %d, %Y")
+formatted_dates
+```
+
+```
+[1] "January 15, 2024"  "February 03, 2024" "March 22, 2024"
+```
+
+Subtracting `enrollment_dates[1]` from the whole vector produced a clean, correctly-ordered set of day differences (0, 19, 67 days) — exactly the kind of calculation that would silently fail (or produce nonsense) if these dates were still stored as plain, unparsed text instead of proper `Date` objects.
+
+## Interpret the Result
+
+Converting text into a real `Date` object with `as.Date()` unlocks correct date arithmetic, sorting, and comparison — operations that look deceptively simple but require R to actually understand calendar structure (leap years, varying month lengths) rather than treating dates as arbitrary text. This is precisely the reason a `date` column in a real public health dataset (unlike anything in this course's `participants.csv`) always needs `as.Date()` applied immediately after import (Level 3), before any calculation involving it.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting to convert a date column with `as.Date()` after `read.csv()`.** By default, `read.csv()` imports date-looking columns as plain character text (Level 3) — subtracting or comparing them without first calling `as.Date()` will either error or produce a meaningless text-based comparison, not a real date calculation.
+- **Assuming `as.Date()` guesses every date format correctly.** `as.Date("01/15/2024")` (US-style month/day/year) may be misread by default — explicitly specifying the format (`as.Date("01/15/2024", format = "%m/%d/%Y")`) avoids silently wrong parsing.
+- **Confusing `format()` (changes display only) with `as.Date()` (changes the actual stored value).** `format(enrollment_date, "%B %d, %Y")` produces nicely formatted *text* for display — it does not change what `enrollment_date` itself stores, and the result usually shouldn't be used for further date arithmetic.
+:::
+
+## Practice Problem
+
+Given `visit1_date <- as.Date("2024-01-15")` and `visit2_date <- as.Date("2024-04-01")`, calculate how many days elapsed between the two visits, and determine what day of the week `visit2_date` fell on.
+
+## Challenge Problem
+
+Create a vector of 5 enrollment dates spread across different months, then use `format(dates, "%Y-%m")` to extract just the year-month for each, and `table()` (Level 7) to count how many enrollments happened in each year-month — a common first step in reporting enrollment trends over time.
+
+## Key Takeaways
+
+- `as.Date("YYYY-MM-DD")` converts text into a proper Date object, enabling correct date arithmetic, sorting, and comparison that plain text cannot support.
+- Subtracting two Date objects produces a proper time difference (in days), and `weekdays()` extracts the day-of-week name directly.
+- `format(date, "format_string")` controls how a date is displayed as text, without changing the underlying stored date value — useful for clean reporting.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Why must `as.Date()` be applied to a date column before doing date arithmetic on it?
+   a) `read.csv()` automatically applies it already
+   b) Without it, dates are stored as plain text and can't be correctly compared or subtracted
+   c) `as.Date()` is only needed for dates before the year 2000
+   d) There is no difference — arithmetic works the same either way
+
+2. **True or false.** `format(date, "%B %d, %Y")` changes the actual value stored in the `date` object, not just its display.
+
+3. **Predict the output.** If `date1 <- as.Date("2024-01-15")` and `date2 <- as.Date("2024-02-03")`, how many days apart are they (using `date2 - date1`)?
+
+4. **Short answer.** Why might `as.Date("01/15/2024")` without specifying a `format` argument produce a wrong or unexpected result?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Without `as.Date()`, dates are stored as plain text and can't be correctly compared, sorted, or subtracted as actual calendar dates.
+2. **False.** `format()` only changes how a date is *displayed* as text — the underlying Date object itself is unchanged.
+3. 19 days.
+4. `as.Date()`'s default expected format is `"YYYY-MM-DD"` — a differently-ordered format like `"01/15/2024"` (month/day/year) may be parsed incorrectly or produce `NA` unless the `format` argument explicitly describes that layout.
+
+</details>
+:::

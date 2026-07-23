@@ -23,23 +23,27 @@ List the unique combinations of values in one or more columns, using `dplyr::dis
 
 **`distinct()`** returns the unique rows (or unique combinations of specified columns), with no count attached:
 
-```r
+```{r}
+#| eval: false
 distinct(df, column)
 ```
 
-```r
+```{r}
+#| eval: false
 distinct(participants, county)
 ```
 
 This is the tidyverse counterpart to Level 3's `unique(participants$county)` — but because `distinct()` operates on a data frame rather than a single vector, it can also find unique *combinations* across several columns at once:
 
-```r
+```{r}
+#| eval: false
 distinct(participants, county, sex)   # every county-sex combination that occurs
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -58,7 +62,8 @@ distinct(participants, county)
 
 Five distinct counties — the rows appear in the order they were first encountered in the dataset (row 1 is `Oakford` because participant #1 lives there), not alphabetically.
 
-```r
+```{r}
+#| eval: false
 nrow(distinct(participants, county))
 ```
 
@@ -72,7 +77,8 @@ Try `distinct(participants, county, sex)` and check `nrow()` on the result. With
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -86,7 +92,8 @@ nrow(unique_counties)
 [1] 5
 ```
 
-```r
+```{r}
+#| eval: false
 unique_county_sex <- distinct(participants, county, sex)
 
 nrow(unique_county_sex)

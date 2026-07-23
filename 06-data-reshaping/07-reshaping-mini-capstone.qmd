@@ -23,7 +23,8 @@ Chain `pivot_longer()`, `filter()`, `pivot_wider()`, and `mutate()` together in 
 
 A reshaping pipeline often goes **wide → long → (filter/analyze) → wide** again: long format makes it easy to `filter()` down to exactly the visits you want, and pivoting back to wide afterward aligns the remaining visits side by side so you can compute a per-row difference with `mutate()`:
 
-```r
+```{r}
+#| eval: false
 df |>
   pivot_longer(cols = ..., names_to = "visit", values_to = "value") |>
   filter(visit %in% c("first_visit", "last_visit")) |>
@@ -33,7 +34,8 @@ df |>
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 library(tidyr)
 
@@ -66,7 +68,8 @@ Try skipping the `filter(visit %in% c("visit1", "visit3"))` step and pivoting al
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 library(tidyr)
 

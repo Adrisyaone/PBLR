@@ -17,9 +17,9 @@ Understand what R actually is, why a health department would use it instead of E
 ::: {.pbl-box .pbl-think}
 **Think Before Coding**
 
-- When you've calculated an average before (in Excel, or by hand), what steps did you follow?
-- What happens in Excel if you need to repeat the exact same calculation on next month's data — do you redo all your clicks?
-- What might be an advantage of *writing down* the steps of a calculation, rather than just clicking through a menu?
+-   When you've calculated an average before (in Excel, or by hand), what steps did you follow?
+-   What happens in Excel if you need to repeat the exact same calculation on next month's data — do you redo all your clicks?
+-   What might be an advantage of *writing down* the steps of a calculation, rather than just clicking through a menu?
 :::
 
 ## The R Concept
@@ -28,10 +28,10 @@ Understand what R actually is, why a health department would use it instead of E
 
 A few things make R different from a spreadsheet:
 
-- **You write instructions, not clicks.** Instead of selecting a range of cells and clicking "AVERAGE," you write a line of code that says, in effect, "take this data and compute its mean." That line can be saved, reused, and rerun on next month's data in seconds.
-- **It's reproducible.** Anyone with your code and your data can get the exact same result. A colleague reviewing your Excel file has to guess which cells you clicked; a colleague reading your R script can see exactly what you did.
-- **It's built for data, not documents.** R has no concept of a "sheet" with 500 unrelated things on it. It's designed around clean, structured data and the operations researchers actually need: summarizing, filtering, modeling, plotting.
-- **It's free and extensible.** R itself is free, and thousands of free add-ons (called *packages*) extend it — for reading messy Excel files, running survival analysis, mapping disease outbreaks, and far more.
+-   **You write instructions, not clicks.** Instead of selecting a range of cells and clicking "AVERAGE," you write a line of code that says, in effect, "take this data and compute its mean." That line can be saved, reused, and rerun on next month's data in seconds.
+-   **It's reproducible.** Anyone with your code and your data can get the exact same result. A colleague reviewing your Excel file has to guess which cells you clicked; a colleague reading your R script can see exactly what you did.
+-   **It's built for data, not documents.** R has no concept of a "sheet" with 500 unrelated things on it. It's designed around clean, structured data and the operations researchers actually need: summarizing, filtering, modeling, plotting.
+-   **It's free and extensible.** R itself is free, and thousands of free add-ons (called *packages*) extend it — for reading messy Excel files, running survival analysis, mapping disease outbreaks, and far more.
 
 R is not the app with the blue icon you click to open. That's a separate program called **RStudio**, which you'll meet on the next page. R is the *language and engine underneath* — RStudio is the workspace you'll actually sit in.
 
@@ -39,12 +39,12 @@ R is not the app with the blue icon you click to open. That's a separate program
 
 Every R session, however small, starts with running code. Let's run the simplest possible line: basic arithmetic.
 
-```r
+``` r
 # R can act as a calculator right out of the box
 2 + 2
 ```
 
-```
+```         
 [1] 4
 ```
 
@@ -52,12 +52,12 @@ That `[1] 4` is R's answer. The `[1]` just means "this is result number 1" — y
 
 Here's a second line, doing something closer to what your supervisor actually wants: averaging a few numbers.
 
-```r
+``` r
 # The average of four ages, computed directly
 (34 + 51 + 62 + 29) / 4
 ```
 
-```
+```         
 [1] 44
 ```
 
@@ -78,9 +78,9 @@ When you ran `2 + 2` and got `[1] 4`, you weren't just testing a calculator — 
 ::: {.pbl-box .pbl-mistake}
 **Common Mistakes**
 
-- **Confusing R and RStudio.** People often say "open R" when they mean "open RStudio." You'll always work inside RStudio, which runs R for you behind the scenes.
-- **Assuming R is only for expert statisticians.** R is used by beginners and experts alike — the language scales with you.
-- **Expecting a menu-driven experience.** If you're used to Excel's toolbar, the biggest adjustment is trusting that a line of text *is* the instruction, not a shortcut to one.
+-   **Confusing R and RStudio.** People often say "open R" when they mean "open RStudio." You'll always work inside RStudio, which runs R for you behind the scenes.
+-   **Assuming R is only for expert statisticians.** R is used by beginners and experts alike — the language scales with you.
+-   **Expecting a menu-driven experience.** If you're used to Excel's toolbar, the biggest adjustment is trusting that a line of text *is* the instruction, not a shortcut to one.
 :::
 
 ## Practice Problem
@@ -93,35 +93,38 @@ Write two or three sentences, in your own words, explaining to a classmate who h
 
 ## Key Takeaways
 
-- R is a free, open-source programming language built for statistics and data analysis.
-- Working in R means *writing instructions* rather than clicking through menus — which makes your work reusable and reproducible.
-- R and RStudio are not the same thing; R is the language, RStudio is the workspace (next page).
+-   R is a free, open-source programming language built for statistics and data analysis.
+-   Working in R means *writing instructions* rather than clicking through menus — which makes your work reusable and reproducible.
+-   R and RStudio are not the same thing; R is the language, RStudio is the workspace (next page).
 
 ::: {.pbl-box .pbl-check}
 **Knowledge Check**
 
-1. **Multiple choice.** R is best described as:
-   a) A spreadsheet program
-   b) A programming language for statistics and data analysis
-   c) A database management system
-   d) A word processor
+1.  **Multiple choice.** R is best described as:
 
-2. **True or false.** R and RStudio are two names for the exact same program.
+    a)  A spreadsheet program
+    b)  A programming language for statistics and data analysis
+    c)  A database management system
+    d)  A word processor
 
-3. **Predict the output.** What will the following code print?
-   ```r
-   10 * 3 - 5
-   ```
+2.  **True or false.** R and RStudio are two names for the exact same program.
 
-4. **Write the code.** Write one line of R code that calculates the average of the numbers 12, 18, and 24 without using any function — just arithmetic.
+3.  **Predict the output.** What will the following code print?
+
+    ``` r
+    10 * 3 - 5
+    ```
+
+4.  **Write the code.** Write one line of R code that calculates the average of the numbers 12, 18, and 24 without using any function — just arithmetic.
 
 <details class="pbl-answer">
+
 <summary>Show answers</summary>
 
-1. **b)** A programming language for statistics and data analysis.
-2. **False.** R is the underlying language; RStudio is a separate application (an IDE) that makes R easier to use.
-3. `[1] 25` (10 × 3 = 30, then 30 − 5 = 25).
-4. `(12 + 18 + 24) / 3`, which evaluates to `[1] 18`.
+1.  **b)** A programming language for statistics and data analysis.
+2.  **False.** R is the underlying language; RStudio is a separate application (an IDE) that makes R easier to use.
+3.  `[1] 25` (10 × 3 = 30, then 30 − 5 = 25).
+4.  `(12 + 18 + 24) / 3`, which evaluates to `[1] 18`.
 
 </details>
 :::

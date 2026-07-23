@@ -25,11 +25,13 @@ A **vector** is R's most fundamental data structure: a single object that holds 
 
 You build a vector explicitly with **`c()`** (short for "combine" or "concatenate"):
 
-```r
+```{r}
+#| eval: false
 c(value1, value2, value3, ...)
 ```
 
-```r
+```{r}
+#| eval: false
 bp_readings <- c(118, 132, 145, 121, 138)
 ```
 
@@ -42,7 +44,8 @@ Once created, a vector behaves as a single object you can pass to any function â
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 bp_readings <- c(118, 132, 145, 121, 138)
 bp_readings
 ```
@@ -51,7 +54,8 @@ bp_readings
 [1] 118 132 145 121 138
 ```
 
-```r
+```{r}
+#| eval: false
 class(bp_readings)
 ```
 
@@ -59,7 +63,8 @@ class(bp_readings)
 [1] "numeric"
 ```
 
-```r
+```{r}
+#| eval: false
 length(bp_readings)
 ```
 
@@ -67,7 +72,8 @@ length(bp_readings)
 [1] 5
 ```
 
-```r
+```{r}
+#| eval: false
 mean(bp_readings)
 ```
 
@@ -81,7 +87,8 @@ Create a character vector of five county names: `c("Riverdale", "Oakford", "Mill
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 bp_readings <- c(118, 132, 145, 121, 138)
 
 mean(bp_readings)
@@ -91,7 +98,8 @@ mean(bp_readings)
 [1] 130.8
 ```
 
-```r
+```{r}
+#| eval: false
 max(bp_readings)
 ```
 

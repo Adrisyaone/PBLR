@@ -23,13 +23,15 @@ Extract exactly the elements of a vector that satisfy a condition, using a logic
 
 Square brackets don't just accept positions — they also accept a **logical vector** of the same length as the vector being indexed. Wherever that logical vector is `TRUE`, the corresponding element is kept; wherever it's `FALSE`, it's dropped.
 
-```r
+```{r}
+#| eval: false
 x[logical_vector]
 ```
 
 The logical vector is usually produced on the spot using a comparison, exactly as you learned in Level 1:
 
-```r
+```{r}
+#| eval: false
 ages <- c(46, 53, 59, 49, 61)
 ages[ages > 55]          # keeps only elements where the condition is TRUE
 ages[ages >= 50 & ages <= 60]   # combining conditions with &, from Level 1
@@ -39,7 +41,8 @@ This is, in effect, the base-R version of "filtering" — the exact idea you'll 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 ages <- c(46, 53, 59, 49, 61, 18, 62, 68, 33, 36)
 
 ages > 55
@@ -49,7 +52,8 @@ ages > 55
  [1] FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE
 ```
 
-```r
+```{r}
+#| eval: false
 ages[ages > 55]
 ```
 
@@ -57,7 +61,8 @@ ages[ages > 55]
 [1] 59 61 62 68
 ```
 
-```r
+```{r}
+#| eval: false
 ages[ages < 40]
 ```
 
@@ -71,7 +76,8 @@ Try `ages[ages > 55 & ages < 65]` — combining two conditions with `&`, from Le
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Blood pressure readings, but only for participants who smoke
@@ -84,7 +90,8 @@ length(smoker_bp)
 [1] 25
 ```
 
-```r
+```{r}
+#| eval: false
 mean(smoker_bp, na.rm = TRUE)
 ```
 

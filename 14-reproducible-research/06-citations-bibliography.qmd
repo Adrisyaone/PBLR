@@ -1,0 +1,161 @@
+# Citations and Bibliographies {#sec-citations-bibliography}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 8's entire visualization toolkit came from a specific package — `ggplot2`, written by Hadley Wickham — but this course has never formally credited it anywhere. A real report or paper needs to cite the software and sources it relies on, with a properly formatted bibliography at the end, not just a casual mention of a package's name in prose.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Add a bibliography file to a Quarto project, cite sources in prose using Quarto's citation syntax, and automatically generate a formatted reference list.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If you wanted to cite the same source in five different places throughout a long report, would you rather type out the full reference each time, or reference it by a short, reusable key?
+- A bibliography at the end of a report needs consistent formatting (author names, years, publishers) across every entry. Would that be easier to guarantee by hand-formatting each one, or by storing structured data and letting a tool format it consistently?
+:::
+
+## The R Concept
+
+A **`.bib` file** stores citation information in a structured format, with one entry per source, each tagged with a unique citation key:
+
+```
+@Book{wickham2016ggplot2,
+  author    = {Hadley Wickham},
+  title     = {ggplot2: Elegant Graphics for Data Analysis},
+  publisher = {Springer-Verlag New York},
+  year      = {2016}
+}
+```
+
+A document's YAML front matter points to this file with `bibliography:`, and citing a source in prose uses `@` followed by its key:
+
+```yaml
+---
+bibliography: references.bib
+---
+```
+```
+Figures throughout this course were built with `ggplot2` [@wickham2016ggplot2].
+```
+
+Quarto automatically inserts a properly formatted in-text citation and generates a complete, correctly formatted bibliography at the very end of the rendered document — no manual formatting required.
+
+## Demonstration
+
+```
+# This course's own R-PBL/references.bib now contains three entries:
+```
+
+```
+@Book{wickham2016ggplot2, ... }     # the ggplot2 package (Level 8)
+@Manual{rcoreteam, ... }            # R itself
+@Book{wickham2023r4ds, ... }        # a widely-used R reference textbook
+```
+
+```
+# Cited in prose:
+# "This course's visualizations rely on the grammar of graphics
+#  [@wickham2016ggplot2], implemented in R [@rcoreteam]."
+```
+
+```
+Rendered: "This course's visualizations rely on the grammar of graphics
+(Wickham 2016), implemented in R (R Core Team)." — with a full,
+correctly-formatted bibliography automatically appended at the document's
+end, listing both sources in the citation style the document's format
+specifies.
+```
+
+## Explore
+
+Try citing the same key, `@wickham2016ggplot2`, a second time somewhere else in the same document. Notice the bibliography at the end still lists it only *once* — Quarto automatically deduplicates the reference list, no matter how many times a source is cited throughout the document.
+
+## Solve the Problem
+
+```yaml
+---
+title: "Blood Pressure and Age: A Reproducible Summary"
+bibliography: references.bib
+---
+```
+
+```
+Data cleaning and reshaping throughout this analysis used the tidyverse
+[@wickham2023r4ds], and all figures were produced with `ggplot2`'s
+grammar of graphics [@wickham2016ggplot2], running under R itself
+[@rcoreteam].
+
+## References
+```
+
+```
+Rendered, the "## References" heading is followed automatically by:
+
+Wickham, H. (2016). ggplot2: Elegant Graphics for Data Analysis (2nd ed.).
+    Springer-Verlag New York.
+
+Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for Data
+    Science (2nd ed.). O'Reilly Media.
+
+R Core Team. R: A Language and Environment for Statistical Computing.
+    R Foundation for Statistical Computing, Vienna, Austria.
+```
+
+Three separate `@key` citations in the prose automatically produced three correctly-formatted, alphabetized bibliography entries — with zero manual formatting of author names, years, or publishers anywhere in the source document.
+
+## Interpret the Result
+
+Citing sources this way keeps a document's bibliography perfectly synchronized with what's actually cited in the text: adding a new `@key` citation anywhere in the prose automatically adds its entry to the reference list, and removing the last citation to a source automatically removes it from the bibliography too. This eliminates an entire category of errors common in manually-maintained reference lists — citations that don't appear in the bibliography, or bibliography entries for sources never actually cited.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting the `bibliography:` field in YAML front matter.** Without it, `@key` citations in the prose won't be recognized at all — they'll render as literal, unformatted text like `@wickham2016ggplot2` instead of a proper citation.
+- **Using a citation key that doesn't exactly match an entry in the `.bib` file.** Citation keys are case-sensitive and must match exactly — `@Wickham2016ggplot2` (capital W) would fail to match an entry defined as `wickham2016ggplot2` (lowercase w).
+- **Manually typing a bibliography instead of letting Quarto generate one.** A hand-typed reference list at a document's end can drift out of sync with what's actually cited — always let a `## References` heading (with no content beneath it) mark where Quarto should insert its automatically-generated list instead.
+:::
+
+## Practice Problem
+
+Add a new entry to `references.bib` for a source of your choosing (a textbook, a package, or a paper), then cite it once in a sentence using its `@key`.
+
+## Challenge Problem
+
+This course's own book (`R-PBL/_quarto.yml`) doesn't currently include a `bibliography:` field. Explain what YAML line(s) you'd need to add to `_quarto.yml` (not an individual page) to make every chapter throughout this entire book able to cite entries from `references.bib`, and why adding it at the book level (rather than repeating it in every chapter file) is the better approach.
+
+## Key Takeaways
+
+- A `.bib` file stores structured citation data, with each source tagged by a unique, reusable citation key.
+- `bibliography: references.bib` in YAML front matter enables `@key`-style citations in prose, which Quarto automatically formats and inserts.
+- A `## References` heading with no content beneath it marks where Quarto should automatically generate the complete, deduplicated bibliography — no manual reference-list formatting required.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `[@wickham2016ggplot2]` do when placed in a document's prose?
+   a) It inserts the literal text "wickham2016ggplot2"
+   b) It inserts a properly formatted in-text citation and adds the source to the bibliography
+   c) It deletes the reference from the bibliography
+   d) It only works inside a code chunk
+
+2. **True or false.** If a source is cited three separate times in the same document, it will appear three times in the final bibliography.
+
+3. **Predict the output.** If a document's YAML is missing the `bibliography:` field entirely, what would `[@wickham2016ggplot2]` render as?
+
+4. **Short answer.** Why does citing sources with `@key` syntax (rather than manually typing a reference list) reduce the risk of an inconsistent or out-of-sync bibliography?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** It inserts a properly formatted in-text citation and adds the corresponding source to the automatically-generated bibliography.
+2. **False.** Quarto automatically deduplicates the bibliography — a source cited multiple times still appears only once in the final reference list.
+3. Literal, unformatted text like `@wickham2016ggplot2` — without a `bibliography:` field pointing to a `.bib` file, Quarto has no source information to format the citation against.
+4. Because the bibliography is generated automatically from whatever `@key` citations actually appear in the prose, there's no separate, hand-maintained reference list that could drift out of sync — adding or removing a citation in the text automatically adds or removes its corresponding bibliography entry.
+
+</details>
+:::

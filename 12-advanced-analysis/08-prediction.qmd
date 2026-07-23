@@ -23,7 +23,8 @@ Use a fitted regression model to predict the outcome for new, hypothetical combi
 
 **`predict(model, newdata = ...)`** generates predictions for new rows of predictor values that don't need to be part of the original dataset — as long as `newdata` is a data frame with the same column names as the model's predictors.
 
-```r
+```{r}
+#| eval: false
 new_patients <- data.frame(age = 50, bmi = 28, smoker_binary = c(0, 1))
 predict(model, newdata = new_patients, interval = "confidence")
 ```
@@ -32,7 +33,8 @@ predict(model, newdata = new_patients, interval = "confidence")
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
@@ -57,7 +59,8 @@ Try `interval = "prediction"` instead of `"confidence"` for the same `new_patien
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]

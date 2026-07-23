@@ -23,7 +23,8 @@ Use `vapply()` for a type-safe alternative to `sapply()`, and `tapply()` for a g
 
 **`vapply()`** works like `sapply()`, but requires you to specify the expected return type upfront (`FUN.VALUE`) — exactly the base R equivalent of Level 9's `map_dbl()`/`map_chr()` guarantee:
 
-```r
+```{r}
+#| eval: false
 vapply(df, function_name, FUN.VALUE = numeric(1))
 ```
 
@@ -31,13 +32,15 @@ If `function_name` ever returns something other than a single number for any col
 
 **`tapply()`** computes a summary statistic for a numeric vector, split by a grouping vector — in one call, without `group_by()`:
 
-```r
+```{r}
+#| eval: false
 tapply(numeric_vector, grouping_vector, function_name, na.rm = TRUE)
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 pct_missing <- function(x) {
   sum(is.na(x)) / length(x) * 100
 }
@@ -56,7 +59,8 @@ vapply(participants, pct_missing, FUN.VALUE = numeric(1))
 
 The same results as Level 9's `sapply()` and `map_dbl()` — but `vapply()` additionally guarantees, and checks, that `pct_missing()` returns exactly one number per column, erroring immediately if that promise were ever broken.
 
-```r
+```{r}
+#| eval: false
 tapply(participants$systolic_bp, participants$county, mean, na.rm = TRUE)
 ```
 
@@ -73,7 +77,8 @@ Try `vapply(participants, class, FUN.VALUE = character(1))` — note `FUN.VALUE 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 county_bp_means <- tapply(participants$systolic_bp, participants$county, mean, na.rm = TRUE)
@@ -86,7 +91,8 @@ Cedar Falls   Millbrook     Oakford   Riverdale  Springvale
      128.16      133.30      129.71      124.36      131.46
 ```
 
-```r
+```{r}
+#| eval: false
 county_age_means <- tapply(participants$age, participants$county, mean, na.rm = TRUE)
 
 round(county_age_means, 2)

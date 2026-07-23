@@ -5,7 +5,7 @@
 
 Three months ago you wrote `completion_rate.R` and it worked perfectly. Today your supervisor asks you to hand it to a new intern. You reopen it and find:
 
-```r
+``` r
 enrolled <- 130
 completed <- 109
 completion_rate <- completed / enrolled * 100
@@ -24,30 +24,30 @@ Add comments to your script so that anyone reading it later — including future
 ::: {.pbl-box .pbl-think}
 **Think Before Coding**
 
-- What information would you want written down if you were the new intern encountering this script for the first time?
-- Should comments explain *what* the code does, or *why* it does it — or both?
+-   What information would you want written down if you were the new intern encountering this script for the first time?
+-   Should comments explain *what* the code does, or *why* it does it — or both?
 :::
 
 ## The R Concept
 
 A **comment** in R is any text following a `#` symbol on a line. R completely ignores everything after `#` — comments exist purely for humans reading the code, not for R itself.
 
-```r
+``` r
 # This entire line is ignored by R
 enrolled <- 130  # so is everything after the # on this line
 ```
 
 Comments are useful for:
 
-- Explaining the **purpose** of a script at the top (what problem does this solve?)
-- Explaining **why** a particular value or approach was chosen, when it isn't obvious
-- Temporarily disabling a line of code without deleting it, by placing `#` in front of it
+-   Explaining the **purpose** of a script at the top (what problem does this solve?)
+-   Explaining **why** a particular value or approach was chosen, when it isn't obvious
+-   Temporarily disabling a line of code without deleting it, by placing `#` in front of it
 
 Good comments explain *why*, not just *what* — `# calculate completion rate` next to `completion_rate <- completed / enrolled * 100` is less useful than `# per supervisor's request, using enrollment totals as of this month's data pull`, since the code itself already shows *what* is being calculated.
 
 ## Demonstration
 
-```r
+``` r
 # completion_rate.R
 # Purpose: Calculate the study completion rate for the monthly report
 # Data source: Enrollment tracking spreadsheet, updated by the study coordinator
@@ -61,7 +61,7 @@ completion_rate <- completed / enrolled * 100
 completion_rate
 ```
 
-```
+```         
 [1] 83.84615
 ```
 
@@ -75,7 +75,7 @@ Try adding a `#` in front of the line `completion_rate <- completed / enrolled *
 
 You rewrite `completion_rate.R` with clear comments before handing it to the new intern:
 
-```r
+``` r
 # completion_rate.R
 # Purpose: Calculate the percentage of enrolled participants who completed the study
 # Used for: Monthly report to the health department director
@@ -97,10 +97,10 @@ The calculation itself still returns `83.84615`, unchanged. What changed is that
 ::: {.pbl-box .pbl-mistake}
 **Common Mistakes**
 
-- **Over-commenting the obvious.** `x <- 5  # set x to 5` restates what's already visible in the code and adds no value; better comments explain *why* 5 was chosen.
-- **Under-commenting the non-obvious.** Leaving a script with zero explanation for where data comes from or why a specific approach was used forces every future reader (including you) to reverse-engineer your intent.
-- **Forgetting comments don't need to "close."** Unlike some languages, R comments run from `#` to the end of that line only — there's no special closing symbol, and a comment never spans multiple lines automatically.
-- **Commenting out code and forgetting about it.** A `#`-disabled line left in a script for months can confuse future readers about whether it's meant to run or not — clean up disabled code once you're sure you don't need it.
+-   **Over-commenting the obvious.** `x <- 5  # set x to 5` restates what's already visible in the code and adds no value; better comments explain *why* 5 was chosen.
+-   **Under-commenting the non-obvious.** Leaving a script with zero explanation for where data comes from or why a specific approach was used forces every future reader (including you) to reverse-engineer your intent.
+-   **Forgetting comments don't need to "close."** Unlike some languages, R comments run from `#` to the end of that line only — there's no special closing symbol, and a comment never spans multiple lines automatically.
+-   **Commenting out code and forgetting about it.** A `#`-disabled line left in a script for months can confuse future readers about whether it's meant to run or not — clean up disabled code once you're sure you don't need it.
 :::
 
 ## Practice Problem
@@ -113,41 +113,48 @@ Write a short script (3–4 lines of actual code) that calculates a body mass in
 
 ## Key Takeaways
 
-- Comments start with `#` and are completely ignored by R — they exist only for human readers.
-- Good comments explain *why*, not just *what* — the code itself already shows what's happening.
-- `#` can also temporarily disable a line of code without deleting it.
+-   Comments start with `#` and are completely ignored by R — they exist only for human readers.
+-   Good comments explain *why*, not just *what* — the code itself already shows what's happening.
+-   `#` can also temporarily disable a line of code without deleting it.
 
 ::: {.pbl-box .pbl-check}
 **Knowledge Check**
 
-1. **Multiple choice.** What symbol starts a comment in R?
-   a) `//`
-   b) `#`
-   c) `/* */`
-   d) `--`
+1.  **Multiple choice.** What symbol starts a comment in R?
 
-2. **True or false.** Comments affect how R executes a script.
+    a)  `//`
+    b)  `#`
+    c)  `/* */`
+    d)  `--`
 
-3. **Predict the output.**
-   ```r
-   x <- 10  # setting x
-   # x <- 999
-   x
-   ```
+2.  **True or false.** Comments affect how R executes a script.
 
-4. **Write the code.** Write a two-line script that stores the number of study sites (`5`) in an object called `n_sites`, with a comment explaining what the object represents.
+3.  **Predict the output.**
+
+    ``` r
+    x <- 10  # setting x
+    # x <- 999
+    x
+    ```
+
+4.  **Write the code.** Write a two-line script that stores the number of study sites (`5`) in an object called `n_sites`, with a comment explaining what the object represents.
 
 <details class="pbl-answer">
+
 <summary>Show answers</summary>
 
-1. **b)** `#`
-2. **False.** Comments are entirely ignored by R and have no effect on execution or results.
-3. `[1] 10` — the second line is commented out, so `x` is never reassigned to `999`.
-4.
-   ```r
-   n_sites <- 5  # number of participating study sites
-   n_sites
-   ```
+1.  **b)** `#`
+
+2.  **False.** Comments are entirely ignored by R and have no effect on execution or results.
+
+3.  `[1] 10` — the second line is commented out, so `x` is never reassigned to `999`.
+
+4.  
+
+    ``` r
+    n_sites <- 5  # number of participating study sites
+    n_sites
+    ```
 
 </details>
 :::

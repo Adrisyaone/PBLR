@@ -1,0 +1,151 @@
+# Closures and Function Factories {#sec-closures}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 4's `case_when()` hardcoded blood pressure thresholds (140 for "Stage 2", 130 for "Stage 1") directly into one long expression. If your professor later wants to check *five* different cutoffs across a project, copy-pasting a slightly different `sum(systolic_bp >= ___, na.rm = TRUE)` each time is exactly the kind of repetition Level 9 taught you functions should eliminate. But an ordinary function still needs the cutoff passed in every single call — what if you want a small family of ready-made, pre-configured functions instead, one for each cutoff you care about?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Write a function that *returns another function* — a closure — which remembers a value from when it was created, without needing that value passed in again on every call.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Page 1 showed a function's local variables normally disappear when it returns. If a function returns *another function*, could that inner function still "remember" a variable from the outer function's environment?
+- If you built one function `is_stage2 <- make_threshold_checker(140)`, could you also build `is_stage1 <- make_threshold_checker(130)` from the very same "factory" function?
+:::
+
+## The R Concept
+
+A **closure** is a function that captures ("closes over") variables from the environment where it was *created*, not where it's later *called*. A **function factory** is a function whose entire job is to build and return such closures:
+
+```{r}
+#| eval: false
+make_threshold_checker <- function(cutoff) {
+  function(x) x >= cutoff
+}
+
+is_high <- make_threshold_checker(100)
+is_high(120)   # TRUE — remembers cutoff = 100, even called later, elsewhere
+```
+
+Each closure produced this way keeps its *own* private copy of `cutoff` — calling `make_threshold_checker()` again with a different value creates a completely independent function.
+
+## Demonstration
+
+```{r}
+#| eval: false
+make_threshold_checker <- function(cutoff) {
+  function(x) x >= cutoff
+}
+
+is_stage2 <- make_threshold_checker(140)
+is_stage1_or_above <- make_threshold_checker(130)
+
+participants <- read.csv("data/participants.csv")
+
+sum(is_stage2(participants$systolic_bp), na.rm = TRUE)
+```
+
+```
+[1] 29
+```
+
+```{r}
+#| eval: false
+sum(is_stage1_or_above(participants$systolic_bp), na.rm = TRUE)
+```
+
+```
+[1] 46
+```
+
+## Explore
+
+Try `environment(is_stage2)` — you'll see it has its own environment containing `cutoff = 140`, completely separate from `is_stage1_or_above`'s environment containing `cutoff = 130`. This is what "each closure remembers its own value" looks like under the hood, directly connecting back to Page 1's environments.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+make_threshold_checker <- function(cutoff) {
+  function(x) x >= cutoff
+}
+
+participants <- read.csv("data/participants.csv")
+
+is_stage2 <- make_threshold_checker(140)
+is_crisis <- make_threshold_checker(180)
+
+count_stage2 <- sum(is_stage2(participants$systolic_bp), na.rm = TRUE)
+count_crisis <- sum(is_crisis(participants$systolic_bp), na.rm = TRUE)
+
+count_stage2
+count_crisis
+```
+
+```
+[1] 29
+```
+
+```
+[1] 0
+```
+
+`is_stage2` and `is_crisis` were both built from the exact same `make_threshold_checker()` factory, yet each behaves completely differently — 29 participants meet the Stage 2 cutoff (matching Level 4's `case_when()` count exactly), while zero reach the Hypertensive Crisis cutoff of 180. Neither closure needed its cutoff passed in again at call time; each one already "remembers" it.
+
+## Interpret the Result
+
+Closures let you build an entire family of specialized, ready-to-use functions from one general-purpose factory, instead of repeating a slightly different hardcoded expression for every cutoff (as Level 4's `case_when()` did in one big block). This is a genuinely different way of organizing reusable logic than Level 9's plain functions with default arguments — here, the "configuration" (the cutoff) is baked permanently into each generated function, rather than needing to be supplied every time it's called.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Confusing a closure with a plain function that has a default argument.** `function(x, cutoff = 140) x >= cutoff` still requires (or defaults) `cutoff` on every call — a closure instead permanently bakes the value in during creation, and the resulting function only ever needs `x`.
+- **Expecting closures created from the same factory to share state.** `is_stage2` and `is_crisis` each have their *own* independent copy of `cutoff` — changing one has zero effect on the other, unlike Page 1's shared environment example.
+- **Overusing closures where a simple function argument would be clearer.** If a value genuinely changes on every call, an ordinary function parameter (Level 9) is simpler and more readable — closures earn their complexity specifically when you want a whole family of pre-configured, reusable functions.
+:::
+
+## Practice Problem
+
+Use `make_threshold_checker()` to build `is_underweight <- make_threshold_checker(18.5)` for BMI (note this checks `x < cutoff` conceptually — you'll need a second factory function, `make_below_checker`, that returns `function(x) x < cutoff` instead). How many participants have `bmi < 18.5`?
+
+## Challenge Problem
+
+Write a function factory `make_range_checker(lower, upper)` that returns a closure checking whether a value falls between `lower` and `upper` (inclusive). Use it to build a function checking Level 4's "Hypertension Stage 1" range (130-139 inclusive) and confirm it reproduces that category's original count from Level 4's `case_when()` classification.
+
+## Key Takeaways
+
+- A closure is a function that remembers variables from the environment where it was created, not where it's later called — this is what lets `is_stage2` keep working correctly no matter where it's used afterward.
+- A function factory is a function whose job is to build and return closures, letting you generate an entire family of pre-configured functions from one general-purpose template.
+- Each closure produced by a factory keeps its own independent copy of the captured variable(s) — changing one closure's captured value never affects another.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does a function factory do?
+   a) Runs a function many times in a loop
+   b) Returns a new function that remembers a value from when it was created
+   c) Converts a function into a data frame
+   d) Deletes unused functions from memory
+
+2. **True or false.** Two closures created from the same factory function, with different arguments, share the exact same captured value.
+
+3. **Predict the output.** Given `make_threshold_checker(180)` applied to `participants$systolic_bp`, and knowing this course's data has no values at or above 180, how many `TRUE` results would `sum(..., na.rm = TRUE)` return?
+
+4. **Short answer.** How is a closure different from an ordinary function with a default argument value?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Returns a new function that remembers a value from when it was created.
+2. **False.** Each closure keeps its own independent copy of the captured value — changing one has no effect on another closure built from the same factory.
+3. 0 — no participant's systolic blood pressure reaches the 180 "Hypertensive Crisis" threshold in this dataset.
+4. A default argument still requires (or silently reuses a default for) a value passed at call time and can be overridden on any call; a closure permanently bakes its captured value in at creation time, and the resulting function doesn't accept or need that value as an argument at all.
+
+</details>
+:::

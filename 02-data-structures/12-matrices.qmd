@@ -23,11 +23,13 @@ Create and index a matrix — a rectangular grid where every single value shares
 
 A **matrix** is a two-dimensional grid where, unlike a data frame, *every* value must be the same type (all numeric, or all character — never mixed). Matrices are common in more mathematical or statistical contexts (like a correlation matrix in Level 11) where genuine matrix arithmetic matters.
 
-```r
+```{r}
+#| eval: false
 matrix(data, nrow = ..., ncol = ..., byrow = FALSE)
 ```
 
-```r
+```{r}
+#| eval: false
 bp_matrix <- matrix(
   c(120, 125, 118, 130, 132, 128, 145, 140, 138),
   nrow = 3, ncol = 3, byrow = TRUE
@@ -40,7 +42,8 @@ Indexing a matrix uses the same two-position bracket syntax as a data frame: `m[
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 bp_matrix <- matrix(
   c(120, 125, 118,
     130, 132, 128,
@@ -57,7 +60,8 @@ bp_matrix
 [3,]  145  140  138
 ```
 
-```r
+```{r}
+#| eval: false
 # Row 1, column 2 - a specific reading
 bp_matrix[1, 2]
 ```
@@ -66,7 +70,8 @@ bp_matrix[1, 2]
 [1] 125
 ```
 
-```r
+```{r}
+#| eval: false
 # All of row 2 (one participant's readings across all visits)
 bp_matrix[2, ]
 ```
@@ -75,7 +80,8 @@ bp_matrix[2, ]
 [1] 130 132 128
 ```
 
-```r
+```{r}
+#| eval: false
 class(bp_matrix)
 ```
 
@@ -89,7 +95,8 @@ Rebuild the same matrix with `byrow = FALSE` instead (or simply omit `byrow` ent
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 # Three participants (rows), four monthly visits (columns)
 bp_matrix <- matrix(
   c(120, 125, 118, 122,
@@ -107,7 +114,8 @@ bp_matrix
 [3,]  145  140  138  135
 ```
 
-```r
+```{r}
+#| eval: false
 # Change from visit 1 to visit 4, for every participant at once
 bp_matrix[, 4] - bp_matrix[, 1]
 ```

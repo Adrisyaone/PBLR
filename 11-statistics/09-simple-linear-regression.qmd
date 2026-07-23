@@ -23,7 +23,8 @@ Fit a simple linear regression model using `lm()`, and interpret its coefficient
 
 **`lm()`** ("linear model") fits a straight-line equation predicting one numeric variable from another:
 
-```r
+```{r}
+#| eval: false
 model <- lm(outcome ~ predictor, data = df)
 summary(model)
 ```
@@ -32,7 +33,8 @@ The fitted equation takes the form $\hat{y} = \text{intercept} + \text{slope} \t
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 bp_age_model <- lm(systolic_bp ~ age, data = participants)
@@ -68,7 +70,8 @@ Try `coef(bp_age_model)` to extract just the intercept and slope directly, and `
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 bp_age_model <- lm(systolic_bp ~ age, data = participants)
@@ -81,7 +84,8 @@ coef(bp_age_model)
  142.166864   -0.276224
 ```
 
-```r
+```{r}
+#| eval: false
 summary(bp_age_model)$r.squared
 ```
 

@@ -30,13 +30,15 @@ Understand exactly how a single unexpected text value can force an entire numeri
 
 This is the same **coercion** rule from Level 2's vectors page, just showing up during import instead of inside `c()`. A CSV column is read in as one vector — and if even a single cell in an otherwise-numeric column contains genuine text that isn't a recognized missing-value code, R has no choice but to make the *entire column* character, exactly the way `c(1, 2, "N/A", 4)` would become `c("1", "2", "N/A", "4")`.
 
-```r
+```{r}
+#| eval: false
 c(125, 123, "N/A", 117)   # the whole vector becomes character - just like a CSV column would
 ```
 
 The fix isn't really about variable types at all — it's about **making sure every genuine missing-value code is included in `na.strings` before import**, exactly as the previous two pages covered. Once R correctly recognizes `"N/A"` (or `"Unknown"`, or any other disguised code) as missing rather than as literal text, the column parses as numeric the way it should.
 
-```r
+```{r}
+#| eval: false
 # Without na.strings covering "N/A" - forced to character by that one text value
 read.csv("file.csv")$systolic_bp
 
@@ -46,7 +48,8 @@ read.csv("file.csv", na.strings = c("NA", "N/A"))$systolic_bp
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 # Importing without recognizing "N/A" as missing
 broken <- read.csv("data/participants_messy.csv", skip = 2)
 
@@ -57,7 +60,8 @@ class(broken$systolic_bp)
 [1] "character"
 ```
 
-```r
+```{r}
+#| eval: false
 mean(broken$systolic_bp, na.rm = TRUE)
 ```
 
@@ -67,7 +71,8 @@ argument is not numeric or logical: returning NA
 [1] NA
 ```
 
-```r
+```{r}
+#| eval: false
 # Importing with na.strings correctly covering every missing-value code
 fixed <- read.csv(
   "data/participants_messy.csv", skip = 2,
@@ -81,7 +86,8 @@ class(fixed$systolic_bp)
 [1] "integer"
 ```
 
-```r
+```{r}
+#| eval: false
 mean(fixed$systolic_bp, na.rm = TRUE)
 ```
 
@@ -95,7 +101,8 @@ Run `class(broken$bmi)` and `class(fixed$bmi)` side by side — `bmi` has the sa
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants_messy <- read.csv(
   "data/participants_messy.csv", skip = 2,
   na.strings = c("NA", "999", "N/A", "Unknown", "")
@@ -108,7 +115,8 @@ class(participants_messy$systolic_bp)
 [1] "integer"
 ```
 
-```r
+```{r}
+#| eval: false
 mean(participants_messy$systolic_bp, na.rm = TRUE)
 ```
 

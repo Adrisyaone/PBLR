@@ -1,0 +1,158 @@
+# A First Look at S3 Objects {#sec-s3-objects}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 9's `column_report()` capstone function returned a plain list summarizing a column — useful, but printed like any other list, with no special formatting. Your professor wants a `risk_summary` result that prints in a clean, readable way whenever you type its name at the console, the same way a data frame or an `lm()` model object prints something tailored to what it actually is, not a generic dump of its internals.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Create a simple S3 class, and write a custom `print()` method that controls exactly how objects of that class are displayed.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 11's `lm()` objects print a tidy summary, not a raw dump of every internal number. Could that behavior come from a `print()` function written specifically for `lm` objects?
+- If R could tell an object "is a risk_summary," could it then look for a matching `print.risk_summary()` function automatically?
+:::
+
+## The R Concept
+
+**S3** is R's simplest object system: any list can be turned into an object of a custom "class" just by tagging it with `class()`. Once tagged, generic functions like `print()` automatically look for a matching method named `print.<classname>`:
+
+```{r}
+#| eval: false
+make_result <- function(value) {
+  structure(list(value = value), class = "my_class")
+}
+
+print.my_class <- function(x, ...) {
+  cat("A my_class object with value:", x$value, "\n")
+}
+```
+
+`structure()` attaches the `class` attribute while building the list in one step. This is exactly how `lm()`'s tidy printout works — it's an ordinary list tagged `class = "lm"`, with a `print.lm()` method behind the scenes.
+
+## Demonstration
+
+```{r}
+#| eval: false
+make_risk_summary <- function(participant_id, age, sbp, at_risk) {
+  structure(
+    list(participant_id = participant_id, age = age, sbp = sbp, at_risk = at_risk),
+    class = "risk_summary"
+  )
+}
+
+print.risk_summary <- function(x, ...) {
+  status <- if (x$at_risk) "AT RISK" else "not at risk"
+  cat(sprintf("Participant %d (age %d, SBP %d): %s\n", x$participant_id, x$age, x$sbp, status))
+}
+
+result <- make_risk_summary(participant_id = 31, age = 70, sbp = 145, at_risk = TRUE)
+result
+```
+
+```
+Participant 31 (age 70, SBP 145): AT RISK
+```
+
+## Explore
+
+Try `class(result)` — it returns `"risk_summary"`, confirming the tag `structure()` attached. Try `unclass(result)` to see the object's true underlying structure: an ordinary list, with the class tag stripped off, printed the default (untidy) way.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+
+# Reuse Level 9's exact is_at_risk() definition and defaults
+is_at_risk <- function(age, sbp, age_cutoff = 65, bp_cutoff = 130) {
+  age >= age_cutoff & sbp >= bp_cutoff
+}
+
+make_risk_summary <- function(participant_id, age, sbp) {
+  structure(
+    list(participant_id = participant_id, age = age, sbp = sbp,
+         at_risk = is_at_risk(age, sbp)),
+    class = "risk_summary"
+  )
+}
+
+print.risk_summary <- function(x, ...) {
+  status <- if (x$at_risk) "AT RISK" else "not at risk"
+  cat(sprintf("Participant %d (age %d, SBP %d): %s\n", x$participant_id, x$age, x$sbp, status))
+}
+
+row31 <- participants[participants$id == 31, ]
+result <- make_risk_summary(row31$id, row31$age, row31$systolic_bp)
+result
+
+class(result)
+```
+
+```
+Participant 31 (age 70, SBP 145): AT RISK
+```
+
+```
+[1] "risk_summary"
+```
+
+Typing `result` at the console doesn't print a raw list dump — it automatically calls `print.risk_summary()` instead, because R's generic `print()` function checks an object's `class` attribute first and dispatches to the matching method, exactly the mechanism behind Level 11's tidy `lm()` printouts. Participant 31 is one of the exact 4 at-risk participants Level 9's `is_at_risk()` identified, using its same default cutoffs (age ≥ 65, SBP ≥ 130).
+
+## Interpret the Result
+
+S3 lets you build result objects that behave like R's own built-in objects: informative, readable, and tailored to what they represent, rather than generic list dumps. This is precisely the mechanism underneath everything from `lm()` and `aov()` (Level 11 and 12) to `ggplot()` objects (Level 8) — each has its own `class` and its own `print` (and often `summary`, `plot`) methods written specifically for it.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting the method name must exactly match `print.<classname>`.** `structure(list(...), class = "risk_summary")` will only dispatch correctly to a function named exactly `print.risk_summary` — a typo or mismatched name means R silently falls back to the default list-printing behavior instead.
+- **Manually calling `print.risk_summary(result)` instead of relying on dispatch.** While this technically works, typing `result` alone (or calling generic `print(result)`) is how dispatch is meant to be used — S3's whole benefit is that you never need to remember which specific method to call.
+- **Assuming every object needs its own S3 class.** Most of Levels 1-12's work used plain vectors, data frames, and lists just fine — S3 classes earn their complexity specifically when you want custom printing or behavior for a genuinely reusable, structured result type.
+:::
+
+## Practice Problem
+
+Write a `summary.risk_summary()` method (a second S3 method for the same class) that prints a one-line summary in a different format from `print.risk_summary()`, such as `"[LOW]"` or `"[HIGH RISK]"` bracketed tags.
+
+## Challenge Problem
+
+Extend `make_risk_summary()` so it also stores the participant's `county`, and write a new `print.risk_summary()` that includes the county in its output. Apply your updated function to 3 different rows of `participants` using `lapply()` (Level 9), and print all 3 resulting objects.
+
+## Key Takeaways
+
+- `structure(list(...), class = "my_class")` tags an ordinary list as an object of a custom S3 class.
+- Generic functions like `print()` automatically dispatch to a matching `print.<classname>()` method, based on an object's class attribute.
+- This exact mechanism underlies the tidy printouts of built-in R objects like `lm()`, `aov()`, and `ggplot()` objects seen throughout Levels 8, 11, and 12.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What determines which `print.<classname>()` method R calls for an object?
+   a) The order functions were defined in the script
+   b) The object's `class` attribute
+   c) The object's variable name
+   d) The number of elements in the object
+
+2. **True or false.** `unclass(result)` permanently removes the underlying data, not just the class tag.
+
+3. **Predict the output.** If a `print.risk_summary()` method exists but a user calls `print.default(result)` explicitly, which printing behavior would occur?
+
+4. **Short answer.** Why does typing `result` at the console for an S3 object not print a raw list dump, even though the object *is*, underneath, just a list?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The object's `class` attribute — R's generic functions dispatch based on this tag.
+2. **False.** `unclass()` only strips the class attribute; the underlying list data is unchanged and still fully accessible.
+3. `print.default()`'s generic list-printing behavior — calling it explicitly bypasses the class-based dispatch that would otherwise route to `print.risk_summary()`.
+4. Typing `result` calls the generic `print()` function, which checks the object's `class` attribute and automatically dispatches to `print.risk_summary()` instead of the default list-printing method — this dispatch, not anything intrinsic to lists, is what changes the output.
+
+</details>
+:::

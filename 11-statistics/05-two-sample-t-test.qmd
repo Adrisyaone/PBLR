@@ -23,7 +23,8 @@ Compare the means of two independent groups using a two-sample t-test.
 
 A **two-sample t-test** compares the means of two independent groups, testing whether their difference is larger than what chance alone would typically produce:
 
-```r
+```{r}
+#| eval: false
 t.test(numeric_variable ~ grouping_variable, data = df)
 ```
 
@@ -31,7 +32,8 @@ By default, R's `t.test()` uses **Welch's t-test**, which doesn't assume the two
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 t.test(systolic_bp ~ smoker, data = participants)
@@ -57,7 +59,8 @@ Notice the 95% confidence interval for the difference in means (-9.75 to 7.89) *
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 test_result <- t.test(systolic_bp ~ smoker, data = participants)
@@ -69,7 +72,8 @@ test_result$p.value
 [1] 0.8323397
 ```
 
-```r
+```{r}
+#| eval: false
 test_result$estimate
 ```
 

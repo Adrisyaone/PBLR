@@ -23,14 +23,16 @@ Compute quantiles (including quartiles) with `quantile()`, and use the interquar
 
 A **quantile** is a value below which a given proportion of the data falls. The **quartiles** are the 25th, 50th, and 75th percentiles — dividing the data into four equal-sized groups:
 
-```r
+```{r}
+#| eval: false
 quantile(x, na.rm = TRUE)                    # 0%, 25%, 50%, 75%, 100% by default
 quantile(x, probs = 0.9, na.rm = TRUE)        # just the 90th percentile
 ```
 
 The **interquartile range (IQR)** is the distance between the 1st and 3rd quartiles — the span of the *middle 50%* of the data, deliberately ignoring the most extreme quarter on either end:
 
-```r
+```{r}
+#| eval: false
 IQR(x, na.rm = TRUE)
 ```
 
@@ -38,7 +40,8 @@ A common rule of thumb flags a value as a potential outlier if it falls more tha
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 quantile(participants$bmi, na.rm = TRUE)
@@ -49,7 +52,8 @@ quantile(participants$bmi, na.rm = TRUE)
   15.60   23.35   27.70   30.20   38.60
 ```
 
-```r
+```{r}
+#| eval: false
 IQR(participants$bmi, na.rm = TRUE)
 ```
 
@@ -65,7 +69,8 @@ Try `quantile(participants$age, probs = c(0.1, 0.9), na.rm = TRUE)` to find the 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 bmi_q1 <- quantile(participants$bmi, 0.25, na.rm = TRUE)
@@ -83,7 +88,8 @@ lower_bound
 13.075
 ```
 
-```r
+```{r}
+#| eval: false
 upper_bound
 ```
 
@@ -92,7 +98,8 @@ upper_bound
 40.475
 ```
 
-```r
+```{r}
+#| eval: false
 sum(participants$bmi > upper_bound | participants$bmi < lower_bound, na.rm = TRUE)
 ```
 

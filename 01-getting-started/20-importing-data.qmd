@@ -24,7 +24,8 @@ Import `data/participants.csv` into R, verify it loaded correctly, and finally c
 
 **`read.csv()`** is a base R function that reads a CSV (comma-separated values) file and returns it as a **data frame** — R's standard structure for rectangular, spreadsheet-like data (rows and columns; you'll study data frames properly in Level 2, but you need one to hold this dataset today).
 
-```r
+```{r}
+#| eval: false
 my_data <- read.csv("path/to/file.csv")
 ```
 
@@ -32,7 +33,8 @@ A few defaults worth knowing right away: `read.csv()` assumes the file uses a co
 
 Once imported, three functions help you sanity-check what you just loaded:
 
-```r
+```{r}
+#| eval: false
 head(my_data)    # previews the first 6 rows
 str(my_data)     # shows the structure: column names, types, and a peek at values
 nrow(my_data)    # counts the rows
@@ -42,7 +44,8 @@ To access a single column of a data frame by name, use the `$` operator — `my_
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 head(participants)
@@ -58,7 +61,8 @@ head(participants)
 6  6  18 Female Riverdale         117           64 24.0     No
 ```
 
-```r
+```{r}
+#| eval: false
 str(participants)
 ```
 
@@ -80,7 +84,8 @@ Run `nrow(participants)` — does it match the "100 study participants" your sup
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Sanity checks first, always
@@ -91,7 +96,8 @@ nrow(participants)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 sum(is.na(participants$age))
 ```
 
@@ -99,7 +105,8 @@ sum(is.na(participants$age))
 [1] 6
 ```
 
-```r
+```{r}
+#| eval: false
 # Now, finally: the calculation your supervisor asked for on day one
 mean(participants$age, na.rm = TRUE)
 ```
@@ -108,7 +115,8 @@ mean(participants$age, na.rm = TRUE)
 [1] 47.42553
 ```
 
-```r
+```{r}
+#| eval: false
 round(mean(participants$age, na.rm = TRUE), 1)
 ```
 

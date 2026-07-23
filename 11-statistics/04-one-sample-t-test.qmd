@@ -23,7 +23,8 @@ Test whether a sample's mean differs significantly from a specific reference val
 
 A **one-sample t-test** compares a sample's mean against a specific hypothesized value (`mu`), producing a **p-value**: the probability of observing a difference at least this large, purely by chance, if the true population mean actually equaled the hypothesized value:
 
-```r
+```{r}
+#| eval: false
 t.test(x, mu = hypothesized_value)
 ```
 
@@ -31,7 +32,8 @@ A small p-value (conventionally, below 0.05) suggests the observed difference is
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 sbp <- participants$systolic_bp[!is.na(participants$systolic_bp)]
@@ -59,7 +61,8 @@ Notice the confidence interval reported here (126.02 to 133.67) is exactly the s
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 sbp <- participants$systolic_bp[!is.na(participants$systolic_bp)]
@@ -74,7 +77,8 @@ test_result$statistic
 5.110964
 ```
 
-```r
+```{r}
+#| eval: false
 test_result$p.value
 ```
 

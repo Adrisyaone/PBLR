@@ -23,14 +23,16 @@ Compute and correctly interpret the three measures of central tendency — mean,
 
 The **mean** is the sum of all values divided by how many there are — sensitive to unusually large or small values ("outliers"). The **median** is the middle value once the data is sorted (or the average of the two middle values, for an even count) — much less affected by outliers. The **mode** is the most frequently occurring value:
 
-```r
+```{r}
+#| eval: false
 mean(x, na.rm = TRUE)
 median(x, na.rm = TRUE)
 ```
 
 R has **no built-in function for the statistical mode**. The function called `mode()` in base R does something completely unrelated — it reports an object's storage type (`"numeric"`, `"character"`, etc.), not its most frequent value:
 
-```r
+```{r}
+#| eval: false
 mode(participants$age)
 ```
 
@@ -40,13 +42,15 @@ mode(participants$age)
 
 That's `age`'s storage type, not its most common value — a well-known trap for anyone coming from other statistical software. Finding the actual statistical mode requires `table()` (Level 4) instead:
 
-```r
+```{r}
+#| eval: false
 table(x)[which.max(table(x))]
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 mean(participants$age, na.rm = TRUE)
@@ -56,7 +60,8 @@ mean(participants$age, na.rm = TRUE)
 [1] 47.42553
 ```
 
-```r
+```{r}
+#| eval: false
 median(participants$age, na.rm = TRUE)
 ```
 
@@ -66,7 +71,8 @@ median(participants$age, na.rm = TRUE)
 
 The mean (47.43) and median (49) are reasonably close here, suggesting `age` isn't wildly skewed by extreme outliers — though they're not identical, so it's still worth reporting both.
 
-```r
+```{r}
+#| eval: false
 mode(participants$age)
 ```
 
@@ -82,7 +88,8 @@ Try `table(participants$age)` directly and scan the output for the largest count
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 mean_age <- mean(participants$age, na.rm = TRUE)
@@ -98,7 +105,8 @@ mean_age
 [1] 47.42553
 ```
 
-```r
+```{r}
+#| eval: false
 median_age
 ```
 
@@ -106,7 +114,8 @@ median_age
 [1] 49
 ```
 
-```r
+```{r}
+#| eval: false
 mode_age
 ```
 
@@ -114,7 +123,8 @@ mode_age
 [1] "53"
 ```
 
-```r
+```{r}
+#| eval: false
 age_table[mode_age]
 ```
 

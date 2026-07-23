@@ -23,13 +23,15 @@ Extract specific elements from a vector by their position, using square brackets
 
 **Indexing** means extracting one or more elements from a vector using square brackets, `[ ]`, containing the position(s) you want:
 
-```r
+```{r}
+#| eval: false
 x[position]
 ```
 
 Critically, **R is 1-indexed** — the first element is at position `1`, not `0` (unlike some other programming languages you may encounter later, such as Python). This is one of the most important structural facts to internalize early.
 
-```r
+```{r}
+#| eval: false
 ages <- c(46, 53, 59, 49, 61)
 ages[1]      # the FIRST element - not the second
 ages[3]      # the third element
@@ -40,7 +42,8 @@ You can also pass a vector of specific, non-consecutive positions: `ages[c(1, 3,
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 ages <- c(46, 53, 59, 49, 61, 18, 62, 68, 33, 36)
 
 ages[1]
@@ -50,7 +53,8 @@ ages[1]
 [1] 46
 ```
 
-```r
+```{r}
+#| eval: false
 ages[1:10]
 ```
 
@@ -58,7 +62,8 @@ ages[1:10]
  [1] 46 53 59 49 61 18 62 68 33 36
 ```
 
-```r
+```{r}
+#| eval: false
 ages[c(2, 5, 9)]
 ```
 
@@ -72,7 +77,8 @@ Try `ages[11]` — one position past the end of a 10-element vector. What does R
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Age of the very first participant enrolled
@@ -83,7 +89,8 @@ participants$age[1]
 [1] 46
 ```
 
-```r
+```{r}
+#| eval: false
 # Ages of the first ten participants
 participants$age[1:10]
 ```

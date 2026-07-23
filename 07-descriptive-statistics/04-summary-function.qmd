@@ -23,13 +23,15 @@ Use `summary()` to get a complete numeric snapshot — minimum, quartiles, mean,
 
 **`summary()`** produces the "five-number summary" (minimum, 1st quartile, median, 3rd quartile, maximum) plus the mean, all in one call — and automatically reports a count of missing values if any exist, with no `na.rm` needed:
 
-```r
+```{r}
+#| eval: false
 summary(x)
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 summary(participants$age)
@@ -48,7 +50,8 @@ Try `summary(participants)` — calling `summary()` on the **entire data frame**
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 summary(participants$bmi)
@@ -59,7 +62,8 @@ summary(participants$bmi)
   15.60   23.35   27.70   27.12   30.20   38.60       5
 ```
 
-```r
+```{r}
+#| eval: false
 summary(participants$systolic_bp)
 ```
 

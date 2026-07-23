@@ -23,7 +23,8 @@ Combine everything from this level — conditionals, default arguments, scope, a
 
 A complete, well-built function combines every idea from this level: input validation (Page 10) first, then conditional logic (Page 4) branching on the input's type, using default arguments (Page 3) for adjustable behavior, all wrapped as one named, reusable tool (Page 2) that can be applied across many columns at once (Page 8-9):
 
-```r
+```{r}
+#| eval: false
 column_report <- function(x, digits = 2) {
   if (length(x) == 0) {
     stop("x has length 0 - cannot build a report")
@@ -43,7 +44,8 @@ column_report <- function(x, digits = 2) {
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 column_report <- function(x, digits = 2) {
   if (length(x) == 0) {
     stop("x has length 0 - cannot build a report")
@@ -69,7 +71,8 @@ column_report(participants$age)
 [1] "numeric | 6% missing | mean = 47.43, sd = 15.03"
 ```
 
-```r
+```{r}
+#| eval: false
 column_report(participants$county)
 ```
 
@@ -85,7 +88,8 @@ Try `column_report(participants$smoker)` and `column_report(participants$bmi)`. 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(purrr)
 
 column_report <- function(x, digits = 2) {
@@ -120,7 +124,8 @@ full_report
 "numeric | 5% missing... "character | 0% mi...
 ```
 
-```r
+```{r}
+#| eval: false
 full_report["age"]
 ```
 
@@ -129,7 +134,8 @@ full_report["age"]
 "numeric | 6% missing | mean = 47.43, sd = 15.03"
 ```
 
-```r
+```{r}
+#| eval: false
 full_report["county"]
 ```
 

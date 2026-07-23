@@ -23,12 +23,14 @@ Generate a vector of repeated values automatically, without typing each repetiti
 
 **`rep()`** repeats a value or vector according to one of two different logics, and the difference between them matters a great deal:
 
-```r
+```{r}
+#| eval: false
 rep(x, times = n)   # repeats the WHOLE vector n times, in sequence
 rep(x, each = n)    # repeats EACH element n times before moving to the next
 ```
 
-```r
+```{r}
+#| eval: false
 rep(c("A", "B"), times = 3)   # "A" "B" "A" "B" "A" "B"
 rep(c("A", "B"), each = 3)    # "A" "A" "A" "B" "B" "B"
 ```
@@ -37,7 +39,8 @@ Notice both calls use the same inputs but produce entirely different orderings â
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 rep(c("Riverdale", "Oakford"), times = 2)
 ```
 
@@ -45,7 +48,8 @@ rep(c("Riverdale", "Oakford"), times = 2)
 [1] "Riverdale" "Oakford"   "Riverdale" "Oakford"
 ```
 
-```r
+```{r}
+#| eval: false
 rep(c("Riverdale", "Oakford"), each = 2)
 ```
 
@@ -53,7 +57,8 @@ rep(c("Riverdale", "Oakford"), each = 2)
 [1] "Riverdale" "Riverdale" "Oakford"   "Oakford"
 ```
 
-```r
+```{r}
+#| eval: false
 # Repeating a single value
 rep("Enrolled", times = 5)
 ```
@@ -68,7 +73,8 @@ Try `rep(c("Riverdale", "Oakford"), each = 2, times = 2)` â€” `each` and `times`
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 # 50 participants from Riverdale, followed by 50 from Oakford
 site <- rep(c("Riverdale", "Oakford"), each = 50)
 
@@ -79,7 +85,8 @@ length(site)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 table(site)
 ```
 

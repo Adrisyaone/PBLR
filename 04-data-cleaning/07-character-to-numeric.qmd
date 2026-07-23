@@ -25,11 +25,13 @@ Convert a messy character column, containing units and inconsistent formatting, 
 
 **`gsub(pattern, replacement, x)`** removes (or replaces) a pattern of characters throughout a string — here, used to strip out anything that isn't a digit or a decimal point:
 
-```r
+```{r}
+#| eval: false
 gsub("[^0-9.]", "", x)   # remove everything except digits and decimal points
 ```
 
-```r
+```{r}
+#| eval: false
 weight_text <- "68.5 kg"
 weight_clean <- gsub("[^0-9.]", "", weight_text)   # "68.5"
 weight_numeric <- as.numeric(weight_clean)          # 68.5
@@ -39,7 +41,8 @@ The pattern `"[^0-9.]"` is a small piece of **regular expression** syntax: `[0-9
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 weight_raw <- c("70", "68.5 kg", "72kg", "unknown")
 
 # Strip out anything that isn't a digit or decimal point
@@ -51,7 +54,8 @@ weight_stripped
 [1] "70"   "68.5" "72"   ""
 ```
 
-```r
+```{r}
+#| eval: false
 weight_numeric <- as.numeric(weight_stripped)
 ```
 
@@ -60,7 +64,8 @@ Warning message:
 NAs introduced by coercion
 ```
 
-```r
+```{r}
+#| eval: false
 weight_numeric
 ```
 
@@ -76,7 +81,8 @@ Try `gsub("[^0-9.]", "", "72 KG")` (uppercase, with a space) and confirm it stil
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 weight_raw <- c("70", "68.5 kg", "72kg", "unknown", "65.2 kg")
 
 weight_clean <- as.numeric(gsub("[^0-9.]", "", weight_raw))
@@ -87,7 +93,8 @@ weight_clean
 [1] 70.0 68.5 72.0   NA 65.2
 ```
 
-```r
+```{r}
+#| eval: false
 mean(weight_clean, na.rm = TRUE)
 ```
 

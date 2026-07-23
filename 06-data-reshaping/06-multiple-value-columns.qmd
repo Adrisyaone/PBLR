@@ -23,7 +23,8 @@ Reshape multiple measurement types to long format simultaneously, using `pivot_l
 
 Column names like `sbp_visit1` and `weight_visit1` encode **two** pieces of information joined by an underscore: which measurement (`sbp` or `weight`), and which visit (`visit1`). The special `.value` token in `names_to`, combined with `names_sep`, tells `pivot_longer()` to split each column name into pieces and use *one specific piece* (wherever `.value` is placed) as the name of a whole new **column**, rather than folding it into a single generic value column:
 
-```r
+```{r}
+#| eval: false
 pivot_longer(df,
   cols = matches("visit"),
   names_to = c(".value", "visit"),
@@ -31,7 +32,8 @@ pivot_longer(df,
 )
 ```
 
-```r
+```{r}
+#| eval: false
 pivot_longer(bp_wide,
   cols = c(starts_with("sbp_visit"), starts_with("weight_visit")),
   names_to = c(".value", "visit"),
@@ -43,7 +45,8 @@ Here, `sbp_visit1` splits at the underscore into `"sbp"` and `"visit1"`. Because
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(tidyr)
 
 bp_wide <- read.csv("data/bp_visits_wide.csv")
@@ -64,7 +67,8 @@ names(bp_long_both)
 
 Both `sbp` and `weight` now exist as genuine, separate columns — not one duplicated across the other's long rows.
 
-```r
+```{r}
+#| eval: false
 head(bp_long_both[, c("id", "visit", "sbp", "weight")], 6)
 ```
 
@@ -84,7 +88,8 @@ Try `nrow(bp_long_both)`. It should still be 84 (28 participants × 3 visits) �
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(tidyr)
 
 bp_wide <- read.csv("data/bp_visits_wide.csv")
@@ -102,7 +107,8 @@ nrow(bp_long_both)
 [1] 84
 ```
 
-```r
+```{r}
+#| eval: false
 sum(!is.na(bp_long_both$sbp))
 ```
 
@@ -110,7 +116,8 @@ sum(!is.na(bp_long_both$sbp))
 [1] 82
 ```
 
-```r
+```{r}
+#| eval: false
 sum(!is.na(bp_long_both$weight))
 ```
 

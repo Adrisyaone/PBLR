@@ -23,20 +23,23 @@ Save a data frame or tibble from R to a CSV file on disk.
 
 **`write_csv()`** (from `readr`) saves a data frame or tibble to a CSV file:
 
-```r
+```{r}
+#| eval: false
 write_csv(data, "path/to/output.csv")
 ```
 
 Base R has an equivalent, `write.csv()`, but with one especially important difference worth knowing: base R's `write.csv()` includes row names as an extra, unnamed first column by default, unless you explicitly turn that off (`row.names = FALSE`) — a common source of a mysterious extra column when colleagues open your file. `readr`'s `write_csv()` never adds row names, which is one of several reasons this course prefers it.
 
-```r
+```{r}
+#| eval: false
 write_csv(participants, "participants_cleaned.csv")       # readr - no extra column, ever
 write.csv(participants, "participants_cleaned.csv", row.names = FALSE)  # base R equivalent
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(readr)
 
 # A small cleaned example
@@ -49,7 +52,8 @@ cleaned_sample <- data.frame(
 write_csv(cleaned_sample, "cleaned_sample.csv")
 ```
 
-```r
+```{r}
+#| eval: false
 # Reading it back in confirms it saved correctly
 read_csv("cleaned_sample.csv")
 ```
@@ -69,7 +73,8 @@ Try the base R equivalent without `row.names = FALSE`: `write.csv(cleaned_sample
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(readr)
 
 participants <- read_csv("data/participants.csv")

@@ -23,7 +23,8 @@ Repeat a block of code until a condition is no longer true, using a `while` loop
 
 A **`while` loop** repeats a block of code for as long as a condition remains `TRUE`, checking that condition again before every iteration:
 
-```r
+```{r}
+#| eval: false
 while (condition) {
   # code repeated as long as condition is TRUE
   # something inside here must eventually make condition FALSE
@@ -34,7 +35,8 @@ Unlike a `for` loop, a `while` loop doesn't know in advance how many times it wi
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 count <- 0
 
 while (count < 5) {
@@ -59,7 +61,8 @@ Try removing the `count <- count + 1` line from the loop above (don't actually r
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 ages <- sort(participants$age[!is.na(participants$age)], decreasing = TRUE)
@@ -78,7 +81,8 @@ removed_count
 [1] 29
 ```
 
-```r
+```{r}
+#| eval: false
 mean(ages)
 ```
 
@@ -86,7 +90,8 @@ mean(ages)
 [1] 39.95385
 ```
 
-```r
+```{r}
+#| eval: false
 length(ages)
 ```
 

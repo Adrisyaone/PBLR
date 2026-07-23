@@ -23,11 +23,13 @@ Exclude one or more elements from a vector by position, rather than selecting el
 
 Putting a **minus sign** in front of a position inside `[ ]` tells R to exclude that position, returning everything else:
 
-```r
+```{r}
+#| eval: false
 x[-position]
 ```
 
-```r
+```{r}
+#| eval: false
 ages <- c(46, 53, 59, 49, 61)
 ages[-1]        # everything except the 1st element
 ages[-c(1, 2)]  # everything except the 1st and 2nd elements
@@ -37,7 +39,8 @@ This mirrors positive indexing exactly, just inverted — and it composes with e
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 ages <- c(46, 53, 59, 49, 61, 18, 62, 68, 33, 36)
 
 ages[-1]
@@ -47,7 +50,8 @@ ages[-1]
 [1] 53 59 49 61 18 62 68 33 36
 ```
 
-```r
+```{r}
+#| eval: false
 ages[-c(1, 2)]
 ```
 
@@ -55,7 +59,8 @@ ages[-c(1, 2)]
 [1] 59 49 61 18 62 68 33 36
 ```
 
-```r
+```{r}
+#| eval: false
 ages[-(1:3)]
 ```
 
@@ -69,7 +74,8 @@ Try mixing signs: `ages[c(-1, 2)]`. What happens? R will refuse and produce an e
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Exclude participant 1 (the pilot test entry) from the age calculation
@@ -82,7 +88,8 @@ length(valid_ages)
 [1] 99
 ```
 
-```r
+```{r}
+#| eval: false
 mean(valid_ages, na.rm = TRUE)
 ```
 

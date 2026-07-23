@@ -23,19 +23,22 @@ Apply a function across every column of a data frame at once using `sapply()` an
 
 **`sapply()`** ("simplify apply") applies a function to every element of a vector or list — including every column of a data frame — and simplifies the result into a vector when possible:
 
-```r
+```{r}
+#| eval: false
 sapply(df, function_name)
 ```
 
 **`lapply()`** ("list apply") does the exact same thing, but always returns a **list** instead of simplifying — useful when the results don't simplify neatly into a single vector:
 
-```r
+```{r}
+#| eval: false
 lapply(df, function_name)
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 pct_missing <- function(x) {
   sum(is.na(x)) / length(x) * 100
 }
@@ -54,7 +57,8 @@ sapply(participants, pct_missing)
 
 One call, `sapply(participants, pct_missing)`, applied `pct_missing()` to all 8 columns automatically — no more retyping `pct_missing(participants$...)` eight separate times.
 
-```r
+```{r}
+#| eval: false
 lapply(participants, pct_missing)
 ```
 
@@ -78,7 +82,8 @@ Try `sapply(participants, class)` — applying the built-in `class()` function (
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 pct_missing <- function(x) {
   sum(is.na(x)) / length(x) * 100
 }
@@ -97,7 +102,8 @@ missing_report
           5           0
 ```
 
-```r
+```{r}
+#| eval: false
 missing_report[missing_report > 0]
 ```
 

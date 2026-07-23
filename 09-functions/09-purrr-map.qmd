@@ -23,14 +23,16 @@ Apply a function across a data frame's columns using `purrr::map()` and its type
 
 **`purrr::map()`** (part of the tidyverse) applies a function across a vector or data frame's columns, always returning a **list** — predictable, but not simplified:
 
-```r
+```{r}
+#| eval: false
 library(purrr)
 map(df, function_name)
 ```
 
 Its type-specific variants guarantee a specific output type, erroring loudly instead of silently returning the wrong shape if a function doesn't produce what's expected:
 
-```r
+```{r}
+#| eval: false
 map_dbl(df, function_name)   # always returns a numeric vector, or errors
 map_chr(df, function_name)   # always returns a character vector, or errors
 ```
@@ -39,7 +41,8 @@ This predictability is `purrr`'s core advantage over base R's `sapply()`: you kn
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(purrr)
 
 pct_missing <- function(x) {
@@ -66,7 +69,8 @@ Try `map_chr(participants, class)` — applying the built-in `class()` function 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(purrr)
 library(dplyr)
 
@@ -86,7 +90,8 @@ missing_report[missing_report > 0]
           6           4           5
 ```
 
-```r
+```{r}
+#| eval: false
 column_types <- map_chr(participants, class)
 
 column_types

@@ -3,26 +3,30 @@
 ::: {.pbl-box .pbl-problem}
 **Where this level is headed**
 
-To build tools other researchers rely on — not just one-off scripts — you need to understand how R actually works under the hood: environments, object systems, error handling, and version control.
+Level 9 taught you to write functions; Level 10 taught you to automate repeated tasks with loops. This level goes one layer deeper: *how R actually keeps track of variables behind the scenes*, how to build functions that remember state between calls, how to handle errors gracefully instead of letting a script crash, and how to work with the two data types nearly every real dataset eventually needs — text patterns and dates — that this course's mostly-numeric dataset hasn't required yet.
 :::
 
-## What's coming
+## What this level covers
 
-- Environments, scoping, and closures
-- S3, S4, and R6 object systems
-- Debugging and `tryCatch()`
-- Functional programming patterns
-- Package development and documentation
-- Git and GitHub for reproducible collaboration
+- Environments — how R actually stores and looks up variables, and why a function's variables normally disappear once it finishes
+- Closures — functions that "remember" values from where they were created, enabling reusable function factories
+- A first look at R's S3 object system, for building your own structured result types
+- Robust error handling with `tryCatch()`, beyond Level 9's `stop()` and `warning()`
+- Debugging tools for finding *why* code fails, not just that it failed
+- Functional programming patterns like `Reduce()` for combining values one at a time
+- Regular expressions for detecting and extracting text patterns
+- General string manipulation beyond what Levels 1-12 have needed
+- Working with dates — parsing, formatting, and calculating differences
+- The basic anatomy of an R package, for turning reusable functions into shareable tools
 
 ::: {.pbl-box .pbl-mission}
 **A preview mission**
 
-Your mission: turn a script you've rerun ten times into a small, tested, documented R package your whole team can install and trust.
+Your mission across this level: build a small, reusable toolkit — a function factory for flexible threshold checks, a custom result type, and an error-safe file reader — and bring it all together in a capstone that automates reading and validating a folder of clinic files, extending Level 10's automation with real error handling.
 :::
 
 ::: {.callout-note}
-## Status
+## A note on scope
 
-This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
+This level focuses on the R-programming skills that generalize far beyond this course's dataset: environments, closures, error handling, debugging, functional patterns, regex, strings, dates, and package structure. Deeper object-oriented systems (S4, R6) and full package publishing workflows (roxygen2 documentation generation, CRAN submission, Git/GitHub collaboration) are mentioned where relevant but are beyond this course's scope — Level 10's `browser()`-free debugging and this level's S3 introduction give you a solid, practical foundation to build on later.
 :::

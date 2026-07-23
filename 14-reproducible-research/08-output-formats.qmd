@@ -1,0 +1,154 @@
+# Choosing an Output Format {#sec-output-formats}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+This entire course's `_quarto.yml` (Page 2) already defines *two* output formats — `html:` and `pdf:` — from the exact same source files. Your professor's collaborators use Microsoft Word for tracked-changes review, though, and ask whether the same report could also be produced as a `.docx` file, without rewriting a single page of content.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand how the same Quarto source document can render into HTML, PDF, or Word, and when each format is the right choice.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 8's interactive-feeling HTML pages (with collapsible knowledge-check answers, Page 2's `<details>` tags) rely on web browser features. Would a printed PDF page support the exact same "click to reveal" behavior?
+- If a collaborator needs to leave tracked-changes comments on a report, which of HTML, PDF, or Word would most naturally support that kind of back-and-forth editing?
+:::
+
+## The R Concept
+
+The `format:` key in YAML front matter (or a project's `_quarto.yml`) selects one or more output formats for the exact same source content:
+
+```yaml
+---
+title: "Clinic Summary Report"
+format: html
+---
+```
+
+```yaml
+---
+title: "Clinic Summary Report"
+format:
+  html:
+    toc: true
+  pdf:
+    documentclass: article
+  docx: default
+---
+```
+
+Rendering with multiple formats listed produces one output file per format (`report.html`, `report.pdf`, `report.docx`) from the identical source — no duplicated content, no separate Word-specific or PDF-specific version to maintain.
+
+## Demonstration
+
+```yaml
+# This course's own R-PBL/_quarto.yml format: section (Page 2), simplified:
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    toc: true
+  pdf:
+    documentclass: scrbook
+    toc: true
+```
+
+```
+Running `quarto render` on this book produces both a complete website
+(the interactive version you're reading, with clickable knowledge-check
+answers) AND a complete PDF book (with the same content laid out for
+print, though `<details>`-style collapsible answers render as always-
+visible text in PDF, since paper has no "click to reveal" concept).
+```
+
+## Explore
+
+Try adding `docx: default` as a third sibling entry under this course's `format:` section (indented at the same level as `html:` and `pdf:`). Rendering afterward would additionally produce a `.docx` version of every chapter — useful for a collaborator who wants to leave Word's native tracked-changes comments directly on the content.
+
+## Solve the Problem
+
+```yaml
+---
+title: "Clinic Summary Report"
+format:
+  html:
+    toc: true
+    number-sections: true
+  pdf:
+    toc: true
+    number-sections: true
+  docx:
+    toc: true
+    number-sections: true
+---
+```
+
+```
+Rendering this single source file with `quarto render report.qmd --to all`
+(or specifying each format individually) produces:
+
+  report.html   - interactive web page, best for browsing and sharing links
+  report.pdf    - fixed-layout document, best for printing or formal archiving
+  report.docx   - editable Word document, best for collaborators who need
+                  to leave tracked-changes comments
+```
+
+All three files come from rendering the exact same underlying `.qmd` source and code chunks — the actual analysis, tables, and figures are computed once and formatted three different ways, never duplicated by hand.
+
+## Interpret the Result
+
+Choosing an output format is about matching the *audience's* needs, not rewriting content: HTML suits interactive browsing and easy sharing (exactly why this course itself defaults to HTML), PDF suits formal, fixed-layout printing or archiving, and Word suits collaborators who need native tracked-changes review. Because all three come from one shared source, a single content update (fixing a typo, updating a statistic) automatically propagates to every format the next time the document is rendered — there's no risk of the HTML and Word versions silently drifting out of sync.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Maintaining separate Word and HTML versions of the same report by hand.** This immediately reintroduces the exact synchronization problem Quarto is designed to solve — any edit has to be made once, then correctly copied into every other format's file, a process guaranteed to eventually drift out of sync.
+- **Assuming every feature renders identically across all formats.** Interactive elements like this course's collapsible `<details>` knowledge-check answers work naturally in HTML but render as plain, always-visible text in PDF and Word — always preview a document in its actual target format before finalizing it.
+- **Forgetting some formats require additional software installed.** Rendering to PDF specifically requires a working LaTeX installation (such as TinyTeX) — a missing LaTeX installation is a common reason `quarto render` succeeds for HTML but fails specifically for the PDF format.
+:::
+
+## Practice Problem
+
+Write the YAML front matter for a single report that renders to both HTML and Word (but not PDF), with a table of contents enabled in both formats.
+
+## Challenge Problem
+
+This course's own `_quarto.yml` currently defines `html:` and `pdf:` formats (Page 2) but not `docx:`. Write the exact YAML lines you would add to include a Word output format for this entire book, matching the indentation level of the existing `html:` and `pdf:` entries, and explain one likely reason a collaborative public-health team might want a `.docx` version of specific chapters even though the book is primarily read as a website.
+
+## Key Takeaways
+
+- The same Quarto source document can render into multiple output formats (HTML, PDF, Word, and others) by listing them under `format:` in YAML front matter, with no content duplication.
+- HTML suits interactive browsing, PDF suits fixed-layout printing and archiving, and Word suits collaborators who need native tracked-changes review — the right choice depends on the audience, not the content itself.
+- Not every feature renders identically across formats (interactive elements can lose their interactivity in PDF/Word), and PDF rendering specifically requires a working LaTeX installation.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What is the main benefit of rendering the same source document to HTML, PDF, and Word, rather than maintaining three separate files?
+   a) It renders faster overall
+   b) A single content update automatically applies to every format, with no risk of drift
+   c) Word documents cannot contain R code otherwise
+   d) There is no benefit; the formats are identical in every way
+
+2. **True or false.** Interactive HTML elements like collapsible answer sections always work identically when rendered to PDF.
+
+3. **Predict the output.** If a `.qmd` file's YAML lists `format: {html: default, docx: default}`, how many separate output files would rendering produce?
+
+4. **Short answer.** Why does PDF rendering specifically require an additional software installation (like TinyTeX) that HTML rendering does not?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A single content update automatically applies to every format, eliminating the risk of different format versions drifting out of sync.
+2. **False.** Interactive elements like collapsible `<details>` sections rely on web-browser behavior and typically render as plain, always-visible text in PDF, since a fixed-layout printed page has no "click to reveal" concept.
+3. Two — one `.html` file and one `.docx` file, both generated from the same source.
+4. PDF output is generated via a LaTeX typesetting engine, which is separate software that must be installed (TinyTeX is a minimal, Quarto-friendly LaTeX distribution) — HTML rendering, by contrast, only requires Pandoc's built-in HTML conversion, with no external typesetting system needed.
+
+</details>
+:::

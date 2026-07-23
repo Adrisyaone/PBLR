@@ -23,12 +23,14 @@ Sort a data frame's rows by one or more columns, in ascending or descending orde
 
 **`arrange()`** sorts a data frame's rows by one or more columns, in ascending order by default:
 
-```r
+```{r}
+#| eval: false
 arrange(df, column)          # ascending (smallest first)
 arrange(df, desc(column))    # descending (largest first)
 ```
 
-```r
+```{r}
+#| eval: false
 arrange(participants, age)          # youngest first
 arrange(participants, desc(age))    # oldest first
 ```
@@ -37,13 +39,15 @@ Unlike sorting a plain vector (where only the values themselves move), `arrange(
 
 You can also sort by multiple columns; ties in the first column are broken by the second:
 
-```r
+```{r}
+#| eval: false
 arrange(participants, county, desc(age))   # by county, then oldest-first within each county
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -59,7 +63,8 @@ head(youngest_first, 3)
 3 36 18   Male Springvale         152           88 23.1     No
 ```
 
-```r
+```{r}
+#| eval: false
 oldest_first <- arrange(participants, desc(age))
 head(oldest_first, 3)
 ```
@@ -77,7 +82,8 @@ Try `arrange(participants, county, desc(age))` — sorting first by county (alph
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")

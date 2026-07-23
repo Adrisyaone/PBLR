@@ -23,18 +23,21 @@ Choose specific columns from a data frame using `dplyr::select()`, and understan
 
 **`select()`**, from `dplyr` (part of the tidyverse), picks columns by name, with no quotes and no brackets required:
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 select(df, col1, col2, col3)
 ```
 
-```r
+```{r}
+#| eval: false
 select(participants, id, age, county)
 ```
 
 You can also **exclude** columns with a minus sign, mirroring Level 2's negative indexing:
 
-```r
+```{r}
+#| eval: false
 select(participants, -bmi)         # everything except bmi
 select(participants, -c(bmi, smoker))   # everything except bmi and smoker
 ```
@@ -43,7 +46,8 @@ And several helper functions let you select by *pattern* rather than typing ever
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -59,7 +63,8 @@ head(simplified, 3)
 3  3  59   Oakford
 ```
 
-```r
+```{r}
+#| eval: false
 without_extras <- select(participants, -bmi, -smoker)
 names(without_extras)
 ```
@@ -69,7 +74,8 @@ names(without_extras)
 [6] "diastolic_bp"
 ```
 
-```r
+```{r}
+#| eval: false
 bp_only <- select(participants, ends_with("_bp"))
 head(bp_only, 3)
 ```
@@ -87,7 +93,8 @@ Try `select(participants, county, age, id)` — notice the *order* of the column
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -107,7 +114,8 @@ head(handout_data)
 6  6  18 Riverdale
 ```
 
-```r
+```{r}
+#| eval: false
 ncol(handout_data)
 ```
 

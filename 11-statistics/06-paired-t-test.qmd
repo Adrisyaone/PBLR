@@ -23,7 +23,8 @@ Test whether paired, before-and-after measurements from the same individuals dif
 
 A **paired t-test** analyzes the *differences* between two measurements taken on the same individuals, testing whether the mean difference is significantly different from zero:
 
-```r
+```{r}
+#| eval: false
 t.test(measurement_time1, measurement_time2, paired = TRUE)
 ```
 
@@ -31,7 +32,8 @@ The `paired = TRUE` argument is essential — without it, R would (incorrectly) 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(tidyr)
 library(dplyr)
 
@@ -63,7 +65,8 @@ Try running the same two visit-1 and visit-3 values through Page 5's *unpaired* 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 bp_wide <- read.csv("data/bp_visits_wide.csv")
 
 complete_visits <- bp_wide[bp_wide$sbp_visit3 != "", ]
@@ -78,7 +81,8 @@ mean difference
               5
 ```
 
-```r
+```{r}
+#| eval: false
 paired_result$p.value
 ```
 

@@ -25,11 +25,13 @@ A **data frame** is R's standard structure for rectangular, spreadsheet-like dat
 
 You build one directly with **`data.frame()`**:
 
-```r
+```{r}
+#| eval: false
 data.frame(column1 = vector1, column2 = vector2, ...)
 ```
 
-```r
+```{r}
+#| eval: false
 pilot_data <- data.frame(
   id = c(1, 2, 3),
   age = c(45, 62, 38),
@@ -41,7 +43,8 @@ Every vector you pass in must be the **same length** — mismatched lengths rais
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 pilot_data <- data.frame(
   id = c(1, 2, 3, 4),
   age = c(45, 62, 38, 71),
@@ -60,7 +63,8 @@ pilot_data
 4  4  71   Male         152
 ```
 
-```r
+```{r}
+#| eval: false
 class(pilot_data)
 ```
 
@@ -74,7 +78,8 @@ Try building a data frame from vectors of mismatched length — for example, `id
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 id <- c(1, 2, 3, 4)
 age <- c(45, 62, 38, 71)
 sex <- c("Female", "Male", "Female", "Male")

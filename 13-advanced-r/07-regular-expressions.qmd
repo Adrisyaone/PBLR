@@ -1,0 +1,161 @@
+# Regular Expressions {#sec-regular-expressions}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 6's `bp_visits_wide.csv` has columns named `sbp_visit1`, `sbp_visit2`, `sbp_visit3`, `weight_visit1`, `weight_visit2`, `weight_visit3` — Level 6's `pivot_longer()` handled reshaping these by column position, but never needed to actually understand the *pattern* in their names. Your professor now asks a different question: given only the column names as text, can you programmatically detect which ones are blood-pressure measurements, which are weight measurements, and which visit number each belongs to — without hardcoding every column name by hand?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Use regular expressions to detect and extract patterns within text, rather than matching exact strings.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 4 used `grepl()` conceptually. If `grepl("visit", "sbp_visit1")` looks for the literal text `"visit"` anywhere in a string, how could you instead search for "the word 'visit' followed by any digit"?
+- If a naming pattern is consistent (always `<measurement>_visit<number>`), could a single pattern description match every column name at once, instead of writing out each one individually?
+:::
+
+## The R Concept
+
+A **regular expression** ("regex") is a mini-language for describing text patterns, rather than exact text. A few building blocks cover most everyday needs:
+
+```{r}
+#| eval: false
+grepl(pattern, x)              # TRUE/FALSE: does the pattern appear in x?
+grep(pattern, x, value = TRUE) # returns the matching elements themselves
+gsub(pattern, replacement, x)  # replaces every match with something else
+regmatches(x, regexpr(pattern, x))  # extracts just the matched portion of text
+```
+
+Common pattern symbols: `^` anchors to the start of a string, `$` anchors to the end, `\\d+` matches one or more digits, and `.` matches any single character. `sub("_visit\\d+$", "", x)` removes a trailing `_visit` followed by digits from the end of each string.
+
+## Demonstration
+
+```{r}
+#| eval: false
+bp_visits <- read.csv("data/bp_visits_wide.csv")
+
+column_names <- names(bp_visits)
+column_names
+```
+
+```
+[1] "id"            "county"        "clinic_site"   "sbp_visit1"
+[5] "sbp_visit2"    "sbp_visit3"    "weight_visit1" "weight_visit2"
+[9] "weight_visit3"
+```
+
+```{r}
+#| eval: false
+grepl("^sbp_visit", column_names)
+```
+
+```
+[1] FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+```
+
+## Explore
+
+Try `grep("^sbp_visit", column_names, value = TRUE)` instead of `grepl()` — notice it returns the *matching column names themselves* (`"sbp_visit1" "sbp_visit2" "sbp_visit3"`), rather than a logical vector. Try `gsub("_visit[0-9]+$", "", column_names)` to strip the visit-number suffix from every column name at once.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+bp_visits <- read.csv("data/bp_visits_wide.csv")
+
+column_names <- names(bp_visits)
+
+sbp_columns <- grep("^sbp_visit", column_names, value = TRUE)
+weight_columns <- grep("^weight_visit", column_names, value = TRUE)
+
+sbp_columns
+weight_columns
+```
+
+```
+[1] "sbp_visit1" "sbp_visit2" "sbp_visit3"
+```
+
+```
+[1] "weight_visit1" "weight_visit2" "weight_visit3"
+```
+
+```{r}
+#| eval: false
+visit_columns <- grep("_visit[0-9]+$", column_names, value = TRUE)
+measurement_types <- unique(gsub("_visit[0-9]+$", "", visit_columns))
+measurement_types
+```
+
+```
+[1] "sbp"    "weight"
+```
+
+```{r}
+#| eval: false
+visit_numbers <- regmatches(visit_columns, regexpr("[0-9]+$", visit_columns))
+visit_numbers
+```
+
+```
+[1] "1" "2" "3" "1" "2" "3"
+```
+
+The pattern `"^sbp_visit"` correctly isolated exactly the 3 systolic blood pressure columns, and `"_visit[0-9]+$"` combined with `gsub()` correctly extracted just two underlying measurement types (`"sbp"` and `"weight"`) hidden inside 6 differently-named columns — all without writing out any column name by hand.
+
+## Interpret the Result
+
+Regular expressions let you describe a *pattern* ("starts with sbp_visit", "ends with an underscore and one or more digits") instead of listing every matching string individually — this scales to datasets with far more columns than this course's small example, where hardcoding every name would become impractical. This is the same kind of automation-over-hardcoding thinking Level 10's `list.files(pattern = "\\.csv$")` already relied on, just applied to column names instead of file names.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `.` matches *any* character in regex, not a literal period.** To match a literal period (like in a file extension), it must be escaped as `\\.` — Level 10's `list.files(pattern = "\\.csv$")` already relied on exactly this escaping.
+- **Confusing `grepl()` (returns TRUE/FALSE) with `grep()` (returns matching elements or positions) with `gsub()` (returns modified strings).** All three take a similar `pattern, x` structure, but return fundamentally different things — always check which one actually matches your goal.
+- **Writing an overly loose pattern that matches more than intended.** `grepl("visit", column_names)` (without the `^` anchor) would also match a hypothetical column named `"last_visit_notes"` — anchoring with `^` and `$` where appropriate makes a pattern match exactly what's intended, not just "contains this text somewhere."
+:::
+
+## Practice Problem
+
+Use `gsub()` to remove the `_visit1`, `_visit2`, and `_visit3` suffixes from `bp_visits`' column names entirely, then check how many *unique* resulting names remain (accounting for `id`, `county`, and `clinic_site`, which have no visit suffix to remove).
+
+## Challenge Problem
+
+Level 2's `participants$county` column contains values like `"Cedar Falls"` (with a space). Write a regex-based check using `grepl(" ", participants$county)` to detect which county names contain a space, and use `gsub(" ", "_", participants$county)` to replace spaces with underscores — a common data-cleaning step before using text values as column names or file paths.
+
+## Key Takeaways
+
+- Regular expressions describe text *patterns* (not exact strings), letting `grepl()`, `grep()`, and `gsub()` match many variations of text at once.
+- `^` anchors to the start of a string, `$` anchors to the end, and `[0-9]+` (or `\\d+`) matches one or more digits — a few symbols cover most everyday pattern-matching needs.
+- `regmatches()` combined with `regexpr()` extracts just the matched portion of text, rather than a TRUE/FALSE or the whole original string.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does the regex pattern `"^sbp_visit"` match?
+   a) Any string containing "sbp_visit" anywhere
+   b) Only strings that start with "sbp_visit"
+   c) Only strings that end with "sbp_visit"
+   d) Strings containing exactly the number of characters in "sbp_visit"
+
+2. **True or false.** `grepl()` and `grep()` always return the exact same type of result.
+
+3. **Predict the output.** Given `column_names <- c("sbp_visit1", "weight_visit1", "id")`, what would `grep("^sbp_visit", column_names, value = TRUE)` return?
+
+4. **Short answer.** Why might `grepl("visit", column_names)` (without a `^` anchor) match more columns than intended, compared to `grepl("^sbp_visit", column_names)`?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Only strings that start with "sbp_visit" — the `^` anchors the pattern to the beginning of the string.
+2. **False.** `grepl()` always returns a logical (TRUE/FALSE) vector; `grep()` returns either matching positions (by default) or matching elements themselves (with `value = TRUE`) — different result types.
+3. `"sbp_visit1"` — the only element starting with the literal text "sbp_visit".
+4. Without the `^` anchor, `"visit"` would match *any* column name containing that text anywhere, such as a hypothetical `"last_visit_date"` column — the anchor restricts matches specifically to strings that *start* with the intended prefix.
+
+</details>
+:::

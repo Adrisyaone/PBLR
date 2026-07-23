@@ -23,13 +23,15 @@ Give a function argument a default value, so it works sensibly when called with 
 
 A **default argument value** is specified with `=` directly in the function definition, and is used automatically whenever that argument is omitted from the call:
 
-```r
+```{r}
+#| eval: false
 function_name <- function(x, digits = 2) {
   # digits is 2 unless the caller specifies otherwise
 }
 ```
 
-```r
+```{r}
+#| eval: false
 describe_numeric <- function(x, digits = 2) {
   c(
     mean = round(mean(x, na.rm = TRUE), digits),
@@ -42,7 +44,8 @@ Calling `describe_numeric(participants$age)` uses `digits = 2` automatically; ca
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 describe_numeric <- function(x, digits = 2) {
   c(
     mean = round(mean(x, na.rm = TRUE), digits),
@@ -60,7 +63,8 @@ describe_numeric(participants$age)
 47.43 15.03
 ```
 
-```r
+```{r}
+#| eval: false
 describe_numeric(participants$age, digits = 0)
 ```
 
@@ -77,7 +81,8 @@ Try `describe_numeric(participants$bmi, digits = 4)`. Confirm the function happi
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 describe_numeric <- function(x, digits = 2) {
   c(
     mean = round(mean(x, na.rm = TRUE), digits),
@@ -95,7 +100,8 @@ describe_numeric(participants$systolic_bp)
 129.84  18.87
 ```
 
-```r
+```{r}
+#| eval: false
 describe_numeric(participants$systolic_bp, digits = 1)
 ```
 

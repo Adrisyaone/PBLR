@@ -23,7 +23,8 @@ Demonstrate the Central Limit Theorem (CLT) by simulation: repeatedly sample fro
 
 The **Central Limit Theorem** states that the distribution of sample means (computed from repeated samples of a given size) approaches a normal distribution as sample size grows — regardless of the original variable's own distribution shape — with a spread ("standard error") shrinking predictably as sample size increases:
 
-```r
+```{r}
+#| eval: false
 set.seed(42)
 sample_means <- replicate(n_draws, mean(sample(population, size = n, replace = TRUE)))
 ```
@@ -34,7 +35,8 @@ $$SE = \frac{\sigma}{\sqrt{n}}$$
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 set.seed(42)
 
 participants <- read.csv("data/participants.csv")
@@ -49,7 +51,8 @@ mean(sample_means)
 [1] 47.5   # your exact value will vary slightly - this is randomness-dependent
 ```
 
-```r
+```{r}
+#| eval: false
 sd(sample_means)
 ```
 
@@ -65,7 +68,8 @@ Try computing the theoretical standard error directly: `sd(ages) / sqrt(30)`. Co
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 set.seed(42)
 
 participants <- read.csv("data/participants.csv")
@@ -83,7 +87,8 @@ empirical_se
 [1] 2.75   # a representative value - simulation-dependent, will vary slightly
 ```
 
-```r
+```{r}
+#| eval: false
 theoretical_se
 ```
 

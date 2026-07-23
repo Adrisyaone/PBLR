@@ -1,0 +1,9 @@
+"0","---
+title: ""Clinic Summary: `r params$county`""
+params:
+  county: ""Oakford""
+bibliography: references.bib
+---"
+"2","'yaml' is not recognized as an internal or external command,
+operable program or batch file.
+"

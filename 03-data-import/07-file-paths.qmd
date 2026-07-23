@@ -25,7 +25,8 @@ An **absolute path** describes a file's exact location starting from the very ro
 
 A **relative path** describes a file's location *relative to the current working directory* — `data/participants.csv` says "look inside a folder called `data`, relative to wherever we currently are," without caring what's above that in the folder structure. As long as two people both have the same *internal* project structure (a `data` folder inside their project folder, wherever that project folder happens to live), the same relative path works for both of them.
 
-```r
+```{r}
+#| eval: false
 # Absolute - only works on Jordan's computer
 read.csv("/Users/jordan/Documents/health-survey-project/data/participants.csv")
 
@@ -38,7 +39,8 @@ This is exactly why every code example since Level 1 has used `"data/participant
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 getwd()
 ```
 
@@ -46,7 +48,8 @@ getwd()
 [1] "/Users/jordan/Documents/health-survey-project"
 ```
 
-```r
+```{r}
+#| eval: false
 # Relative path - depends on the working directory shown above
 participants <- read.csv("data/participants.csv")
 nrow(participants)
@@ -56,7 +59,8 @@ nrow(participants)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 # The SAME relative path, run by a classmate with a totally different absolute location
 # but an identical internal project structure, works identically:
 # getwd() -> "/home/priya/school/health-survey-project"
@@ -69,12 +73,14 @@ Run `getwd()` on your own machine right now, and compare it to a classmate's, if
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 # Broken - hardcoded to one specific computer
 participants <- read.csv("/Users/jordan/Documents/health-survey-project/data/participants.csv")
 ```
 
-```r
+```{r}
+#| eval: false
 # Fixed - portable relative path, works on any computer with the same internal structure
 participants <- read.csv("data/participants.csv")
 ```

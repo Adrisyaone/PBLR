@@ -23,7 +23,8 @@ Fit a regression with an interaction term, and interpret whether one predictor's
 
 An **interaction term**, written `predictor1 * predictor2` in an `lm()` formula, tests whether one predictor's effect depends on another's value:
 
-```r
+```{r}
+#| eval: false
 model <- lm(outcome ~ predictor1 * predictor2, data = df)
 summary(model)
 ```
@@ -32,7 +33,8 @@ summary(model)
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 bp_interaction_model <- lm(systolic_bp ~ age * smoker, data = participants)
@@ -70,7 +72,8 @@ Try computing the predicted slope for smokers directly: `age`'s coefficient (−
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 bp_interaction_model <- lm(systolic_bp ~ age * smoker, data = participants)
@@ -89,7 +92,8 @@ coef(bp_interaction_model)["age"] + coef(bp_interaction_model)["age:smokerYes"] 
 -0.1493318
 ```
 
-```r
+```{r}
+#| eval: false
 summary(bp_interaction_model)$coefficients["age:smokerYes", "Pr(>|t|)"]
 ```
 

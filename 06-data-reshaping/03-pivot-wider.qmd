@@ -23,14 +23,16 @@ Convert long-format data back into wide format using `tidyr::pivot_wider()` — 
 
 **`pivot_wider()`** takes one column of names and one column of values, and spreads them back out into separate columns:
 
-```r
+```{r}
+#| eval: false
 pivot_wider(df,
   names_from = name_column,
   values_from = value_column
 )
 ```
 
-```r
+```{r}
+#| eval: false
 pivot_wider(county_visit_means,
   names_from = visit,
   values_from = mean_sbp
@@ -41,7 +43,8 @@ This is exactly the reverse of `pivot_longer()`'s `names_to`/`values_to`: `names
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 library(tidyr)
 
@@ -84,7 +87,8 @@ county_visit_means
 
 15 rows, exactly as `group_by(county, visit)` would produce (5 counties × 3 visits) — readable, but each county's three visits are spread across three separate rows.
 
-```r
+```{r}
+#| eval: false
 report_table <- pivot_wider(county_visit_means,
   names_from = visit,
   values_from = mean_sbp
@@ -112,7 +116,8 @@ Try `pivot_wider()` on `bp_long_sbp` directly (not the summarised version), usin
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 library(tidyr)
 

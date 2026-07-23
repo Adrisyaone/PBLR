@@ -1,4 +1,4 @@
-# Creating an R Script {#sec-r-scripts}
+## Creating an R Script {#sec-r-scripts}
 
 ::: {.pbl-box .pbl-problem}
 **The Problem**
@@ -15,30 +15,30 @@ Create a saved R script so your work can be reopened, rerun, and reused — this
 ::: {.pbl-box .pbl-think}
 **Think Before Coding**
 
-- What's the difference between typing code that disappears versus writing code into a document you can save and reopen?
-- If a colleague asked to see exactly how you calculated last month's number, what would you want to hand them?
+-   What's the difference between typing code that disappears versus writing code into a document you can save and reopen?
+-   If a colleague asked to see exactly how you calculated last month's number, what would you want to hand them?
 :::
 
-## The R Concept
+### The R Concept
 
 An **R script** is a plain text file, saved with a `.R` extension, that holds a sequence of R commands. Unlike the Console, a script is a permanent, editable, shareable file — closer to a Word document than to a chat window.
 
 To create one in RStudio:
 
-**File > New File > R Script** (or the keyboard shortcut Ctrl+Shift+N on Windows, Cmd+Shift+N on Mac)
+**File \> New File \> R Script** (or the keyboard shortcut Ctrl+Shift+N on Windows, Cmd+Shift+N on Mac)
 
 This opens a blank file in the **Source pane**. You write your code there, line by line, and then run it using:
 
-- **Ctrl+Enter** (Cmd+Return on Mac) — runs just the current line (or a highlighted selection), sending it to the Console.
-- The **Source** button — runs the entire script from top to bottom at once.
+-   **Ctrl+Enter** (Cmd+Return on Mac) — runs just the current line (or a highlighted selection), sending it to the Console.
+-   The **Source** button — runs the entire script from top to bottom at once.
 
 Crucially, writing a line in a script does **not** run it automatically — you still need to explicitly run it, exactly like the Console, but now the instructions themselves live in a saved file you control.
 
-## Demonstration
+### Demonstration
 
 Here's a short script, as it would appear in the Source pane:
 
-```r
+``` r
 # completion_rate.R
 # Calculates study completion rate for the community health survey
 
@@ -51,21 +51,21 @@ completion_rate
 
 Running this line by line (Ctrl+Enter on each line) sends each command to the Console in turn, and you'd see:
 
-```
+```         
 [1] 85
 ```
 
 Saved as `completion_rate.R`, this file can be reopened any time, and every line rerun exactly as written.
 
-## Explore
+### Explore
 
 Open a new R script and type the same four lines above. Change the values of `enrolled` and `completed` to this month's actual numbers, then run the whole script using the **Source** button rather than line-by-line. Confirm you get an updated result without retyping any of the structure.
 
-## Solve the Problem
+### Solve the Problem
 
 Because last month's calculation lived only in the Console, it's gone. Going forward, you save every calculation as a script:
 
-```r
+``` r
 # completion_rate.R
 enrolled <- 130
 completed <- 109
@@ -74,60 +74,62 @@ completion_rate <- completed / enrolled * 100
 completion_rate
 ```
 
-```
+```         
 [1] 83.84615
 ```
 
 Now, next month, you'll simply reopen `completion_rate.R`, update the two numbers, and rerun — no need to remember or retype anything.
 
-## Interpret the Result
+### Interpret the Result
 
 An 83.8% completion rate for this month, computed from a saved, reusable file rather than a one-time Console calculation, means this exact process can be repeated identically every month going forward — which is the entire point of moving from Console to script.
 
 ::: {.pbl-box .pbl-mistake}
 **Common Mistakes**
 
-- **Forgetting to save the script.** A script only protects your work once it's actually saved (Ctrl+S / Cmd+S) — an unsaved script is just as fragile as unsaved Console work.
-- **Confusing "writing" a line with "running" it.** Typing a line of code in a script does nothing until you run it (Ctrl+Enter or Source) — the code just sits there as text until executed.
-- **Running lines out of order.** If a script depends on earlier lines (like `enrolled` and `completed` existing before `completion_rate` is calculated), running lines out of sequence will cause errors or wrong results.
+-   **Forgetting to save the script.** A script only protects your work once it's actually saved (Ctrl+S / Cmd+S) — an unsaved script is just as fragile as unsaved Console work.
+-   **Confusing "writing" a line with "running" it.** Typing a line of code in a script does nothing until you run it (Ctrl+Enter or Source) — the code just sits there as text until executed.
+-   **Running lines out of order.** If a script depends on earlier lines (like `enrolled` and `completed` existing before `completion_rate` is calculated), running lines out of sequence will cause errors or wrong results.
 :::
 
-## Practice Problem
+### Practice Problem
 
 Create a script called `dropout_rate.R` that calculates the dropout rate (as a percentage) for a study where 45 out of 300 enrolled participants dropped out. Include the object names `enrolled`, `dropped`, and `dropout_rate`.
 
-## Challenge Problem
+### Challenge Problem
 
 Extend your `dropout_rate.R` script to also calculate the *completion* rate in the same script, using the same `enrolled` and `dropped` objects (hint: completed participants = enrolled − dropped). Make sure both results print when you run the whole script with Source.
 
-## Key Takeaways
+### Key Takeaways
 
-- An R script (`.R` file) is a saved, reusable sequence of commands — unlike Console input, it persists after RStudio closes.
-- Writing a line of code and running it are two separate steps; use Ctrl+Enter for one line or Source for the whole file.
-- Save early and often — an unsaved script offers no real advantage over the Console.
+-   An R script (`.R` file) is a saved, reusable sequence of commands — unlike Console input, it persists after RStudio closes.
+-   Writing a line of code and running it are two separate steps; use Ctrl+Enter for one line or Source for the whole file.
+-   Save early and often — an unsaved script offers no real advantage over the Console.
 
 ::: {.pbl-box .pbl-check}
 **Knowledge Check**
 
-1. **Multiple choice.** What file extension does a standard R script use?
-   a) `.rscript`
-   b) `.R`
-   c) `.rmd`
-   d) `.txt`
+1.  **Multiple choice.** What file extension does a standard R script use?
 
-2. **True or false.** Typing a line of code into a script automatically runs it.
+    a)  `.rscript`
+    b)  `.R`
+    c)  `.rmd`
+    d)  `.txt`
 
-3. **Find the error.** A student writes a full script, closes RStudio without saving, and reopens it the next day expecting their code to still be there.
+2.  **True or false.** Typing a line of code into a script automatically runs it.
 
-4. **Write the code.** Write the keyboard action (not R code) used to run just the current line in a script.
+3.  **Find the error.** A student writes a full script, closes RStudio without saving, and reopens it the next day expecting their code to still be there.
+
+4.  **Write the code.** Write the keyboard action (not R code) used to run just the current line in a script.
 
 <details class="pbl-answer">
+
 <summary>Show answers</summary>
 
-1. **b)** `.R`
-2. **False.** Writing code in a script only stores it as text; you must explicitly run it with Ctrl+Enter (a line) or Source (the whole script).
-3. The script was never saved, so none of it persists — RStudio does not auto-save scripts by default; the student must save the file (Ctrl+S) before closing.
-4. Ctrl+Enter (Windows/Linux) or Cmd+Return (Mac).
+1.  **b)** `.R`
+2.  **False.** Writing code in a script only stores it as text; you must explicitly run it with Ctrl+Enter (a line) or Source (the whole script).
+3.  The script was never saved, so none of it persists — RStudio does not auto-save scripts by default; the student must save the file (Ctrl+S) before closing.
+4.  Ctrl+Enter (Windows/Linux) or Cmd+Return (Mac).
 
 </details>
 :::

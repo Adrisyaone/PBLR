@@ -23,20 +23,23 @@ Detect duplicate rows in a data frame automatically, rather than checking by han
 
 **`duplicated(x)`** returns a logical vector, `TRUE` for any element (or, for a data frame, any *row*) that is an exact repeat of an earlier one:
 
-```r
+```{r}
+#| eval: false
 duplicated(df)
 ```
 
 Critically, `duplicated()` marks only the *second and later* occurrences as `TRUE` — the *first* occurrence of a value is always `FALSE`, even though it's the one being repeated. This asymmetry is deliberate: it directly tells you which rows you could safely remove while keeping exactly one copy of each.
 
-```r
+```{r}
+#| eval: false
 sum(duplicated(df))    # how many duplicate rows exist
 df[duplicated(df), ]   # view just the duplicate rows themselves
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 # A simple example to see the FALSE/TRUE pattern clearly
 ages <- c(45, 62, 45, 38, 62, 62)
 duplicated(ages)
@@ -48,7 +51,8 @@ duplicated(ages)
 
 Notice: the *first* `45` and the *first* `62` are both `FALSE` (not yet a repeat of anything); the *second* `45` and every repeat of `62` after the first are `TRUE`.
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Simulating the two-research-assistants scenario: duplicate participant #1's row
@@ -61,7 +65,8 @@ nrow(participants_dup)
 [1] 101
 ```
 
-```r
+```{r}
+#| eval: false
 sum(duplicated(participants_dup))
 ```
 
@@ -75,7 +80,8 @@ Run `which(duplicated(participants_dup))` — this tells you the exact row *posi
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants_dup <- rbind(participants, participants[1, ])
 
 # How many duplicate rows exist?
@@ -86,7 +92,8 @@ sum(duplicated(participants_dup))
 [1] 1
 ```
 
-```r
+```{r}
+#| eval: false
 # Which row is it, and what does it contain?
 participants_dup[duplicated(participants_dup), ]
 ```

@@ -23,7 +23,8 @@ Formally test both of this course's earlier descriptive findings, using the tool
 
 Choosing the right test depends entirely on the *type* of variables involved:
 
-```r
+```{r}
+#| eval: false
 # Two categorical variables -> chi-square test
 chisq.test(table(categorical1, categorical2))
 
@@ -36,7 +37,8 @@ Sex and smoking status are both categorical — a chi-square test (Page 7) is th
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Finding 1: sex and smoking status (Level 7's cross-tabulation)
@@ -73,7 +75,8 @@ Notice the two p-values point in opposite directions: 0.248 (not significant) fo
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 sex_smoker_test <- chisq.test(table(participants$sex, participants$smoker))
@@ -86,7 +89,8 @@ sex_smoker_test$p.value
 [1] 0.2478344
 ```
 
-```r
+```{r}
+#| eval: false
 age_bp_test$p.value
 ```
 
@@ -94,7 +98,8 @@ age_bp_test$p.value
 [1] 0.03625678
 ```
 
-```r
+```{r}
+#| eval: false
 age_bp_test$estimate
 ```
 

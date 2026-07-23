@@ -23,20 +23,23 @@ Use R's normal distribution functions (`pnorm()`, `qnorm()`, `dnorm()`) to compu
 
 The **normal distribution** ("bell curve") is defined entirely by its mean and standard deviation. R's `pnorm()` computes the probability of a value falling below a cutoff, under a normal distribution with a given mean and SD:
 
-```r
+```{r}
+#| eval: false
 pnorm(cutoff, mean = mu, sd = sigma)              # P(X <= cutoff)
 1 - pnorm(cutoff, mean = mu, sd = sigma)           # P(X > cutoff)
 ```
 
 `qnorm()` works in reverse — given a probability, it returns the corresponding cutoff value ("quantile function," extending Level 7's `quantile()` to a theoretical distribution rather than actual data):
 
-```r
+```{r}
+#| eval: false
 qnorm(0.95, mean = mu, sd = sigma)   # the value below which 95% of a normal distribution falls
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 bmi_mean <- mean(participants$bmi, na.rm = TRUE)
@@ -49,7 +52,8 @@ bmi_mean
 [1] 27.12316
 ```
 
-```r
+```{r}
+#| eval: false
 bmi_sd
 ```
 
@@ -57,7 +61,8 @@ bmi_sd
 [1] 4.639157
 ```
 
-```r
+```{r}
+#| eval: false
 # theoretical probability of BMI > 30, assuming a normal distribution
 1 - pnorm(30, mean = bmi_mean, sd = bmi_sd)
 ```
@@ -72,7 +77,8 @@ Try comparing this theoretical prediction against the actual data: `mean(partici
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 bmi_mean <- mean(participants$bmi, na.rm = TRUE)
@@ -88,7 +94,8 @@ theoretical_prop
 [1] 0.2676
 ```
 
-```r
+```{r}
+#| eval: false
 empirical_prop
 ```
 

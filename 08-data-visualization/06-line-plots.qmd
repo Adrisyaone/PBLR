@@ -23,7 +23,8 @@ Visualize a trend over an ordered sequence (like visit number) using `geom_line(
 
 **`geom_line()`** connects data points in order along the x-axis — appropriate when there's a natural sequence (like time or visit number) connecting the values:
 
-```r
+```{r}
+#| eval: false
 ggplot(data = df, aes(x = ordered_variable, y = numeric_column)) +
   geom_line()
 ```
@@ -32,7 +33,8 @@ Unlike `geom_point()`, `geom_line()` assumes consecutive x-axis values belong to
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -63,7 +65,8 @@ Try removing `group = 1` from the `aes()` mapping and re-running the plot. Since
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -93,7 +96,8 @@ visit_means
 3 visit3   120.69
 ```
 
-```r
+```{r}
+#| eval: false
 visit_trend_plot <- ggplot(data = visit_means, mapping = aes(x = visit, y = mean_sbp, group = 1)) +
   geom_line() +
   geom_point()

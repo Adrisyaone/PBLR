@@ -23,7 +23,8 @@ Learn to use R's built-in help system to answer your own questions about any fun
 
 Every function that ships with R (and every well-made package function) has a **help page** describing exactly what it does. Three ways to access it:
 
-```r
+```{r}
+#| eval: false
 ?round        # opens the help page for round() in the Help pane
 help(round)   # identical to ?round
 args(round)   # shows just the function's arguments, without the full page
@@ -41,7 +42,8 @@ For functions with special characters in their name (like `if` or `+`), you need
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 ?round
 ```
 
@@ -55,7 +57,8 @@ x        a numeric vector.
 digits   integer indicating the number of decimal places to round to.
 ```
 
-```r
+```{r}
+#| eval: false
 args(round)
 ```
 
@@ -72,7 +75,8 @@ Run `?mean` and scroll to the Arguments section. Confirm you can now see, in R's
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 ?round
 ```
 

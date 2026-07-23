@@ -23,7 +23,8 @@ Compute and interpret the three most common measures of spread: range, variance,
 
 The **range** is simply the difference between the maximum and minimum values:
 
-```r
+```{r}
+#| eval: false
 max(x, na.rm = TRUE) - min(x, na.rm = TRUE)
 # or, more directly:
 range(x, na.rm = TRUE)   # returns c(min, max)
@@ -31,19 +32,22 @@ range(x, na.rm = TRUE)   # returns c(min, max)
 
 **Variance** measures the average squared distance of each value from the mean — squaring makes every deviation positive and emphasizes larger deviations more heavily:
 
-```r
+```{r}
+#| eval: false
 var(x, na.rm = TRUE)
 ```
 
 **Standard deviation** is the square root of variance, which brings the measure back into the *same units* as the original data (unlike variance, which is in squared units) — making it the far more commonly reported of the two:
 
-```r
+```{r}
+#| eval: false
 sd(x, na.rm = TRUE)
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 range(participants$age, na.rm = TRUE)
@@ -53,7 +57,8 @@ range(participants$age, na.rm = TRUE)
 [1] 18 81
 ```
 
-```r
+```{r}
+#| eval: false
 var(participants$age, na.rm = TRUE)
 ```
 
@@ -61,7 +66,8 @@ var(participants$age, na.rm = TRUE)
 [1] 226.0105
 ```
 
-```r
+```{r}
+#| eval: false
 sd(participants$age, na.rm = TRUE)
 ```
 
@@ -77,7 +83,8 @@ Try computing `sd(participants$systolic_bp, na.rm = TRUE)` and `sd(participants$
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 age_range <- range(participants$age, na.rm = TRUE)
@@ -93,7 +100,8 @@ age_range
 [1] 18 81
 ```
 
-```r
+```{r}
+#| eval: false
 age_sd
 ```
 
@@ -101,7 +109,8 @@ age_sd
 [1] 15.0336
 ```
 
-```r
+```{r}
+#| eval: false
 bp_range
 ```
 
@@ -109,7 +118,8 @@ bp_range
 [1]  90 179
 ```
 
-```r
+```{r}
+#| eval: false
 bp_sd
 ```
 

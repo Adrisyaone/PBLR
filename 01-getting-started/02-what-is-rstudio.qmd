@@ -41,7 +41,8 @@ RStudio is made by a company called Posit. You may see "RStudio" and "Posit" use
 
 Once RStudio is open, you can confirm both R and RStudio are working by asking R to report its own version.
 
-```r
+```{r}
+#| eval: false
 # Ask R which version of itself is running
 R.version.string
 ```
@@ -52,7 +53,8 @@ R.version.string
 
 You can also check which packages come built into R by default without installing anything extra.
 
-```r
+```{r}
+#| eval: false
 # A quick built-in function - more on functions later in this level
 getRversion()
 ```

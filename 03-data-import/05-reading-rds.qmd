@@ -23,7 +23,8 @@ Read an `.rds` file — R's own native format for saving a single R object exact
 
 **`.rds`** is R's native binary format for saving a *single* R object — a vector, a data frame, a factor, a list, anything — exactly as it exists in R, including all its type information. Unlike CSV, which flattens everything to plain text (losing factor level order, for instance), `.rds` preserves an object perfectly.
 
-```r
+```{r}
+#| eval: false
 my_object <- readRDS("path/to/file.rds")
 ```
 
@@ -31,7 +32,8 @@ The trade-off: `.rds` files are R-specific — a colleague using Python or Excel
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 # Reading a previously saved R object back in
 participants_cleaned <- readRDS("data/participants_cleaned.rds")
 
@@ -42,7 +44,8 @@ class(participants_cleaned$bmi_category)
 [1] "factor"
 ```
 
-```r
+```{r}
+#| eval: false
 levels(participants_cleaned$bmi_category)
 ```
 
@@ -58,7 +61,8 @@ Compare this to what would happen with CSV: if that same `bmi_category` factor h
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 # .rds is not plain text - trying to read it as CSV produces garbage
 # read_csv("data/participants_cleaned.rds")  # do not run - wrong tool entirely
 

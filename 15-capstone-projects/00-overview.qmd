@@ -3,28 +3,26 @@
 ::: {.pbl-box .pbl-problem}
 **Where this level is headed**
 
-Everything up to this point was scaffolded. Here, you get a research question and raw data, and you're expected to design the entire workflow yourself — from cleaning through modeling to a reproducible final report.
+Every earlier level taught one tool at a time, on carefully-scoped questions. Real analysis rarely arrives that neatly — a research question shows up first, and it's up to you to decide which tools from Levels 1-14 to reach for, in what order, and how to report what you find. This final level presents full, end-to-end capstone projects using this course's own dataset, each one requiring the entire pipeline: import, clean, explore, visualize, model, and report.
 :::
 
-## What's coming
+## What this level covers
 
-- Physical activity and obesity
-- Factors associated with hypertension
-- Smoking and cardiovascular risk
-- Predictors of cognitive decline
-- Neighborhood deprivation and health outcomes
-- Longitudinal and survival analysis projects
-- A reproducible research report and interactive dashboard
-- An independent project from raw data to publication-ready results
+- A hypertension risk-factor investigation, using logistic regression to weigh age, BMI, and smoking status together
+- A smoking and cardiovascular risk comparison, combining chi-square tests, t-tests, and effect sizes into one coherent verdict
+- A geographic patterns investigation across all five counties, combining ANOVA, visualization, and Level 10's file-automation together
+- A longitudinal blood pressure project using the multi-visit and baseline/follow-up datasets, including a real look at participant attrition
+- A reproducible, parameterized "dashboard" report bringing together risk modeling, geography, and longitudinal trends for any single county
+- Guidance for designing and executing your own independent capstone project, from a completely new dataset, using this same disciplined workflow
 
 ::: {.pbl-box .pbl-mission}
 **A preview mission**
 
-Your mission: pick a real public-health question, and take it from a raw CSV file all the way to a report you'd be comfortable putting your name on.
+Your mission across this level: work through five complete, real capstone projects built on this course's own data — then use everything you've learned to plan and execute an independent project of your own, from raw data to a report you'd be comfortable putting your name on.
 :::
 
 ::: {.callout-note}
-## Status
+## A note on scope
 
-This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
+This level's five worked capstones (Pages 1-5) use only the datasets already built throughout this course — `participants.csv`, the multi-visit blood pressure files (Level 6, reused in Level 8 and 11), and the baseline/follow-up enrollment files (Level 6's join lessons). Physical activity, cognitive decline, and neighborhood-deprivation questions mentioned in earlier drafts of this overview would require data this course's dataset doesn't contain — Page 6 instead gives you a general-purpose template for tackling exactly those kinds of questions with a real dataset of your own choosing.
 :::

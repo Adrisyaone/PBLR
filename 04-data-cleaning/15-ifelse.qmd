@@ -23,11 +23,13 @@ Apply a single condition across every row of a column at once, producing a diffe
 
 **`ifelse()`** is the vectorized sibling of `if`/`else` — it evaluates a condition across an *entire* vector at once, returning one value for every `TRUE` and another for every `FALSE`:
 
-```r
+```{r}
+#| eval: false
 ifelse(condition, value_if_true, value_if_false)
 ```
 
-```r
+```{r}
+#| eval: false
 ifelse(participants$age >= 65, "Senior", "Non-senior")
 ```
 
@@ -35,7 +37,8 @@ This is exactly the tool the previous page's binary-variables and recoding pages
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 ages <- c(72, 45, 68, 30, 81)
 
 ifelse(ages >= 65, "Senior", "Non-senior")
@@ -45,7 +48,8 @@ ifelse(ages >= 65, "Senior", "Non-senior")
 [1] "Senior"     "Non-senior" "Senior"     "Non-senior" "Senior"
 ```
 
-```r
+```{r}
+#| eval: false
 # Compare to the manual, logical-indexing approach from earlier this level
 age_group <- rep(NA_character_, length(ages))
 age_group[ages >= 65] <- "Senior"
@@ -65,7 +69,8 @@ Try `ifelse(c(72, NA, 68) >= 65, "Senior", "Non-senior")` — what happens to th
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 participants$age_group <- ifelse(participants$age >= 65, "Senior", "Non-senior")

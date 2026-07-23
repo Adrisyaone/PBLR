@@ -23,20 +23,23 @@ Convert a frequency table's raw counts into proportions and percentages using `p
 
 **`prop.table()`** takes a table of counts (from `table()`) and converts every count into a proportion of the total:
 
-```r
+```{r}
+#| eval: false
 counts <- table(x)
 prop.table(counts)
 ```
 
 Multiplying by 100 converts proportions into percentages:
 
-```r
+```{r}
+#| eval: false
 round(prop.table(counts) * 100, 1)
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 smoker_counts <- table(participants$smoker)
@@ -48,7 +51,8 @@ smoker_counts
  75  25
 ```
 
-```r
+```{r}
+#| eval: false
 prop.table(smoker_counts)
 ```
 
@@ -57,7 +61,8 @@ prop.table(smoker_counts)
 0.75 0.25
 ```
 
-```r
+```{r}
+#| eval: false
 round(prop.table(smoker_counts) * 100, 1)
 ```
 
@@ -74,7 +79,8 @@ Try `table(participants$county)` followed by `round(prop.table(table(participant
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 county_counts <- table(participants$county)
@@ -88,7 +94,8 @@ Cedar Falls   Millbrook     Oakford   Riverdale  Springvale
          20          21          17          16          26
 ```
 
-```r
+```{r}
+#| eval: false
 county_percentages
 ```
 

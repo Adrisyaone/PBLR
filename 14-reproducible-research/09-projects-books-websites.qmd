@@ -1,0 +1,162 @@
+# Quarto Projects: Books and Websites {#sec-projects-books-websites}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've now written parameterized single reports (Page 7), but this entire course you've been working through — over 100 pages, organized into numbered levels with a shared sidebar and search — is clearly something bigger than one `.qmd` file. Your professor asks: what's actually different about a Quarto *project*, and how does it turn a folder of separate `.qmd` files into one unified book like this one?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand the difference between a single Quarto document, a Quarto website, and a Quarto book, and recognize which type this course itself is.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- A single `.qmd` file with its own YAML front matter (Pages 1-8) versus a `_quarto.yml` at a project's root (Page 2) — which one applies to just one page, and which applies to every page in a folder?
+- This course has 15 numbered levels with a shared sidebar, search bar, and consistent theme across every single page. Would a collection of unrelated, separately-rendered `.qmd` files naturally have that in common?
+:::
+
+## The R Concept
+
+A **Quarto project** is a folder containing a `_quarto.yml` file that ties multiple `.qmd` files together into one coherent output, rather than each rendering independently. The `project: type:` field determines what kind of unified output results:
+
+```yaml
+# A Quarto website project
+project:
+  type: website
+website:
+  title: "My Site"
+  navbar:
+    left:
+      - href: index.qmd
+      - href: about.qmd
+```
+
+```yaml
+# A Quarto book project - exactly what this course is
+project:
+  type: book
+book:
+  title: "R for Public Health"
+  chapters:
+    - index.qmd
+    - 01-getting-started/00-overview.qmd
+    - 01-getting-started/01-what-is-r.qmd
+```
+
+A **website** organizes independent pages with shared navigation; a **book** organizes sequential chapters (with numbering, a defined reading order, and often PDF/EPUB output) — this course's own `_quarto.yml` (Page 2) uses `type: book` specifically because its 15 levels are meant to be read in order, not browsed as unrelated pages.
+
+## Demonstration
+
+```yaml
+# This course's actual project: and book: sections:
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "R for Public Health: A Problem-Based Learning Course"
+  chapters:
+    - index.qmd
+    - part: "Level 1 — Getting Started with R"
+      chapters:
+        - 01-getting-started/00-overview.qmd
+        - 01-getting-started/01-what-is-r.qmd
+        # ... 18 more Level 1 pages
+    - part: "Level 2 — Data Structures in R"
+      chapters:
+        - 02-data-structures/00-overview.qmd
+        # ... 16 more Level 2 pages
+    # ... and so on, through Level 15
+```
+
+## Explore
+
+Count the `part:` entries in this course's own `_quarto.yml` — each one corresponds to exactly one of the 15 levels you've worked through, and each `part:`'s `chapters:` list is exactly the sequence of individual `.qmd` files rendered, in order, within that level.
+
+## Solve the Problem
+
+```yaml
+# A minimal Quarto BOOK project structure, from scratch:
+project:
+  type: book
+
+book:
+  title: "My Public Health Report Series"
+  chapters:
+    - index.qmd
+    - chapter1-methods.qmd
+    - chapter2-results.qmd
+    - chapter3-discussion.qmd
+
+format:
+  html:
+    theme: flatly
+  pdf:
+    documentclass: report
+```
+
+```
+Running `quarto render` on this project produces a single, unified
+multi-chapter output: a website with consistent navigation between
+chapters (in HTML), AND a single combined PDF book with chapters in
+the specified order - both generated from the same 4 separate .qmd
+files, exactly the same mechanism producing this entire course you've
+been reading, just at a much smaller scale (4 chapters instead of 15
+levels' worth of lessons).
+```
+
+## Interpret the Result
+
+A Quarto project's `_quarto.yml` is what elevates a folder of individually-useful `.qmd` files into one coherent, navigable whole — shared theme, shared table of contents structure, and (for a book) a defined chapter order and combined PDF/EPUB output. This course itself is the single largest example of this idea you've encountered: every one of the 100+ separate `.qmd` files you've read was rendered as part of one unified book project, not as 100+ disconnected, individually-rendered pages.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Confusing a website project (independent, browsable pages) with a book project (sequential, ordered chapters).** A website's `navbar:` structure suits unrelated or loosely-related pages; a book's `chapters:` list (with `part:` groupings, exactly like this course's 15 levels) suits genuinely sequential content meant to be read in order.
+- **Forgetting new chapter files must be added to `_quarto.yml`'s `chapters:` list.** Simply creating a new `.qmd` file inside a project folder does not automatically include it in the book or website — every chapter must be explicitly listed, exactly as this course has done throughout Levels 1-14's own construction.
+- **Rendering individual `.qmd` files directly instead of rendering the whole project.** Inside a book or website project, rendering a single chapter file in isolation may lose the shared navigation, numbering, and cross-references (Page 5) that only appear correctly when the entire project is rendered together.
+:::
+
+## Practice Problem
+
+Sketch (in YAML) a minimal Quarto **website** project (not a book) with 3 pages: `index.qmd`, `about.qmd`, and `contact.qmd`, including a `navbar:` linking to all three.
+
+## Challenge Problem
+
+This course's `_quarto.yml` currently organizes its 15 levels using `part:` groupings within a single `book:` `chapters:` list (Page 2's excerpt above shows this pattern for Levels 1 and 2). Explain, in your own words, what would likely go wrong — in terms of navigation, numbering, or organization — if all 100+ individual chapter files were instead listed as one long, flat `chapters:` list with no `part:` groupings at all.
+
+## Key Takeaways
+
+- A Quarto project (marked by a `_quarto.yml` file) ties multiple `.qmd` files together into one coherent, unified output, rather than rendering each file independently.
+- `project: type: website` suits independent, navigable pages; `project: type: book` (used by this entire course) suits sequential, ordered chapters, often with `part:` groupings and combined PDF/EPUB output.
+- Every chapter file must be explicitly listed in `_quarto.yml`'s `chapters:` list to be included in the rendered project — creating a `.qmd` file alone isn't enough.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What kind of Quarto project is this course itself?
+   a) A website project, with unrelated independent pages
+   b) A book project, with sequentially ordered chapters organized into parts
+   c) A single standalone document
+   d) A parameterized report
+
+2. **True or false.** Creating a new `.qmd` file inside a Quarto book project's folder automatically adds it to the rendered book.
+
+3. **Predict the output.** If a book's `_quarto.yml` lists chapters grouped under 5 separate `part:` entries, how many distinct top-level sections would the rendered book's sidebar likely show?
+
+4. **Short answer.** Why does a book project (like this course) benefit from `part:` groupings, rather than one long, flat list of every chapter?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A book project, with sequentially ordered chapters organized into parts — exactly this course's own 15-level structure.
+2. **False.** Every chapter must be explicitly added to `_quarto.yml`'s `chapters:` list; simply creating the file does not include it automatically.
+3. 5 — one top-level section per `part:` entry, each expandable to reveal its own chapters.
+4. `part:` groupings organize a long sequence of chapters into meaningful, navigable sections (like this course's 15 levels) — without them, a reader facing 100+ ungrouped chapter entries in a single flat sidebar list would have a much harder time understanding the book's overall structure or finding a specific topic.
+
+</details>
+:::

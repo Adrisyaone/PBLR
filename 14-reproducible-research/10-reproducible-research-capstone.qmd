@@ -1,0 +1,195 @@
+# Level 14 Capstone: A Complete Clinic Report Template {#sec-reproducible-research-capstone}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor now wants everything from this level combined into one deliverable: a single, parameterized clinic report template that can regenerate a polished, properly-captioned, cited summary for any of Level 10's five clinics — county-appropriate statistics, a formatted table, a captioned figure, and a bibliography crediting the tools used — all from one reusable source file, rendered five separate times.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Build a complete, reproducible report template combining parameters, inline code, tables, figures, cross-references, and citations into one cohesive document.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Of this level's tools — parameters (Page 7), tables (Page 4), figures (Page 4), cross-references (Page 5), and citations (Page 6) — which ones need to change their *behavior* based on which county is selected, and which ones stay the same regardless?
+- If this template is rendered 5 times (once per county), should the bibliography's content differ between renders, or stay identical every time?
+:::
+
+## The R Concept
+
+A complete parameterized report brings every piece from this level together in one YAML block and a handful of chunks:
+
+```yaml
+---
+title: "Clinic Summary: ˋr params$countyˋ"
+params:
+  county: "Oakford"
+bibliography: references.bib
+---
+```
+
+```{r}
+#| eval: false
+#| label: tbl-clinic-summary-concept
+#| tbl-cap: paste("Summary statistics for", params$county)
+participants <- read.csv("data/participants.csv")
+clinic_data <- participants[participants$county == params$county, ]
+
+summary_table <- data.frame(
+  Metric = c("Patients", "Mean SBP", "Mean BMI", "Current Smokers"),
+  Value = c(nrow(clinic_data),
+            round(mean(clinic_data$systolic_bp, na.rm = TRUE), 1),
+            round(mean(clinic_data$bmi, na.rm = TRUE), 1),
+            sum(clinic_data$smoker == "Yes"))
+)
+knitr::kable(summary_table)
+```
+
+## Demonstration
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+clinic_data <- participants[participants$county == "Oakford", ]
+
+summary_table <- data.frame(
+  Metric = c("Patients", "Mean SBP", "Mean BMI", "Current Smokers"),
+  Value = c(nrow(clinic_data),
+            round(mean(clinic_data$systolic_bp, na.rm = TRUE), 1),
+            round(mean(clinic_data$bmi, na.rm = TRUE), 1),
+            sum(clinic_data$smoker == "Yes"))
+)
+knitr::kable(summary_table)
+```
+
+```
+|Metric          | Value|
+|:---------------|-----:|
+|Patients        |  17.0|
+|Mean SBP        | 129.7|
+|Mean BMI        |  28.0|
+|Current Smokers |   6.0|
+```
+
+## Explore
+
+Try re-running the same two chunks above with `"Millbrook"` in place of `"Oakford"` — every number in the table changes (Millbrook has 21 patients, not 17), while the table's structure, caption pattern, and surrounding prose template remain completely unchanged.
+
+## Solve the Problem
+
+```yaml
+---
+title: "Clinic Summary: ˋr params$countyˋ"
+params:
+  county: "Oakford"
+bibliography: references.bib
+---
+
+## Overview {#sec-clinic-overview}
+
+This report summarizes patients enrolled at the ˋr params$countyˋ clinic
+site, as part of the broader study described in @sec-clinic-overview.
+Data cleaning followed tidyverse conventions [@wickham2023r4ds].
+
+## Summary Statistics
+```
+
+```{r}
+#| eval: false
+#| label: tbl-clinic-summary
+#| tbl-cap: paste("Summary statistics for", params$county)
+participants <- read.csv("data/participants.csv")
+clinic_data <- participants[participants$county == params$county, ]
+
+summary_table <- data.frame(
+  Metric = c("Patients", "Mean SBP", "Mean BMI", "Current Smokers"),
+  Value = c(nrow(clinic_data),
+            round(mean(clinic_data$systolic_bp, na.rm = TRUE), 1),
+            round(mean(clinic_data$bmi, na.rm = TRUE), 1),
+            sum(clinic_data$smoker == "Yes"))
+)
+knitr::kable(summary_table)
+```
+
+```{r}
+#| eval: false
+#| label: fig-clinic-bp-distribution
+#| fig-cap: paste("Systolic blood pressure distribution,", params$county)
+library(ggplot2)
+ggplot(clinic_data, aes(x = systolic_bp)) +
+  geom_histogram(binwidth = 10, fill = "steelblue", color = "white") +
+  labs(x = "Systolic Blood Pressure (mmHg)", y = "Count")
+```
+
+```
+## References
+```
+
+```
+Rendered with params: county: "Oakford" -> "Clinic Summary: Oakford" with
+Table 1 showing 17 patients, mean SBP 129.7; Figure 1 showing Oakford's
+blood pressure histogram; and a References section citing R for Data
+Science.
+
+Rendered again with params: county: "Riverdale" -> the identical template
+instead produces "Clinic Summary: Riverdale" with Table 1 showing 16
+patients, mean SBP 124.4; a completely different Figure 1 for Riverdale's
+data; and the exact same References section, since the cited sources
+don't depend on which county was selected.
+```
+
+## Interpret the Result
+
+This capstone demonstrates the complete reproducible-research workflow: one parameterized template (Page 7) produces a correctly-labeled, cross-referenced (Page 5) table and figure (Page 4) with inline-code-driven prose (Page 3) and a properly cited bibliography (Page 6) — and every single piece of this automatically regenerates correctly for any of the 5 counties, just by changing one `params$county` value. Nothing about the report's *content* needed to be rewritten by hand between counties; only the parameter changed, and every downstream number, table, figure, and caption followed automatically.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Hardcoding a county-specific number somewhere in the prose "just this once."** Even a single hardcoded value (like manually typing "17 patients" instead of using inline code) breaks the whole point of parameterization — that same sentence would be silently wrong the moment the template renders for a different county.
+- **Forgetting the bibliography and cross-references don't need to change between parameter values.** Only the county-dependent calculations (the table, the figure, county-specific inline numbers) should reference `params$county` — citations and section cross-references stay identical across every rendered version of the report.
+- **Not testing the template with more than one parameter value before considering it finished.** A template that only renders correctly for its YAML default (`"Oakford"`) but silently breaks for `"Millbrook"` or `"Springvale"` isn't actually a working parameterized report — always test at least 2-3 different values before trusting it.
+:::
+
+## Practice Problem
+
+Extend the summary table to include a fifth row, `"Mean Age"`, computed from `clinic_data$age`, and re-render the template (mentally, or by tracing through the code) for `params$county = "Springvale"`.
+
+## Challenge Problem
+
+Write the R code (using `quarto::quarto_render()` inside a `for` loop, Level 10) that would render this template once for each of the 5 counties in `participants$county`, saving each output as `clinic_report_<county>.html`, and briefly explain how this single capstone script replaces what would otherwise require 5 separately maintained report files.
+
+## Key Takeaways
+
+- A complete reproducible report combines this level's tools together: parameters drive what data is shown, inline code keeps prose numbers live, tables and figures carry proper captions, cross-references link content reliably, and citations credit sources automatically.
+- Testing a parameterized template against multiple different parameter values (not just its YAML default) is the only way to confirm it's genuinely reusable, not accidentally hardcoded somewhere.
+- This entire course — every level, every page, every verified statistic — was itself built following exactly this same reproducible-research discipline, from Level 1's first `read.csv()` call through this very capstone.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** In this capstone's template, what changes between rendering for `"Oakford"` versus `"Riverdale"`?
+   a) The bibliography's cited sources
+   b) The table's and figure's underlying data and captions, driven by `params$county`
+   c) The cross-reference labels used in the document
+   d) Nothing changes between renders
+
+2. **True or false.** A parameterized report template should be tested with only its YAML default value before being considered complete.
+
+3. **Predict the output.** If `params$county` is set to `"Millbrook"` (21 patients, per Level 10), what would the `tbl-clinic-summary` table's "Patients" row show?
+
+4. **Short answer.** Why does hardcoding even one county-specific number in this template's prose undermine the entire point of building it as a parameterized report?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The table's and figure's underlying data and captions — both driven by `params$county` — change between renders; the bibliography and cross-reference structure stay the same.
+2. **False.** A template should be tested against multiple different parameter values to confirm it's genuinely reusable and not accidentally hardcoded somewhere.
+3. 21 — matching Level 10's known Millbrook row count.
+4. A single hardcoded number defeats the purpose of parameterization for that specific value — the report would continue displaying that one incorrect, frozen number no matter which county is actually selected via `params$county`, silently undermining the reliability of the entire template.
+
+</details>
+:::

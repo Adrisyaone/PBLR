@@ -5,7 +5,8 @@
 
 You need to record each participant's county of residence and generate a short label like `"Participant from Riverdale"` for a summary report. You try:
 
-```r
+```{r}
+#| eval: false
 county <- Riverdale
 ```
 
@@ -39,7 +40,8 @@ Useful functions for working with character data:
 - **`paste(...)`** — combines multiple pieces of text (and even numbers) into one string, separated by a space by default.
 - **`paste0(...)`** — same as `paste()`, but with no separator between pieces — handy when you want text glued together with no gap.
 
-```r
+```{r}
+#| eval: false
 nchar("Riverdale")             # 9
 paste("Participant from", "Riverdale")   # "Participant from Riverdale"
 paste0("ID_", 42)              # "ID_42"
@@ -47,7 +49,8 @@ paste0("ID_", 42)              # "ID_42"
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 county <- "Riverdale"
 class(county)
 ```
@@ -56,7 +59,8 @@ class(county)
 [1] "character"
 ```
 
-```r
+```{r}
+#| eval: false
 nchar(county)
 ```
 
@@ -64,7 +68,8 @@ nchar(county)
 [1] 9
 ```
 
-```r
+```{r}
+#| eval: false
 label <- paste("Participant from", county)
 label
 ```
@@ -73,7 +78,8 @@ label
 [1] "Participant from Riverdale"
 ```
 
-```r
+```{r}
+#| eval: false
 participant_id <- paste0("ID_", 42)
 participant_id
 ```
@@ -88,7 +94,8 @@ Try `paste("Participant from", county, sep = "-")` — the `sep` argument change
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 county <- "Riverdale"   # quotes required - this is text, not an object reference
 label <- paste("Participant from", county)
 label

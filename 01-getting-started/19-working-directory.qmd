@@ -5,7 +5,8 @@
 
 Your supervisor emails you the full 100-participant survey file, `participants.csv`, and says "just read it in." You try:
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("participants.csv")
 ```
 
@@ -37,7 +38,8 @@ Your **working directory** is the folder R currently treats as its "home base" �
 
 Two essential functions:
 
-```r
+```{r}
+#| eval: false
 getwd()    # shows your current working directory
 setwd("/path/to/folder")   # changes your working directory
 ```
@@ -51,7 +53,8 @@ Manually managing `setwd()` is fragile — it hardcodes a path that only works o
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 getwd()
 ```
 
@@ -59,7 +62,8 @@ getwd()
 [1] "/Users/jordan/Documents"
 ```
 
-```r
+```{r}
+#| eval: false
 # The file actually lives in a subfolder called "data"
 setwd("/Users/jordan/Documents/health-survey-project")
 getwd()
@@ -69,7 +73,8 @@ getwd()
 [1] "/Users/jordan/Documents/health-survey-project"
 ```
 
-```r
+```{r}
+#| eval: false
 # Now a relative path works, because "data" exists inside the current working directory
 participants <- read.csv("data/participants.csv")
 ```
@@ -80,7 +85,8 @@ Run `getwd()` right now, in your own RStudio session, and note what it returns. 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 getwd()
 ```
 
@@ -90,14 +96,16 @@ getwd()
 
 The working directory was `Documents`, but `participants.csv` actually lives inside a `data` subfolder of the project folder — not directly inside `Documents`. Two valid fixes:
 
-```r
+```{r}
+#| eval: false
 # Option 1: change the working directory to the project folder,
 # then use a relative path to the data subfolder
 setwd("/Users/jordan/Documents/health-survey-project")
 participants <- read.csv("data/participants.csv")
 ```
 
-```r
+```{r}
+#| eval: false
 # Option 2: leave the working directory alone, and give the full path directly
 participants <- read.csv("/Users/jordan/Documents/health-survey-project/data/participants.csv")
 ```

@@ -1,0 +1,178 @@
+# Robust Error Handling with `tryCatch()` {#sec-trycatch}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 9's `stop()` (Page 10) halts a function entirely the moment something goes wrong — appropriate for a single calculation, but a real problem for Level 10's automation capstone, which loops over multiple clinic files. If just *one* file is missing or malformed, `stop()` would crash the entire loop, losing every result already computed for the files that *did* work. Your professor wants the loop to skip a bad file and keep going, not give up entirely.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Use `tryCatch()` to catch an error when it happens, respond to it gracefully, and let the rest of your code keep running.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 9's `stop()` immediately halts execution. If a loop needs to process 5 files and the 3rd one causes an error, would you rather the whole loop stop, or just that one iteration be skipped?
+- If you could "catch" an error instead of letting it crash your script, what would you want to happen instead — print a warning message? Return a placeholder value?
+:::
+
+## The R Concept
+
+**`tryCatch()`** runs a block of code and lets you specify exactly what should happen if it produces an error (or a warning), instead of letting it crash your script:
+
+```{r}
+#| eval: false
+tryCatch({
+  risky_code_that_might_fail()
+}, error = function(e) {
+  cat("Something went wrong:", conditionMessage(e), "\n")
+  NA   # a fallback value to use instead
+})
+```
+
+`conditionMessage(e)` extracts the actual error text, letting you report *what* went wrong rather than just that something did. The `error = function(e) { ... }` block only runs if an error actually occurs — otherwise, `tryCatch()` simply returns the result of the first block, unaffected.
+
+## Demonstration
+
+```{r}
+#| eval: false
+safe_read_csv <- function(path) {
+  tryCatch({
+    read.csv(path)
+  }, error = function(e) {
+    cat("Could not read", path, "-", conditionMessage(e), "\n")
+    NULL
+  })
+}
+
+result_ok <- safe_read_csv("data/participants.csv")
+nrow(result_ok)
+```
+
+```
+[1] 100
+```
+
+```{r}
+#| eval: false
+result_missing <- safe_read_csv("data/does_not_exist.csv")
+```
+
+```
+Could not read data/does_not_exist.csv - cannot open the connection
+```
+
+```{r}
+#| eval: false
+is.null(result_missing)
+```
+
+```
+[1] TRUE
+```
+
+## Explore
+
+Try wrapping Level 10's automation capstone loop (reading each file in `data/clinics/`) with `safe_read_csv()` instead of a plain `read.csv()`. Then try adding a genuinely broken path to the file list — the loop should print an error message for that one file and continue processing the rest, instead of crashing entirely.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+clinic_files <- c(
+  list.files("data/clinics", pattern = "\\.csv$", full.names = TRUE),
+  "data/clinics/clinic_nonexistent.csv"   # deliberately broken path
+)
+
+safe_read_csv <- function(path) {
+  tryCatch({
+    read.csv(path)
+  }, error = function(e) {
+    cat("Skipping", path, "-", conditionMessage(e), "\n")
+    NULL
+  })
+}
+
+all_results <- vector("list", length(clinic_files))
+for (i in seq_along(clinic_files)) {
+  all_results[[i]] <- safe_read_csv(clinic_files[i])
+}
+
+successful_results <- all_results[!sapply(all_results, is.null)]
+length(successful_results)
+```
+
+```
+Skipping data/clinics/clinic_nonexistent.csv - cannot open the connection
+```
+
+```
+[1] 5
+```
+
+```{r}
+#| eval: false
+combined <- do.call(rbind, successful_results)
+nrow(combined)
+```
+
+```
+[1] 100
+```
+
+The broken file path printed a clear message and was skipped — `all_results` still contains `NULL` in its place — while the 5 genuine clinic files were read successfully and combined into the same 100-row dataset Level 10's capstone reconstructed, exactly as if the broken path had never been in the list.
+
+## Interpret the Result
+
+`tryCatch()` transforms a single bad file from "the whole script crashes" into "one file is skipped, with a clear message explaining why, while everything else proceeds normally." This is the difference between a fragile script that works only in perfect conditions and a robust one that degrades gracefully — an essential quality for any automation (Level 10) meant to run repeatedly on real-world data that occasionally has missing or malformed files.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Wrapping too much code in one `tryCatch()` block.** If an entire multi-step process is wrapped in a single `tryCatch()`, one small error hides *which* step actually failed — wrapping the smallest risky piece (like just the `read.csv()` call) gives more precise, useful error messages.
+- **Forgetting to filter out the `NULL` placeholders afterward.** `all_results` still contains a `NULL` for each skipped file — passing it directly to `do.call(rbind, ...)` without first removing `NULL`s (via `sapply(..., is.null)`, as shown here) can cause a confusing downstream error instead.
+- **Using `tryCatch()` to silently hide every error with no message at all.** An `error` handler that does nothing but `return(NULL)` with no `cat()` or logging leaves you with no way to know *which* files failed or why — always surface at least a brief message.
+:::
+
+## Practice Problem
+
+Write a `safe_mean <- function(x)` that wraps `mean(x)` in a `tryCatch()`, returning `NA` and printing a message if `x` isn't numeric (this will require `stop()`-ing manually inside the tried code if `!is.numeric(x)`, since `mean()` on character data doesn't error by default — try `mean(c("a","b"))` first to see what actually happens).
+
+## Challenge Problem
+
+Extend the clinic-file-reading loop above so that, in addition to skipping unreadable files, it also uses `tryCatch()`'s `warning = function(w) {...}` argument to catch and report any *warnings* (not just errors) produced while reading a file. Test it against a file path that would produce a warning, such as one with inconsistent column types.
+
+## Key Takeaways
+
+- `tryCatch({ code }, error = function(e) { ... })` catches an error when it happens, letting you respond gracefully (a message, a fallback value) instead of crashing the whole script.
+- `conditionMessage(e)` extracts the actual error text inside an error handler, letting you report specifically what went wrong.
+- Wrapping the smallest risky piece of code (not an entire multi-step process) in `tryCatch()` gives the most precise, useful error handling.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What is the main advantage of `tryCatch()` over letting `stop()` crash a script?
+   a) It runs code faster
+   b) It lets you catch an error and continue running the rest of your code
+   c) It automatically fixes broken file paths
+   d) It prevents all errors from ever occurring
+
+2. **True or false.** If no error occurs inside `tryCatch({ code })`, the `error` handler function never runs.
+
+3. **Predict the output.** If a loop uses `tryCatch()` to skip 1 broken file out of 6 total files, how many results would end up in a list of successfully-read files?
+
+4. **Short answer.** Why is wrapping just `read.csv(path)` in `tryCatch()` better than wrapping an entire 10-line data-processing pipeline in one `tryCatch()` block?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** It lets you catch an error and continue running the rest of your code, rather than crashing entirely.
+2. **True.** The `error` handler is only invoked if an error actually occurs during the tried code's execution.
+3. 5 — one broken file is skipped, leaving the other 5 successfully read.
+4. Wrapping only the risky line pinpoints exactly which operation failed and lets every other step run normally on all other iterations — wrapping an entire pipeline means any error anywhere inside it looks identical and stops that entire iteration's processing, even parts that would have worked fine.
+
+</details>
+:::

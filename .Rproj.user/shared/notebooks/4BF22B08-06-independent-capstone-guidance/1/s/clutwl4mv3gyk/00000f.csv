@@ -1,0 +1,24 @@
+"0","#| eval: false"
+"0","# 1. IMPORT (Level 3)"
+"0","data <- read.csv(""your_data.csv"")"
+"2","G2;H2;Warningh in file(file, ""rt"") :
+  cannot open file 'your_data.csv': No such file or directoryg
+"
+"2","G1;H1;Errorh in file(file, ""rt"") : cannot open the connection
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","# 2. UNDERSTAND STRUCTURE (Level 2, Level 7)"
+"0","str(data)"
+"1","function (..., list = character(), package = NULL, lib.loc = NULL, verbose = getOption(""verbose""), envir = .GlobalEnv, overwrite = TRUE)  
+"
+"0","summary(data)"
+"2","G1;H1;Errorh in object[[i]] : object of type 'closure' is not subsettable
+g"
+"2","G1;H1;Error during wrapuph: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","colSums(is.na(data))"
+"2","G2;H2;Warningh in is.na(data) :
+  is.na() applied to non-(list or vector) of type 'closure'g
+"

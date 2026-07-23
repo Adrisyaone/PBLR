@@ -23,13 +23,15 @@ Systematically identify missing data across an entire dataset in one step, rathe
 
 **`colSums(is.na(df))`** applies `is.na()` to every column of a data frame at once, then sums each column's `TRUE`/`FALSE` results — giving you a missing-value count per column in a single line:
 
-```r
+```{r}
+#| eval: false
 colSums(is.na(df))
 ```
 
 For an even quicker, broader first look, **`summary()`** on a whole data frame reports basic statistics for every column simultaneously, including an `NA's` count for any column that has missing values:
 
-```r
+```{r}
+#| eval: false
 summary(df)
 ```
 
@@ -37,7 +39,8 @@ Between the two: `colSums(is.na(df))` gives you exactly the missing-count-per-co
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 colSums(is.na(participants))
@@ -50,7 +53,8 @@ colSums(is.na(participants))
            5            0
 ```
 
-```r
+```{r}
+#| eval: false
 summary(participants)
 ```
 
@@ -70,7 +74,8 @@ Run `colSums(is.na(participants))` and confirm the total missing cells matches w
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 colSums(is.na(participants))

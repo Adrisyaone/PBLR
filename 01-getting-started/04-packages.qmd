@@ -41,26 +41,30 @@ Notice the quoting difference: `install.packages()` requires the package name in
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 # Step 1: install the package (only needs to be run once, ever, per computer)
 install.packages("readxl")
 ```
 
-```r
+```{r}
+#| eval: false
 # Step 2: load the package (needs to be run once per R session)
 library(readxl)
 ```
 
 Once loaded, functions from that package — like `read_excel()` — become available exactly as if they were built into R.
 
-```r
+```{r}
+#| eval: false
 # Now this function exists and is ready to use
 survey_data <- read_excel("data/survey.xlsx")
 ```
 
 You can check which packages are already installed on your machine without loading anything:
 
-```r
+```{r}
+#| eval: false
 # Lists every package installed locally (long output - often dozens or hundreds of rows)
 installed.packages()[, "Package"] |> head()
 ```
@@ -75,7 +79,8 @@ The `could not find function "read_excel"` error happened because the tutorial's
 
 The fix:
 
-```r
+```{r}
+#| eval: false
 install.packages("readxl")  # only needed once
 library(readxl)              # needed every session
 survey_data <- read_excel("data/survey.xlsx")

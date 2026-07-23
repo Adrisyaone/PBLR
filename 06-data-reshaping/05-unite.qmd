@@ -23,11 +23,13 @@ Combine two or more columns into one, using `tidyr::unite()` — the reverse of 
 
 **`unite()`** combines multiple columns into one, joined by a separator:
 
-```r
+```{r}
+#| eval: false
 unite(df, new_col, col1, col2, sep = "separator")
 ```
 
-```r
+```{r}
+#| eval: false
 unite(bp_long_sbp, record_id, id, visit, sep = "_")
 ```
 
@@ -35,7 +37,8 @@ This is exactly the reverse of `separate()`: instead of naming a `sep` to split 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(tidyr)
 
 bp_long_sbp <- pivot_longer(bp_wide,
@@ -66,7 +69,8 @@ Try `length(unique(bp_united$record_id))` and compare it to `nrow(bp_united)`. S
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(tidyr)
 
 bp_long_sbp <- pivot_longer(bp_wide,
@@ -85,7 +89,8 @@ length(unique(bp_united$record_id))
 [1] 84
 ```
 
-```r
+```{r}
+#| eval: false
 nrow(bp_united)
 ```
 

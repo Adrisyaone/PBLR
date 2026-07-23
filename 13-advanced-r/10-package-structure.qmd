@@ -1,0 +1,152 @@
+# The Anatomy of an R Package {#sec-package-structure}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+By now, you've written dozens of reusable functions across Levels 9-13: `pct_missing()`, `is_at_risk()`, `bp_category()`, `make_threshold_checker()`, `safe_read_csv()`. Right now, each one only exists inside whichever script you happened to write it in — your colleague on another project can't `library()`-load them the way you load `dplyr` or `ggplot2` (Level 5, Level 8). Your professor asks: what would it actually take to turn your best functions into a real, shareable R package?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand the basic folder structure and required files of an R package, so a collection of functions can be shared, installed, and `library()`-loaded like any other package.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Every package you've used in this course (`dplyr`, `ggplot2`, `lmtest`, `car`) was loaded with `library(package_name)`. What do you think that command actually needs to find on your computer to work?
+- If a package needs a name, a version number, and a list of other packages it depends on, where might that information be stored?
+:::
+
+## The R Concept
+
+An R package is just a specific, standardized folder structure that tools like `library()` and `install.packages()` know how to read:
+
+```
+mypackage/
+├── DESCRIPTION      # package name, version, author, and dependencies
+├── NAMESPACE        # which functions the package exposes to users
+├── R/               # folder containing your actual .R function definition files
+│   └── risk_functions.R
+├── man/             # documentation files (usually auto-generated from comments)
+└── tests/
+    └── testthat/    # automated tests confirming your functions work correctly
+```
+
+The `DESCRIPTION` file is the package's "identity card":
+
+```
+Package: mypackage
+Title: Public Health Risk Screening Helpers
+Version: 0.1.0
+Depends: R (>= 4.0)
+```
+
+## Demonstration
+
+A minimal `DESCRIPTION` file for a package built from this level's functions might look like:
+
+```
+Package: pblhelpers
+Title: Helper Functions from the R for Public Health Course
+Version: 0.1.0
+Author: Your Name
+Description: Reusable risk-screening and data-cleaning helpers developed
+    throughout the R for Public Health PBL course.
+Depends: R (>= 4.0)
+Imports: dplyr
+```
+
+Each function (like `is_at_risk()` from Level 9, or `make_threshold_checker()` from Page 2) would live in its own `.R` file inside the package's `R/` folder — exactly the same function definitions already written throughout this course, just relocated into this standard structure.
+
+## Explore
+
+A documentation comment (using `roxygen2` syntax) placed directly above a function automatically generates that function's help page:
+
+```{r}
+#| eval: false
+#' Check whether a participant is at elevated risk
+#'
+#' @param age Participant's age in years
+#' @param sbp Participant's systolic blood pressure
+#' @param age_cutoff Age threshold for risk (default 65)
+#' @param bp_cutoff Blood pressure threshold for risk (default 130)
+#' @return A logical vector indicating risk status
+is_at_risk <- function(age, sbp, age_cutoff = 65, bp_cutoff = 130) {
+  age >= age_cutoff & sbp >= bp_cutoff
+}
+```
+
+## Solve the Problem
+
+A basic automated test for `is_at_risk()`, using the `testthat` package's conventions, would look like this inside `tests/testthat/test-is_at_risk.R`:
+
+```{r}
+#| eval: false
+library(testthat)
+
+test_that("is_at_risk correctly flags high-risk participants", {
+  expect_true(is_at_risk(age = 70, sbp = 145))
+  expect_false(is_at_risk(age = 50, sbp = 145))
+  expect_equal(sum(is_at_risk(age = c(70, 50), sbp = c(145, 145))), 1)
+})
+```
+
+```
+Test passed
+```
+
+This test encodes exactly the same logic Level 9 verified by hand: a 70-year-old with SBP 145 should be flagged at-risk (`age_cutoff = 65, bp_cutoff = 130` are both exceeded), while a 50-year-old with the same SBP should not (the age cutoff isn't met). Running `testthat::test_dir("tests/testthat")` would automatically re-run every such test and report which ones pass or fail.
+
+## Interpret the Result
+
+A package isn't fundamentally different code from what you've already written throughout this course — it's the *same* functions, wrapped in a standardized structure (`DESCRIPTION`, `R/`, documentation, tests) that lets tools like `library()` find, load, and verify them reliably. This structure is exactly what makes it possible for `dplyr`, `ggplot2`, and every other package used throughout this course to be installed with one line and trusted to work as documented — the same discipline (clear documentation, automated tests) that makes *their* code trustworthy is available to your own functions too.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Believing a package must be published to CRAN to be useful.** A package only needs the standard folder structure to be installed locally (via `devtools::install()` or `R CMD INSTALL`) and shared with a small team — CRAN submission is an entirely separate, optional step for public distribution.
+- **Skipping automated tests because functions "already work."** A function working correctly *today*, tested manually once, is different from having a test that automatically re-confirms it still works after every future change — exactly the safety net `testthat` provides.
+- **Writing documentation as an afterthought, disconnected from the code.** `roxygen2`-style comments (placed directly above each function) keep documentation and code physically together, making it far more likely documentation stays accurate as a function changes over time.
+:::
+
+## Practice Problem
+
+Write a `roxygen2`-style documentation comment (like the `is_at_risk()` example above) for Page 2's `make_threshold_checker()` function, describing its `cutoff` parameter and what it returns.
+
+## Challenge Problem
+
+Sketch out (in comments or a short written plan, not necessarily runnable code) what a `tests/testthat/test-pct_missing.R` file would need to contain to properly test Level 9's `pct_missing()` function — what specific input/output pairs would make good test cases, including at least one edge case (like a vector with no missing values at all, or all missing values)?
+
+## Key Takeaways
+
+- An R package is a standardized folder structure (`DESCRIPTION`, `NAMESPACE`, `R/`, `man/`, `tests/`) that `library()` and `install.packages()` know how to read and load.
+- `roxygen2`-style comments placed directly above a function generate its documentation automatically, keeping code and documentation together.
+- `testthat` provides a standard way to write automated tests that re-confirm a function still works correctly, every time it (or its dependencies) change.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What is the purpose of a package's `DESCRIPTION` file?
+   a) It contains the actual function code
+   b) It stores the package's name, version, author, and dependencies
+   c) It automatically tests every function
+   d) It is only needed for packages published on CRAN
+
+2. **True or false.** A package must be submitted to CRAN before it can be installed and used locally.
+
+3. **Predict the output.** If a `testthat` test calls `expect_true(is_at_risk(age = 70, sbp = 145))` and `is_at_risk()` correctly returns `TRUE` for those inputs, would the test pass or fail?
+
+4. **Short answer.** Why is keeping documentation (via `roxygen2` comments) directly above a function's code better than writing documentation in a completely separate file?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** It stores the package's name, version, author, and dependencies — its "identity card."
+2. **False.** A package only needs the standard folder structure to be installed locally and shared with a team — CRAN submission is a separate, optional step.
+3. Pass — the test's expectation (`TRUE`) matches the function's actual output for those inputs.
+4. Keeping documentation directly above the code it describes makes it far more likely to be updated whenever the function itself changes, reducing the risk of documentation silently becoming outdated or inaccurate over time.
+
+</details>
+:::

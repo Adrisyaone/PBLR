@@ -23,7 +23,8 @@ Store a calculated value using R's assignment operator so you can reuse it by na
 
 The **assignment operator**, `<-`, stores a value under a name you choose:
 
-```r
+```{r}
+#| eval: false
 name <- value
 ```
 
@@ -37,7 +38,8 @@ Nothing prints to the Console when you assign a value — assignment is a silent
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 # Assign a value - nothing prints
 bmi <- 22.8
 
@@ -49,7 +51,8 @@ bmi
 [1] 22.8
 ```
 
-```r
+```{r}
+#| eval: false
 # Reuse the stored value in further calculations
 is_high_bmi <- bmi >= 25
 is_high_bmi
@@ -59,7 +62,8 @@ is_high_bmi
 [1] FALSE
 ```
 
-```r
+```{r}
+#| eval: false
 # Overwriting: assigning a new value to an existing name replaces it
 bmi <- 27.4
 bmi
@@ -75,7 +79,8 @@ Assign `age <- 45`, then create `age_in_5_years <- age + 5` using the stored obj
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 weight_kg <- 78
 height_m <- 1.70
 
@@ -87,7 +92,8 @@ bmi
 [1] 26.98962
 ```
 
-```r
+```{r}
+#| eval: false
 # Reuse bmi for further checks, without retyping the formula
 is_overweight <- bmi >= 25 & bmi < 30
 is_overweight
@@ -97,7 +103,8 @@ is_overweight
 [1] TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 # Reuse it again in a rounded summary
 bmi_rounded <- round(bmi, 1)
 bmi_rounded

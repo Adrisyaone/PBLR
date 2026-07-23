@@ -1,0 +1,155 @@
+# Environments {#sec-environments}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 9's `03-default-arguments.qmd` mentioned that a variable created *inside* a function disappears once the function finishes, and never affects anything outside it. But you've never actually seen *why* that happens. Your professor asks you to explain, and demonstrate, what's really going on when R decides which variable a name like `x` refers to.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand what an environment is, how R looks up variable names inside one, and how to create and use your own.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 9 Page 6 (Scope) showed a variable defined inside a function doesn't exist outside it. If every variable in R "lives" somewhere, where does a function's local variable actually live?
+- If two completely separate environments each had their own variable named `x`, would changing one affect the other?
+:::
+
+## The R Concept
+
+An **environment** is R's container for variable names and their values — every time you assign `x <- 5`, that binding is stored in *some* environment. `environment()` reveals which one a function belongs to, and `new.env()` creates a brand-new, empty one:
+
+```{r}
+#| eval: false
+new_environment <- new.env()
+assign("count", 0, envir = new_environment)
+get("count", envir = new_environment)
+```
+
+Your R session's main workspace is called the **global environment** (`globalenv()`). Every time a function runs, R creates a *new*, temporary environment just for that call — which is exactly why a function's local variables vanish once it returns: that temporary environment (and everything in it) is discarded.
+
+## Demonstration
+
+```{r}
+#| eval: false
+counter_env <- new.env()
+assign("count", 0, envir = counter_env)
+
+get("count", envir = counter_env)
+```
+
+```
+[1] 0
+```
+
+```{r}
+#| eval: false
+assign("count", get("count", envir = counter_env) + 1, envir = counter_env)
+get("count", envir = counter_env)
+```
+
+```
+[1] 1
+```
+
+```{r}
+#| eval: false
+exists("count", envir = globalenv())
+```
+
+```
+[1] FALSE
+```
+
+## Explore
+
+Try `ls(envir = counter_env)` to list every variable name stored in `counter_env` — just like `ls()` (Level 1) lists everything in your global environment. Notice `count` exists inside `counter_env`, but `exists("count")` (checking the global environment by default) still returns `FALSE`.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+threshold_env <- new.env()
+assign("threshold", 140, envir = threshold_env)
+
+participants <- read.csv("data/participants.csv")
+
+count_above_threshold <- function(values, env) {
+  cutoff <- get("threshold", envir = env)
+  sum(values >= cutoff, na.rm = TRUE)
+}
+
+count_above_threshold(participants$systolic_bp, threshold_env)
+```
+
+```
+[1] 29
+```
+
+```{r}
+#| eval: false
+assign("threshold", 130, envir = threshold_env)
+count_above_threshold(participants$systolic_bp, threshold_env)
+```
+
+```
+[1] 46
+```
+
+Storing `threshold` inside `threshold_env` (rather than as a plain global variable) means `count_above_threshold()` always reads whatever value is currently stored there — changing the environment's value from 140 to 130 changes the function's behavior without touching the function itself, reproducing Level 4's Stage 2 (140+) count of 29 and Stage 1-or-above (130+) count of 46.
+
+## Interpret the Result
+
+Every function call in R creates its own temporary environment for local variables, which is discarded when the function returns — this is precisely why Level 9's scope rules work the way they do. Explicitly creating and passing around an environment (like `threshold_env` here) is a more advanced technique for when you deliberately want state to *persist* between function calls, rather than disappearing — exactly the idea Page 2's closures build on next.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `get()` and `assign()` need an explicit `envir` argument to target a non-default environment.** Without `envir = threshold_env`, both functions default to the current function's local environment, not the one you intended.
+- **Assuming a variable inside a custom environment is visible everywhere.** `exists("count")` without specifying `envir` only checks the calling environment (usually global) by default — a variable stored inside `counter_env` is invisible to a plain `exists("count")` call.
+- **Creating a new environment when a simple return value would do.** Most of the time, a function should simply `return()` a value (Level 9) rather than reach for an environment — environments are for the specific cases (like closures, Page 2) where genuinely persistent, mutable state is needed.
+:::
+
+## Practice Problem
+
+Create a new environment called `bmi_env`, store a `cutoff` value of 30 inside it, and write a function that counts how many participants' `bmi` exceeds that cutoff using `get(..., envir = bmi_env)`.
+
+## Challenge Problem
+
+Modify the `count_above_threshold()` function so that, in addition to returning the count, it also updates a `last_count` variable inside the same environment using `assign()`. Call the function twice with different threshold values and show that `get("last_count", envir = threshold_env)` reflects the most recent call each time.
+
+## Key Takeaways
+
+- An environment is R's container for variable name-to-value bindings; `new.env()` creates a new, empty one, and `assign()`/`get()` read and write values inside a specific environment.
+- Every function call creates its own temporary environment for local variables, which is discarded when the function returns — the mechanism behind Level 9's scoping rules.
+- Explicitly created environments let state persist and be shared across multiple function calls, unlike a function's normal, temporary local variables.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Why does a variable created inside a function disappear once the function returns?
+   a) R deletes all variables starting with lowercase letters
+   b) The function's temporary environment is discarded when the function finishes
+   c) Local variables are never actually created
+   d) R only allows one variable per script
+
+2. **True or false.** `get("x", envir = some_env)` will find `x` even if it's only defined in the global environment, not in `some_env`.
+
+3. **Predict the output.** If `assign("threshold", 130, envir = threshold_env)` is run after `threshold` was previously 140, what would `get("threshold", envir = threshold_env)` return next?
+
+4. **Short answer.** Why might a function that reads its cutoff value from an environment (rather than a hardcoded number) be more flexible than a function with the cutoff written directly into its code?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The function's temporary environment is discarded when the function finishes, taking its local variables with it.
+2. **False.** `get(..., envir = some_env)` looks specifically inside `some_env` (and, by default, its parent environments) — it will not find a variable that exists only in a completely unrelated environment outside that chain.
+3. 130 — `assign()` overwrites the previous value stored in that environment.
+4. Reading the cutoff from an environment lets the same function's behavior be changed later (by updating the environment) without editing or re-defining the function itself — exactly the flexibility closures (Page 2) build on directly.
+
+</details>
+:::

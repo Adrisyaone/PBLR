@@ -23,7 +23,8 @@ Pull together every tool from this level into one final, justified modeling deci
 
 Choosing a final model isn't about maximizing R-squared — it's about weighing every piece of evidence gathered so far:
 
-```r
+```{r}
+#| eval: false
 # Evidence gathered across this level:
 anova(model_age_only, model_age_bmi_smoker)  # Page 5: does the bigger model earn its complexity?
 # confounding check (Page 4): does age's coefficient shift once bmi is added?
@@ -35,7 +36,8 @@ A model earns extra predictors only when they measurably improve prediction (Pag
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
@@ -78,7 +80,8 @@ Review every piece of evidence gathered across this level, side by side:
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 model_final <- lm(systolic_bp ~ age, data = participants)

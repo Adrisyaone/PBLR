@@ -3,26 +3,29 @@
 ::: {.pbl-box .pbl-problem}
 **Where this level is headed**
 
-A result nobody else can reproduce isn't finished research. This level is about Quarto itself: turning code, figures, tables, and citations into a single reproducible document, website, or presentation — including the very book you're reading now.
+A result nobody else can reproduce isn't finished research. Every page you've read in this course so far — including this one — is itself a Quarto document (`.qmd` file): text, code, and output woven together into one reproducible source. This level turns that same tool around, teaching you to build your *own* reproducible reports, using this very course as the worked example throughout.
 :::
 
-## What's coming
+## What this level covers
 
-- R Markdown vs. Quarto, and YAML front matter
-- Code chunks, inline code, tables, and figures
-- Cross-references, citations, and bibliographies
-- Parameterized reports
-- HTML, PDF, and Word output
-- Building websites, books, and presentations
+- R Markdown vs. Quarto, and why this course is written in the latter
+- YAML front matter — the metadata block controlling how a document renders, examined using this course's own `_quarto.yml`
+- Code chunks, chunk options, and inline code that weaves computed values directly into prose
+- Tables and figures with proper captions
+- Cross-references — the same `{#sec-...}` labels every page in this course already uses
+- Citations and bibliographies with a `.bib` file
+- Parameterized reports — one template, rendered differently for each county's clinic data
+- Choosing HTML, PDF, or Word as an output format
+- The difference between a single document, a website, and a full book project — like this one
 
 ::: {.pbl-box .pbl-mission}
 **A preview mission**
 
-Your mission: turn a messy analysis script into a polished, reproducible report that regenerates itself the moment the underlying data changes.
+Your mission across this level: build a parameterized clinic report template that can regenerate a polished, county-specific summary for any of Level 10's five clinic files, just by changing one parameter — no copy-pasting a script five times.
 :::
 
 ::: {.callout-note}
-## Status
+## A note on scope
 
-This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
+This level teaches Quarto's document-authoring features using this course's own source files as real, working examples — you'll recognize the YAML, section labels, and code-chunk patterns you've been reading in every single lesson. Full package publishing, Git-based collaboration, and continuous-integration pipelines are beyond this course's scope, but everything here transfers directly to a real RStudio + Quarto workflow.
 :::

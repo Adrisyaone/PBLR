@@ -23,23 +23,27 @@ Build a two-way frequency table — a cross-tabulation — showing how two categ
 
 **`table()` with two arguments** builds a cross-tabulation — a grid with one variable's categories as rows and the other's as columns:
 
-```r
+```{r}
+#| eval: false
 table(row_variable, column_variable)
 ```
 
-```r
+```{r}
+#| eval: false
 table(participants$sex, participants$smoker)
 ```
 
 To convert this into row-wise percentages (e.g., "of all women, what percent smoke?"), use `prop.table()` with `margin = 1` (percentages *within each row*):
 
-```r
+```{r}
+#| eval: false
 prop.table(table(participants$sex, participants$smoker), margin = 1)
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 sex_smoker_table <- table(participants$sex, participants$smoker)
@@ -54,7 +58,8 @@ Male    33  15
 
 Now you can see, at a glance, that among the 52 women, 42 don't smoke and 10 do — and among the 48 men, 33 don't smoke and 15 do.
 
-```r
+```{r}
+#| eval: false
 round(prop.table(sex_smoker_table, margin = 1) * 100, 1)
 ```
 
@@ -72,7 +77,8 @@ Try `prop.table(sex_smoker_table)` with **no** `margin` argument at all. Notice 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 sex_smoker_table <- table(participants$sex, participants$smoker)
@@ -87,7 +93,8 @@ Female  42  10
 Male    33  15
 ```
 
-```r
+```{r}
+#| eval: false
 sex_smoker_pct
 ```
 

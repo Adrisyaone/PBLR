@@ -23,14 +23,16 @@ Save a data frame or tibble from R directly to an Excel file.
 
 Writing Excel files uses a **different** package from reading them: `readxl` (Level 3's earlier page) only reads; **`writexl`** is a common, lightweight package for writing:
 
-```r
+```{r}
+#| eval: false
 library(writexl)
 write_xlsx(data, "path/to/output.xlsx")
 ```
 
 `write_xlsx()` can also write **multiple sheets at once**, by passing a named list instead of a single data frame:
 
-```r
+```{r}
+#| eval: false
 write_xlsx(
   list(Summary = summary_table, Notes = notes_table),
   "report.xlsx"
@@ -41,7 +43,8 @@ Each name in the list becomes a sheet name in the resulting workbook — directl
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(writexl)
 
 county_summary <- data.frame(
@@ -52,7 +55,8 @@ county_summary <- data.frame(
 write_xlsx(county_summary, "county_summary.xlsx")
 ```
 
-```r
+```{r}
+#| eval: false
 # Confirm it saved correctly by reading it back
 library(readxl)
 read_excel("county_summary.xlsx")
@@ -75,7 +79,8 @@ Try writing two data frames at once as separate sheets: `write_xlsx(list(Summary
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(writexl)
 
 county_summary <- data.frame(

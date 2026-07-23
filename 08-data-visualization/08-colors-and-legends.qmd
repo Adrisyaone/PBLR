@@ -23,7 +23,8 @@ Map a third variable to color, adding a visual grouping dimension to a plot, com
 
 Mapping a categorical variable to `color` (for points and lines) or `fill` (for bars and boxes) inside `aes()` adds a grouping dimension to a plot, with a legend generated automatically:
 
-```r
+```{r}
+#| eval: false
 ggplot(data = df, aes(x = x_col, y = y_col, color = grouping_column)) +
   geom_point()
 ```
@@ -32,7 +33,8 @@ No extra step is needed for the legend — `ggplot2` builds it automatically fro
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")
@@ -49,7 +51,8 @@ Try mapping `color = county` instead of `color = smoker` on the same plot. With 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")

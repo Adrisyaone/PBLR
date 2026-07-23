@@ -23,14 +23,16 @@ Import an Excel file (`.xlsx`) into R using the appropriate package and function
 
 Excel files (`.xlsx`, and the older `.xls`) are **not** plain text like CSV — they're a compressed, structured file format that can include multiple sheets, formatting, and formulas. Reading one requires a dedicated package: **`readxl`**.
 
-```r
+```{r}
+#| eval: false
 library(readxl)
 my_data <- read_excel("path/to/file.xlsx")
 ```
 
 A few arguments matter especially often with real Excel files:
 
-```r
+```{r}
+#| eval: false
 read_excel("file.xlsx", sheet = "Sheet2")   # a specific sheet by name (or position: sheet = 2)
 read_excel("file.xlsx", skip = 2)           # skip metadata rows before the real header, same idea as CSV
 read_excel("file.xlsx", na = c("", "N/A"))  # custom missing-value codes, covered in depth later this level
@@ -40,7 +42,8 @@ read_excel("file.xlsx", na = c("", "N/A"))  # custom missing-value codes, covere
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(readxl)
 
 # List every sheet in a workbook before importing, if you're not sure which one you need
@@ -51,7 +54,8 @@ excel_sheets("data/clinic_data.xlsx")
 [1] "Enrollment" "Follow-up"
 ```
 
-```r
+```{r}
+#| eval: false
 clinic_data <- read_excel("data/clinic_data.xlsx", sheet = "Enrollment")
 
 clinic_data
@@ -73,7 +77,8 @@ Try `read_excel("data/clinic_data.xlsx")` with no `sheet` argument at all — by
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(readxl)
 
 # CSV-reading functions can't parse Excel's file format at all
@@ -86,7 +91,8 @@ nrow(clinic_data)
 [1] 25
 ```
 
-```r
+```{r}
+#| eval: false
 str(clinic_data)
 ```
 

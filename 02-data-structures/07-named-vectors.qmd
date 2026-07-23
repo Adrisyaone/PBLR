@@ -23,18 +23,21 @@ Attach labels directly to the values in a vector, so each number is self-documen
 
 A vector can have a **name attached to every element**, either by supplying names directly inside `c()`, or by assigning them afterward with `names()`:
 
-```r
+```{r}
+#| eval: false
 c(name1 = value1, name2 = value2, ...)
 ```
 
-```r
+```{r}
+#| eval: false
 x <- c(10, 20, 30)
 names(x) <- c("a", "b", "c")
 ```
 
 Once named, you can index by name using `[ ]` with a quoted string, in addition to the position-based indexing you already know:
 
-```r
+```{r}
+#| eval: false
 x["b"]     # retrieves the element named "b", regardless of its position
 ```
 
@@ -42,7 +45,8 @@ x["b"]     # retrieves the element named "b", regardless of its position
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 mean_bp_by_county <- c(
   "Cedar Falls" = 128.16,
   "Millbrook"   = 133.30,
@@ -59,7 +63,8 @@ Cedar Falls    Millbrook      Oakford    Riverdale   Springvale
      128.16       133.30       129.71       124.36       131.46
 ```
 
-```r
+```{r}
+#| eval: false
 mean_bp_by_county["Millbrook"]
 ```
 
@@ -68,7 +73,8 @@ Millbrook
     133.3
 ```
 
-```r
+```{r}
+#| eval: false
 names(mean_bp_by_county)
 ```
 
@@ -82,7 +88,8 @@ Try `mean_bp_by_county[["Millbrook"]]` (double brackets) instead of single brack
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 # Building the named vector directly from the data, using tools from earlier in this level
 participants <- read.csv("data/participants.csv")
 

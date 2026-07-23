@@ -23,7 +23,8 @@ Check whether adjusting for a second variable (BMI) meaningfully changes a predi
 
 There's no special R function called `confounding()` — checking for confounding is a *comparison*, done by fitting two models on the exact same rows and watching whether the predictor of interest's coefficient shifts meaningfully:
 
-```r
+```{r}
+#| eval: false
 model_unadjusted <- lm(outcome ~ exposure, data = df)
 model_adjusted   <- lm(outcome ~ exposure + potential_confounder, data = df)
 ```
@@ -32,7 +33,8 @@ If the exposure's coefficient changes substantially between these two models, th
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Keep only rows with no missing age, bmi, or systolic_bp, so both
@@ -62,7 +64,8 @@ Try computing the percent change between the two age coefficients: `(coef(model_
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "systolic_bp")]), ]
@@ -82,7 +85,8 @@ percent_change
 2.330989
 ```
 
-```r
+```{r}
+#| eval: false
 nrow(complete_rows)
 ```
 

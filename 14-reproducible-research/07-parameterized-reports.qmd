@@ -1,0 +1,159 @@
+# Parameterized Reports {#sec-parameterized-reports}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 10's automation capstone split `participants.csv` into 5 separate clinic files (`clinic_cedarfalls.csv`, `clinic_millbrook.csv`, and so on) and combined them back together. But now your professor wants the *opposite*: a separate, identically-formatted summary report for each individual clinic — 5 reports total. Copy-pasting one report's `.qmd` file 5 times and manually editing the county name in each copy is exactly the kind of repetition this course has taught you to avoid at every turn.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Build one parameterized report template that generates a different, correctly-filtered report depending on a single parameter value, without duplicating any code.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 9's functions took arguments like `age_cutoff` that changed their behavior without changing their code. Could an entire *document* accept a similar kind of argument?
+- If one template file could produce a "Cedar Falls report" or an "Oakford report" depending on a single input value, how many separate `.qmd` files would actually be needed?
+:::
+
+## The R Concept
+
+Quarto documents can declare **parameters** in YAML front matter, then reference them inside code chunks via `params$name`:
+
+```yaml
+---
+title: "Clinic Summary Report"
+params:
+  county: "Oakford"
+---
+```
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+clinic_data <- participants[participants$county == params$county, ]
+```
+
+Rendering with a different parameter value — via `quarto render report.qmd -P county:"Millbrook"`, or `quarto::quarto_render("report.qmd", execute_params = list(county = "Millbrook"))` from within R — produces a completely different, correctly-filtered report from the exact same source file, with zero code duplication.
+
+## Demonstration
+
+```yaml
+---
+title: "Clinic Summary: ˋr params$countyˋ"
+params:
+  county: "Oakford"
+---
+```
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+clinic_data <- participants[participants$county == params$county, ]
+
+nrow(clinic_data)
+mean(clinic_data$systolic_bp, na.rm = TRUE)
+```
+
+```
+[1] 17
+```
+
+```
+[1] 129.7059
+```
+
+## Explore
+
+Try changing just the `county:` value in the YAML front matter above to `"Millbrook"` (leaving every line of R code completely unchanged) and mentally re-run the two lines — `nrow(clinic_data)` and `mean(clinic_data$systolic_bp)` would automatically compute Millbrook's own count and mean instead, entirely because `params$county` changed.
+
+## Solve the Problem
+
+```yaml
+---
+title: "Clinic Summary Report"
+params:
+  county: "Oakford"
+---
+```
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+clinic_data <- participants[participants$county == params$county, ]
+
+n_patients <- nrow(clinic_data)
+mean_sbp <- round(mean(clinic_data$systolic_bp, na.rm = TRUE), 1)
+mean_bmi <- round(mean(clinic_data$bmi, na.rm = TRUE), 1)
+n_smokers <- sum(clinic_data$smoker == "Yes")
+```
+
+```{r}
+#| eval: false
+# Prose using inline code and the params value directly:
+# "**`r params$county` Clinic Summary**: `r n_patients` patients,
+#  mean SBP `r mean_sbp` mmHg, mean BMI `r mean_bmi`, `r n_smokers`
+#  current smokers."
+```
+
+```
+**Oakford Clinic Summary**: 17 patients, mean SBP 129.7 mmHg,
+mean BMI 28, 6 current smokers.
+```
+
+Rendering the identical template with `params: county: "Riverdale"` instead would automatically produce "**Riverdale Clinic Summary**: 16 patients, mean SBP 124.4 mmHg, ..." — the exact same code and prose template, filtered and re-summarized entirely differently, without a single line being rewritten.
+
+## Interpret the Result
+
+Parameterized reports turn "one report per group" from a copy-paste-and-edit chore into a single, reusable template rendered multiple times with different inputs — exactly the same principle behind Level 9's functions (`is_at_risk(age_cutoff = 65)`) and Level 13's closures, now applied to an entire document instead of a single value. This is precisely how a real public-health team would generate 5 consistent clinic reports (or 50 monthly reports, or a report per country) without maintaining 5 separate, subtly-diverging copies of the same file.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Hardcoding `"Oakford"` directly in the filtering code instead of using `params$county`.** Writing `participants[participants$county == "Oakford", ]` defeats the entire purpose — the report would always show Oakford's data, no matter what parameter value is supplied at render time.
+- **Forgetting the parameter's default value in YAML is what's used when rendering interactively (e.g., clicking "Render" in RStudio).** The `-P county:"Millbrook"` command-line override (or `execute_params` in R) is only needed when rendering *programmatically* with a different value than the YAML default.
+- **Not validating that the parameter value actually exists in the data.** `params$county <- "Notreal County"` would silently produce an empty `clinic_data` data frame (0 rows) with no error — a production-quality version would check `params$county %in% unique(participants$county)` first (Level 9's `stop()`, Page 4's `tryCatch()`) and fail loudly if not.
+:::
+
+## Practice Problem
+
+Modify the template above so that instead of filtering by `county`, it accepts a `smoker_only` logical parameter (default `FALSE`) that, when `TRUE`, filters `participants` to only current smokers before computing summary statistics.
+
+## Challenge Problem
+
+Write the R code (using a `for` loop, Level 10) that would render this parameterized clinic report 5 times — once for each of the 5 counties in `participants$county` — saving each rendered report with a filename that includes the county name, using `quarto::quarto_render()`'s `execute_params` and `output_file` arguments.
+
+## Key Takeaways
+
+- `params:` in YAML front matter declares a document parameter with a default value; `params$name` accesses it anywhere in the document's code chunks or inline code.
+- Rendering the same template with different parameter values (via the command line, or `quarto::quarto_render(execute_params = ...)`) produces different, correctly-filtered reports without duplicating any code.
+- Parameterized reports extend Level 9's function-argument thinking and Level 13's closures to an entire document, replacing repetitive copy-paste-and-edit reporting with one reusable, tested template.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `params$county` do inside a parameterized Quarto document?
+   a) Creates a new column in the dataset called "county"
+   b) Accesses the current value of the `county` parameter, as declared in YAML
+   c) Automatically filters every data frame in the document
+   d) Renders the document once for every unique county automatically
+
+2. **True or false.** A parameterized report must be manually edited each time it's rendered with a different parameter value.
+
+3. **Predict the output.** If `params$county` is set to `"Riverdale"` and `participants` has 16 Riverdale rows, what would `nrow(clinic_data)` return, assuming `clinic_data` filters by `params$county`?
+
+4. **Short answer.** Why is hardcoding `"Oakford"` directly into a report's filtering code a mistake, even if Oakford happens to be the report's intended focus today?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Accesses the current value of the `county` parameter, as declared in the document's YAML front matter.
+2. **False.** The entire point of parameters is that the same template can be rendered with different values (via command line or `execute_params`) with zero manual editing.
+3. 16 — matching Level 10's known Riverdale row count.
+4. Hardcoding the value defeats the purpose of parameterization — the report would always show Oakford's data regardless of what parameter is supplied, making it impossible to reuse the same template for any other county without editing and duplicating the file.
+
+</details>
+:::

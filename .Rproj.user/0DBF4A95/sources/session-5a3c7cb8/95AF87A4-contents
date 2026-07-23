@@ -1,0 +1,136 @@
+# Code Chunks and Inline Code {#sec-code-chunks-inline-code}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 11's descriptive statistics page states "mean age = 47.43" directly in its prose. If the underlying `participants.csv` were later updated with new enrollees, that written-out number would silently become wrong. Nobody editing the prose would remember to recalculate and update it by hand. Your professor wants text that updates itself automatically whenever the data changes, not a number typed once and then forgotten.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Use Quarto's code chunks and inline code to embed live, automatically-updating computed values directly into a document's prose.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If a sentence says "the mean age is 47.43," typed as plain text, would that number ever change on its own if the data changed?
+- Every page in this course shows both R code *and* its output as a separate block below it. Could a computed value instead appear seamlessly inside a sentence, without a separate output block at all?
+:::
+
+## The R Concept
+
+A **code chunk** (the fenced ` ```{r} ` blocks you've seen throughout this course) executes R code and can display both the code and its output. **Inline code**, written as <code>&#96;r expression&#96;</code> directly inside a sentence, evaluates a short R expression and inserts *just its result* into the surrounding prose, with no separate output block at all.
+
+````
+ˋˋˋ{r}
+mean_age <- mean(participants$age, na.rm = TRUE)
+ˋˋˋ
+
+The mean participant age was ˋr round(mean_age, 1)ˋ years.
+````
+
+renders as: "The mean participant age was 47.4 years." If `participants.csv` changes, re-rendering the document updates that number automatically, with zero manual editing.
+
+## Demonstration
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+mean_age <- mean(participants$age, na.rm = TRUE)
+n_participants <- nrow(participants)
+```
+
+```{r}
+#| eval: false
+# Written in prose as:
+# "Across `r n_participants` enrolled participants, the mean age was
+#  `r round(mean_age, 1)` years."
+```
+
+```
+Across 100 enrolled participants, the mean age was 47.4 years.
+```
+
+## Explore
+
+Try changing a chunk option to `#| echo: false` on the setup chunk above. The code itself disappears from the rendered output, while the inline-code results computed from it (`n_participants`, `mean_age`) still render correctly in the surrounding prose. This is exactly how this course's own prose sections (like this one) can quote precise figures without necessarily showing every calculation chunk.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+participants <- read.csv("data/participants.csv")
+
+n_participants <- nrow(participants)
+mean_age <- mean(participants$age, na.rm = TRUE)
+pct_smokers <- round(100 * mean(participants$smoker == "Yes"), 1)
+```
+
+```{r}
+#| eval: false
+# Prose using three separate inline-code values from the same chunk:
+# "This report summarizes `r n_participants` participants, with a mean
+#  age of `r round(mean_age, 1)` years; `r pct_smokers`% identified as
+#  current smokers."
+```
+
+```
+This report summarizes 100 participants, with a mean age of 47.4 years;
+25% identified as current smokers.
+```
+
+Every one of these three numbers (100, 47.4, 25) came from <code>&#96;r&#96;</code>-prefixed inline code reading directly from the same `participants` data frame already loaded in a prior chunk. None of them is typed as a hardcoded number anywhere in the source file.
+
+## Interpret the Result
+
+Inline code turns a report's numbers from static, easily-outdated text into live values tied directly to the underlying data, exactly the property that makes a document genuinely *reproducible*, rather than merely *readable*. If `participants.csv` gained 20 new enrollees tomorrow, re-rendering this exact same source file would automatically update every one of these three figures, with no prose editing required at all.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Hardcoding a number in prose instead of using inline code.** Typing "47.4 years" directly, rather than <code>&#96;r round(mean_age, 1)&#96;</code>, looks identical in the rendered output today, but silently becomes wrong the moment the underlying data changes, with no warning.
+- **Forgetting inline code needs the variable already computed in an earlier chunk.** <code>&#96;r mean_age&#96;</code> will error if `mean_age` was never actually calculated and assigned in a code chunk that ran before that point in the document.
+- **Not rounding inline numeric results.** <code>&#96;r mean(participants$age, na.rm = TRUE)&#96;</code> without `round()` could display an ugly, overly precise value like `47.42553191489362` directly in a sentence. Always round inline values to a sensible number of digits for prose.
+:::
+
+## Practice Problem
+
+Write a code chunk computing the number of unique counties in `participants$county`, then write one sentence of prose using inline code to report that count directly (for example: "Participants were enrolled from <code>&#96;r ...&#96;</code> counties.").
+
+## Challenge Problem
+
+Level 7's cross-tabulation found 42 non-smoking women and 10 smoking women. Write a code chunk computing both counts directly from `participants.csv`, then write a sentence using two separate inline-code expressions reporting both figures, formatted so the sentence would remain fully correct even if the underlying data changed.
+
+## Key Takeaways
+
+- A code chunk executes R code and can display both the code and its output; inline code (<code>&#96;r expression&#96;</code>) evaluates a short expression and inserts just its result directly into surrounding prose.
+- Numbers embedded via inline code stay automatically correct when underlying data changes; numbers typed directly as text do not.
+- Always round inline numeric results to a sensible number of digits before they appear in prose, exactly as this course's own pages consistently round every reported statistic.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What is the main advantage of inline code (<code>&#96;r expression&#96;</code>) over typing a computed value directly as text?
+   a) Inline code renders faster
+   b) Inline code automatically updates if the underlying data changes; typed text does not
+   c) Inline code requires no prior chunk to have run
+   d) There is no difference between the two
+
+2. **True or false.** Inline code can only be used inside a code chunk, never inside regular prose text.
+
+3. **Predict the output.** If `n_participants <- nrow(participants)` evaluates to `100` in an earlier chunk, what would <code>&#96;r n_participants&#96;</code> display in the rendered prose?
+
+4. **Short answer.** Why is hardcoding a statistic like "47.4 years" as plain text a reproducibility risk, even if it's correct at the moment it's written?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Inline code automatically updates if the underlying data changes, while typed text stays frozen at whatever value was originally written.
+2. **False.** Inline code (<code>&#96;r expression&#96;</code>) is specifically designed to be used directly inside prose text, not inside a fenced code chunk.
+3. `100`. The inline code evaluates the already-computed variable and inserts its value directly into the sentence.
+4. A hardcoded number is only correct until the underlying data changes. Nothing automatically flags it as stale, so a report can silently continue displaying an outdated figure long after it stops being true, unless every hardcoded value is manually re-checked and updated by hand.
+
+</details>
+:::

@@ -23,13 +23,15 @@ Remove rows with missing data from a data frame, either across specific columns 
 
 **`na.omit()`** removes any row with *at least one* missing value, across *every* column of a data frame:
 
-```r
+```{r}
+#| eval: false
 na.omit(df)
 ```
 
 **`complete.cases()`** gives you more control — it returns a logical vector flagging which rows have no missing data, which you can then use with the row-indexing you learned in Level 2, optionally restricted to just the columns you care about:
 
-```r
+```{r}
+#| eval: false
 complete.cases(df)                    # TRUE for rows complete across ALL columns
 complete.cases(df[, c("age", "bmi")]) # TRUE for rows complete in just these two columns
 df[complete.cases(df), ]              # keep only the fully complete rows
@@ -39,7 +41,8 @@ The distinction matters: `na.omit()` is quick but *all-or-nothing* across every 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 nrow(participants)
@@ -49,7 +52,8 @@ nrow(participants)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 # na.omit() - removes a row if ANY column has a missing value
 complete_all <- na.omit(participants)
 nrow(complete_all)
@@ -59,7 +63,8 @@ nrow(complete_all)
 [1] 85
 ```
 
-```r
+```{r}
+#| eval: false
 # complete.cases() restricted to just the 3 columns that matter for this analysis
 keep <- complete.cases(participants[, c("age", "systolic_bp", "bmi")])
 complete_relevant <- participants[keep, ]
@@ -76,7 +81,8 @@ These two approaches happen to agree here (85 rows) because `age`, `systolic_bp`
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Complete-case analysis restricted to exactly the variables your supervisor cares about
@@ -90,7 +96,8 @@ nrow(participants_complete)
 [1] 85
 ```
 
-```r
+```{r}
+#| eval: false
 mean(participants_complete$age)
 ```
 

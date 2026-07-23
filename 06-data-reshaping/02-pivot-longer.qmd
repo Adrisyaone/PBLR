@@ -23,7 +23,8 @@ Convert wide-format columns into long-format rows using `tidyr::pivot_longer()`.
 
 **`pivot_longer()`**, from the `tidyr` package (part of the tidyverse, alongside `dplyr`), takes multiple columns and stacks them into two new columns: one holding the *former column names*, one holding the *former column values*:
 
-```r
+```{r}
+#| eval: false
 pivot_longer(df,
   cols = c(col1, col2, col3),   # or a tidyselect helper like starts_with()
   names_to = "name_column",
@@ -31,7 +32,8 @@ pivot_longer(df,
 )
 ```
 
-```r
+```{r}
+#| eval: false
 pivot_longer(bp_wide,
   cols = starts_with("sbp_visit"),
   names_to = "visit",
@@ -43,7 +45,8 @@ pivot_longer(bp_wide,
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(tidyr)
 
 bp_wide <- read.csv("data/bp_visits_wide.csv")
@@ -64,7 +67,8 @@ nrow(bp_long_sbp)
 
 28 participants × 3 visits = 84 rows, exactly as predicted at the end of the previous page.
 
-```r
+```{r}
+#| eval: false
 head(bp_long_sbp[, c("id", "county", "visit", "sbp")], 6)
 ```
 
@@ -86,7 +90,8 @@ Try `group_by(bp_long_sbp, visit)` followed by `summarise(mean_sbp = mean(sbp, n
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 library(tidyr)
 

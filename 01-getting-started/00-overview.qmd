@@ -14,19 +14,19 @@ Along the way you'll learn what R and RStudio actually are, how to work in the c
 
 ## Topics in this level
 
-- What is R? What is RStudio?
-- The RStudio interface
-- Installing and loading packages
-- The Console vs. an R script
-- Comments
-- Basic arithmetic
-- The assignment operator and objects
-- Naming objects well
-- Data types: numeric, character, logical
-- Missing values (`NA`)
-- Basic functions
-- Getting help in R
-- Working directories
-- Importing your first real dataset
+-   What is R? What is RStudio?
+-   The RStudio interface
+-   Installing and loading packages
+-   The Console vs. an R script
+-   Comments
+-   Basic arithmetic
+-   The assignment operator and objects
+-   Naming objects well
+-   Data types: numeric, character, logical
+-   Missing values (`NA`)
+-   Basic functions
+-   Getting help in R
+-   Working directories
+-   Importing your first real dataset
 
 By the end of this level, you'll import `data/participants.csv` — a simulated community health survey — and report the mean age of its 100 participants, correctly handling the missing values hiding in it. Let's begin.

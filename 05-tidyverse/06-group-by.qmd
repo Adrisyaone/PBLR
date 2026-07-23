@@ -23,12 +23,14 @@ Split a data frame into groups and compute summary statistics separately for eac
 
 **`group_by()`** doesn't change how the data looks when printed — it tags the data frame as "grouped," so that every subsequent `summarise()` (or `mutate()`) is computed *separately within each group* instead of across the whole dataset:
 
-```r
+```{r}
+#| eval: false
 grouped <- group_by(df, grouping_column)
 summarise(grouped, stat = <summary function>(column))
 ```
 
-```r
+```{r}
+#| eval: false
 by_county <- group_by(participants, county)
 summarise(by_county, mean_bp = mean(systolic_bp, na.rm = TRUE))
 ```
@@ -37,7 +39,8 @@ The result has **one row per group** — five rows for five counties — instead
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -71,7 +74,8 @@ Try grouping by two columns at once: `group_by(participants, county, smoker)`, t
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")

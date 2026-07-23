@@ -23,7 +23,8 @@ Write a function containing `if`/`else if`/`else` conditional logic (Level 4), r
 
 A function's body can contain the exact same `if`/`else if`/`else` logic (Level 4) you'd use outside a function — the only difference is that the result becomes the function's return value:
 
-```r
+```{r}
+#| eval: false
 classify <- function(x) {
   if (x < threshold1) {
     "Category A"
@@ -35,7 +36,8 @@ classify <- function(x) {
 }
 ```
 
-```r
+```{r}
+#| eval: false
 bp_category <- function(sbp) {
   if (sbp < 120) {
     "Normal"
@@ -53,7 +55,8 @@ Whichever branch actually runs becomes the function's return value automatically
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 bp_category <- function(sbp) {
   if (sbp < 120) {
     "Normal"
@@ -73,7 +76,8 @@ bp_category(115)
 [1] "Normal"
 ```
 
-```r
+```{r}
+#| eval: false
 bp_category(145)
 ```
 
@@ -89,7 +93,8 @@ Try `bp_category(120)` and `bp_category(129)` — both should return `"Elevated"
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 bp_category <- function(sbp) {
   if (sbp < 120) {
     "Normal"

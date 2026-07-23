@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.31">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>37&nbsp; length() and names() – R for Public Health: A Problem-Based Learning Course</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -79,8 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-82f2f6d5827a576a8c9f217aaf8aa84a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-a610508749427f909e314e938b57457f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -106,13 +101,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<style>html{ scroll-behavior: smooth; }</style>
-
-
+}</script><style>html{ scroll-behavior: smooth; }</style>
 <link rel="stylesheet" href="../styles.css">
 </head>
-
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
@@ -278,26 +269,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-data-structures/00-overview.html">Level 2: Data Structures in R</a></li><li class="breadcrumb-item"><a href="../02-data-structures/17-length-names.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code>length()</code> and <code>names()</code></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-data-structures/00-overview.html">Level 2 — Data Structures in R</a></li><li class="breadcrumb-item"><a href="../02-data-structures/17-length-names.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code></code></span></a><code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and <code><a href="https://rdrr.io/r/base/names.html">names()</a></code></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">R for Public Health: A Problem-Based Learning Course</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -314,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
@@ -323,13 +308,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 1: Getting Started with R</span></a>
+ <span class="menu-text">Level 1 — Getting Started with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../01-getting-started/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 1 — Getting Started with R</span></a>
@@ -456,17 +441,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 2: Data Structures in R</span></a>
+ <span class="menu-text">Level 2 — Data Structures in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 2 — Data Structures in R</span></a>
@@ -475,19 +460,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/01-vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code>c()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Vectors and <code></code></span></span></a><code><a href="https://rdrr.io/r/base/c.html">c()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/02-sequences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code>seq()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Sequences with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/03-rep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code>rep()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Repeating Values with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -559,33 +544,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/15-str.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code>str()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Understanding Structure with <code></code></span></span></a><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/16-dimensions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code>nrow()</code>, <code>ncol()</code>, <code>dim()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>, <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code>, <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../02-data-structures/17-length-names.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code>length()</code> and <code>names()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and <code><a href="https://rdrr.io/r/base/names.html">names()</a></code>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 3: Data Import and Export</span></a>
+ <span class="menu-text">Level 3 — Data Import and Export</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../03-data-import/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 3 — Data Import and Export</span></a>
@@ -664,17 +649,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 4: Data Cleaning with Base R</span></a>
+ <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 4 — Data Cleaning with Base R</span></a>
@@ -767,7 +752,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../04-data-cleaning/15-ifelse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code>ifelse()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -783,17 +768,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 5: Tidyverse</span></a>
+ <span class="menu-text">Level 5 — Tidyverse</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 5 — Tidyverse</span></a>
@@ -808,7 +793,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05-tidyverse/02-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code>filter()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -872,17 +857,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 6: Data Reshaping</span></a>
+ <span class="menu-text">Level 6 — Data Reshaping</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06-data-reshaping/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 6 — Data Reshaping</span></a>
@@ -967,17 +952,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 7: Descriptive Statistics</span></a>
+ <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 7 — Descriptive Statistics</span></a>
@@ -1004,7 +989,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/04-summary-function.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code>summary()</code> Function</span></span></a>
+ <span class="menu-text"><span class="chapter-number">95</span>&nbsp; <span class="chapter-title">The <code></code></span></span></a><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> Function
   </div>
 </li>
           <li class="sidebar-item">
@@ -1022,7 +1007,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../07-descriptive-statistics/07-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code>cor()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">98</span>&nbsp; <span class="chapter-title">Correlation with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1032,17 +1017,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 8: Data Visualization with ggplot2</span></a>
+ <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-data-visualization/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 8 — Data Visualization with ggplot2</span></a>
@@ -1115,17 +1100,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 9: Functions and Programming</span></a>
+ <span class="menu-text">Level 9 — Functions and Programming</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 9 — Functions and Programming</span></a>
@@ -1176,19 +1161,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/08-apply-family.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code>sapply()</code> and <code>lapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">118</span>&nbsp; <span class="chapter-title">Applying a Function Across Columns: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/09-purrr-map.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code>purrr::map()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">119</span>&nbsp; <span class="chapter-title">The Tidyverse Way: <code></code></span></span></a><code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../09-functions/10-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code>stop()</code> and <code>warning()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">120</span>&nbsp; <span class="chapter-title">Basic Error Handling: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code> and <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1198,17 +1183,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 10: Loops and Automation</span></a>
+ <span class="menu-text">Level 10 — Loops and Automation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 10 — Loops and Automation</span></a>
@@ -1247,7 +1232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../10-loops/06-vapply-tapply.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code>vapply()</code> and <code>tapply()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">127</span>&nbsp; <span class="chapter-title"><code></code></span></span></a><code><a href="https://rdrr.io/r/base/lapply.html">vapply()</a></code> and <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1263,17 +1248,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
- <span class="menu-text">Level 11: Statistical Analysis in R</span></a>
+ <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 11 — Statistical Analysis in R</span></a>
@@ -1330,7 +1315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../11-statistics/09-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code>lm()</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">138</span>&nbsp; <span class="chapter-title">Simple Linear Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1352,7 +1337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
@@ -1361,15 +1346,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../12-advanced-analysis/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 12 — Advanced Data Analysis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/01-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">142</span>&nbsp; <span class="chapter-title">Multiple Regression with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/02-categorical-predictors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">143</span>&nbsp; <span class="chapter-title">Categorical Predictors in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/03-interaction-terms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">144</span>&nbsp; <span class="chapter-title">Interaction Terms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/04-confounding-adjustment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">145</span>&nbsp; <span class="chapter-title">Confounding and Adjustment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/05-model-comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">146</span>&nbsp; <span class="chapter-title">Comparing Nested Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/06-regression-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">147</span>&nbsp; <span class="chapter-title">Regression Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/07-multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">148</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/08-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">149</span>&nbsp; <span class="chapter-title">Predicting New Data with <code></code></span></span></a><code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../12-advanced-analysis/09-advanced-analysis-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">150</span>&nbsp; <span class="chapter-title">Level 12 Capstone: Choosing a Final Model</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true">
@@ -1378,15 +1417,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../13-advanced-r/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 13 — Advanced R Programming</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/01-environments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">151</span>&nbsp; <span class="chapter-title">Environments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/02-closures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">152</span>&nbsp; <span class="chapter-title">Closures and Function Factories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/03-s3-object-system.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">153</span>&nbsp; <span class="chapter-title">A First Look at S3 Objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/04-error-handling-trycatch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">154</span>&nbsp; <span class="chapter-title">Robust Error Handling with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/05-debugging-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">155</span>&nbsp; <span class="chapter-title">Debugging Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/06-functional-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">156</span>&nbsp; <span class="chapter-title">Functional Programming with <code></code></span></span></a><code><a href="https://rdrr.io/r/base/funprog.html">Reduce()</a></code>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/07-regular-expressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">157</span>&nbsp; <span class="chapter-title">Regular Expressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/08-string-manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">158</span>&nbsp; <span class="chapter-title">String Manipulation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/09-working-with-dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">159</span>&nbsp; <span class="chapter-title">Working with Dates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/10-package-structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">160</span>&nbsp; <span class="chapter-title">The Anatomy of an R Package</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-advanced-r/11-advanced-r-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">161</span>&nbsp; <span class="chapter-title">Level 13 Capstone: A Resilient File-Reading Toolkit</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
@@ -1395,15 +1500,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../14-reproducible-research/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 14 — Reproducible Research</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/01-rmarkdown-vs-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">162</span>&nbsp; <span class="chapter-title">R Markdown vs.&nbsp;Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/02-yaml-front-matter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">163</span>&nbsp; <span class="chapter-title">YAML Front Matter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/03-code-chunks-inline-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">164</span>&nbsp; <span class="chapter-title">Code Chunks and Inline Code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/04-tables-and-figures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">165</span>&nbsp; <span class="chapter-title">Tables and Figures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/05-cross-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">166</span>&nbsp; <span class="chapter-title">Cross-References</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/06-citations-bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">167</span>&nbsp; <span class="chapter-title">Citations and Bibliographies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/07-parameterized-reports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">168</span>&nbsp; <span class="chapter-title">Parameterized Reports</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/08-output-formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">169</span>&nbsp; <span class="chapter-title">Choosing an Output Format</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/09-projects-books-websites.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">170</span>&nbsp; <span class="chapter-title">Quarto Projects: Books and Websites</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-reproducible-research/10-reproducible-research-capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">171</span>&nbsp; <span class="chapter-title">Level 14 Capstone: A Complete Clinic Report Template</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
@@ -1412,26 +1577,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../15-capstone-projects/00-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Level 15 — Real-World Capstone Projects</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/01-capstone-hypertension-risk-factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">172</span>&nbsp; <span class="chapter-title">Capstone 1: Hypertension Risk Factors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/02-capstone-smoking-cardiovascular-risk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">173</span>&nbsp; <span class="chapter-title">Capstone 2: Smoking and Cardiovascular Risk</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/03-capstone-geographic-patterns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">174</span>&nbsp; <span class="chapter-title">Capstone 3: Geographic Patterns Across Counties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/04-capstone-longitudinal-blood-pressure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">175</span>&nbsp; <span class="chapter-title">Capstone 4: Longitudinal Blood Pressure and Attrition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/05-capstone-reproducible-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">176</span>&nbsp; <span class="chapter-title">Capstone 5: A Reproducible County Dashboard</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../15-capstone-projects/06-independent-capstone-guidance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">177</span>&nbsp; <span class="chapter-title">Designing Your Own Independent Capstone</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">37.1</span> The R Concept</a></li>
+<li><a href="#the-r-concept" id="toc-the-r-concept" class="nav-link active" data-scroll-target="#the-r-concept"><span class="header-section-number">37.1</span> The R Concept</a></li>
   <li><a href="#demonstration" id="toc-demonstration" class="nav-link" data-scroll-target="#demonstration"><span class="header-section-number">37.2</span> Demonstration</a></li>
   <li><a href="#explore" id="toc-explore" class="nav-link" data-scroll-target="#explore"><span class="header-section-number">37.3</span> Explore</a></li>
   <li><a href="#solve-the-problem" id="toc-solve-the-problem" class="nav-link" data-scroll-target="#solve-the-problem"><span class="header-section-number">37.4</span> Solve the Problem</a></li>
@@ -1440,15 +1639,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#challenge-problem" id="toc-challenge-problem" class="nav-link" data-scroll-target="#challenge-problem"><span class="header-section-number">37.7</span> Challenge Problem</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">37.8</span> Key Takeaways</a></li>
   <li><a href="#where-youve-arrived" id="toc-where-youve-arrived" class="nav-link" data-scroll-target="#where-youve-arrived"><span class="header-section-number">37.9</span> Where you’ve arrived</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-data-structures/00-overview.html">Level 2: Data Structures in R</a></li><li class="breadcrumb-item"><a href="../02-data-structures/17-length-names.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code>length()</code> and <code>names()</code></span></a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-data-structures/00-overview.html">Level 2 — Data Structures in R</a></li><li class="breadcrumb-item"><a href="../02-data-structures/17-length-names.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code></code></span></a><code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and <code><a href="https://rdrr.io/r/base/names.html">names()</a></code></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span id="sec-length-names" class="quarto-section-identifier"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title"><code>length()</code> and <code>names()</code></span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
@@ -1463,138 +1657,152 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<div class="pbl-box pbl-problem">
+</header><div class="pbl-box pbl-problem">
 <p><strong>The Problem</strong></p>
 <p>A new intern joins your team and, trying to be helpful, checks the size of the <code>participants</code> dataset by running <code>length(participants)</code>. They report back: “It only has 8 things in it!” — sounding alarmed, since they expected 100. You need to explain what actually just happened, and show them the right tool for what they were really trying to check.</p>
 </div>
 <div class="pbl-box pbl-mission">
 <p><strong>Your Mission</strong></p>
-<p>Understand what <code>length()</code> actually measures on different object types, and use <code>names()</code> to inspect or set labels on vectors, lists, and data frames alike.</p>
+<p>Understand what <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> actually measures on different object types, and use <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> to inspect or set labels on vectors, lists, and data frames alike.</p>
 </div>
 <div class="pbl-box pbl-think">
 <p><strong>Think Before Coding</strong></p>
 <ul>
-<li>You learned two pages ago that a data frame is really a collection of columns, each one a vector. If <code>length()</code> measures “how many things are in this container,” what would “things” mean for a data frame specifically — rows, or columns?</li>
-<li>If <code>names()</code> can retrieve labels from a named vector (earlier in this level), might it also retrieve something meaningful from a data frame or a list?</li>
+<li>You learned two pages ago that a data frame is really a collection of columns, each one a vector. If <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> measures “how many things are in this container,” what would “things” mean for a data frame specifically — rows, or columns?</li>
+<li>If <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> can retrieve labels from a named vector (earlier in this level), might it also retrieve something meaningful from a data frame or a list?</li>
 </ul>
 </div>
-<section id="the-r-concept" class="level2" data-number="37.1">
-<h2 data-number="37.1" class="anchored" data-anchor-id="the-r-concept"><span class="header-section-number">37.1</span> The R Concept</h2>
-<p><strong><code>length()</code></strong> measures the number of <em>top-level elements</em> in an object — but what counts as a “top-level element” depends entirely on the structure:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(vector)      <span class="co"># number of individual values</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(list_obj)     <span class="co"># number of top-level list elements (as you saw last-but-one page)</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(data_frame)   <span class="co"># number of COLUMNS - because a data frame is a list of columns!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This last one is the trap the intern fell into: a data frame is, structurally, a special kind of list where each column is one element — so <code>length(participants)</code> returns <code>8</code> (the number of columns), not <code>100</code> (the number of rows). For row count, you need <code>nrow()</code> from the previous page, not <code>length()</code>.</p>
-<p><strong><code>names()</code></strong> retrieves (or sets) the labels attached to an object’s top-level elements:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(vector)       <span class="co"># element names, if any (as with named vectors)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(list_obj)      <span class="co"># the list's element names</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_frame)    <span class="co"># the column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="demonstration" class="level2" data-number="37.2">
-<h2 data-number="37.2" class="anchored" data-anchor-id="demonstration"><span class="header-section-number">37.2</span> Demonstration</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(participants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="the-r-concept" class="level2" data-number="37.1"><h2 data-number="37.1" class="anchored" data-anchor-id="the-r-concept">
+<span class="header-section-number">37.1</span> The R Concept</h2>
+<p><strong><code><a href="https://rdrr.io/r/base/length.html">length()</a></code></strong> measures the number of <em>top-level elements</em> in an object — but what counts as a “top-level element” depends entirely on the structure:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">vector</span><span class="op">)</span>      <span class="co"># number of individual values</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">list_obj</span><span class="op">)</span>     <span class="co"># number of top-level list elements (as you saw last-but-one page)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">data_frame</span><span class="op">)</span>   <span class="co"># number of COLUMNS - because a data frame is a list of columns!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This last one is the trap the intern fell into: a data frame is, structurally, a special kind of list where each column is one element — so <code>length(participants)</code> returns <code>8</code> (the number of columns), not <code>100</code> (the number of rows). For row count, you need <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> from the previous page, not <code><a href="https://rdrr.io/r/base/length.html">length()</a></code>.</p>
+<p><strong><code><a href="https://rdrr.io/r/base/names.html">names()</a></code></strong> retrieves (or sets) the labels attached to an object’s top-level elements:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">vector</span><span class="op">)</span>       <span class="co"># element names, if any (as with named vectors)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">list_obj</span><span class="op">)</span>      <span class="co"># the list's element names</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">data_frame</span><span class="op">)</span>    <span class="co"># the column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="demonstration" class="level2" data-number="37.2"><h2 data-number="37.2" class="anchored" data-anchor-id="demonstration">
+<span class="header-section-number">37.2</span> Demonstration</h2>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/participants.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">participants</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 8</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(participants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">participants</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 100</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(participants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">participants</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] "id"           "age"          "sex"          "county"       "systolic_bp"
 [6] "diastolic_bp" "bmi"          "smoker"</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># length() on the age COLUMN (a vector) behaves as expected</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(participants<span class="sc">$</span>age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># length() on the age COLUMN (a vector) behaves as expected</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">participants</span><span class="op">$</span><span class="va">age</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 100</code></pre>
-</section>
-<section id="explore" class="level2" data-number="37.3">
-<h2 data-number="37.3" class="anchored" data-anchor-id="explore"><span class="header-section-number">37.3</span> Explore</h2>
+</section><section id="explore" class="level2" data-number="37.3"><h2 data-number="37.3" class="anchored" data-anchor-id="explore">
+<span class="header-section-number">37.3</span> Explore</h2>
 <p>Run <code>length(participants$age)</code> versus <code>length(participants)</code> side by side, and notice they answer two genuinely different questions: “how many values are in this one column?” versus “how many columns does this whole data frame have?” Then try <code>names(participants$age)</code> — since <code>age</code> is a plain, unnamed vector, what do you think this returns?</p>
-</section>
-<section id="solve-the-problem" class="level2" data-number="37.4">
-<h2 data-number="37.4" class="anchored" data-anchor-id="solve-the-problem"><span class="header-section-number">37.4</span> Solve the Problem</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What the intern actually needed:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(participants)    <span class="co"># 100 - the number of rows (participants)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="solve-the-problem" class="level2" data-number="37.4"><h2 data-number="37.4" class="anchored" data-anchor-id="solve-the-problem">
+<span class="header-section-number">37.4</span> Solve the Problem</h2>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># What the intern actually needed:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">participants</span><span class="op">)</span>    <span class="co"># 100 - the number of rows (participants)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 100</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What length() actually measured:</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(participants)  <span class="co"># 8 - the number of columns (variables)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># What length() actually measured:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">participants</span><span class="op">)</span>  <span class="co"># 8 - the number of columns (variables)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] 8</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(participants)   <span class="co"># the 8 column names, confirming what's being counted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">participants</span><span class="op">)</span>   <span class="co"># the 8 column names, confirming what's being counted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <pre><code>[1] "id"           "age"          "sex"          "county"       "systolic_bp"
 [6] "diastolic_bp" "bmi"          "smoker"</code></pre>
-<p>You can now explain it clearly to the intern: “<code>length()</code> on a data frame counts columns, not rows, because a data frame is really a list where each column is one element. For row count, always reach for <code>nrow()</code> instead.”</p>
-</section>
-<section id="interpret-the-result" class="level2" data-number="37.5">
-<h2 data-number="37.5" class="anchored" data-anchor-id="interpret-the-result"><span class="header-section-number">37.5</span> Interpret the Result</h2>
-<p>The dataset genuinely does have 100 participants (rows) and 8 variables (columns) — both facts are true at once, and <code>length()</code> and <code>nrow()</code> simply answer different questions about the same object. Neither function is “wrong”; the intern’s surprise came from expecting <code>length()</code> to answer a question it was never built to answer for a two-dimensional structure.</p>
+<p>You can now explain it clearly to the intern: “<code><a href="https://rdrr.io/r/base/length.html">length()</a></code> on a data frame counts columns, not rows, because a data frame is really a list where each column is one element. For row count, always reach for <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> instead.”</p>
+</section><section id="interpret-the-result" class="level2" data-number="37.5"><h2 data-number="37.5" class="anchored" data-anchor-id="interpret-the-result">
+<span class="header-section-number">37.5</span> Interpret the Result</h2>
+<p>The dataset genuinely does have 100 participants (rows) and 8 variables (columns) — both facts are true at once, and <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> simply answer different questions about the same object. Neither function is “wrong”; the intern’s surprise came from expecting <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> to answer a question it was never built to answer for a two-dimensional structure.</p>
 <div class="pbl-box pbl-mistake">
 <p><strong>Common Mistakes</strong></p>
 <ul>
-<li><strong>Using <code>length()</code> when you mean <code>nrow()</code>.</strong> This is, by far, the single most common version of this mistake in real R code — always reach for <code>nrow()</code> for row counts on a data frame, and reserve <code>length()</code> for vectors, lists, or explicitly checking a data frame’s column count.</li>
-<li><strong>Forgetting a data frame is structurally a list.</strong> This single fact explains both why <code>length(df)</code> counts columns and why <code>df$column</code> and list-style <code>[[ ]]</code> access work identically on data frames — they share the same underlying structure.</li>
-<li><strong>Assuming <code>names()</code> always returns column names.</strong> On a plain, unnamed vector (like <code>participants$age</code>), <code>names()</code> returns <code>NULL</code> — there’s nothing to name individual elements of an ordinary numeric column.</li>
+<li>
+<strong>Using <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> when you mean <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>.</strong> This is, by far, the single most common version of this mistake in real R code — always reach for <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> for row counts on a data frame, and reserve <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> for vectors, lists, or explicitly checking a data frame’s column count.</li>
+<li>
+<strong>Forgetting a data frame is structurally a list.</strong> This single fact explains both why <code>length(df)</code> counts columns and why <code>df$column</code> and list-style <code>[[ ]]</code> access work identically on data frames — they share the same underlying structure.</li>
+<li>
+<strong>Assuming <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> always returns column names.</strong> On a plain, unnamed vector (like <code>participants$age</code>), <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> returns <code>NULL</code> — there’s nothing to name individual elements of an ordinary numeric column.</li>
 </ul>
 </div>
-</section>
-<section id="practice-problem" class="level2" data-number="37.6">
-<h2 data-number="37.6" class="anchored" data-anchor-id="practice-problem"><span class="header-section-number">37.6</span> Practice Problem</h2>
-<p>Confirm, using <code>length()</code> and <code>nrow()</code> together in the same check (with <code>&amp;</code>, as in the dimensions page), that <code>participants</code> still has 8 columns and more than 90 rows.</p>
-</section>
-<section id="challenge-problem" class="level2" data-number="37.7">
-<h2 data-number="37.7" class="anchored" data-anchor-id="challenge-problem"><span class="header-section-number">37.7</span> Challenge Problem</h2>
+</section><section id="practice-problem" class="level2" data-number="37.6"><h2 data-number="37.6" class="anchored" data-anchor-id="practice-problem">
+<span class="header-section-number">37.6</span> Practice Problem</h2>
+<p>Confirm, using <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> and <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> together in the same check (with <code>&amp;</code>, as in the dimensions page), that <code>participants</code> still has 8 columns and more than 90 rows.</p>
+</section><section id="challenge-problem" class="level2" data-number="37.7"><h2 data-number="37.7" class="anchored" data-anchor-id="challenge-problem">
+<span class="header-section-number">37.7</span> Challenge Problem</h2>
 <p>Build a list <code>patient &lt;- list(id = 1, age = 45, vitals = c(120, 80))</code>. Predict, before running any code, what <code>length(patient)</code> will return, and separately what <code>length(patient$vitals)</code> will return — explain why these two numbers are different even though both trace back to the same object.</p>
-</section>
-<section id="key-takeaways" class="level2" data-number="37.8">
-<h2 data-number="37.8" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">37.8</span> Key Takeaways</h2>
+</section><section id="key-takeaways" class="level2" data-number="37.8"><h2 data-number="37.8" class="anchored" data-anchor-id="key-takeaways">
+<span class="header-section-number">37.8</span> Key Takeaways</h2>
 <ul>
-<li><code>length()</code> counts top-level elements — for a plain vector, that’s individual values; for a data frame (structurally a list of columns), that’s the number of <em>columns</em>, not rows.</li>
-<li>For row counts on a data frame, always use <code>nrow()</code>, not <code>length()</code>.</li>
-<li><code>names()</code> retrieves the labels on a vector’s elements, a list’s elements, or a data frame’s columns — what it returns depends on what labels actually exist on that particular object.</li>
-</ul>
-</section>
-<section id="where-youve-arrived" class="level2" data-number="37.9">
-<h2 data-number="37.9" class="anchored" data-anchor-id="where-youve-arrived"><span class="header-section-number">37.9</span> Where you’ve arrived</h2>
-<p>You started this level holding one value at a time. You can now build and index vectors every which way, convert messy categories into properly ordered factors, construct and slice data frames by row and column, work with matrices and lists, understand tibbles as data frames with extra guardrails, and — on this very last page — correctly distinguish what <code>length()</code> actually measures on different kinds of objects, instead of falling into the same trap the intern did.</p>
+<li>
+<code><a href="https://rdrr.io/r/base/length.html">length()</a></code> counts top-level elements — for a plain vector, that’s individual values; for a data frame (structurally a list of columns), that’s the number of <em>columns</em>, not rows.</li>
+<li>For row counts on a data frame, always use <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>, not <code><a href="https://rdrr.io/r/base/length.html">length()</a></code>.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/names.html">names()</a></code> retrieves the labels on a vector’s elements, a list’s elements, or a data frame’s columns — what it returns depends on what labels actually exist on that particular object.</li>
+</ul></section><section id="where-youve-arrived" class="level2" data-number="37.9"><h2 data-number="37.9" class="anchored" data-anchor-id="where-youve-arrived">
+<span class="header-section-number">37.9</span> Where you’ve arrived</h2>
+<p>You started this level holding one value at a time. You can now build and index vectors every which way, convert messy categories into properly ordered factors, construct and slice data frames by row and column, work with matrices and lists, understand tibbles as data frames with extra guardrails, and — on this very last page — correctly distinguish what <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> actually measures on different kinds of objects, instead of falling into the same trap the intern did.</p>
 <p>Level 3 picks up from here with the other side of this same coin: getting real, messy files <em>into</em> R reliably in the first place — CSV, Excel, and <code>.rds</code> files, project-relative paths, and the sanity checks you’d run on a dataset the moment it lands in your session.</p>
 <div class="pbl-box pbl-check">
 <p><strong>Knowledge Check</strong></p>
 <ol type="1">
-<li><p><strong>Multiple choice.</strong> What does <code>length(participants)</code> return, if <code>participants</code> has 100 rows and 8 columns?</p>
+<li>
+<p><strong>Multiple choice.</strong> What does <code>length(participants)</code> return, if <code>participants</code> has 100 rows and 8 columns?</p>
 <ol type="a">
 <li><code>100</code></li>
 <li><code>8</code></li>
 <li><code>800</code></li>
 <li><code>NULL</code></li>
-</ol></li>
+</ol>
+</li>
 <li><p><strong>True or false.</strong> A data frame is, structurally, a special kind of list where each column is one element.</p></li>
-<li><p><strong>Predict the output.</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">b =</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">c =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">15</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p><strong>Find the error.</strong> A student wants to confirm their cleaned dataset still has 250 rows and writes:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">length</span>(cleaned_data) <span class="sc">==</span> <span class="dv">250</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>but the check fails unexpectedly even though the data looks correct.</p></li>
+<li>
+<p><strong>Predict the output.</strong></p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, b <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">10</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">15</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</li>
+<li>
+<p><strong>Find the error.</strong> A student wants to confirm their cleaned dataset still has 250 rows and writes:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">cleaned_data</span><span class="op">)</span> <span class="op">==</span> <span class="fl">250</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>but the check fails unexpectedly even though the data looks correct.</p>
+</li>
 </ol>
-<details class="pbl-answer">
-<summary>
+<details class="pbl-answer"><summary>
 Show answers
-</summary>
-<ol type="1">
-<li><strong>b)</strong> <code>8</code> — <code>length()</code> on a data frame counts columns, not rows.</li>
-<li><strong>True.</strong> This is exactly why <code>length()</code> behaves the way it does on data frames, and why <code>$</code> and list-style indexing both work on them.</li>
-<li><code>[1] 3</code> — three columns (<code>a</code>, <code>b</code>, <code>c</code>), regardless of how many rows each contains.</li>
-<li>The student used <code>length()</code> (which counts columns) when they meant <code>nrow()</code> (which counts rows) — the fix is <code>stopifnot(nrow(cleaned_data) == 250)</code>.</li>
-</ol>
-</details>
+</summary><ol type="1">
+<li>
+<strong>b)</strong> <code>8</code> — <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> on a data frame counts columns, not rows.</li>
+<li>
+<strong>True.</strong> This is exactly why <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> behaves the way it does on data frames, and why <code>$</code> and list-style indexing both work on them.</li>
+<li>
+<code>[1] 3</code> — three columns (<code>a</code>, <code>b</code>, <code>c</code>), regardless of how many rows each contains.</li>
+<li>The student used <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> (which counts columns) when they meant <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> (which counts rows) — the fix is <code>stopifnot(nrow(cleaned_data) == 250)</code>.</li>
+</ol></details>
 </div>
 
 
 <!-- -->
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2056,12 +2264,10 @@ Show answers
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../02-data-structures/16-dimensions.html" class="pagination-link" aria-label="Checking Dimensions: `nrow()`, `ncol()`, `dim()`">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code>nrow()</code>, <code>ncol()</code>, <code>dim()</code></span></span>
-      </a>          
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Checking Dimensions: <code></code></span></span></a><code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>, <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code>, <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>
+                
   </div>
   <div class="nav-page nav-page-next">
       <a href="../03-data-import/00-overview.html" class="pagination-link" aria-label="Level 3 — Data Import and Export">
@@ -2094,164 +2300,173 @@ Show answers
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>**`length()`** measures the number of *top-level elements* in an object — but what counts as a "top-level element" depends entirely on the structure:</span>
 <span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(vector)      <span class="co"># number of individual values</span></span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(list_obj)     <span class="co"># number of top-level list elements (as you saw last-but-one page)</span></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(data_frame)   <span class="co"># number of COLUMNS - because a data frame is a list of columns!</span></span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>This last one is the trap the intern fell into: a data frame is, structurally, a special kind of list where each column is one element — so <span class="in">`length(participants)`</span> returns <span class="in">`8`</span> (the number of columns), not <span class="in">`100`</span> (the number of rows). For row count, you need <span class="in">`nrow()`</span> from the previous page, not <span class="in">`length()`</span>.</span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>**`names()`** retrieves (or sets) the labels attached to an object's top-level elements:</span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(vector)       <span class="co"># element names, if any (as with named vectors)</span></span>
-<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(list_obj)      <span class="co"># the list's element names</span></span>
-<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_frame)    <span class="co"># the column names</span></span>
-<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
-<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
-<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(participants)</span>
-<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(vector)      <span class="co"># number of individual values</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(list_obj)     <span class="co"># number of top-level list elements (as you saw last-but-one page)</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(data_frame)   <span class="co"># number of COLUMNS - because a data frame is a list of columns!</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>This last one is the trap the intern fell into: a data frame is, structurally, a special kind of list where each column is one element — so <span class="in">`length(participants)`</span> returns <span class="in">`8`</span> (the number of columns), not <span class="in">`100`</span> (the number of rows). For row count, you need <span class="in">`nrow()`</span> from the previous page, not <span class="in">`length()`</span>.</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>**`names()`** retrieves (or sets) the labels attached to an object's top-level elements:</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(vector)       <span class="co"># element names, if any (as with named vectors)</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(list_obj)      <span class="co"># the list's element names</span></span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_frame)    <span class="co"># the column names</span></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Demonstration</span></span>
 <span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 8</span></span>
-<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(participants)</span>
-<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 100</span></span>
-<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(participants)</span>
-<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a><span class="in">[1] "id"           "age"          "sex"          "county"       "systolic_bp"</span></span>
-<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a><span class="in">[6] "diastolic_bp" "bmi"          "smoker"</span></span>
-<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a><span class="co"># length() on the age COLUMN (a vector) behaves as expected</span></span>
-<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(participants<span class="sc">$</span>age)</span>
-<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 100</span></span>
-<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
-<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`length(participants$age)`</span> versus <span class="in">`length(participants)`</span> side by side, and notice they answer two genuinely different questions: "how many values are in this one column?" versus "how many columns does this whole data frame have?" Then try <span class="in">`names(participants$age)`</span> — since <span class="in">`age`</span> is a plain, unnamed vector, what do you think this returns?</span>
-<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/participants.csv"</span>)</span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(participants)</span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 8</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(participants)</span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 100</span></span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(participants)</span>
+<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a><span class="in">[1] "id"           "age"          "sex"          "county"       "systolic_bp"</span></span>
+<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a><span class="in">[6] "diastolic_bp" "bmi"          "smoker"</span></span>
+<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a><span class="co"># What the intern actually needed:</span></span>
-<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(participants)    <span class="co"># 100 - the number of rows (participants)</span></span>
-<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 100</span></span>
-<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-95"><a href="#cb19-95" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb19-96"><a href="#cb19-96" aria-hidden="true" tabindex="-1"></a><span class="co"># What length() actually measured:</span></span>
-<span id="cb19-97"><a href="#cb19-97" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(participants)  <span class="co"># 8 - the number of columns (variables)</span></span>
-<span id="cb19-98"><a href="#cb19-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a><span class="co"># length() on the age COLUMN (a vector) behaves as expected</span></span>
+<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(participants<span class="sc">$</span>age)</span>
+<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-95"><a href="#cb19-95" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 100</span></span>
+<span id="cb19-96"><a href="#cb19-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-97"><a href="#cb19-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-98"><a href="#cb19-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## Explore</span></span>
 <span id="cb19-99"><a href="#cb19-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-100"><a href="#cb19-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-101"><a href="#cb19-101" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 8</span></span>
-<span id="cb19-102"><a href="#cb19-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-100"><a href="#cb19-100" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`length(participants$age)`</span> versus <span class="in">`length(participants)`</span> side by side, and notice they answer two genuinely different questions: "how many values are in this one column?" versus "how many columns does this whole data frame have?" Then try <span class="in">`names(participants$age)`</span> — since <span class="in">`age`</span> is a plain, unnamed vector, what do you think this returns?</span>
+<span id="cb19-101"><a href="#cb19-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-102"><a href="#cb19-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## Solve the Problem</span></span>
 <span id="cb19-103"><a href="#cb19-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-104"><a href="#cb19-104" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb19-105"><a href="#cb19-105" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(participants)   <span class="co"># the 8 column names, confirming what's being counted</span></span>
-<span id="cb19-106"><a href="#cb19-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-108"><a href="#cb19-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-109"><a href="#cb19-109" aria-hidden="true" tabindex="-1"></a><span class="in">[1] "id"           "age"          "sex"          "county"       "systolic_bp"</span></span>
-<span id="cb19-110"><a href="#cb19-110" aria-hidden="true" tabindex="-1"></a><span class="in">[6] "diastolic_bp" "bmi"          "smoker"</span></span>
-<span id="cb19-111"><a href="#cb19-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-112"><a href="#cb19-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-113"><a href="#cb19-113" aria-hidden="true" tabindex="-1"></a>You can now explain it clearly to the intern: "<span class="in">`length()`</span> on a data frame counts columns, not rows, because a data frame is really a list where each column is one element. For row count, always reach for <span class="in">`nrow()`</span> instead."</span>
-<span id="cb19-114"><a href="#cb19-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-115"><a href="#cb19-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
-<span id="cb19-116"><a href="#cb19-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-117"><a href="#cb19-117" aria-hidden="true" tabindex="-1"></a>The dataset genuinely does have 100 participants (rows) and 8 variables (columns) — both facts are true at once, and <span class="in">`length()`</span> and <span class="in">`nrow()`</span> simply answer different questions about the same object. Neither function is "wrong"; the intern's surprise came from expecting <span class="in">`length()`</span> to answer a question it was never built to answer for a two-dimensional structure.</span>
-<span id="cb19-118"><a href="#cb19-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-119"><a href="#cb19-119" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
-<span id="cb19-120"><a href="#cb19-120" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
-<span id="cb19-121"><a href="#cb19-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-122"><a href="#cb19-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Using `length()` when you mean `nrow()`.** This is, by far, the single most common version of this mistake in real R code — always reach for <span class="in">`nrow()`</span> for row counts on a data frame, and reserve <span class="in">`length()`</span> for vectors, lists, or explicitly checking a data frame's column count.</span>
-<span id="cb19-123"><a href="#cb19-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Forgetting a data frame is structurally a list.** This single fact explains both why <span class="in">`length(df)`</span> counts columns and why <span class="in">`df$column`</span> and list-style <span class="in">`[[ ]]`</span> access work identically on data frames — they share the same underlying structure.</span>
-<span id="cb19-124"><a href="#cb19-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Assuming `names()` always returns column names.** On a plain, unnamed vector (like <span class="in">`participants$age`</span>), <span class="in">`names()`</span> returns <span class="in">`NULL`</span> — there's nothing to name individual elements of an ordinary numeric column.</span>
-<span id="cb19-125"><a href="#cb19-125" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb19-126"><a href="#cb19-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-127"><a href="#cb19-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
-<span id="cb19-128"><a href="#cb19-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-129"><a href="#cb19-129" aria-hidden="true" tabindex="-1"></a>Confirm, using <span class="in">`length()`</span> and <span class="in">`nrow()`</span> together in the same check (with <span class="in">`&amp;`</span>, as in the dimensions page), that <span class="in">`participants`</span> still has 8 columns and more than 90 rows.</span>
-<span id="cb19-130"><a href="#cb19-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-131"><a href="#cb19-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
-<span id="cb19-132"><a href="#cb19-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-133"><a href="#cb19-133" aria-hidden="true" tabindex="-1"></a>Build a list <span class="in">`patient &lt;- list(id = 1, age = 45, vitals = c(120, 80))`</span>. Predict, before running any code, what <span class="in">`length(patient)`</span> will return, and separately what <span class="in">`length(patient$vitals)`</span> will return — explain why these two numbers are different even though both trace back to the same object.</span>
+<span id="cb19-106"><a href="#cb19-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-108"><a href="#cb19-108" aria-hidden="true" tabindex="-1"></a><span class="co"># What the intern actually needed:</span></span>
+<span id="cb19-109"><a href="#cb19-109" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(participants)    <span class="co"># 100 - the number of rows (participants)</span></span>
+<span id="cb19-110"><a href="#cb19-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-111"><a href="#cb19-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-112"><a href="#cb19-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-113"><a href="#cb19-113" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 100</span></span>
+<span id="cb19-114"><a href="#cb19-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-115"><a href="#cb19-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-118"><a href="#cb19-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-119"><a href="#cb19-119" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-120"><a href="#cb19-120" aria-hidden="true" tabindex="-1"></a><span class="co"># What length() actually measured:</span></span>
+<span id="cb19-121"><a href="#cb19-121" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(participants)  <span class="co"># 8 - the number of columns (variables)</span></span>
+<span id="cb19-122"><a href="#cb19-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-123"><a href="#cb19-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-124"><a href="#cb19-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-125"><a href="#cb19-125" aria-hidden="true" tabindex="-1"></a><span class="in">[1] 8</span></span>
+<span id="cb19-126"><a href="#cb19-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-127"><a href="#cb19-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-130"><a href="#cb19-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-131"><a href="#cb19-131" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-132"><a href="#cb19-132" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(participants)   <span class="co"># the 8 column names, confirming what's being counted</span></span>
+<span id="cb19-133"><a href="#cb19-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb19-134"><a href="#cb19-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-135"><a href="#cb19-135" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
-<span id="cb19-136"><a href="#cb19-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-137"><a href="#cb19-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`length()`</span> counts top-level elements — for a plain vector, that's individual values; for a data frame (structurally a list of columns), that's the number of *columns*, not rows.</span>
-<span id="cb19-138"><a href="#cb19-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For row counts on a data frame, always use <span class="in">`nrow()`</span>, not <span class="in">`length()`</span>.</span>
-<span id="cb19-139"><a href="#cb19-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`names()`</span> retrieves the labels on a vector's elements, a list's elements, or a data frame's columns — what it returns depends on what labels actually exist on that particular object.</span>
-<span id="cb19-140"><a href="#cb19-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-141"><a href="#cb19-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where you've arrived</span></span>
-<span id="cb19-142"><a href="#cb19-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-143"><a href="#cb19-143" aria-hidden="true" tabindex="-1"></a>You started this level holding one value at a time. You can now build and index vectors every which way, convert messy categories into properly ordered factors, construct and slice data frames by row and column, work with matrices and lists, understand tibbles as data frames with extra guardrails, and — on this very last page — correctly distinguish what <span class="in">`length()`</span> actually measures on different kinds of objects, instead of falling into the same trap the intern did.</span>
-<span id="cb19-144"><a href="#cb19-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-145"><a href="#cb19-145" aria-hidden="true" tabindex="-1"></a>Level 3 picks up from here with the other side of this same coin: getting real, messy files *into* R reliably in the first place — CSV, Excel, and <span class="in">`.rds`</span> files, project-relative paths, and the sanity checks you'd run on a dataset the moment it lands in your session.</span>
-<span id="cb19-146"><a href="#cb19-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-147"><a href="#cb19-147" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
-<span id="cb19-148"><a href="#cb19-148" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
-<span id="cb19-149"><a href="#cb19-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-150"><a href="#cb19-150" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** What does <span class="in">`length(participants)`</span> return, if <span class="in">`participants`</span> has 100 rows and 8 columns?</span>
-<span id="cb19-151"><a href="#cb19-151" aria-hidden="true" tabindex="-1"></a>   a) <span class="in">`100`</span></span>
-<span id="cb19-152"><a href="#cb19-152" aria-hidden="true" tabindex="-1"></a>   b) <span class="in">`8`</span></span>
-<span id="cb19-153"><a href="#cb19-153" aria-hidden="true" tabindex="-1"></a>   c) <span class="in">`800`</span></span>
-<span id="cb19-154"><a href="#cb19-154" aria-hidden="true" tabindex="-1"></a>   d) <span class="in">`NULL`</span></span>
+<span id="cb19-135"><a href="#cb19-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-136"><a href="#cb19-136" aria-hidden="true" tabindex="-1"></a><span class="in">[1] "id"           "age"          "sex"          "county"       "systolic_bp"</span></span>
+<span id="cb19-137"><a href="#cb19-137" aria-hidden="true" tabindex="-1"></a><span class="in">[6] "diastolic_bp" "bmi"          "smoker"</span></span>
+<span id="cb19-138"><a href="#cb19-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-139"><a href="#cb19-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-140"><a href="#cb19-140" aria-hidden="true" tabindex="-1"></a>You can now explain it clearly to the intern: "<span class="in">`length()`</span> on a data frame counts columns, not rows, because a data frame is really a list where each column is one element. For row count, always reach for <span class="in">`nrow()`</span> instead."</span>
+<span id="cb19-141"><a href="#cb19-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-142"><a href="#cb19-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpret the Result</span></span>
+<span id="cb19-143"><a href="#cb19-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-144"><a href="#cb19-144" aria-hidden="true" tabindex="-1"></a>The dataset genuinely does have 100 participants (rows) and 8 variables (columns) — both facts are true at once, and <span class="in">`length()`</span> and <span class="in">`nrow()`</span> simply answer different questions about the same object. Neither function is "wrong"; the intern's surprise came from expecting <span class="in">`length()`</span> to answer a question it was never built to answer for a two-dimensional structure.</span>
+<span id="cb19-145"><a href="#cb19-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-146"><a href="#cb19-146" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-mistake}</span>
+<span id="cb19-147"><a href="#cb19-147" aria-hidden="true" tabindex="-1"></a>**Common Mistakes**</span>
+<span id="cb19-148"><a href="#cb19-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-149"><a href="#cb19-149" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Using `length()` when you mean `nrow()`.** This is, by far, the single most common version of this mistake in real R code — always reach for <span class="in">`nrow()`</span> for row counts on a data frame, and reserve <span class="in">`length()`</span> for vectors, lists, or explicitly checking a data frame's column count.</span>
+<span id="cb19-150"><a href="#cb19-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Forgetting a data frame is structurally a list.** This single fact explains both why <span class="in">`length(df)`</span> counts columns and why <span class="in">`df$column`</span> and list-style <span class="in">`[[ ]]`</span> access work identically on data frames — they share the same underlying structure.</span>
+<span id="cb19-151"><a href="#cb19-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Assuming `names()` always returns column names.** On a plain, unnamed vector (like <span class="in">`participants$age`</span>), <span class="in">`names()`</span> returns <span class="in">`NULL`</span> — there's nothing to name individual elements of an ordinary numeric column.</span>
+<span id="cb19-152"><a href="#cb19-152" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-153"><a href="#cb19-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-154"><a href="#cb19-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practice Problem</span></span>
 <span id="cb19-155"><a href="#cb19-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-156"><a href="#cb19-156" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** A data frame is, structurally, a special kind of list where each column is one element.</span>
+<span id="cb19-156"><a href="#cb19-156" aria-hidden="true" tabindex="-1"></a>Confirm, using <span class="in">`length()`</span> and <span class="in">`nrow()`</span> together in the same check (with <span class="in">`&amp;`</span>, as in the dimensions page), that <span class="in">`participants`</span> still has 8 columns and more than 90 rows.</span>
 <span id="cb19-157"><a href="#cb19-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-158"><a href="#cb19-158" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.**</span>
-<span id="cb19-159"><a href="#cb19-159" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
-<span id="cb19-160"><a href="#cb19-160" aria-hidden="true" tabindex="-1"></a>   df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">b =</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">c =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">15</span>)</span>
-<span id="cb19-161"><a href="#cb19-161" aria-hidden="true" tabindex="-1"></a>   <span class="fu">length</span>(df)</span>
-<span id="cb19-162"><a href="#cb19-162" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb19-158"><a href="#cb19-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## Challenge Problem</span></span>
+<span id="cb19-159"><a href="#cb19-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-160"><a href="#cb19-160" aria-hidden="true" tabindex="-1"></a>Build a list <span class="in">`patient &lt;- list(id = 1, age = 45, vitals = c(120, 80))`</span>. Predict, before running any code, what <span class="in">`length(patient)`</span> will return, and separately what <span class="in">`length(patient$vitals)`</span> will return — explain why these two numbers are different even though both trace back to the same object.</span>
+<span id="cb19-161"><a href="#cb19-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-162"><a href="#cb19-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
 <span id="cb19-163"><a href="#cb19-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-164"><a href="#cb19-164" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Find the error.** A student wants to confirm their cleaned dataset still has 250 rows and writes:</span>
-<span id="cb19-165"><a href="#cb19-165" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
-<span id="cb19-166"><a href="#cb19-166" aria-hidden="true" tabindex="-1"></a>   <span class="fu">stopifnot</span>(<span class="fu">length</span>(cleaned_data) <span class="sc">==</span> <span class="dv">250</span>)</span>
-<span id="cb19-167"><a href="#cb19-167" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
-<span id="cb19-168"><a href="#cb19-168" aria-hidden="true" tabindex="-1"></a>   but the check fails unexpectedly even though the data looks correct.</span>
+<span id="cb19-164"><a href="#cb19-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`length()`</span> counts top-level elements — for a plain vector, that's individual values; for a data frame (structurally a list of columns), that's the number of *columns*, not rows.</span>
+<span id="cb19-165"><a href="#cb19-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For row counts on a data frame, always use <span class="in">`nrow()`</span>, not <span class="in">`length()`</span>.</span>
+<span id="cb19-166"><a href="#cb19-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`names()`</span> retrieves the labels on a vector's elements, a list's elements, or a data frame's columns — what it returns depends on what labels actually exist on that particular object.</span>
+<span id="cb19-167"><a href="#cb19-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-168"><a href="#cb19-168" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where you've arrived</span></span>
 <span id="cb19-169"><a href="#cb19-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-170"><a href="#cb19-170" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
-<span id="cb19-171"><a href="#cb19-171" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
-<span id="cb19-172"><a href="#cb19-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-173"><a href="#cb19-173" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**b)** <span class="in">`8`</span> — <span class="in">`length()`</span> on a data frame counts columns, not rows.</span>
-<span id="cb19-174"><a href="#cb19-174" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True.** This is exactly why <span class="in">`length()`</span> behaves the way it does on data frames, and why <span class="in">`$`</span> and list-style indexing both work on them.</span>
-<span id="cb19-175"><a href="#cb19-175" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="in">`[1] 3`</span> — three columns (<span class="in">`a`</span>, <span class="in">`b`</span>, <span class="in">`c`</span>), regardless of how many rows each contains.</span>
-<span id="cb19-176"><a href="#cb19-176" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>The student used <span class="in">`length()`</span> (which counts columns) when they meant <span class="in">`nrow()`</span> (which counts rows) — the fix is <span class="in">`stopifnot(nrow(cleaned_data) == 250)`</span>.</span>
-<span id="cb19-177"><a href="#cb19-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-178"><a href="#cb19-178" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
-<span id="cb19-179"><a href="#cb19-179" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb19-170"><a href="#cb19-170" aria-hidden="true" tabindex="-1"></a>You started this level holding one value at a time. You can now build and index vectors every which way, convert messy categories into properly ordered factors, construct and slice data frames by row and column, work with matrices and lists, understand tibbles as data frames with extra guardrails, and — on this very last page — correctly distinguish what <span class="in">`length()`</span> actually measures on different kinds of objects, instead of falling into the same trap the intern did.</span>
+<span id="cb19-171"><a href="#cb19-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-172"><a href="#cb19-172" aria-hidden="true" tabindex="-1"></a>Level 3 picks up from here with the other side of this same coin: getting real, messy files *into* R reliably in the first place — CSV, Excel, and <span class="in">`.rds`</span> files, project-relative paths, and the sanity checks you'd run on a dataset the moment it lands in your session.</span>
+<span id="cb19-173"><a href="#cb19-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-174"><a href="#cb19-174" aria-hidden="true" tabindex="-1"></a>::: {.pbl-box .pbl-check}</span>
+<span id="cb19-175"><a href="#cb19-175" aria-hidden="true" tabindex="-1"></a>**Knowledge Check**</span>
+<span id="cb19-176"><a href="#cb19-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-177"><a href="#cb19-177" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple choice.** What does <span class="in">`length(participants)`</span> return, if <span class="in">`participants`</span> has 100 rows and 8 columns?</span>
+<span id="cb19-178"><a href="#cb19-178" aria-hidden="true" tabindex="-1"></a>   a) <span class="in">`100`</span></span>
+<span id="cb19-179"><a href="#cb19-179" aria-hidden="true" tabindex="-1"></a>   b) <span class="in">`8`</span></span>
+<span id="cb19-180"><a href="#cb19-180" aria-hidden="true" tabindex="-1"></a>   c) <span class="in">`800`</span></span>
+<span id="cb19-181"><a href="#cb19-181" aria-hidden="true" tabindex="-1"></a>   d) <span class="in">`NULL`</span></span>
+<span id="cb19-182"><a href="#cb19-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-183"><a href="#cb19-183" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True or false.** A data frame is, structurally, a special kind of list where each column is one element.</span>
+<span id="cb19-184"><a href="#cb19-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-185"><a href="#cb19-185" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Predict the output.**</span>
+<span id="cb19-186"><a href="#cb19-186" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
+<span id="cb19-187"><a href="#cb19-187" aria-hidden="true" tabindex="-1"></a>   df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">b =</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">c =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">15</span>)</span>
+<span id="cb19-188"><a href="#cb19-188" aria-hidden="true" tabindex="-1"></a>   <span class="fu">length</span>(df)</span>
+<span id="cb19-189"><a href="#cb19-189" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb19-190"><a href="#cb19-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-191"><a href="#cb19-191" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Find the error.** A student wants to confirm their cleaned dataset still has 250 rows and writes:</span>
+<span id="cb19-192"><a href="#cb19-192" aria-hidden="true" tabindex="-1"></a>   <span class="in">```r</span></span>
+<span id="cb19-193"><a href="#cb19-193" aria-hidden="true" tabindex="-1"></a>   <span class="fu">stopifnot</span>(<span class="fu">length</span>(cleaned_data) <span class="sc">==</span> <span class="dv">250</span>)</span>
+<span id="cb19-194"><a href="#cb19-194" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb19-195"><a href="#cb19-195" aria-hidden="true" tabindex="-1"></a>   but the check fails unexpectedly even though the data looks correct.</span>
+<span id="cb19-196"><a href="#cb19-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-197"><a href="#cb19-197" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> class</span><span class="op">=</span><span class="st">"pbl-answer"</span><span class="dt">&gt;</span></span>
+<span id="cb19-198"><a href="#cb19-198" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Show answers<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb19-199"><a href="#cb19-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-200"><a href="#cb19-200" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**b)** <span class="in">`8`</span> — <span class="in">`length()`</span> on a data frame counts columns, not rows.</span>
+<span id="cb19-201"><a href="#cb19-201" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**True.** This is exactly why <span class="in">`length()`</span> behaves the way it does on data frames, and why <span class="in">`$`</span> and list-style indexing both work on them.</span>
+<span id="cb19-202"><a href="#cb19-202" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="in">`[1] 3`</span> — three columns (<span class="in">`a`</span>, <span class="in">`b`</span>, <span class="in">`c`</span>), regardless of how many rows each contains.</span>
+<span id="cb19-203"><a href="#cb19-203" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>The student used <span class="in">`length()`</span> (which counts columns) when they meant <span class="in">`nrow()`</span> (which counts rows) — the fix is <span class="in">`stopifnot(nrow(cleaned_data) == 250)`</span>.</span>
+<span id="cb19-204"><a href="#cb19-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-205"><a href="#cb19-205" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb19-206"><a href="#cb19-206" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>R for Public Health — a Problem-Based Learning course built with Quarto.</p>
 </div>   
@@ -2263,8 +2478,6 @@ Show answers
 </div>
   </div>
 </footer>
-
-
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>

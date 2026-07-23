@@ -23,13 +23,15 @@ Test whether a correlation coefficient is statistically significantly different 
 
 **`cor.test()`** tests whether a correlation coefficient is significantly different from zero, producing both a p-value and a confidence interval — exactly the same hypothesis-testing logic as the t-tests earlier in this level, applied to a correlation instead of a mean:
 
-```r
+```{r}
+#| eval: false
 cor.test(x, y)
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 cor.test(participants$bmi, participants$systolic_bp)
@@ -55,7 +57,8 @@ Notice the 95% confidence interval for the correlation (-0.044 to 0.357) **conta
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 bmi_bp_test <- cor.test(participants$bmi, participants$systolic_bp)
@@ -68,7 +71,8 @@ bmi_bp_test$p.value
 [1] 0.1223918
 ```
 
-```r
+```{r}
+#| eval: false
 sbp_dbp_test$p.value
 ```
 
@@ -76,7 +80,8 @@ sbp_dbp_test$p.value
 [1] 4.119909e-40
 ```
 
-```r
+```{r}
+#| eval: false
 sbp_dbp_test$estimate
 ```
 

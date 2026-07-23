@@ -23,11 +23,13 @@ Rename one or more columns directly, using `dplyr::rename()`.
 
 **`rename()`** renames columns with a direct `new_name = old_name` mapping — no `names()` indirection required:
 
-```r
+```{r}
+#| eval: false
 rename(df, new_name = old_name)
 ```
 
-```r
+```{r}
+#| eval: false
 rename(participants, sbp = systolic_bp, dbp = diastolic_bp)
 ```
 
@@ -35,7 +37,8 @@ Read the argument order carefully: it's **new name first, old name second** — 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -58,7 +61,8 @@ Try `rename(participants, participant_id = id)` and confirm with `names()` that 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -76,7 +80,8 @@ names(for_collaborator)
 [8] "smoker"
 ```
 
-```r
+```{r}
+#| eval: false
 head(for_collaborator[, c("sbp", "dbp")], 3)
 ```
 

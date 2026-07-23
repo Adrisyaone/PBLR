@@ -23,13 +23,15 @@ Understand when a `for` loop is genuinely necessary, and when R's vectorized ope
 
 R's arithmetic and comparison operators (`+`, `-`, `*`, `/`, `>=`, `==`, and more) are **vectorized** — they automatically apply to every element of a vector at once, internally implemented in fast, compiled code rather than R's slower loop interpreter:
 
-```r
+```{r}
+#| eval: false
 participants$pulse_pressure <- participants$systolic_bp - participants$diastolic_bp   # vectorized - no loop needed
 ```
 
 Writing an explicit `for` loop to do the exact same thing works, but is both slower and more verbose:
 
-```r
+```{r}
+#| eval: false
 pulse_pressure <- vector("numeric", nrow(participants))
 for (i in seq_len(nrow(participants))) {
   pulse_pressure[i] <- participants$systolic_bp[i] - participants$diastolic_bp[i]
@@ -40,7 +42,8 @@ The general rule: **if a calculation for one row never depends on another row's 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Vectorized - one line, no loop
@@ -67,7 +70,8 @@ Think back to Page 3's `while` loop question: "how many oldest participants must
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # This CAN be vectorized - each row's flag doesn't depend on any other row
@@ -79,7 +83,8 @@ sum(at_risk_vectorized, na.rm = TRUE)
 [1] 4
 ```
 
-```r
+```{r}
+#| eval: false
 # This CANNOT be simply vectorized - each step depends on the previous step's result
 ages <- sort(participants$age[!is.na(participants$age)], decreasing = TRUE)
 removed_count <- 0

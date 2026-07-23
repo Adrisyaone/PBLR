@@ -23,21 +23,25 @@ Filter one data frame based on whether its key matches another, without adding a
 
 **`semi_join()`** keeps only the rows of the first data frame that **have** a matching key in the second — but adds none of the second data frame's columns:
 
-```r
+```{r}
+#| eval: false
 semi_join(df1, df2, by = "key_column")
 ```
 
-```r
+```{r}
+#| eval: false
 semi_join(baseline, followup, by = "id")
 ```
 
 **`anti_join()`** does the opposite: it keeps only the rows of the first data frame that **do not** have a matching key in the second — again, adding no new columns:
 
-```r
+```{r}
+#| eval: false
 anti_join(df1, df2, by = "key_column")
 ```
 
-```r
+```{r}
+#| eval: false
 anti_join(baseline, followup, by = "id")
 ```
 
@@ -45,7 +49,8 @@ Both are **filtering joins** — unlike `left_join()`/`inner_join()`/`right_join
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 baseline <- read.csv("data/baseline_enrollment.csv")
@@ -60,7 +65,8 @@ nrow(has_followup)
 [1] 15
 ```
 
-```r
+```{r}
+#| eval: false
 names(has_followup)
 ```
 
@@ -70,7 +76,8 @@ names(has_followup)
 
 15 rows — the participants with a follow-up match — but notice: only `baseline`'s own 5 columns, with nothing from `followup` attached (unlike `inner_join()`, which would have added `followup_sbp` and `followup_smoker` too).
 
-```r
+```{r}
+#| eval: false
 lost_to_followup <- anti_join(baseline, followup, by = "id")
 
 lost_to_followup$id
@@ -86,7 +93,8 @@ Try `anti_join(followup, baseline, by = "id")` — reversing which file is first
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 baseline <- read.csv("data/baseline_enrollment.csv")
@@ -107,7 +115,8 @@ lost_to_followup[, c("id", "county", "age")]
 20 20     Oakford  55
 ```
 
-```r
+```{r}
+#| eval: false
 new_recruits$id
 ```
 

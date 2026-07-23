@@ -23,7 +23,8 @@ Visualize the distribution of a numeric variable using `geom_histogram()` and `g
 
 **`geom_histogram()`** divides a numeric variable into bins and counts how many observations fall into each — visually, like `geom_bar()` but for continuous rather than categorical data:
 
-```r
+```{r}
+#| eval: false
 ggplot(data = df, aes(x = numeric_column)) +
   geom_histogram(binwidth = 10)
 ```
@@ -32,14 +33,16 @@ ggplot(data = df, aes(x = numeric_column)) +
 
 **`geom_density()`** shows the same kind of information as a smoothed curve instead of discrete bars — useful for seeing the overall shape without committing to a specific bin width:
 
-```r
+```{r}
+#| eval: false
 ggplot(data = df, aes(x = numeric_column)) +
   geom_density()
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")
@@ -56,7 +59,8 @@ Try the same plot with `binwidth = 5` instead of `10`. Finer bins reveal more de
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")
@@ -67,7 +71,8 @@ age_histogram <- ggplot(data = participants, mapping = aes(x = age)) +
 age_histogram
 ```
 
-```r
+```{r}
+#| eval: false
 age_density <- ggplot(data = participants, mapping = aes(x = age)) +
   geom_density()
 

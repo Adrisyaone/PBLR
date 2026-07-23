@@ -23,7 +23,8 @@ Rename one or more columns in a data frame without touching any of the data itse
 
 `names(df)` (Level 2) can be assigned to directly, and — combined with logical or position-based indexing — you can rename specific columns without disturbing any others:
 
-```r
+```{r}
+#| eval: false
 names(df)[names(df) == "old_name"] <- "new_name"
 ```
 
@@ -31,13 +32,15 @@ Read this carefully: `names(df) == "old_name"` produces a logical vector, `TRUE`
 
 For renaming several columns at once, you can also assign a full replacement vector for `names()`, or rename by *position* if you know exactly which column index you need:
 
-```r
+```{r}
+#| eval: false
 names(df)[5] <- "sbp"   # rename the 5th column specifically, by position
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 names(participants)
@@ -48,7 +51,8 @@ names(participants)
 [6] "diastolic_bp" "bmi"          "smoker"
 ```
 
-```r
+```{r}
+#| eval: false
 names(participants)[names(participants) == "systolic_bp"] <- "sbp"
 names(participants)[names(participants) == "diastolic_bp"] <- "dbp"
 
@@ -59,7 +63,8 @@ names(participants)
 [1] "id"     "age"    "sex"    "county" "sbp"    "dbp"    "bmi"    "smoker"
 ```
 
-```r
+```{r}
+#| eval: false
 # The data itself is completely unchanged - only the column labels
 head(participants$sbp)
 ```
@@ -74,7 +79,8 @@ Try renaming by position instead: `names(participants)[5] <- "systolic_bp_rename
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 names(participants)[names(participants) == "systolic_bp"] <- "sbp"

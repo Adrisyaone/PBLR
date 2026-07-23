@@ -1,0 +1,147 @@
+# Debugging Tools {#sec-debugging-tools}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Page 4's `tryCatch()` catches an error gracefully once you already know roughly what's wrong. But sometimes a function produces a wrong (not even an error-raising) result, and you genuinely don't know *why* — the bug is silent. Your professor asks: before you can fix a bug, how do you actually find where, inside a function, things start going wrong?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Use R's built-in debugging tools to pause execution inside a running function and inspect its variables at the exact moment something goes wrong.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If a function gives a wrong answer but doesn't raise an error, would `tryCatch()` (Page 4) help you find the bug at all?
+- If you could freeze a function mid-execution and look at every variable's current value, would that make it easier to spot which line first computed something wrong?
+:::
+
+## The R Concept
+
+Three complementary tools for finding *where* a bug happens:
+
+```{r}
+#| eval: false
+browser()          # placed inside a function; pauses execution there when reached
+traceback()         # after a crash, shows the full sequence of calls that led to the error
+print(x)            # the simplest tool of all — temporarily printing a variable's value mid-function
+```
+
+`browser()` is the most powerful: place it on its own line inside a function, and when execution reaches it, R drops you into an interactive debugging prompt (`Browse[1]>`) right at that point, letting you inspect (and even change) any local variable before choosing to continue (`n` or `c`), step further (`n`), or quit (`Q`).
+
+## Demonstration
+
+```{r}
+#| eval: false
+pct_missing_debug <- function(x) {
+  n_total <- length(x)
+  browser()   # execution pauses here when this function runs
+  n_missing <- sum(is.na(x))
+  round(100 * n_missing / n_total, 1)
+}
+
+pct_missing_debug(c(1, NA, 3, NA, 5))
+```
+
+```
+Called from: pct_missing_debug(c(1, NA, 3, NA, 5))
+Browse[1]> n_total
+[1] 5
+Browse[1]> x
+[1]  1 NA  3 NA  5
+Browse[1]> n
+Browse[2]> n_missing
+[1] 2
+Browse[2]> c
+[1] 40
+```
+
+## Explore
+
+Try removing `browser()` and instead sprinkling `print()` calls between each line of a function, showing intermediate values as it runs. This "print debugging" is less powerful than `browser()` (you can't interactively explore further) but is often faster for a quick check, and needs no special debugging prompt.
+
+## Solve the Problem
+
+```{r}
+#| eval: false
+bp_category_debug <- function(sbp) {
+  browser()
+  dplyr::case_when(
+    sbp < 120 ~ "Normal",
+    sbp < 130 ~ "Elevated",
+    sbp < 140 ~ "Hypertension Stage 1",
+    sbp < 180 ~ "Hypertension Stage 2",
+    TRUE ~ "Hypertensive Crisis"
+  )
+}
+
+# At the Browse[1]> prompt, typing `sbp` reveals the input value,
+# letting you confirm exactly what the function received before
+# it applies any classification logic
+bp_category_debug(145)
+```
+
+```
+Called from: bp_category_debug(145)
+Browse[1]> sbp
+[1] 145
+Browse[1]> c
+[1] "Hypertension Stage 2"
+```
+
+Pausing with `browser()` before the `case_when()` call confirms exactly what value (`145`) the function is working with, before any classification happens — if the final result had been wrong, checking `sbp`'s value at this exact point would immediately reveal whether the *input* was already wrong, or whether the bug is somewhere in the classification logic itself.
+
+## Interpret the Result
+
+`browser()` turns debugging from guesswork ("I think the problem might be around line 3?") into direct inspection ("here's exactly what every variable holds at this precise point in execution"). This is especially valuable for bugs that don't raise an error at all — Page 4's `tryCatch()` only helps once code already fails loudly; `browser()` helps you understand code that fails *silently*, producing a plausible-looking but wrong answer.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Leaving a `browser()` call inside a function after debugging is finished.** A forgotten `browser()` will pause every future call to that function, unexpectedly halting a script (or, worse, an automated pipeline like Level 10's) that runs later — always remove it once the bug is found.
+- **Not knowing how to exit the debugging prompt.** Typing `Q` exits the debugger entirely; `n` steps to the next line; `c` continues running normally until the next `browser()` call or the function's end — confusing these can leave you stuck or exit before finding the bug.
+- **Reaching for `browser()` for every tiny issue.** A quick `print()` statement is often faster for a simple "what value is this?" check — `browser()` earns its overhead specifically for bugs that need exploring several variables interactively, at the exact moment of failure.
+:::
+
+## Practice Problem
+
+Add a `browser()` call inside Level 9's `is_at_risk()` function, right before its final comparison line, and use it to inspect the values of `age`, `sbp`, `age_cutoff`, and `bp_cutoff` for a call like `is_at_risk(70, 145)`.
+
+## Challenge Problem
+
+Deliberately introduce a bug into a copy of Level 10's `pct_missing()` function (for example, swapping `n_missing` and `n_total` in the final division). Use `browser()` to step through the buggy version and identify exactly which line produces the wrong result.
+
+## Key Takeaways
+
+- `browser()` placed inside a function pauses execution there, dropping you into an interactive prompt to inspect (and even change) local variables at that exact point.
+- `n` steps to the next line, `c` continues to the end (or the next `browser()` call), and `Q` exits the debugger entirely.
+- `browser()` is especially useful for silent bugs that produce a wrong-but-plausible result without ever raising an error — unlike `tryCatch()` (Page 4), which only helps once something fails loudly.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does placing `browser()` inside a function do?
+   a) It automatically fixes any bugs in the function
+   b) It pauses execution at that point and opens an interactive inspection prompt
+   c) It deletes the function after it runs once
+   d) It prints every variable in the function automatically
+
+2. **True or false.** Typing `n` at a `Browse[1]>` prompt steps to the next line of code.
+
+3. **Predict the output.** If a function's actual bug is a wrong-but-plausible result with no error message at all, would `tryCatch()` (Page 4) alone reveal the bug's location?
+
+4. **Short answer.** Why is it important to remove `browser()` calls from a function before using it in an automated script?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** It pauses execution at that point and opens an interactive inspection prompt for the function's current local variables.
+2. **True.** `n` steps to the next line within the debugger.
+3. No — `tryCatch()` only intercepts actual errors (or warnings); a silent bug that produces a wrong result without raising anything would pass through `tryCatch()` completely unnoticed.
+4. A forgotten `browser()` call will pause execution every time that function runs afterward, which would unexpectedly halt an automated script or pipeline (like Level 10's capstone) waiting on manual input it will never receive.
+
+</details>
+:::

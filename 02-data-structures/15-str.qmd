@@ -23,13 +23,15 @@ Use `str()` to get a compact, readable overview of the structure of *any* R obje
 
 **`str()`** (short for "structure") is one of the most broadly useful functions in R precisely because it works on *any* object type and adapts its output to what it finds — a vector, a factor, a data frame, a list, a matrix, or the complicated nested output of a statistical model later in this course.
 
-```r
+```{r}
+#| eval: false
 str(object)
 ```
 
 For a data frame, `str()` shows the number of rows and columns, each column's name and type, and a short preview of its first few values — exactly what you saw in Level 1. But it works identically well on other structures:
 
-```r
+```{r}
+#| eval: false
 str(c(1, 2, 3))              # a simple numeric vector
 str(factor(c("Low", "High"))) # a factor, showing its levels
 str(list(a = 1, b = "text"))  # a list, showing each named element's type
@@ -39,7 +41,8 @@ This makes `str()` your first move whenever you encounter an unfamiliar object �
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 str(c(45, 62, 38))
 ```
 
@@ -47,7 +50,8 @@ str(c(45, 62, 38))
  num [1:3] 45 62 38
 ```
 
-```r
+```{r}
+#| eval: false
 str(factor(c("Low", "High", "Low"), levels = c("Low", "High")))
 ```
 
@@ -55,7 +59,8 @@ str(factor(c("Low", "High", "Low"), levels = c("Low", "High")))
  Factor w/ 2 levels "Low","High": 1 2 1
 ```
 
-```r
+```{r}
+#| eval: false
 analysis_summary <- list(
   study_name = "Community Health Survey",
   n_participants = 100,
@@ -77,7 +82,8 @@ Run `str(participants)` again, as you did back in Level 1, and now also try `str
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 model_output <- list(
   method = "Two-sample t-test",
   estimate = 4.2,

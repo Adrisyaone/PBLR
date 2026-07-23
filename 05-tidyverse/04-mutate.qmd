@@ -23,14 +23,16 @@ Create one or more new columns in a single, unified step using `dplyr::mutate()`
 
 **`mutate()`** creates (or modifies) one or more columns at once, using column names directly with no `df$` prefix — and, crucially, later new columns *within the same `mutate()` call* can reference earlier ones:
 
-```r
+```{r}
+#| eval: false
 mutate(df,
   new_col1 = <calculation>,
   new_col2 = <calculation using new_col1>
 )
 ```
 
-```r
+```{r}
+#| eval: false
 mutate(participants,
   pulse_pressure = systolic_bp - diastolic_bp,
   is_hypertensive = as.numeric(systolic_bp >= 130)
@@ -41,7 +43,8 @@ This mirrors Level 4's `case_when()` and `ifelse()` exactly in spirit — `mutat
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")
@@ -60,7 +63,8 @@ names(participants_new)
 [9] "pulse_pressure"  "is_hypertensive"
 ```
 
-```r
+```{r}
+#| eval: false
 head(participants_new[, c("systolic_bp", "diastolic_bp", "pulse_pressure", "is_hypertensive")], 3)
 ```
 
@@ -77,7 +81,8 @@ Try referencing a just-created column within the same `mutate()` call: `mutate(p
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(dplyr)
 
 participants <- read.csv("data/participants.csv")

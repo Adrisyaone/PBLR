@@ -1,0 +1,138 @@
+# Cross-References {#sec-cross-references}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Look back at nearly any page in this course — Level 12's confounding page says "Page 1's demonstration model," and Level 13's capstone says "Page 3's pattern." These aren't just casual phrases: every single page-heading in this course, including this one, is secretly tagged with a label like `{#sec-cross-references}`. Your professor asks: what are those tags actually for, and how could you use them to build links that automatically stay correct?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Add labels to headings, figures, and tables, and reference them elsewhere in the same document using Quarto's automatic cross-reference syntax.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If you wrote "see Page 9" as plain text, and a new page were later inserted before Page 9 (shifting every subsequent page's number), would that plain-text reference automatically update?
+- Every heading throughout this course ends with something like `{#sec-simple-linear-regression}`. Could a reference elsewhere in the document use that exact label instead of a page number, so it never becomes wrong even if numbering shifts?
+:::
+
+## The R Concept
+
+Quarto automatically numbers headings, figures, and tables that carry a **label** — an anchor written directly in the heading text, or as a chunk option for figures/tables:
+
+```
+# Simple Linear Regression with `lm()` {#sec-simple-linear-regression}
+```
+
+Referencing that label elsewhere, with an `@` prefix, produces an automatically-numbered, always-correct link:
+
+```
+As shown in @sec-simple-linear-regression, age has a statistically
+significant relationship with blood pressure.
+```
+
+Figures and tables work the same way, using `#fig-` and `#tbl-` label prefixes instead of `#sec-`:
+
+```{r}
+#| eval: false
+#| label: fig-bp-age-scatter
+#| fig-cap: "Blood pressure vs. age"
+ggplot(participants, aes(age, systolic_bp)) + geom_point()
+```
+```
+See @fig-bp-age-scatter for the full scatter plot.
+```
+
+## Demonstration
+
+```
+# This page's own heading:
+# Cross-References {#sec-cross-references}
+
+# Referenced elsewhere in this same book, this would render as:
+# "See Section 14.5 for details on cross-referencing." — with "14.5"
+# generated and kept correct automatically, no matter how many
+# pages are added or reordered before it.
+```
+
+## Explore
+
+Search this course's own source files for `{#sec-simple-linear-regression}` (Level 11, Page 9's heading label) — then search for every place `@sec-simple-linear-regression` appears elsewhere in the book (if any prose used this syntax instead of the plain-text "Page 9" phrasing this course actually uses). This distinction — labels that *could* be referenced automatically, versus plain-text mentions that happen to look similar — is exactly what this page teaches you to use going forward.
+
+## Solve the Problem
+
+```
+# In a new report, you might write:
+
+## Blood Pressure Model {#sec-bp-model}
+
+... model-fitting code and results ...
+
+## Discussion
+
+As shown in @sec-bp-model, age has a statistically significant, though
+modest, relationship with blood pressure (R-squared = 0.049).
+```
+
+```
+Rendered, "@sec-bp-model" becomes an automatically-generated, clickable
+link reading something like "Section 3" (whatever number that section
+actually ends up being) - and if a new section were inserted before it
+later, the link's number would automatically update on the next render,
+with zero manual editing required anywhere.
+```
+
+## Interpret the Result
+
+Cross-references replace fragile, manually-typed phrases like "see Page 9" (which silently becomes wrong the moment content is reordered) with labels that are checked and renumbered automatically every time the document renders. This is precisely why this course's own prose can safely say "Level 11, Page 9" today — but a more robust version of this same course, written with `@sec-...` references throughout instead of hardcoded page descriptions, would never risk a broken reference no matter how many future levels get inserted or reordered.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Writing a plain-text reference like "see the section above" instead of a proper `@sec-...` cross-reference.** Plain text never updates automatically and doesn't produce a clickable link — it also breaks silently the moment content is reordered, with no warning from Quarto at all.
+- **Forgetting labels must start with a recognized prefix (`#sec-`, `#fig-`, `#tbl-`).** A heading tagged `{#regression-section}` (missing the `sec-` prefix) won't be recognized as a valid cross-referenceable section label by Quarto.
+- **Using the same label twice in one document.** Quarto requires every label to be unique within a project — accidentally reusing `{#sec-bp-model}` for two different headings will produce a rendering warning and an ambiguous, unreliable reference.
+:::
+
+## Practice Problem
+
+Write a short two-section document outline (as plain text, not necessarily code) that labels its first section `{#sec-methods}` and its second section references it with `@sec-methods` inside a sentence.
+
+## Challenge Problem
+
+This course's own Level 11 capstone page (`11-statistics/12-statistics-capstone.qmd`) references "Level 7" and "Level 8" as plain-text phrases throughout, rather than `@sec-...` cross-references. Pick two such plain-text references in that page and rewrite them as proper Quarto cross-references, using the actual section labels defined in the corresponding Level 7 and Level 8 files (hint: check the `{#sec-...}` labels at the top of `07-descriptive-statistics/07-correlation.qmd` and similar files).
+
+## Key Takeaways
+
+- A label like `{#sec-my-heading}` attached to a heading (or `#| label: fig-my-plot` / `tbl-my-table` for figures and tables) makes that element automatically numberable and referenceable.
+- `@sec-my-heading` (or `@fig-...`/`@tbl-...`) elsewhere in the same document produces an automatically-updating, clickable cross-reference — unlike a hardcoded "see Page 9" phrase.
+- Labels must be unique within a project and use a recognized prefix (`sec-`, `fig-`, `tbl-`) for Quarto to treat them as valid cross-reference targets.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What is the main advantage of `@sec-my-heading` over writing "see Page 9" as plain text?
+   a) It renders faster
+   b) It automatically stays correct even if content is reordered or renumbered
+   c) It requires no heading label at all
+   d) It only works in PDF output
+
+2. **True or false.** Two different headings in the same document can safely share the identical label.
+
+3. **Predict the output.** If a heading is labeled `{#sec-results}` and referenced elsewhere as `@sec-results`, what happens to that reference if three new sections are inserted before it?
+
+4. **Short answer.** Why does a label need to start with a recognized prefix like `sec-`, `fig-`, or `tbl-` rather than an arbitrary name?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** It automatically stays correct even if content is reordered or renumbered, unlike a hardcoded page reference.
+2. **False.** Labels must be unique within a project — duplicate labels produce an ambiguous, unreliable cross-reference and a rendering warning.
+3. Nothing breaks — the `@sec-results` reference automatically renders with whatever the new, correct section number is after the insertion, with no manual editing needed.
+4. The prefix tells Quarto what *type* of element the label refers to (a section, a figure, or a table), which determines how it's numbered and what word ("Section," "Figure," "Table") appears in the automatically-generated reference text.
+
+</details>
+:::

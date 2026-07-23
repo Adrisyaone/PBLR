@@ -25,21 +25,24 @@ R represents a missing value with the special symbol **`NA`** (no quotes — it'
 
 Critically, `NA` is *contagious* in calculations: almost any arithmetic involving an `NA` produces `NA` as the result, because R has no way to know what the missing value "would have been."
 
-```r
+```{r}
+#| eval: false
 5 + NA     # NA - unknown plus 5 is still unknown
 mean(c(20, 30, NA))    # NA - one unknown value makes the whole average unknown, by default
 ```
 
 To detect missing values, use **`is.na(x)`** — never `x == NA`, which will not work the way you'd expect (comparing anything to `NA`, including `NA` itself, returns `NA`, not `TRUE`).
 
-```r
+```{r}
+#| eval: false
 is.na(NA)    # TRUE
 NA == NA     # NA, not TRUE - this is a common trap
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 age <- NA
 age
 ```
@@ -48,7 +51,8 @@ age
 [1] NA
 ```
 
-```r
+```{r}
+#| eval: false
 is.na(age)
 ```
 
@@ -56,7 +60,8 @@ is.na(age)
 [1] TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 # NA is contagious in arithmetic
 age + 1
 ```
@@ -65,7 +70,8 @@ age + 1
 [1] NA
 ```
 
-```r
+```{r}
+#| eval: false
 # The trap: don't use == to check for NA
 age == NA
 ```
@@ -74,7 +80,8 @@ age == NA
 [1] NA
 ```
 
-```r
+```{r}
+#| eval: false
 ages <- c(45, 62, NA, 38, 29)
 mean(ages)
 ```
@@ -89,7 +96,8 @@ Run `sum(is.na(ages))` on the vector above — what do you think this counts? (H
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 ages <- c(45, 62, NA, 38, 29, NA, 51, NA, 67, 33)   # 3 missing, matching the problem
 
 # How many are missing?
@@ -100,7 +108,8 @@ sum(is.na(ages))
 [1] 3
 ```
 
-```r
+```{r}
+#| eval: false
 # The naive average fails, exactly as predicted
 mean(ages)
 ```

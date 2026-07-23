@@ -23,13 +23,15 @@ Replace missing values in a variable with a reasonable substitute, without disca
 
 You can assign directly to the subset of a vector identified by `is.na()`, replacing only the missing positions and leaving everything else exactly as it was:
 
-```r
+```{r}
+#| eval: false
 x[is.na(x)] <- replacement_value
 ```
 
 The most common simple replacement is the variable's own mean or median — this is called **mean imputation** (or median imputation), and it's a reasonable, simple starting strategy, though it does understate the true variability in the data (a limitation Level 12's multiple imputation addresses more rigorously later in the course).
 
-```r
+```{r}
+#| eval: false
 df$bmi[is.na(df$bmi)] <- mean(df$bmi, na.rm = TRUE)
 ```
 
@@ -37,7 +39,8 @@ Notice the `na.rm = TRUE` is still required *inside* the `mean()` call on the ri
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 bmi_values <- c(22.1, NA, 27.5, 24.0, NA, 30.2)
 
 # The mean, calculated only from the non-missing values
@@ -48,7 +51,8 @@ mean(bmi_values, na.rm = TRUE)
 [1] 25.95
 ```
 
-```r
+```{r}
+#| eval: false
 # Replace only the NA positions with that mean
 bmi_values[is.na(bmi_values)] <- mean(bmi_values, na.rm = TRUE)
 bmi_values
@@ -66,7 +70,8 @@ Try running `mean(bmi_values)` again *after* the replacement above (no `na.rm` n
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Preserve the original column so you can still compare before/after if needed
@@ -80,7 +85,8 @@ sum(is.na(participants$bmi_imputed))
 [1] 0
 ```
 
-```r
+```{r}
+#| eval: false
 nrow(participants)
 ```
 

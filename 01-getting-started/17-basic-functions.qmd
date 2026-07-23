@@ -26,19 +26,22 @@ A **function** in R is a named, reusable set of instructions that takes some inp
 
 The general pattern is always:
 
-```r
+```{r}
+#| eval: false
 function_name(argument1, argument2, ...)
 ```
 
 Today's function is **`mean()`**, which calculates the arithmetic average of a set of numbers:
 
-```r
+```{r}
+#| eval: false
 mean(x)
 ```
 
 Here, `x` is the argument — the numbers you want averaged, typically stored as a **vector** (a single object holding multiple values, created with `c()` — you'll study vectors properly in Level 2, but you need a first taste of them right now to solve this problem).
 
-```r
+```{r}
+#| eval: false
 ages <- c(34, 51, 29, 62)   # a vector holding four ages
 mean(ages)
 ```
@@ -47,7 +50,8 @@ Common mistakes with functions in general: forgetting the parentheses (`mean` al
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 # A small vector of ages, standing in for your 100 participants
 ages <- c(34, 51, 29, 62, 45)
 
@@ -60,7 +64,8 @@ mean(ages)
 
 Now, what happens with missing data, as flagged on the previous page?
 
-```r
+```{r}
+#| eval: false
 ages_with_missing <- c(34, 51, NA, 62, 45)
 mean(ages_with_missing)
 ```
@@ -73,7 +78,8 @@ mean(ages_with_missing)
 
 Add a second `NA` to `ages_with_missing` and rerun `mean()` — does the result change, or is it still simply `NA`? Now look up `mean()`'s help page (you'll learn the proper way to do this on the very next page) and notice it lists an argument called `na.rm`, short for "NA remove," which defaults to `FALSE`.
 
-```r
+```{r}
+#| eval: false
 mean(ages_with_missing, na.rm = TRUE)
 ```
 
@@ -87,7 +93,8 @@ Setting `na.rm = TRUE` tells `mean()` to exclude any `NA` values before calculat
 
 Your supervisor's 100 participants, represented here as a smaller stand-in vector for demonstration (in Level 3, you'll import the real, full 100-row file directly):
 
-```r
+```{r}
+#| eval: false
 # Ages of study participants - a few did not report their age
 participant_ages <- c(45, 62, 38, NA, 29, 71, 54, NA, 33, 48)
 
@@ -98,7 +105,8 @@ mean(participant_ages, na.rm = TRUE)
 [1] 47.5
 ```
 
-```r
+```{r}
+#| eval: false
 # How many participants were actually included in that average?
 sum(!is.na(participant_ages))
 ```

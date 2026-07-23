@@ -23,7 +23,8 @@ Save a `ggplot2` plot to an image file using `ggsave()`.
 
 **`ggsave()`** writes the most recently displayed (or a specifically named) plot to an image file, with the format determined automatically by the file extension:
 
-```r
+```{r}
+#| eval: false
 ggsave("filename.png", plot = my_plot, width = 8, height = 6, dpi = 300)
 ```
 
@@ -34,7 +35,8 @@ ggsave("filename.png", plot = my_plot, width = 8, height = 6, dpi = 300)
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")
@@ -59,7 +61,8 @@ Try saving the same plot twice: once as `"bmi_bp_scatter.png"` and once as `"bmi
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(ggplot2)
 
 participants <- read.csv("data/participants.csv")

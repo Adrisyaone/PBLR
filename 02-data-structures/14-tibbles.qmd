@@ -29,14 +29,16 @@ A **tibble** is a modern reimagining of the data frame, provided by the `tibble`
 
 Converting an existing data frame into a tibble uses `as_tibble()`:
 
-```r
+```{r}
+#| eval: false
 library(tibble)   # or library(tidyverse), which loads tibble along with dplyr, ggplot2, etc.
 as_tibble(participants)
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 library(tibble)
 
 participants_tbl <- as_tibble(participants)
@@ -56,7 +58,8 @@ participants_tbl
  # ... with 94 more rows
 ```
 
-```r
+```{r}
+#| eval: false
 class(participants_tbl)
 ```
 
@@ -72,7 +75,8 @@ Try `participants_tbl$Age` (wrong capitalization, matching the opening problem) 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(tibble)
 
 participants_tbl <- as_tibble(participants)
@@ -85,7 +89,8 @@ participants_tbl$Age
 NULL
 ```
 
-```r
+```{r}
+#| eval: false
 # The correct column still works exactly as expected
 participants_tbl$age |> mean(na.rm = TRUE)
 ```

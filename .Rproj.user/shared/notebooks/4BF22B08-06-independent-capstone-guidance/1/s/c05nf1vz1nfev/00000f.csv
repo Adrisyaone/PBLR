@@ -1,0 +1,25 @@
+"0","#| eval: false"
+"0","# Applying the template to a brand-new, unfamiliar dataset:"
+"0","new_data <- read.csv(""clinic_survey_2025.csv"")"
+"2","G2;H2;Warningh in file(file, ""rt"") :
+  cannot open file 'clinic_survey_2025.csv': No such file or directoryg
+"
+"2","G1;H1;Errorh in file(file, ""rt"") : cannot open the connection
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","str(new_data)          # What columns exist? What types? (Level 2)"
+"2","G1;H1;Errorh: object 'new_data' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","summary(new_data)       # Ranges, missingness, obvious outliers (Level 7)"
+"2","G1;H1;Errorh: object 'new_data' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","colSums(is.na(new_data))  # Exactly how much missing data, per column (Level 4)"
+"2","G1;H1;Errorh: object 'new_data' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"

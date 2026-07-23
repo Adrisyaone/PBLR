@@ -9,7 +9,7 @@ book:
   author: "Bikram Adhikari"
   date: today
   search: true
-  repo-url: https://github.com/Adrisyaone/PBLR/
+  repo-url: https://github.com/your-org/R-PBL
   downloads: [pdf]
   sidebar:
     style: floating
@@ -22,7 +22,7 @@ book:
   chapters:
     - index.qmd
 
-    - part: "Level 1: Getting Started with R"
+    - part: "Level 1 — Getting Started with R"
       chapters:
         - 01-getting-started/00-overview.qmd
         - 01-getting-started/01-what-is-r.qmd
@@ -46,7 +46,7 @@ book:
         - 01-getting-started/19-working-directory.qmd
         - 01-getting-started/20-importing-data.qmd
 
-    - part: "Level 2: Data Structures in R"
+    - part: "Level 2 — Data Structures in R"
       chapters:
         - 02-data-structures/00-overview.qmd
         - 02-data-structures/01-vectors.qmd
@@ -67,7 +67,7 @@ book:
         - 02-data-structures/16-dimensions.qmd
         - 02-data-structures/17-length-names.qmd
 
-    - part: "Level 3: Data Import and Export"
+    - part: "Level 3 — Data Import and Export"
       chapters:
         - 03-data-import/00-overview.qmd
         - 03-data-import/01-reading-csv.qmd
@@ -83,7 +83,7 @@ book:
         - 03-data-import/11-checking-imported-data.qmd
         - 03-data-import/12-variable-types-import.qmd
 
-    - part: "Level 4: Data Cleaning with Base R"
+    - part: "Level 4 — Data Cleaning with Base R"
       chapters:
         - 04-data-cleaning/00-overview.qmd
         - 04-data-cleaning/01-identifying-missing-values.qmd
@@ -104,7 +104,7 @@ book:
         - 04-data-cleaning/16-if-else-dplyr.qmd
         - 04-data-cleaning/17-case-when.qmd
 
-    - part: "Level 5: Tidyverse"
+    - part: "Level 5 — Tidyverse"
       chapters:
         - 05-tidyverse/00-overview.qmd
         - 05-tidyverse/01-select.qmd
@@ -120,7 +120,7 @@ book:
         - 05-tidyverse/11-native-pipe.qmd
         - 05-tidyverse/12-chaining-operations.qmd
 
-    - part: "Level 6: Data Reshaping"
+    - part: "Level 6 — Data Reshaping"
       chapters:
         - 06-data-reshaping/00-overview.qmd
         - 06-data-reshaping/01-wide-vs-long.qmd
@@ -137,7 +137,7 @@ book:
         - 06-data-reshaping/12-semi-anti-join.qmd
         - 06-data-reshaping/13-reshape-join-capstone.qmd
 
-    - part: "Level 7: Descriptive Statistics"
+    - part: "Level 7 — Descriptive Statistics"
       chapters:
         - 07-descriptive-statistics/00-overview.qmd
         - 07-descriptive-statistics/01-central-tendency.qmd
@@ -149,7 +149,7 @@ book:
         - 07-descriptive-statistics/07-correlation.qmd
         - 07-descriptive-statistics/08-descriptive-stats-capstone.qmd
 
-    - part: "Level 8: Data Visualization with ggplot2"
+    - part: "Level 8 — Data Visualization with ggplot2"
       chapters:
         - 08-data-visualization/00-overview.qmd
         - 08-data-visualization/01-grammar-of-graphics.qmd
@@ -164,7 +164,7 @@ book:
         - 08-data-visualization/10-saving-plots.qmd
         - 08-data-visualization/11-visualization-capstone.qmd
 
-    - part: "Level 9: Functions and Programming"
+    - part: "Level 9 — Functions and Programming"
       chapters:
         - 09-functions/00-overview.qmd
         - 09-functions/01-what-is-a-function.qmd
@@ -179,7 +179,7 @@ book:
         - 09-functions/10-error-handling.qmd
         - 09-functions/11-functions-capstone.qmd
 
-    - part: "Level 10: Loops and Automation"
+    - part: "Level 10 — Loops and Automation"
       chapters:
         - 10-loops/00-overview.qmd
         - 10-loops/01-for-loops.qmd
@@ -191,7 +191,7 @@ book:
         - 10-loops/07-loops-vs-vectorization.qmd
         - 10-loops/08-automation-capstone.qmd
 
-    - part: "Level 11: Statistical Analysis in R"
+    - part: "Level 11 — Statistical Analysis in R"
       chapters:
         - 11-statistics/00-overview.qmd
         - 11-statistics/01-probability-distributions.qmd
@@ -210,18 +210,54 @@ book:
     - part: "Level 12 — Advanced Data Analysis"
       chapters:
         - 12-advanced-analysis/00-overview.qmd
+        - 12-advanced-analysis/01-multiple-regression.qmd
+        - 12-advanced-analysis/02-categorical-predictors.qmd
+        - 12-advanced-analysis/03-interaction-terms.qmd
+        - 12-advanced-analysis/04-confounding-adjustment.qmd
+        - 12-advanced-analysis/05-model-comparison.qmd
+        - 12-advanced-analysis/06-regression-diagnostics.qmd
+        - 12-advanced-analysis/07-multicollinearity.qmd
+        - 12-advanced-analysis/08-prediction.qmd
+        - 12-advanced-analysis/09-advanced-analysis-capstone.qmd
 
     - part: "Level 13 — Advanced R Programming"
       chapters:
         - 13-advanced-r/00-overview.qmd
+        - 13-advanced-r/01-environments.qmd
+        - 13-advanced-r/02-closures.qmd
+        - 13-advanced-r/03-s3-object-system.qmd
+        - 13-advanced-r/04-error-handling-trycatch.qmd
+        - 13-advanced-r/05-debugging-tools.qmd
+        - 13-advanced-r/06-functional-programming.qmd
+        - 13-advanced-r/07-regular-expressions.qmd
+        - 13-advanced-r/08-string-manipulation.qmd
+        - 13-advanced-r/09-working-with-dates.qmd
+        - 13-advanced-r/10-package-structure.qmd
+        - 13-advanced-r/11-advanced-r-capstone.qmd
 
     - part: "Level 14 — Reproducible Research"
       chapters:
         - 14-reproducible-research/00-overview.qmd
+        - 14-reproducible-research/01-rmarkdown-vs-quarto.qmd
+        - 14-reproducible-research/02-yaml-front-matter.qmd
+        - 14-reproducible-research/03-code-chunks-inline-code.qmd
+        - 14-reproducible-research/04-tables-and-figures.qmd
+        - 14-reproducible-research/05-cross-references.qmd
+        - 14-reproducible-research/06-citations-bibliography.qmd
+        - 14-reproducible-research/07-parameterized-reports.qmd
+        - 14-reproducible-research/08-output-formats.qmd
+        - 14-reproducible-research/09-projects-books-websites.qmd
+        - 14-reproducible-research/10-reproducible-research-capstone.qmd
 
     - part: "Level 15 — Real-World Capstone Projects"
       chapters:
         - 15-capstone-projects/00-overview.qmd
+        - 15-capstone-projects/01-capstone-hypertension-risk-factors.qmd
+        - 15-capstone-projects/02-capstone-smoking-cardiovascular-risk.qmd
+        - 15-capstone-projects/03-capstone-geographic-patterns.qmd
+        - 15-capstone-projects/04-capstone-longitudinal-blood-pressure.qmd
+        - 15-capstone-projects/05-capstone-reproducible-dashboard.qmd
+        - 15-capstone-projects/06-independent-capstone-guidance.qmd
 
 format:
   html:
@@ -252,7 +288,7 @@ format:
     highlight-style: github
 
 language:
-  title-block-author-single: "Compiled by"
+    title-block-author-single: "Compiled by"
 
 execute:
   echo: true

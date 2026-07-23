@@ -23,13 +23,15 @@ Write a function that accepts multiple arguments, combining them with logical op
 
 A function can accept as many arguments as it needs, listed in order, separated by commas:
 
-```r
+```{r}
+#| eval: false
 function_name <- function(arg1, arg2) {
   # code using both arg1 and arg2
 }
 ```
 
-```r
+```{r}
+#| eval: false
 is_at_risk <- function(age, sbp, age_cutoff = 65, bp_cutoff = 130) {
   age >= age_cutoff & sbp >= bp_cutoff
 }
@@ -39,7 +41,8 @@ Notice `is_at_risk()` combines two *required* arguments (`age`, `sbp`) with two 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 is_at_risk <- function(age, sbp, age_cutoff = 65, bp_cutoff = 130) {
   age >= age_cutoff & sbp >= bp_cutoff
 }
@@ -51,7 +54,8 @@ is_at_risk(70, 145)
 [1] TRUE
 ```
 
-```r
+```{r}
+#| eval: false
 is_at_risk(50, 145)
 ```
 
@@ -67,7 +71,8 @@ Try `is_at_risk(70, 145, age_cutoff = 75)`. Since 70 no longer meets a stricter 
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 is_at_risk <- function(age, sbp, age_cutoff = 65, bp_cutoff = 130) {
   age >= age_cutoff & sbp >= bp_cutoff
 }

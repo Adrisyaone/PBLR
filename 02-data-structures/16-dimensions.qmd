@@ -23,13 +23,15 @@ Check the dimensions — rows and columns — of a data frame or matrix, quickly
 
 Three related functions report the size of a two-dimensional object (a data frame or a matrix):
 
-```r
+```{r}
+#| eval: false
 nrow(x)   # number of rows
 ncol(x)   # number of columns
 dim(x)    # both at once, as a vector: c(rows, columns)
 ```
 
-```r
+```{r}
+#| eval: false
 nrow(participants)   # 100
 ncol(participants)   # 8
 dim(participants)    # c(100, 8)
@@ -39,7 +41,8 @@ Crucially, these are built specifically for two-dimensional structures. A plain 
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 nrow(participants)
@@ -49,7 +52,8 @@ nrow(participants)
 [1] 100
 ```
 
-```r
+```{r}
+#| eval: false
 ncol(participants)
 ```
 
@@ -57,7 +61,8 @@ ncol(participants)
 [1] 8
 ```
 
-```r
+```{r}
+#| eval: false
 dim(participants)
 ```
 
@@ -65,7 +70,8 @@ dim(participants)
 [1] 100   8
 ```
 
-```r
+```{r}
+#| eval: false
 # A plain vector has no rows or columns
 ages <- c(45, 62, 38)
 nrow(ages)
@@ -81,7 +87,8 @@ Run `dim(ages)` (the same plain vector) and confirm it also returns `NULL`. Then
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 # Quick sanity check before handing off the dataset
@@ -92,7 +99,8 @@ dim(participants)
 [1] 100   8
 ```
 
-```r
+```{r}
+#| eval: false
 nrow(participants) == 100 & ncol(participants) == 8
 ```
 

@@ -23,21 +23,24 @@ Check a fitted regression model's residuals for approximate normality and consta
 
 **`residuals(model)`** extracts every observation's prediction error. Two common diagnostic checks:
 
-```r
+```{r}
+#| eval: false
 shapiro.test(residuals(model))       # tests residual normality
 plot(model, which = 1)               # residuals vs. fitted values (constant variance check)
 ```
 
 A `shapiro.test()` p-value above 0.05 suggests no strong evidence against normality (Level 11 Page 1's same logic, applied to residuals instead of raw data). For constant variance ("homoscedasticity"), the **Breusch-Pagan test** (from the `lmtest` package) formalizes what a residuals-vs-fitted plot shows visually:
 
-```r
+```{r}
+#| eval: false
 library(lmtest)
 bptest(model)
 ```
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 participants <- read.csv("data/participants.csv")
 
 complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
@@ -62,7 +65,8 @@ Try `plot(model_big, which = 1)` (a residuals-vs-fitted plot) and `plot(model_bi
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 library(lmtest)
 
 participants <- read.csv("data/participants.csv")

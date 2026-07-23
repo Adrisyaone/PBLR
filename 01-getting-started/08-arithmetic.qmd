@@ -38,7 +38,8 @@ Parentheses `()` override the default order, exactly as in standard math notatio
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 # Order of operations matters: multiplication happens before addition
 2 + 3 * 4
 ```
@@ -47,7 +48,8 @@ Parentheses `()` override the default order, exactly as in standard math notatio
 [1] 14
 ```
 
-```r
+```{r}
+#| eval: false
 # Parentheses force addition to happen first
 (2 + 3) * 4
 ```
@@ -56,7 +58,8 @@ Parentheses `()` override the default order, exactly as in standard math notatio
 [1] 20
 ```
 
-```r
+```{r}
+#| eval: false
 # Converting 154 pounds to kilograms
 weight_lb <- 154
 weight_kg <- weight_lb / 2.20462
@@ -67,7 +70,8 @@ weight_kg
 [1] 69.85342
 ```
 
-```r
+```{r}
+#| eval: false
 # BMI = weight (kg) / height (m) squared
 height_m <- 1.75
 bmi <- weight_kg / height_m^2
@@ -86,7 +90,8 @@ Modify `height_m` to `1.60` and rerun the BMI calculation. Then try writing the 
 
 For a patient weighing 180 pounds and standing 1.68 meters tall:
 
-```r
+```{r}
+#| eval: false
 weight_lb <- 180
 weight_kg <- weight_lb / 2.20462
 height_m <- 1.68

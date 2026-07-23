@@ -27,7 +27,8 @@ Every function call creates its own **local scope** — a private workspace for 
 - **Disappear** once the function finishes running — they exist only for the duration of that one function call.
 - Can **read** variables from the global environment if not shadowed by a local one of the same name, but cannot **modify** the global version by simply assigning to a same-named local variable.
 
-```r
+```{r}
+#| eval: false
 age <- 100   # global variable
 
 check_age <- function(age) {
@@ -41,7 +42,8 @@ age             # still 100 - completely unaffected
 
 ## Demonstration
 
-```r
+```{r}
+#| eval: false
 age <- 100
 
 check_age <- function(age) {
@@ -56,7 +58,8 @@ check_age(30)
 [1] 31
 ```
 
-```r
+```{r}
+#| eval: false
 age
 ```
 
@@ -72,7 +75,8 @@ Try defining `local_total <- 0` inside a function body, running the function, an
 
 ## Solve the Problem
 
-```r
+```{r}
+#| eval: false
 pct_missing <- function(x) {
   n_missing <- sum(is.na(x))       # local variable, exists only inside this call
   n_total <- length(x)             # also local
@@ -88,7 +92,8 @@ pct_missing(participants$age)
 [1] 6
 ```
 
-```r
+```{r}
+#| eval: false
 exists("n_missing")
 ```
 
@@ -118,7 +123,8 @@ Write a small function that takes an argument called `bmi`, adds 1 to it interna
 
 Predict, without running any code, what this snippet prints for each line:
 
-```r
+```{r}
+#| eval: false
 total <- 10
 add_five <- function(total) {
   total <- total + 5
