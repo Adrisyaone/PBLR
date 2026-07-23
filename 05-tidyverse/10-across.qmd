@@ -1,0 +1,133 @@
+# `across()` {#sec-across}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor wants the mean of *four* numeric columns at once — `age`, `systolic_bp`, `diastolic_bp`, and `bmi` — all with `na.rm = TRUE`. Writing `summarise(mean_age = mean(age, na.rm = TRUE), mean_sbp = mean(systolic_bp, na.rm = TRUE), ...)` works, but it's the same `mean(..., na.rm = TRUE)` pattern copy-pasted four times with only the column name changing — exactly the kind of repetition Level 9 (functions) taught you to eliminate.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Apply the same summary function to multiple columns at once, using `dplyr::across()` inside `summarise()` (or `mutate()`).
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If you already had four separate `mean(column, na.rm = TRUE)` expressions differing only by column name, what part of the code is truly repeated, and what part actually changes?
+- Level 9 taught you to wrap repeated code in a function and call it once per input. Could a *summary column* be built the same way — one instruction, applied across many columns?
+:::
+
+## The R Concept
+
+**`across()`** applies one function to several columns inside `summarise()` or `mutate()`, instead of writing one summary expression per column:
+
+```r
+summarise(df, across(c(col1, col2, col3), ~ mean(.x, na.rm = TRUE)))
+```
+
+```r
+summarise(participants, across(c(age, systolic_bp, diastolic_bp, bmi), ~ mean(.x, na.rm = TRUE)))
+```
+
+The `~` starts a short **formula-style function**, where `.x` stands in for "whichever column `across()` is currently processing" — the first time through, `.x` is `age`; the second time, `.x` is `systolic_bp`; and so on. This is the same "apply one operation across many things" idea as Level 10's loops, just expressed as a single dplyr call rather than an explicit `for` loop.
+
+## Demonstration
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+summarise(participants,
+  across(c(age, systolic_bp, diastolic_bp, bmi), ~ mean(.x, na.rm = TRUE))
+)
+```
+
+```
+       age systolic_bp diastolic_bp      bmi
+1 47.42553    129.84375        80.44 27.12316
+```
+
+Four means, computed with a single `across()` expression — each result column keeps the original column's name, since no renaming was requested.
+
+## Explore
+
+Try naming the results by wrapping `across()`'s function argument in a named list: `across(c(age, bmi), list(avg = ~ mean(.x, na.rm = TRUE)))`. Notice the output columns become `age_avg` and `bmi_avg` — `across()` automatically builds column names by combining the original column name with the function's label.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+numeric_summary <- summarise(participants,
+  across(c(age, systolic_bp, diastolic_bp, bmi), ~ round(mean(.x, na.rm = TRUE), 2))
+)
+
+numeric_summary
+```
+
+```
+    age systolic_bp diastolic_bp   bmi
+1 47.43      129.84        80.44 27.12
+```
+
+All four means computed and rounded in one `across()` call — the same result you'd get from four separate `mean(..., na.rm = TRUE)` expressions, but without repeating the pattern four times.
+
+## Interpret the Result
+
+The four numeric variables average out to age 47.43, systolic BP 129.84, diastolic BP 80.44, and BMI 27.12 — matching exactly the individual means computed on earlier pages, now produced by one concise instruction instead of four nearly-identical ones.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting the `~` before the function.** `across(cols, mean(.x, na.rm = TRUE))` tries to evaluate `mean(.x, ...)` immediately (before `.x` has any meaning) and errors; the `~` is what tells R "treat this as a function to apply later, once per column."
+- **Using `.` instead of `.x`.** Older tidyverse code sometimes used a single dot (`.`) as the placeholder; modern `across()` uses `.x` — mixing the two conventions is a common source of confusion when reading examples from different tutorial vintages.
+- **Applying `across()` to non-numeric columns by accident.** `across(everything(), ~ mean(.x, na.rm = TRUE))` would try to compute a mean of `county` (text) and fail — always specify which columns are actually numeric, or use a selector like `where(is.numeric)`.
+:::
+
+## Practice Problem
+
+Use `across()` inside `summarise()` to compute the **maximum** value (not mean) of `age`, `systolic_bp`, and `bmi` in a single call.
+
+## Challenge Problem
+
+Use `across()` combined with `group_by(participants, county)` to compute the mean `age` and mean `bmi` for each county in a single `summarise(across(...))` call, rather than writing `mean_age = ...` and `mean_bmi = ...` as two separate lines.
+
+## Key Takeaways
+
+- `across(c(col1, col2, ...), ~ <function>(.x, ...))` applies one function to several columns inside `summarise()` or `mutate()`.
+- The `~` marks a formula-style function, where `.x` stands in for whichever column is currently being processed.
+- `across()` eliminates copy-pasting the same summary expression once per column, the same repetition-avoidance principle behind Level 9's functions.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `.x` represent inside `across(cols, ~ mean(.x, na.rm = TRUE))`?
+   a) The entire data frame
+   b) Whichever column `across()` is currently processing
+   c) The number of columns in `cols`
+   d) A fixed column named `x`
+
+2. **True or false.** `across()` can only be used with `mean()`, never other summary functions.
+
+3. **Predict the output.** How many result columns would `across(c(age, bmi, systolic_bp), ~ mean(.x, na.rm = TRUE))` produce inside `summarise()`?
+
+4. **Find the error.**
+   ```r
+   summarise(participants, across(c(age, bmi), mean(.x, na.rm = TRUE)))
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Whichever column `across()` is currently processing.
+2. **False.** `across()` works with any summary function — `sum()`, `max()`, `sd()`, or a custom function.
+3. 3 result columns — one for each of `age`, `bmi`, and `systolic_bp`.
+4. The function is missing its leading `~`, so R tries to evaluate `mean(.x, na.rm = TRUE)` immediately, before `.x` has meaning. It should be `across(c(age, bmi), ~ mean(.x, na.rm = TRUE))`.
+
+</details>
+:::

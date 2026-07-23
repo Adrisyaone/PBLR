@@ -1,0 +1,138 @@
+# Objects {#sec-objects}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Halfway through a script, you've now created `weight_kg`, `height_m`, `bmi`, `is_overweight`, and `bmi_rounded`. Your supervisor walks by and asks: "What exactly is stored in R right now?" You glance at your script but realize the script shows what you *ran*, not necessarily what currently *exists* in memory.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand what an R "object" is in general, and learn to inspect everything currently stored in your session.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Is there a difference between the *code that created* something and the *thing that now exists* as a result?
+- If you assigned ten different values across a long script, how would you check, right now, what's actually available to use?
+:::
+
+## The R Concept
+
+In R, virtually everything you create and store is called an **object**. A single number, a block of text, a list of a hundred ages, an entire imported spreadsheet — all of these become objects once assigned a name with `<-`. This is a deliberately broad, unifying idea: whether an object holds one value or a million, you interact with it the same way — by name.
+
+Two ways to see what objects currently exist in your session:
+
+1. **The Environment pane** (top-right in RStudio) — lists every object live, updating automatically as you create, modify, or remove them.
+2. **`ls()`** — a function that lists all object names in your current session, directly in the Console.
+
+```r
+ls()
+```
+
+To remove an object you no longer need:
+
+```r
+rm(bmi_rounded)
+```
+
+And to clear everything at once (useful for starting fresh, though rarely needed mid-analysis):
+
+```r
+rm(list = ls())
+```
+
+## Demonstration
+
+```r
+weight_kg <- 78
+height_m <- 1.70
+bmi <- weight_kg / height_m^2
+is_overweight <- bmi >= 25 & bmi < 30
+bmi_rounded <- round(bmi, 1)
+
+# See every object currently in this session
+ls()
+```
+
+```
+[1] "bmi"           "bmi_rounded"   "height_m"      "is_overweight" "weight_kg"
+```
+
+Note that `ls()` returns names in alphabetical order, not the order you created them — useful to know so you don't expect chronological order.
+
+## Explore
+
+Run `rm(bmi_rounded)` and then `ls()` again. Confirm `bmi_rounded` is gone from the list, while the other four objects remain. Then try printing `bmi_rounded` directly — what error message does R give you?
+
+## Solve the Problem
+
+```r
+ls()
+```
+
+```
+[1] "bmi"           "bmi_rounded"   "height_m"      "is_overweight" "weight_kg"
+```
+
+You can now answer your supervisor precisely: "Right now, I have five objects stored — `bmi`, `bmi_rounded`, `height_m`, `is_overweight`, and `weight_kg`." You didn't need to scroll back through your whole script to answer confidently — `ls()` (or the Environment pane) gave you the live, current state directly.
+
+## Interpret the Result
+
+The output of `ls()` is not the *code* that built these objects — it's the *current inventory* of what those lines of code produced and left behind in memory. This is an important distinction: a script shows history; `ls()` and the Environment pane show present state.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Assuming the script and the Environment always match.** If you delete a line from your script but already ran it, the object it created still exists in your session until you explicitly remove it or restart R.
+- **Using an object that "shouldn't" exist anymore.** Because R doesn't automatically clean up after you, leftover objects from earlier experimentation can accidentally get reused later in a script, producing confusing results.
+- **Confusing `rm()` with deleting a file.** `rm(bmi)` removes the *object* from your current session's memory — it has no effect on any saved script or data file.
+:::
+
+## Practice Problem
+
+Create three objects: `n_enrolled <- 250`, `n_completed <- 211`, and `site_name <- "Riverdale Clinic"`. Run `ls()` and confirm all three appear. Then remove `site_name` with `rm()` and run `ls()` again to confirm it's gone.
+
+## Challenge Problem
+
+Without running any code, predict what `ls()` would return immediately after a fresh RStudio session starts, before you've created any objects. Then verify your prediction is correct — reason through what an empty environment should report.
+
+## Key Takeaways
+
+- Nearly everything you create in R — numbers, text, entire datasets — is stored as an object once assigned a name.
+- `ls()` and the Environment pane both show what currently exists in your session, which can differ from what your script currently contains.
+- `rm()` removes an object from memory but never touches any saved file.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `ls()` show?
+   a) The lines of code in your current script
+   b) The names of all objects currently in your session
+   c) A list of installed packages
+   d) The contents of your working directory folder
+
+2. **True or false.** Deleting a line of code from your script automatically removes the corresponding object from your session.
+
+3. **Predict the output.**
+   ```r
+   a <- 1
+   b <- 2
+   rm(a)
+   ls()
+   ```
+
+4. **Write the code.** Write the command that removes every object currently in your session at once.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The names of all objects currently in your session.
+2. **False.** Removing a line from your script has no effect on objects already created in memory; you must explicitly run `rm()` or restart R to clear them.
+3. `[1] "b"` — only `b` remains after `a` was removed.
+4. `rm(list = ls())`
+
+</details>
+:::

@@ -1,0 +1,156 @@
+# Basic Arithmetic {#sec-arithmetic}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+A clinic reports patient weights in pounds, but your study protocol requires kilograms for calculating drug dosages. You also need to compute each patient's BMI, which requires squaring their height. You're not sure R can handle exponents, or whether the order you write things in will matter.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Perform the arithmetic conversions and calculations needed to convert units and compute BMI correctly in R.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- What's the conversion formula from pounds to kilograms (roughly divide by 2.2)?
+- What's the BMI formula, and which operation do you need for "height squared"?
+- If you wrote `2 + 3 * 4` by hand, would you get 20 or 14 — and why does the order matter?
+:::
+
+## The R Concept
+
+R supports all standard arithmetic operators, and follows the usual mathematical order of operations (PEMDAS/BODMAS):
+
+| Operator | Meaning | Example | Result |
+|---|---|---|---|
+| `+` | addition | `5 + 3` | `8` |
+| `-` | subtraction | `5 - 3` | `2` |
+| `*` | multiplication | `5 * 3` | `15` |
+| `/` | division | `5 / 3` | `1.6667` |
+| `^` | exponent (power) | `5 ^ 2` | `25` |
+| `%%` | modulo (remainder) | `5 %% 3` | `2` |
+| `%/%` | integer division | `5 %/% 3` | `1` |
+
+Parentheses `()` override the default order, exactly as in standard math notation. When in doubt, use them — they make your intent explicit even when they're not strictly required.
+
+## Demonstration
+
+```r
+# Order of operations matters: multiplication happens before addition
+2 + 3 * 4
+```
+
+```
+[1] 14
+```
+
+```r
+# Parentheses force addition to happen first
+(2 + 3) * 4
+```
+
+```
+[1] 20
+```
+
+```r
+# Converting 154 pounds to kilograms
+weight_lb <- 154
+weight_kg <- weight_lb / 2.20462
+weight_kg
+```
+
+```
+[1] 69.85342
+```
+
+```r
+# BMI = weight (kg) / height (m) squared
+height_m <- 1.75
+bmi <- weight_kg / height_m^2
+bmi
+```
+
+```
+[1] 22.80887
+```
+
+## Explore
+
+Modify `height_m` to `1.60` and rerun the BMI calculation. Then try writing the BMI formula *without* parentheses around `height_m^2` as `weight_kg / height_m^2` versus incorrectly as `(weight_kg / height_m)^2` — compare the two results and notice how differently they turn out.
+
+## Solve the Problem
+
+For a patient weighing 180 pounds and standing 1.68 meters tall:
+
+```r
+weight_lb <- 180
+weight_kg <- weight_lb / 2.20462
+height_m <- 1.68
+
+bmi <- weight_kg / height_m^2
+bmi
+```
+
+```
+[1] 28.92108
+```
+
+## Interpret the Result
+
+A BMI of approximately 28.9 falls in the "overweight" category by standard WHO classification (25–29.9), which is the kind of clinical interpretation that would go directly into a patient chart or research dataset alongside this calculated value.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Misjudging order of operations.** Writing `weight_kg / height_m^2` relies on `^` happening before `/` — which R does correctly by default — but when unsure, add parentheses: `weight_kg / (height_m^2)`.
+- **Using `x` instead of `*` for multiplication.** R has no concept of `x` as a multiplication symbol; only `*` works.
+- **Confusing `/` and `%/%`.** `7 / 2` gives `3.5` (regular division); `7 %/% 2` gives `3` (integer division, dropping the remainder). Using the wrong one silently produces a different kind of number.
+- **Forgetting units before converting.** A common real error is applying a kg formula to a still-in-pounds value, producing a BMI that looks plausible but is completely wrong.
+:::
+
+## Practice Problem
+
+A dosing protocol calls for 5 mg of medication per kilogram of body weight. Calculate the correct total dose (in mg) for a patient weighing 198 pounds.
+
+## Challenge Problem
+
+Body surface area (BSA) is sometimes estimated using the Mosteller formula: `sqrt((height_cm * weight_kg) / 3600)`. Using `height_m <- 1.72` and `weight_kg <- 75`, calculate BSA — remembering to first convert height into centimeters (hint: `sqrt()` is a built-in function you can use directly, and you'll learn more about functions like it later in this level).
+
+## Key Takeaways
+
+- R supports `+`, `-`, `*`, `/`, `^`, `%%`, and `%/%`, following standard order of operations.
+- Parentheses `()` override default order and make calculations easier to read correctly.
+- Getting units right *before* applying a formula matters as much as getting the formula's operators right.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `%%` compute?
+   a) Percentage
+   b) Integer division
+   c) Remainder after division (modulo)
+   d) Square root
+
+2. **True or false.** `2 + 3 * 4` and `(2 + 3) * 4` give the same result in R.
+
+3. **Predict the output.**
+   ```r
+   10 %% 3
+   ```
+
+4. **Find the error.** A student writes `weight_lb x 2.20462` intending to convert kilograms to pounds. What's wrong?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** Remainder after division (modulo).
+2. **False.** `2 + 3 * 4` = `14` (multiplication first); `(2 + 3) * 4` = `20` (parentheses force addition first).
+3. `[1] 1` (10 divided by 3 is 3 remainder 1).
+4. R doesn't recognize `x` as a multiplication symbol — it should be `weight_lb * 2.20462`.
+
+</details>
+:::

@@ -1,0 +1,173 @@
+# Changing Variable Types: Numeric to Character {#sec-numeric-to-character}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your team is about to merge `participants.csv` with a partner clinic's system (a full topic in Level 6), and their system identifies every participant with a zero-padded code like `"P001"`, `"P002"`, ..., `"P100"` — not a plain integer like `1`, `2`, ..., `100`. You need to convert your numeric `id` column into these specific text-based codes before the merge can work.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Convert a numeric variable into character text, including generating a formatted, zero-padded ID code.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 1, what does `as.character(42)` return, and how is it different from `42` itself, even though they print similarly?
+- If you need `1` to become `"P001"` (not just `"1"`), what extra step beyond a simple type conversion would that require?
+:::
+
+## The R Concept
+
+**`as.character(x)`** performs the basic conversion — a number becomes its text representation:
+
+```r
+as.character(42)   # "42"
+```
+
+But a zero-padded, prefixed code like `"P001"` needs more than a bare conversion — it needs **formatting**. `sprintf()` (or the more R-idiomatic `formatC()`) builds a formatted string from a template:
+
+```r
+sprintf("P%03d", 1)     # "P001" - %03d means "an integer, zero-padded to 3 digits"
+sprintf("P%03d", 42)    # "P042"
+sprintf("P%03d", 100)   # "P100"
+```
+
+Reading `"P%03d"`: `P` is literal text that appears as-is; `%03d` is a placeholder meaning "insert an integer here, padded with zeros to at least 3 digits wide."
+
+## Demonstration
+
+```r
+as.character(42)
+```
+
+```
+[1] "42"
+```
+
+```r
+class(as.character(42))
+```
+
+```
+[1] "character"
+```
+
+```r
+# Basic conversion alone doesn't zero-pad
+as.character(1)
+```
+
+```
+[1] "1"
+```
+
+```r
+# sprintf() builds the exact formatted code needed
+sprintf("P%03d", 1)
+```
+
+```
+[1] "P001"
+```
+
+```r
+sprintf("P%03d", c(1, 42, 100))
+```
+
+```
+[1] "P001" "P042" "P100"
+```
+
+## Explore
+
+Try `sprintf("P%02d", 1)` (2 digits instead of 3) and `sprintf("P%04d", 1)` (4 digits) — compare the outputs to see exactly how the number after `%0` controls the padding width. What happens if the number itself already has more digits than the specified width, like `sprintf("P%02d", 100)`?
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+participants$patient_code <- sprintf("P%03d", participants$id)
+
+head(participants$patient_code)
+```
+
+```
+[1] "P001" "P002" "P003" "P004" "P005" "P006"
+```
+
+```r
+class(participants$patient_code)
+```
+
+```
+[1] "character"
+```
+
+```r
+tail(participants$patient_code)
+```
+
+```
+[1] "P095" "P096" "P097" "P098" "P099" "P100"
+```
+
+Every participant now has a properly formatted, zero-padded code exactly matching the partner clinic's system, ready for the merge in Level 6.
+
+## Interpret the Result
+
+`participants$patient_code` now holds character strings like `"P001"` and `"P100"`, generated directly from the numeric `id` column — the original `id` column remains untouched and numeric, while `patient_code` provides the specific text format the partner system requires, without you needing to type all 100 codes by hand.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Using `as.character()` alone when zero-padding is required.** `as.character(1)` gives `"1"`, not `"001"` — a bare type conversion doesn't add formatting; `sprintf()` (or `formatC()`) is needed for that.
+- **Getting the width wrong in `sprintf()`.** `sprintf("P%02d", 100)` — asking for 2-digit padding on a number that's already 3 digits — doesn't truncate anything; it simply uses as many digits as the number actually needs, so the padding number should be at least as large as your largest expected ID.
+- **Forgetting the new code is a completely separate column.** `participants$patient_code` doesn't replace `participants$id` — both coexist, since you'll likely still want the numeric `id` for calculations, and the character `patient_code` specifically for the external merge.
+:::
+
+## Practice Problem
+
+Create a `visit_code` column formatted as `"V"` followed by a 2-digit zero-padded visit number, for visit numbers `c(1, 5, 12)` (expected output: `"V01"`, `"V05"`, `"V12"`).
+
+## Challenge Problem
+
+Your partner clinic's system actually uses a different prefix depending on `county`: `"R"` for Riverdale, `"O"` for Oakford, and so on. Without yet knowing the tidyverse tools from Level 5, describe in words (you don't need full working code) how you might combine `substr()` or manual character logic with `sprintf()` to build a per-county prefix — this is intentionally a preview of a genuinely awkward base-R problem that Level 5's `case_when()` and `paste0()` will make far more elegant.
+
+## Key Takeaways
+
+- `as.character()` performs a basic numeric-to-text conversion; it does not add formatting like zero-padding.
+- `sprintf("P%03d", x)` builds a formatted, zero-padded string from a numeric template — the `03` controls the minimum digit width.
+- Store a formatted ID code in a new column, keeping the original numeric column intact for any calculations that still need it.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `as.character(7)` return?
+   a) `7`
+   b) `"7"`
+   c) `"07"`
+   d) `07`
+
+2. **True or false.** `as.character()` alone can zero-pad a number to a fixed width.
+
+3. **Predict the output.**
+   ```r
+   sprintf("ID%03d", 5)
+   ```
+
+4. **Write the code.** Write the code to convert the numeric vector `c(3, 27, 150)` into zero-padded 3-digit codes prefixed with `"S"` (e.g., `"S003"`, `"S027"`, `"S150"`).
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `"7"`
+2. **False.** `as.character()` performs a plain conversion with no formatting; `sprintf()` or `formatC()` is needed for zero-padding.
+3. `[1] "ID005"`
+4. `sprintf("S%03d", c(3, 27, 150))`
+
+</details>
+:::

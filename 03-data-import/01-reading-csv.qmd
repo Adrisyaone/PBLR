@@ -1,0 +1,165 @@
+# Reading CSV Files with `readr` {#sec-reading-csv}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Base R's `read.csv()`, which you learned in Level 1, works — but it's slow on large files, and it silently makes some decisions you might not want (like converting text columns in ways that vary subtly across R versions). A colleague mentions they always use `read_csv()` instead, from a package called `readr`, and that it "just tells you upfront what it did." You want to know what's actually different.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Import a CSV file using `readr::read_csv()`, and understand how it differs from base R's `read.csv()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 1, what did `read.csv()` return, and what functions did you use afterward to check it imported correctly?
+- If a function "tells you upfront what it did" while importing, what kind of information would be most useful to see immediately?
+:::
+
+## The R Concept
+
+**`read_csv()`**, from the `readr` package (part of the tidyverse), reads CSV files with a few meaningful differences from base R's `read.csv()`:
+
+```r
+library(readr)
+my_data <- read_csv("path/to/file.csv")
+```
+
+- It returns a **tibble** (Level 2), not a plain data frame — with all the safety benefits you already know about.
+- It prints a **column specification** message immediately after import, showing exactly what type it guessed for each column — surfacing potential problems immediately, rather than requiring you to run `str()` separately to find out.
+- It's meaningfully **faster** on large files, which matters once your datasets grow beyond a few hundred rows.
+- Unlike base R historically, it **never** converts character columns to factors automatically, and consistently treats blank fields as missing across all column types (a subtlety you'll see matters a lot on the missing-values page later in this level).
+
+```r
+participants <- read_csv("data/participants.csv")
+```
+
+```
+Rows: 100 Columns: 8
+── Column specification ────────────────────
+Delimiter: ","
+chr (3): sex, county, smoker
+dbl (5): id, age, systolic_bp, diastolic_bp, bmi
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+## Demonstration
+
+```r
+library(readr)
+
+participants <- read_csv("data/participants.csv")
+```
+
+```
+Rows: 100 Columns: 8
+── Column specification ────────────────────
+Delimiter: ","
+chr (3): sex, county, smoker
+dbl (5): id, age, systolic_bp, diastolic_bp, bmi
+```
+
+```r
+class(participants)
+```
+
+```
+[1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"
+```
+
+```r
+participants
+```
+
+```
+# A tibble: 100 x 8
+      id   age sex    county    systolic_bp diastolic_bp   bmi smoker
+   <dbl> <dbl> <chr>  <chr>           <dbl>        <dbl> <dbl> <chr>
+ 1     1    46 Female Oakford           125           79  35.1 No
+ 2     2    53 Female Riverdale         123           80  27.7 No
+ 3     3    59 Female Oakford           130           77  28.3 No
+ # ... with 97 more rows
+```
+
+## Explore
+
+Compare `class(read.csv("data/participants.csv"))` (base R, from Level 1) against `class(read_csv("data/participants.csv"))` (this page). Notice `read_csv()`'s class includes `"tbl_df"` and `"data.frame"` both — a tibble is, structurally, still a data frame, exactly as you learned in Level 2. Then try adding `show_col_types = FALSE` to suppress the column specification message once you're confident you don't need to see it every time.
+
+## Solve the Problem
+
+```r
+library(readr)
+
+participants <- read_csv("data/participants.csv")
+```
+
+```
+Rows: 100 Columns: 8
+── Column specification ────────────────────
+Delimiter: ","
+chr (3): sex, county, smoker
+dbl (5): id, age, systolic_bp, diastolic_bp, bmi
+```
+
+The column specification message immediately confirms, without running any additional code, that `age`, `systolic_bp`, `diastolic_bp`, and `bmi` were all correctly detected as numeric (`dbl`), and `sex`, `county`, and `smoker` were correctly detected as text (`chr`) — exactly what you'd expect, visible upfront rather than requiring a separate `str()` call to discover.
+
+## Interpret the Result
+
+Seeing the column specification message print immediately after import means `read_csv()` guessed every column's type correctly on this particular file — a genuinely useful sanity check that base R's `read.csv()` doesn't surface automatically. Later in this level, on a messier file, you'll see this same message actively catch a column that *didn't* import the way you'd expect.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting to load `readr` (or `tidyverse`).** Just like any package, `read_csv()` requires `library(readr)` (or `library(tidyverse)`) first — otherwise you'll get the familiar `could not find function` error from Level 1.
+- **Ignoring the column specification message.** Treating it as noise to scroll past, rather than as a free, automatic check on whether each column imported as the type you expected.
+- **Assuming `read.csv()` and `read_csv()` are interchangeable in every respect.** They return different object classes (data frame vs. tibble) and differ in a few default behaviors — mixing them up mid-script can cause subtle inconsistencies.
+:::
+
+## Practice Problem
+
+Import `data/participants.csv` using `read_csv()`, and without running `str()`, answer from the column specification message alone: how many character columns are there, and how many numeric columns?
+
+## Challenge Problem
+
+Import `data/participants.csv` twice — once with `read.csv()` (base R) and once with `read_csv()` (readr) — into two separate objects. Compare `class()` of each, and explain in one sentence why both are still valid ways to get a "data frame" into R despite the different class labels.
+
+## Key Takeaways
+
+- `readr::read_csv()` is a modern, faster alternative to base R's `read.csv()`, returning a tibble and printing a column specification immediately after import.
+- The column specification message is a free, automatic type-check — always worth reading, not scrolling past.
+- A tibble from `read_csv()` is still fundamentally a data frame, exactly as you learned in Level 2.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `read_csv()` return?
+   a) A plain base R data frame only
+   b) A tibble
+   c) A matrix
+   d) A list
+
+2. **True or false.** `read_csv()` prints a column specification message showing the guessed type of every column.
+
+3. **Predict the output.** If a CSV has one numeric column and one text column, what would `read_csv()`'s specification message show for column types?
+
+4. **Write the code.** Write the code to load `readr` and import `data/participants.csv` using `read_csv()`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A tibble.
+2. **True.** This message shows each column's guessed type immediately after import.
+3. Something like `dbl (1): ...` for the numeric column and `chr (1): ...` for the text column.
+4.
+   ```r
+   library(readr)
+   participants <- read_csv("data/participants.csv")
+   ```
+
+</details>
+:::

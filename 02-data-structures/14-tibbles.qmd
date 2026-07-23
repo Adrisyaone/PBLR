@@ -1,0 +1,151 @@
+# Tibbles {#sec-tibbles}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You accidentally type `participants$Age` (capital A) instead of `participants$age`. Instead of a helpful error telling you the column doesn't exist, base R's data frame silently returns `NULL` — and worse, in some cases base R's partial matching would have quietly matched a *different*, similarly-named column, giving you a wrong answer with no warning at all. You'd like R to be stricter and catch mistakes like this immediately.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Learn about tibbles — the tidyverse's modern alternative to the base R data frame — and understand what they do differently.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If a base R data frame lets a typo pass silently, what would you want a "safer" version of the same structure to do instead?
+- When you print a 100-row data frame with `head()`, you only see 6 rows by default — what would happen if you printed the *whole* 100-row data frame with no `head()` at all? Would that always be convenient?
+:::
+
+## The R Concept
+
+A **tibble** is a modern reimagining of the data frame, provided by the `tibble` package (part of the tidyverse, loaded automatically with `library(tidyverse)`, or on its own with `library(tibble)`). A tibble *is* still fundamentally a data frame — everything you've learned about `$`, `[ ]`, `[[ ]]`, and two-position row/column indexing still applies — but it behaves more predictably in a few specific ways:
+
+- **No partial matching with `$`.** Base R data frames sometimes let `df$ag` match a column called `age` if no exact match exists; tibbles refuse this and return `NULL` with a warning instead, surfacing the typo rather than hiding it.
+- **Cleaner, safer printing.** Printing a tibble shows only the first 10 rows and however many columns fit on screen by default, along with each column's type directly under its name — avoiding the base R habit of flooding your Console with every row of a large dataset.
+- **Never silently converts to a vector when selecting one column.** Some older base R subsetting operations that return a vector for a data frame instead consistently return a smaller tibble, reducing an entire class of "wait, why is this suddenly not a data frame anymore" bugs.
+
+Converting an existing data frame into a tibble uses `as_tibble()`:
+
+```r
+library(tibble)   # or library(tidyverse), which loads tibble along with dplyr, ggplot2, etc.
+as_tibble(participants)
+```
+
+## Demonstration
+
+```r
+library(tibble)
+
+participants_tbl <- as_tibble(participants)
+participants_tbl
+```
+
+```
+# A tibble: 100 x 8
+      id   age sex    county    systolic_bp diastolic_bp   bmi smoker
+   <int> <int> <chr>  <chr>           <int>        <int> <dbl> <chr>
+ 1     1    46 Female Oakford           125           79  35.1 No
+ 2     2    53 Female Riverdale         123           80  27.7 No
+ 3     3    59 Female Oakford           130           77  28.3 No
+ 4     4    49 Female Millbrook         117           72  30.4 No
+ 5     5    61 Female Millbrook         139           79  21.5 No
+ 6     6    18 Female Riverdale         117           64  24.0 No
+ # ... with 94 more rows
+```
+
+```r
+class(participants_tbl)
+```
+
+```
+[1] "tbl_df"     "tbl"        "data.frame"
+```
+
+Notice `class()` shows *three* labels — a tibble is still a `"data.frame"` underneath (the third label), which is why everything you already know about data frames continues to work.
+
+## Explore
+
+Try `participants_tbl$Age` (wrong capitalization, matching the opening problem) and compare the result to what base R's `participants$Age` would give — both actually return `NULL` for a fully wrong name in modern R, but try `participants_tbl$ag` (a genuine partial match attempt) versus how older base R behavior historically handled this, to see why the tidyverse considers this worth being strict about.
+
+## Solve the Problem
+
+```r
+library(tibble)
+
+participants_tbl <- as_tibble(participants)
+
+# A typo now returns NULL cleanly, with no risk of a silent partial match
+participants_tbl$Age
+```
+
+```
+NULL
+```
+
+```r
+# The correct column still works exactly as expected
+participants_tbl$age |> mean(na.rm = TRUE)
+```
+
+```
+[1] 47.42553
+```
+
+## Interpret the Result
+
+The typo `$Age` returns `NULL` rather than any data, which — while still requiring you to notice the problem — at least doesn't silently hand back a plausible-looking but wrong result. The correctly spelled `$age` continues to behave exactly as it did with the base data frame, since a tibble is a data frame with extra safety, not a replacement structure with new rules to relearn.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting to load `tibble` (or `tidyverse`) before using `as_tibble()`.** Just like any package function from Level 1, this fails with `could not find function` if the package hasn't been loaded in the current session.
+- **Assuming a tibble and a data frame are unrelated structures.** They're not — a tibble *is* a data frame (notice `"data.frame"` in its `class()` output), just with extra guardrails layered on top; everything you learned in this level about data frames still applies.
+- **Expecting `print()` to show every row by default.** A tibble intentionally truncates to the first 10 rows when printed directly — use `View(participants_tbl)` in RStudio, or `print(participants_tbl, n = Inf)`, to see everything.
+:::
+
+## Practice Problem
+
+Convert `participants` into a tibble called `participants_tbl`, confirm its class includes `"tbl_df"`, and print it to observe the truncated, cleaner display compared to printing the base `participants` data frame directly.
+
+## Challenge Problem
+
+Explain, in your own words, why a tidyverse-heavy course (like the one starting in Level 5) would generally prefer tibbles over base data frames, connecting your answer to at least one specific safety behavior described on this page.
+
+## Key Takeaways
+
+- A tibble is a data frame with extra safety guardrails: no partial matching on `$`, cleaner truncated printing, and more predictable subsetting behavior.
+- `class()` on a tibble includes `"data.frame"`, confirming it's built on top of the same structure you've been using all level — not a separate thing to relearn from scratch.
+- `as_tibble()` converts an existing data frame into a tibble; the tidyverse (starting in Level 5) will produce tibbles by default from most of its functions.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What is a tibble, fundamentally?
+   a) A completely separate structure unrelated to data frames
+   b) A data frame with additional safety behaviors
+   c) A type of vector
+   d) A type of list
+
+2. **True or false.** `class(as_tibble(df))` includes `"data.frame"` in its output.
+
+3. **Predict the output.** If `participants_tbl` is a tibble with no column named `Age` (only lowercase `age` exists), what does `participants_tbl$Age` return?
+
+4. **Write the code.** Convert a data frame called `survey_data` into a tibble, and confirm its class using `class()`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A data frame with additional safety behaviors — it is still fundamentally a data frame underneath.
+2. **True.** A tibble's class includes `"tbl_df"`, `"tbl"`, and `"data.frame"` — all three.
+3. `NULL` — with no partial matching, an incorrect column name simply returns nothing, rather than risking a silent wrong match.
+4.
+   ```r
+   survey_tbl <- as_tibble(survey_data)
+   class(survey_tbl)
+   ```
+
+</details>
+:::

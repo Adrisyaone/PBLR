@@ -1,0 +1,146 @@
+# Naming Objects {#sec-naming-objects}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You inherit a script from a former intern that includes lines like:
+
+```r
+x <- 78
+y <- 1.70
+z <- x / y^2
+temp2 <- z >= 25
+```
+
+There's no way to tell, just by reading it, that `x` is a weight, `y` is a height, `z` is a BMI, or that `temp2` flags overweight status. You have to trace through the whole script just to understand what one line means.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Learn R's naming rules and adopt naming habits that make your code understandable at a glance — to your supervisor, a collaborator, or yourself in six months.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If you saw `bmi <- weight_kg / height_m^2` versus `z <- x / y^2`, which would you understand faster without any comments at all?
+- What information would a good object name communicate about what it holds?
+:::
+
+## The R Concept
+
+R's actual naming **rules** (violating these causes an error) are:
+
+- Names can contain letters, numbers, dots (`.`), and underscores (`_`).
+- Names cannot start with a number (`2nd_visit` is invalid; `second_visit` is fine).
+- Names are case-sensitive: `Age`, `age`, and `AGE` are three different objects.
+- A handful of words are reserved by R itself (like `TRUE`, `FALSE`, `if`, `for`) and can't be used as object names.
+
+Beyond the hard rules, there are **style conventions** — not enforced by R, but strongly recommended for readability:
+
+- Use `snake_case` (lowercase words separated by underscores): `bmi_rounded`, `is_overweight`, `n_enrolled`. This is the convention used throughout the tidyverse and this course.
+- Make names descriptive but not excessively long: `bmi` is fine; `body_mass_index_calculated_value` is overkill.
+- Use consistent prefixes for related concepts: `n_enrolled`, `n_completed` (counts), `is_overweight`, `is_smoker` (logical flags).
+
+## Demonstration
+
+```r
+# Poor naming - technically valid R, but unreadable
+x <- 78
+y <- 1.70
+z <- x / y^2
+temp2 <- z >= 25
+```
+
+```r
+# Clear naming - communicates meaning without needing comments
+weight_kg <- 78
+height_m <- 1.70
+bmi <- weight_kg / height_m^2
+is_overweight <- bmi >= 25
+```
+
+Both blocks compute exactly the same thing and produce identical results — the difference is entirely about how quickly a human reader understands them.
+
+```r
+# This will cause an error - names can't start with a number
+2nd_visit_bp <- 130
+```
+
+```
+Error: unexpected symbol in "2nd_visit_bp"
+```
+
+## Explore
+
+Try creating an object called `TRUE_value <- 5` — does it work? Then try creating one literally named `TRUE <- 5` — what error do you get, and why do you think R protects this particular word?
+
+## Solve the Problem
+
+Rewriting the inherited script with clear names:
+
+```r
+weight_kg <- 78
+height_m <- 1.70
+bmi <- weight_kg / height_m^2
+is_overweight <- bmi >= 25
+```
+
+Now any reader — including the next intern who inherits *this* script — can understand the purpose of every line without needing you to explain it in person.
+
+## Interpret the Result
+
+The computed values are unchanged (`bmi` is still approximately `26.99`, `is_overweight` is still `TRUE`), but the script itself has become documentation. Clear names reduce the need for comments explaining *what* a value represents, freeing comments to explain *why*, as discussed on the comments page.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Starting a name with a number.** `1st_dose <- 50` fails; use `first_dose` or `dose_1` instead.
+- **Assuming names are case-insensitive.** `Age` and `age` are two entirely separate objects in R — a frequent source of "object not found" errors when a name is typed with different capitalization than it was created with.
+- **Using generic, uninformative names.** `data`, `df`, `temp`, `x1`, `x2` are common but tell a reader nothing about the actual content — reserve short generic names for genuinely temporary, throwaway calculations only.
+- **Using reserved words.** Trying to name an object `TRUE`, `if`, `for`, or `function` will fail, since these are reserved by R's syntax itself.
+:::
+
+## Practice Problem
+
+Rename the following poorly-named objects to follow this course's `snake_case` convention, keeping their meaning clear: `PatientAge`, `bp.systolic`, `SmokerFlag`.
+
+## Challenge Problem
+
+A colleague's script uses `df1`, `df2`, and `df3` for three different datasets: baseline enrollment, six-month follow-up, and twelve-month follow-up. Propose clearer names for all three, following the conventions on this page.
+
+## Key Takeaways
+
+- R naming rules: letters, numbers, dots, and underscores are allowed; names can't start with a number; names are case-sensitive.
+- This course (and the tidyverse broadly) uses `snake_case`: lowercase words joined with underscores.
+- Descriptive names reduce the need for comments and make scripts understandable at a glance.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Which of these is a valid R object name?
+   a) `2nd_dose`
+   b) `dose_2`
+   c) `dose-2`
+   d) `TRUE`
+
+2. **True or false.** `Age` and `age` refer to the same object in R.
+
+3. **Find the error.**
+   ```r
+   1st_bp_reading <- 130
+   ```
+
+4. **Write the code.** Rename the object `x` to something descriptive, assuming it currently stores a participant's diastolic blood pressure of `82`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `dose_2` — the others either start with a number, use an invalid hyphen, or are a reserved word.
+2. **False.** R is case-sensitive; `Age` and `age` are two distinct objects.
+3. Object names cannot start with a number. It should be `bp_reading_1 <- 130` or similar.
+4. `diastolic_bp <- 82`
+
+</details>
+:::

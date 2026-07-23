@@ -1,0 +1,161 @@
+# Working Directories {#sec-working-directory}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your supervisor emails you the full 100-participant survey file, `participants.csv`, and says "just read it in." You try:
+
+```r
+participants <- read.csv("participants.csv")
+```
+
+```
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+cannot open file 'participants.csv': No such file or directory
+```
+
+The file is right there on your computer — you can see it in File Explorer or Finder — so why can't R find it?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand what a working directory is, check yours, and fix a file-not-found error caused by R looking in the wrong folder.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If you tell someone "open the file called `report.docx`" without telling them which folder to look in, what would they need to assume?
+- What folder do you think R is currently "standing in," by default, when you give it a filename with no folder path attached?
+:::
+
+## The R Concept
+
+Your **working directory** is the folder R currently treats as its "home base" — when you give a filename with no additional path information, R looks for it there first. If the file isn't in that exact folder, you get a "cannot open the connection" / "No such file or directory" error, even though the file genuinely exists somewhere on your computer.
+
+Two essential functions:
+
+```r
+getwd()    # shows your current working directory
+setwd("/path/to/folder")   # changes your working directory
+```
+
+Once your working directory matches the folder your file is actually in, a plain filename like `"participants.csv"` will work. If you'd rather not change the working directory, you can instead give R the file's full (absolute) path, or a path relative to your current working directory (like `"data/participants.csv"` if the file sits inside a `data` subfolder of your working directory).
+
+::: {.callout-note}
+## A better long-term fix
+Manually managing `setwd()` is fragile — it hardcodes a path that only works on *your* computer. Level 3 introduces **RStudio Projects**, which solve this properly by automatically setting the working directory to your project folder every time you open it, so your scripts work identically on any computer. For now, understanding `getwd()`/`setwd()` and relative paths is the essential foundation.
+:::
+
+## Demonstration
+
+```r
+getwd()
+```
+
+```
+[1] "/Users/jordan/Documents"
+```
+
+```r
+# The file actually lives in a subfolder called "data"
+setwd("/Users/jordan/Documents/health-survey-project")
+getwd()
+```
+
+```
+[1] "/Users/jordan/Documents/health-survey-project"
+```
+
+```r
+# Now a relative path works, because "data" exists inside the current working directory
+participants <- read.csv("data/participants.csv")
+```
+
+## Explore
+
+Run `getwd()` right now, in your own RStudio session, and note what it returns. Then try `list.files()` — a function that lists every file in your current working directory — to see whether the file you're looking for is actually there.
+
+## Solve the Problem
+
+```r
+getwd()
+```
+
+```
+[1] "/Users/jordan/Documents"
+```
+
+The working directory was `Documents`, but `participants.csv` actually lives inside a `data` subfolder of the project folder — not directly inside `Documents`. Two valid fixes:
+
+```r
+# Option 1: change the working directory to the project folder,
+# then use a relative path to the data subfolder
+setwd("/Users/jordan/Documents/health-survey-project")
+participants <- read.csv("data/participants.csv")
+```
+
+```r
+# Option 2: leave the working directory alone, and give the full path directly
+participants <- read.csv("/Users/jordan/Documents/health-survey-project/data/participants.csv")
+```
+
+Either approach resolves the original error, because R now knows exactly which folder to look in.
+
+## Interpret the Result
+
+Once `read.csv()` runs without error, `participants` now holds the actual survey data in R, ready to be inspected and analyzed — the "cannot open the connection" error is gone because R's working directory (or the path you supplied) now correctly points to the folder containing the file.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Assuming R can "see" your whole computer.** R only looks in its current working directory by default — being able to see a file in File Explorer doesn't mean R's working directory is set to that same folder.
+- **Hardcoding a path that only works on one computer.** `setwd("/Users/jordan/Documents/...")` will break the moment a colleague with a different username or operating system tries to run your script — a key reason Level 3 introduces RStudio Projects as a better long-term solution.
+- **Forgetting forward slashes.** Even on Windows, R paths use forward slashes (`/`), not backslashes (`\`) — a raw backslash in an R string has special meaning and will cause errors or wrong behavior.
+- **Confusing relative and absolute paths.** `"data/participants.csv"` (relative — depends on your current working directory) behaves very differently from `"/Users/jordan/.../data/participants.csv"` (absolute — always points to the same place, regardless of working directory).
+:::
+
+## Practice Problem
+
+Suppose `getwd()` returns `"/Users/jordan/Documents"`, and your file `clinic_data.csv` actually lives at `"/Users/jordan/Documents/projects/clinic_data.csv"`. Write the `read.csv()` call using a *relative* path (not changing the working directory), and separately, write it using the *absolute* path.
+
+## Challenge Problem
+
+A classmate's script works perfectly on their laptop but fails with a "cannot open the connection" error on yours, even though you're both using the identical script and you both have the exact same data file. Explain what's most likely different between your two setups, and propose the most robust long-term fix (hint: think about what changes between two different computers, and preview why Level 3's RStudio Projects might solve this permanently).
+
+## Key Takeaways
+
+- The working directory is the folder R looks in by default for files given without a full path; check it with `getwd()`.
+- `setwd()` changes the working directory, but hardcoded paths break across different computers — a fragile short-term fix.
+- Relative paths (like `"data/participants.csv"`) depend on the current working directory; absolute paths (the full location) don't, but aren't portable across computers either.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `getwd()` do?
+   a) Downloads a file
+   b) Shows your current working directory
+   c) Creates a new working directory
+   d) Installs a package
+
+2. **True or false.** If you can see a file in File Explorer or Finder, R can automatically find it regardless of its working directory.
+
+3. **Predict the output.** If `getwd()` returns `"/Users/amy/project"` and a file lives at `"/Users/amy/project/data/survey.csv"`, what relative path would correctly load it with `read.csv()`?
+
+4. **Find the error.**
+   ```r
+   setwd("C:\Users\Amy\Documents")
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Shows your current working directory.
+2. **False.** R only looks in its current working directory by default, regardless of what's visible in a file browser.
+3. `read.csv("data/survey.csv")`
+4. The path uses backslashes (`\`), which have special meaning in R strings. It should use forward slashes: `setwd("C:/Users/Amy/Documents")`.
+
+</details>
+:::

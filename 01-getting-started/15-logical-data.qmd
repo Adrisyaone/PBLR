@@ -1,0 +1,176 @@
+# Logical Data {#sec-logical-data}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your supervisor asks: "Which participants are current smokers, and which are 65 or older?" You need to flag each participant with a clear yes/no answer for both questions, so these flags can later be used to filter and count people — but you're not sure what kind of value a "yes/no" answer should even be stored as in R.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand R's logical data type (`TRUE`/`FALSE`) and the comparison operators used to create it.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- What are all the possible answers to a genuine yes/no question — is there really a third option?
+- If you wanted R to check "is this participant's age 65 or more," what symbol would represent "is greater than or equal to"?
+:::
+
+## The R Concept
+
+**Logical** data has exactly two possible values: `TRUE` or `FALSE` (always written in capital letters, never quoted — `"TRUE"` is character text, not logical). Logical values are most often produced by **comparison operators**:
+
+| Operator | Meaning |
+|---|---|
+| `==` | equal to |
+| `!=` | not equal to |
+| `>` | greater than |
+| `<` | less than |
+| `>=` | greater than or equal to |
+| `<=` | less than or equal to |
+
+You can also combine logical values using:
+
+| Operator | Meaning |
+|---|---|
+| `&` | and (both must be TRUE) |
+| `\|` | or (at least one must be TRUE) |
+| `!` | not (flips TRUE to FALSE, and vice versa) |
+
+The single most common beginner mistake is confusing `=` (assignment) with `==` (equality comparison) — they look almost identical but do fundamentally different things.
+
+## Demonstration
+
+```r
+age <- 68
+is_senior <- age >= 65
+is_senior
+```
+
+```
+[1] TRUE
+```
+
+```r
+smoker_status <- "Yes"
+is_smoker <- smoker_status == "Yes"
+is_smoker
+```
+
+```
+[1] TRUE
+```
+
+```r
+# Combining two conditions with &
+high_risk <- is_senior & is_smoker
+high_risk
+```
+
+```
+[1] TRUE
+```
+
+```r
+# Flipping a logical value with !
+is_nonsmoker <- !is_smoker
+is_nonsmoker
+```
+
+```
+[1] FALSE
+```
+
+## Explore
+
+Change `age` to `50` and rerun `is_senior <- age >= 65`. What do you get, and does `high_risk` change automatically? (Recall from the objects page: it won't, unless you rerun the calculation.) Try `age == "68"` (comparing a number to quoted text) — does it still work as expected?
+
+## Solve the Problem
+
+```r
+age <- 71
+smoker_status <- "Yes"
+
+is_senior <- age >= 65
+is_smoker <- smoker_status == "Yes"
+
+is_senior
+```
+
+```
+[1] TRUE
+```
+
+```r
+is_smoker
+```
+
+```
+[1] TRUE
+```
+
+Both flags now clearly and unambiguously answer your supervisor's two questions for this participant, ready to be reused later (for example, to count or filter many participants at once — a technique covered in Level 5).
+
+## Interpret the Result
+
+`is_senior` being `TRUE` means this participant meets the "65 or older" criterion; `is_smoker` being `TRUE` means they reported current smoking. Stored as logical values rather than text, these flags can be directly combined (as with `high_risk` above) or later used to filter a whole dataset down to exactly the participants who match both conditions.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Confusing `=` and `==`.** `age = 65` *assigns* `65` to `age`; `age == 65` *checks whether* `age` equals `65`. Using the wrong one produces very different, sometimes silently wrong, results.
+- **Quoting TRUE/FALSE unnecessarily.** `is_smoker <- "TRUE"` creates character text, not a logical value — drop the quotes: `is_smoker <- TRUE`.
+- **Misusing `&` versus `|`.** `age >= 65 & age <= 75` requires *both* conditions; using `|` instead would match ages 65 and under *or* 75 and over — the opposite of what's usually intended for an age range.
+- **Forgetting operator precedence.** Comparisons are evaluated before `&`/`|`, but when combining several conditions, parentheses make your intent explicit and prevent subtle bugs.
+:::
+
+## Practice Problem
+
+A participant has `systolic_bp <- 145`. Create a logical object `has_elevated_bp` that is `TRUE` if `systolic_bp` is greater than or equal to `130`.
+
+## Challenge Problem
+
+A participant has `age <- 58` and `bmi <- 31.2`. Create a logical object `needs_followup` that is `TRUE` only if the participant is *both* under 65 *and* has a BMI of 30 or above (using `&`), then create a second object `either_condition` using `|` instead, and explain in one sentence why the two results differ.
+
+## Key Takeaways
+
+- Logical values are `TRUE` or `FALSE` (unquoted); comparison operators (`==`, `!=`, `>`, `<`, `>=`, `<=`) produce them.
+- `=` assigns a value; `==` checks equality — mixing these up is one of the most common beginner errors.
+- `&` (and), `|` (or), and `!` (not) combine or invert logical values, and parentheses help make combined conditions unambiguous.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `age == 65` do?
+   a) Assigns 65 to age
+   b) Checks whether age equals 65, returning TRUE or FALSE
+   c) Rounds age to 65
+   d) Creates a character string
+
+2. **True or false.** `"TRUE"` and `TRUE` are the same value in R.
+
+3. **Predict the output.**
+   ```r
+   x <- 10
+   y <- 20
+   (x < y) & (y < 30)
+   ```
+
+4. **Find the error.**
+   ```r
+   is_adult <- age = 18
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Checks whether `age` equals `65`, returning `TRUE` or `FALSE`.
+2. **False.** `"TRUE"` (quoted) is character text; `TRUE` (unquoted) is logical — they have different classes.
+3. `[1] TRUE` — both `10 < 20` and `20 < 30` are true, and `&` requires both.
+4. The code uses `=` where `==` was intended for comparison (and the logic is also reversed). It likely should read `is_adult <- age >= 18`.
+
+</details>
+:::

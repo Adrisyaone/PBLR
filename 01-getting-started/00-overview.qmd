@@ -1,0 +1,32 @@
+# Level 1 — Getting Started with R {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+You've just started an internship, a course, or a new role that expects you to "just use R" for the data work — and you've never written a line of code. This level takes you from a completely blank slate to confidently running your first real analysis: computing the average age of 100 study participants from an actual survey file.
+:::
+
+## What you'll build toward
+
+Every page in this level adds one small piece, and by the last page you'll combine all of them to solve the same running problem: **your supervisor needs the average age of the participants in a community health survey, and you need to get that number out of R.**
+
+Along the way you'll learn what R and RStudio actually are, how to work in the console and in scripts, how R represents numbers, text, true/false values, and missing data, how to use built-in functions, how to get help when you're stuck, and how to import a real data file.
+
+## Topics in this level
+
+- What is R? What is RStudio?
+- The RStudio interface
+- Installing and loading packages
+- The Console vs. an R script
+- Comments
+- Basic arithmetic
+- The assignment operator and objects
+- Naming objects well
+- Data types: numeric, character, logical
+- Missing values (`NA`)
+- Basic functions
+- Getting help in R
+- Working directories
+- Importing your first real dataset
+
+By the end of this level, you'll import `data/participants.csv` — a simulated community health survey — and report the mean age of its 100 participants, correctly handling the missing values hiding in it. Let's begin.

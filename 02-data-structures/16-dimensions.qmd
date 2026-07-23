@@ -1,0 +1,159 @@
+# Checking Dimensions: `nrow()`, `ncol()`, `dim()` {#sec-dimensions}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Before you send your cleaned dataset back to your supervisor, you want to double check one basic fact: does it still have exactly 100 rows and 8 columns, matching what you started with in Level 1? If a filtering step earlier in your script accidentally dropped rows, or a merge accidentally added duplicate columns, you want to catch that *before* it reaches your supervisor's inbox, not after.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Check the dimensions — rows and columns — of a data frame or matrix, quickly and reliably.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- You already know a data frame is genuinely two-dimensional (rows and columns). What two separate numbers would fully describe its size?
+- Would you expect a single plain vector — which has no rows or columns, just individual elements — to have "dimensions" in the same sense?
+:::
+
+## The R Concept
+
+Three related functions report the size of a two-dimensional object (a data frame or a matrix):
+
+```r
+nrow(x)   # number of rows
+ncol(x)   # number of columns
+dim(x)    # both at once, as a vector: c(rows, columns)
+```
+
+```r
+nrow(participants)   # 100
+ncol(participants)   # 8
+dim(participants)    # c(100, 8)
+```
+
+Crucially, these are built specifically for two-dimensional structures. A plain vector has no rows or columns — just a length — so `nrow()` and `ncol()` both return `NULL` for a vector, and `dim(vector)` also returns `NULL`, rather than an error. This is a useful, quick way to distinguish "is this actually two-dimensional?" without needing `str()` or `class()`.
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+nrow(participants)
+```
+
+```
+[1] 100
+```
+
+```r
+ncol(participants)
+```
+
+```
+[1] 8
+```
+
+```r
+dim(participants)
+```
+
+```
+[1] 100   8
+```
+
+```r
+# A plain vector has no rows or columns
+ages <- c(45, 62, 38)
+nrow(ages)
+```
+
+```
+NULL
+```
+
+## Explore
+
+Run `dim(ages)` (the same plain vector) and confirm it also returns `NULL`. Then build a matrix, `m <- matrix(1:12, nrow = 3)`, and run `nrow(m)`, `ncol(m)`, and `dim(m)` — confirming these functions work identically well on matrices, not just data frames.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+# Quick sanity check before handing off the dataset
+dim(participants)
+```
+
+```
+[1] 100   8
+```
+
+```r
+nrow(participants) == 100 & ncol(participants) == 8
+```
+
+```
+[1] TRUE
+```
+
+The final line combines this page's functions with Level 1's logical comparisons into a single, explicit confirmation: `TRUE` means both dimensions match expectations exactly, and the dataset is safe to send along.
+
+## Interpret the Result
+
+`dim(participants)` returning `c(100, 8)` confirms the dataset still has exactly 100 rows and 8 columns — no rows silently dropped, no columns silently duplicated — giving you concrete, checkable confidence before sharing the file onward, rather than just assuming everything is fine.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Expecting `nrow()`/`ncol()` to work on plain vectors.** Both return `NULL` for a vector — for a vector's size, you want `length()` (covered on the next page), not `nrow()`.
+- **Confusing the order of `dim()`'s output.** `dim(x)` always returns `c(rows, columns)`, in that order — not columns first.
+- **Skipping this check entirely and assuming a script "probably" worked.** A single silently dropped row (from a bad filter condition, explored more in Level 5) is easy to miss by eye in a 100-row dataset, but immediately obvious from a `dim()` check that no longer matches what you expect.
+:::
+
+## Practice Problem
+
+Import `participants.csv` again into an object called `check_data`, and write a single line confirming both that it has exactly 100 rows and exactly 8 columns, using `&` to combine both conditions (as in the solution above).
+
+## Challenge Problem
+
+Build a matrix `m <- matrix(1:20, nrow = 4)`. Without running any code, predict what `dim(m)` will return, then verify your prediction. Explain, in one sentence, why `nrow()` and `ncol()` work identically for matrices and data frames despite them being different structures underneath (a distinction from the matrices page earlier in this level).
+
+## Key Takeaways
+
+- `nrow()`, `ncol()`, and `dim()` report the size of two-dimensional structures (data frames and matrices); `dim()` returns both values at once as `c(rows, columns)`.
+- These functions return `NULL` — not an error — when applied to a plain vector, which has no row/column structure.
+- Checking dimensions before and after a data-processing step is a fast, concrete way to catch silently dropped rows or unexpectedly added columns.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `dim(df)` return?
+   a) Just the number of rows
+   b) Just the number of columns
+   c) A vector: `c(rows, columns)`
+   d) The column names
+
+2. **True or false.** `nrow()` returns an error when applied to a plain vector.
+
+3. **Predict the output.**
+   ```r
+   m <- matrix(1:15, nrow = 5)
+   dim(m)
+   ```
+
+4. **Write the code.** Write a single line confirming that a data frame `df` has more than 50 rows.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** A vector: `c(rows, columns)`.
+2. **False.** It returns `NULL`, not an error, since a vector has no row/column structure.
+3. `[1] 5 3`
+4. `nrow(df) > 50`
+
+</details>
+:::

@@ -1,0 +1,28 @@
+# Level 11 — Statistical Analysis in R {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+This is where the course turns into the analysis you'll actually publish: confidence intervals, t-tests, chi-square tests, correlation, and regression — linear, logistic, Poisson, and Cox — each introduced through a real research question, with assumptions, code, output, and interpretation every time.
+:::
+
+## What's coming
+
+- Probability, distributions, and the Central Limit Theorem
+- Confidence intervals and one/two-sample tests
+- t-tests, chi-square, Fisher's exact test, correlation
+- Simple and multiple linear regression
+- Logistic, Poisson, and negative binomial regression
+- Survival analysis and Cox regression
+
+::: {.pbl-box .pbl-mission}
+**A preview mission**
+
+Your mission: does physical activity predict lower blood pressure in this sample — and can you defend that answer statistically, not just visually?
+:::
+
+::: {.callout-note}
+## Status
+
+This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
+:::

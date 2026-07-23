@@ -1,0 +1,158 @@
+# Quantiles and the Interquartile Range {#sec-quantiles-iqr}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Standard deviation (previous page) describes spread using every value at once, but it's sensitive to extreme outliers pulling it around. Your professor wants a spread measure based on the *middle* of the data — one that ignores unusually high or low values entirely — and also wants to know: is a BMI of 40 unusual for this study, or does a meaningful chunk of participants have BMIs that high?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Compute quantiles (including quartiles) with `quantile()`, and use the interquartile range (IQR) to describe spread and flag potential outliers.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 4, what did `summary()` report as the "1st Qu." and "3rd Qu." values for `age`?
+- If the middle 50% of a dataset spans a narrow range, but the full range (min to max) is much wider, what does that suggest about the data beyond the middle?
+:::
+
+## The R Concept
+
+A **quantile** is a value below which a given proportion of the data falls. The **quartiles** are the 25th, 50th, and 75th percentiles — dividing the data into four equal-sized groups:
+
+```r
+quantile(x, na.rm = TRUE)                    # 0%, 25%, 50%, 75%, 100% by default
+quantile(x, probs = 0.9, na.rm = TRUE)        # just the 90th percentile
+```
+
+The **interquartile range (IQR)** is the distance between the 1st and 3rd quartiles — the span of the *middle 50%* of the data, deliberately ignoring the most extreme quarter on either end:
+
+```r
+IQR(x, na.rm = TRUE)
+```
+
+A common rule of thumb flags a value as a potential outlier if it falls more than 1.5×IQR below Q1 or above Q3.
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+quantile(participants$bmi, na.rm = TRUE)
+```
+
+```
+     0%     25%     50%     75%    100%
+  15.60   23.35   27.70   30.20   38.60
+```
+
+```r
+IQR(participants$bmi, na.rm = TRUE)
+```
+
+```
+[1] 6.85
+```
+
+The middle 50% of BMI values falls between 23.35 and 30.20 — a fairly narrow band — while the full range (15.6 to 38.6) is much wider, hinting that a modest number of participants sit further out toward either extreme.
+
+## Explore
+
+Try `quantile(participants$age, probs = c(0.1, 0.9), na.rm = TRUE)` to find the 10th and 90th percentiles directly, rather than the default quartiles. This tells you the age range containing the *middle 80%* of participants, ignoring the most extreme 10% on either end.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+bmi_q1 <- quantile(participants$bmi, 0.25, na.rm = TRUE)
+bmi_q3 <- quantile(participants$bmi, 0.75, na.rm = TRUE)
+bmi_iqr <- IQR(participants$bmi, na.rm = TRUE)
+
+lower_bound <- bmi_q1 - 1.5 * bmi_iqr
+upper_bound <- bmi_q3 + 1.5 * bmi_iqr
+
+lower_bound
+```
+
+```
+     25%
+13.075
+```
+
+```r
+upper_bound
+```
+
+```
+    75%
+40.475
+```
+
+```r
+sum(participants$bmi > upper_bound | participants$bmi < lower_bound, na.rm = TRUE)
+```
+
+```
+[1] 0
+```
+
+No participants fall outside the 1.5×IQR outlier bounds (13.075 to 40.475) — a BMI of 40 would actually just barely exceed the upper bound, but the highest BMI actually recorded in this study is 38.6, comfortably within the "not unusual" range by this rule.
+
+## Interpret the Result
+
+BMI's middle 50% (23.35 to 30.20) is fairly tightly clustered, and even the full range (15.6 to 38.6) doesn't produce any values flagged as outliers by the standard 1.5×IQR rule. This is a genuinely useful finding to report: it tells your professor there's no single extreme participant unduly influencing the mean or standard deviation reported on the previous two pages.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Confusing quartiles with percentiles.** Quartiles are simply specific percentiles (25th, 50th, 75th) — `quantile(x, 0.25)` and the "1st quartile" are the exact same number, just described with different vocabulary.
+- **Forgetting the 1.5×IQR rule identifies *potential* outliers, not certain errors.** A value outside these bounds deserves a closer look (was it a data entry mistake, or a genuinely extreme but valid measurement?) — it should never be deleted automatically just for falling outside the rule.
+- **Applying `na.rm = TRUE` inconsistently across `quantile()` and `IQR()`.** Both functions follow the same missing-value rule as every other summary statistic in this level — omit `na.rm = TRUE` and a single `NA` in the data makes the whole result `NA`.
+:::
+
+## Practice Problem
+
+Compute the 1st and 3rd quartiles and the IQR for `systolic_bp`, then use the 1.5×IQR rule to check whether any participants have unusually high or low blood pressure readings.
+
+## Challenge Problem
+
+Compute the 5th and 95th percentiles of `age` using `quantile(participants$age, probs = c(0.05, 0.95), na.rm = TRUE)`. How many participants fall outside this middle-90% range? Compare this count to what the 1.5×IQR rule would flag for the same variable.
+
+## Key Takeaways
+
+- `quantile(x, probs, na.rm = TRUE)` computes any percentile you specify; the default call returns the quartiles (0%, 25%, 50%, 75%, 100%).
+- `IQR(x, na.rm = TRUE)` measures the spread of the middle 50% of the data, ignoring the most extreme quarter on either end.
+- The 1.5×IQR rule flags potential outliers for further investigation — it's a starting point for judgment, not an automatic deletion rule.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `quantile(x, 0.5, na.rm = TRUE)` return?
+   a) The mean
+   b) The median (50th percentile)
+   c) The mode
+   d) The standard deviation
+
+2. **True or false.** The IQR uses the full range of the data, from minimum to maximum.
+
+3. **Predict the output.** If Q1 = 20 and Q3 = 40, what is the IQR?
+
+4. **Find the error.**
+   ```r
+   # "Any value outside 1.5xIQR is a data entry error and should be deleted"
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The median — the 50th percentile is exactly the median by definition.
+2. **False.** The IQR uses only the 1st and 3rd quartiles (the middle 50%), deliberately excluding the most extreme values at either end.
+3. 20 (40 − 20).
+4. The 1.5×IQR rule flags *potential* outliers worth investigating, not confirmed errors — a value outside these bounds could be a genuine, valid, if unusual, measurement. It should never be deleted automatically without first checking whether it's a real observation.
+
+</details>
+:::

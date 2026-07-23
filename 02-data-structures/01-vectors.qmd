@@ -1,0 +1,161 @@
+# Vectors and `c()` {#sec-vectors}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You need to record the systolic blood pressure readings for five participants seen this morning: 118, 132, 145, 121, and 138. Following Level 1's habits, you consider creating five separate objects — `bp1`, `bp2`, `bp3`, `bp4`, `bp5` — but you already sense this won't scale. What happens when you have 100 participants, and you want their mean, all at once?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Store multiple related values in a single object, so you can work with all of them together instead of one at a time.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If you had five separate objects `bp1` through `bp5`, could you compute their mean with `mean()` directly, the way you did in Level 1?
+- What would it mean for a single object to hold five numbers instead of just one?
+:::
+
+## The R Concept
+
+A **vector** is R's most fundamental data structure: a single object that holds one or more values of the *same type* (all numeric, all character, or all logical — never mixed, as you'll see below). In fact, every column you saw in `participants` back in Level 1 — `age`, `sex`, `bmi` — is itself a vector. Even a single number like `age <- 34` is technically a vector of length one; you've been using vectors since your very first line of R code without a name for it yet.
+
+You build a vector explicitly with **`c()`** (short for "combine" or "concatenate"):
+
+```r
+c(value1, value2, value3, ...)
+```
+
+```r
+bp_readings <- c(118, 132, 145, 121, 138)
+```
+
+Once created, a vector behaves as a single object you can pass to any function — `mean()`, `sum()`, `length()` — and R applies the operation across every value inside it.
+
+::: {.callout-note}
+## What happens if you mix types?
+`c(1, "two", 3)` doesn't error — instead, R silently converts every element to the same type (here, character: `"1"`, `"two"`, `"3"`), a behavior called **coercion**. This is a common source of confusing bugs: mixing a number into a vector of mostly text (or vice versa) doesn't fail loudly, it just quietly changes what you have.
+:::
+
+## Demonstration
+
+```r
+bp_readings <- c(118, 132, 145, 121, 138)
+bp_readings
+```
+
+```
+[1] 118 132 145 121 138
+```
+
+```r
+class(bp_readings)
+```
+
+```
+[1] "numeric"
+```
+
+```r
+length(bp_readings)
+```
+
+```
+[1] 5
+```
+
+```r
+mean(bp_readings)
+```
+
+```
+[1] 130.8
+```
+
+## Explore
+
+Create a character vector of five county names: `c("Riverdale", "Oakford", "Millbrook", "Riverdale", "Cedar Falls")`. Run `class()` on it to confirm it's `"character"`. Then try `c(118, "high", 145)` and run `class()` on the result — notice that every element, including the numbers, has been coerced to character.
+
+## Solve the Problem
+
+```r
+bp_readings <- c(118, 132, 145, 121, 138)
+
+mean(bp_readings)
+```
+
+```
+[1] 130.8
+```
+
+```r
+max(bp_readings)
+```
+
+```
+[1] 145
+```
+
+Five separate objects (`bp1` through `bp5`) would have made this calculation painful and error-prone; one vector makes it a single line of code, and this exact approach scales identically whether you have 5 readings or 5,000.
+
+## Interpret the Result
+
+The mean systolic blood pressure across these five participants was 130.8 mmHg, with a maximum reading of 145 mmHg. Because all five values live in one vector, any summary function you already know from Level 1 works on all of them at once — no repetition required.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `c()` entirely.** `bp_readings <- 118, 132, 145` is invalid syntax — you must wrap multiple values in `c(...)`.
+- **Not noticing silent coercion.** Mixing a number into mostly-text values (or vice versa) doesn't error; it quietly converts everything to one type, which can break downstream calculations without an obvious warning.
+- **Assuming vectors can hold mixed types like a spreadsheet row can.** A vector is uniform by design — if you need to hold genuinely different types together (a name *and* an age *and* a flag), you want a list or a data frame instead, both covered later in this level.
+:::
+
+## Practice Problem
+
+Create a numeric vector called `ages` holding the ages 45, 62, 38, 71, and 29. Confirm its class and length, then calculate its mean.
+
+## Challenge Problem
+
+Create a character vector called `smoking_status` holding `"Yes"`, `"No"`, `"No"`, `"Yes"`, `"No"` for the same five participants. Then create a logical vector `is_smoker` from it using `smoking_status == "Yes"` (a technique from Level 1's logical-data page). Confirm the class of each vector you created.
+
+## Key Takeaways
+
+- A vector holds one or more values of the same type; `c()` combines individual values into one.
+- Every column in a data frame, and even a single value, is technically a vector — the concept is foundational to everything else in R.
+- Mixing types inside `c()` silently coerces every element to one common type, rather than raising an error.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `c(4, 8, 15)` create?
+   a) Three separate objects
+   b) A numeric vector of length 3
+   c) A character vector
+   d) A data frame
+
+2. **True or false.** A vector can hold both numbers and text without any conversion happening.
+
+3. **Predict the output.**
+   ```r
+   x <- c(TRUE, FALSE, TRUE)
+   class(x)
+   ```
+
+4. **Find the error.**
+   ```r
+   ages <- 45, 62, 38
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A numeric vector of length 3.
+2. **False.** Mixing types causes coercion — every element becomes the same type (usually character, if any text is present).
+3. `[1] "logical"`
+4. Missing `c()` — it should be `ages <- c(45, 62, 38)`.
+
+</details>
+:::

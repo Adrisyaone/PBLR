@@ -1,0 +1,26 @@
+# Level 4 — Data Cleaning with Base R {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+Level 3 taught you to *detect* messiness on import — disguised missing codes, fragmented categories, wrong types. This level teaches you to actually *fix* it: systematically finding and handling missing values, catching and removing duplicate records, renaming and retyping variables, building new variables from existing ones, and making decisions — one condition, or many at once — with `if`, `ifelse()`, `if_else()`, and `case_when()`.
+:::
+
+## What you'll build toward
+
+By the end of this level you'll take `participants.csv` — and the messier files from Level 3 — and turn them into datasets you'd actually trust for analysis: missing data handled deliberately, duplicates gone, variables named and typed the way your analysis needs, new clinically meaningful variables built from the ones you have, and categorical variables recoded and collapsed the way a real research question demands.
+
+## Topics in this level
+
+- Identifying, removing, and replacing missing values
+- Detecting and removing duplicate records
+- Renaming variables and converting between character, numeric, and factor types
+- Creating new variables and recoding existing ones
+- Combining categories and building binary indicator variables
+- Conditional logic: `if`, `ifelse()`, `if_else()`, and `case_when()`
+
+## A preview mission
+
+Your mission across this level: take a genuinely messy patient dataset — wrong types, duplicated rows, inconsistent missing-data codes — and turn it into something you'd trust enough to actually analyze, using nothing but base R.
+
+By the last page, you'll have built `case_when()` fluency — the single tool that replaces most of the nested `ifelse()` logic you'd otherwise be tempted to write, and the bridge into Level 5's tidyverse.

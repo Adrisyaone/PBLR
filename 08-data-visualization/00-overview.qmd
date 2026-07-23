@@ -1,0 +1,28 @@
+# Level 8 — Data Visualization with ggplot2 {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+A well-designed figure can say more than a page of tables — and a poorly designed one can mislead a whole room of stakeholders. This level teaches the grammar of graphics through `ggplot2`, building from a single scatterplot to publication-ready, multi-panel figures.
+:::
+
+## What you'll build toward
+
+You'll return to `participants.csv` (and revisit the multi-visit data from Level 6) to build every major chart type in `ggplot2`: scatter plots, trend lines, bar charts, histograms and density curves, boxplots, and line plots for change over time. You'll then learn to control how a plot looks — titles, labels, themes, colors, legends, and faceting into multiple panels — before saving a finished figure to a file and combining everything into one publication-style capstone figure.
+
+## Topics in this level
+
+- The grammar of graphics: `ggplot()` and `aes()`
+- `geom_point()` for scatter plots, and `geom_smooth()` for trend lines
+- `geom_bar()` for categorical counts
+- `geom_histogram()` and `geom_density()` for distributions
+- `geom_boxplot()` for comparing groups
+- `geom_line()` for change over time
+- Titles, labels, and themes
+- Colors, grouping, and legends
+- Faceting into multi-panel figures
+- Saving plots with `ggsave()`
+
+## A preview mission
+
+Your mission across this level: show your research team how blood pressure differs by age and smoking status — in one figure clear enough to stand on its own in a report, built entirely from the grammar of graphics this level teaches.

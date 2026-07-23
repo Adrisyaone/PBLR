@@ -1,0 +1,138 @@
+# Titles, Labels, and Themes {#sec-titles-labels-themes}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Every plot built so far works, but none of them would survive being dropped into an actual report: the axes are labeled with raw column names (`bmi`, `systolic_bp`) instead of readable descriptions, there's no title explaining what the plot shows, and the default gray background isn't what most published figures use. Your professor's report needs plots a reader can understand without also reading your R code.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Add readable titles, axis labels, and a cleaner visual theme to a plot using `labs()` and `theme_*()` functions.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Looking at any plot from this level so far, what would a reader unfamiliar with your dataset's column names find confusing about the axis labels?
+- If `ggplot2` layers combine with `+`, would you expect adding a title to also just be one more `+`-connected layer?
+:::
+
+## The R Concept
+
+**`labs()`** sets a plot's title, subtitle, axis labels, and caption, all in one layer:
+
+```r
++ labs(
+    title = "Plot Title",
+    subtitle = "Optional subtitle",
+    x = "Readable X-Axis Label",
+    y = "Readable Y-Axis Label",
+    caption = "Optional footnote"
+  )
+```
+
+**`theme_*()`** functions replace `ggplot2`'s default gray-background theme with alternatives — `theme_minimal()`, `theme_bw()`, and `theme_classic()` are common, cleaner choices for reports:
+
+```r
++ theme_minimal()
+```
+
+## Demonstration
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+ggplot(data = participants, mapping = aes(x = bmi, y = systolic_bp)) +
+  geom_point() +
+  labs(
+    title = "BMI and Systolic Blood Pressure",
+    subtitle = "Weak positive relationship (r = 0.16)",
+    x = "Body Mass Index (BMI)",
+    y = "Systolic Blood Pressure (mmHg)"
+  ) +
+  theme_minimal()
+```
+
+The same scatter plot from Page 1, now with a clear title stating what's being shown, a subtitle previewing the finding, readable axis labels with units, and a cleaner white background in place of the default gray.
+
+## Explore
+
+Try swapping `theme_minimal()` for `theme_bw()` or `theme_classic()`. All three remove the default gray background, but with subtly different gridline and border styles — try each and decide which reads most clearly for your own report.
+
+## Solve the Problem
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+county_bar_chart <- ggplot(data = participants, mapping = aes(x = county)) +
+  geom_bar() +
+  labs(
+    title = "Number of Participants by County",
+    subtitle = "n = 100 total participants across 5 counties",
+    x = "County",
+    y = "Number of Participants"
+  ) +
+  theme_minimal()
+
+county_bar_chart
+```
+
+The county bar chart from Page 3, now clearly labeled: a reader immediately knows this shows participant counts by county, out of 100 total, without needing to guess what "county" and the unlabeled y-axis numbers meant.
+
+## Interpret the Result
+
+A plot's raw content doesn't change when you add `labs()` and a theme — the same five bars, the same heights — but its *readability* to someone who isn't you changes enormously. A title and readable axis labels turn a plot that requires you to explain it out loud into one that explains itself.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Leaving default column names as axis labels in a final report figure.** `bmi` and `systolic_bp` mean nothing to a general reader — always replace them with readable labels and units via `labs(x = ..., y = ...)` before sharing a plot outside your own analysis.
+- **Adding a title that describes the chart type instead of the finding.** "Scatter Plot of BMI vs Blood Pressure" restates what's visually obvious; "Weak Positive Relationship Between BMI and Blood Pressure" tells the reader what to notice — titles are more useful when they communicate the finding, not just the chart type.
+- **Forgetting `theme_*()` replaces the *entire* theme, not just one element.** If you want to change just the background but keep other default styling, `theme_minimal()` isn't a targeted tweak — it's a wholesale theme swap; individual style tweaks use `theme(...)` (lowercase, no suffix) instead.
+:::
+
+## Practice Problem
+
+Add a title, readable axis labels, and `theme_minimal()` to the age histogram from Page 4. Include a subtitle noting the mean and median age found in Level 7.
+
+## Challenge Problem
+
+Take the boxplot comparing BMI by smoking status (Page 5) and add a title, axis labels, and a caption noting the sample sizes in each group (n=71 non-smokers, n=24 smokers). Consider what additional context a reader would need to correctly interpret the plot without seeing your code.
+
+## Key Takeaways
+
+- `labs(title = ..., x = ..., y = ...)` replaces raw column names and adds context, making a plot interpretable without needing to see the underlying code.
+- `theme_minimal()`, `theme_bw()`, and `theme_classic()` replace `ggplot2`'s default gray background with cleaner alternatives suited for reports.
+- A good title communicates the finding, not just the chart type — "what should the reader notice," not merely "what kind of chart this is."
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `labs(x = "Body Mass Index (BMI)")` do?
+   a) Filters the data to only BMI values
+   b) Replaces the x-axis label with readable text
+   c) Changes the color of the x-axis
+   d) Removes the x-axis entirely
+
+2. **True or false.** `theme_minimal()` only changes the plot's background color and leaves everything else untouched.
+
+3. **Predict the output.** Would `labs(title = "My Plot") + labs(subtitle = "A subtitle")` (two separate `labs()` calls) work, or does `labs()` need to be called only once?
+
+4. **Short answer.** Why is "Weak Positive Relationship Between BMI and Blood Pressure" a more useful title than "Scatter Plot of BMI and Blood Pressure"?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Replaces the x-axis label with readable text.
+2. **False.** `theme_*()` functions replace the entire visual theme (gridlines, borders, fonts, background), not just one specific element.
+3. Both work — multiple `labs()` calls combine their arguments, though it's more common (and clearer) to set all label arguments in a single `labs()` call.
+4. The first title tells the reader what pattern to notice in the data; the second only restates the chart type, which is already visually obvious from looking at the plot itself.
+
+</details>
+:::

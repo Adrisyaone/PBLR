@@ -1,0 +1,179 @@
+# Factors {#sec-factors}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've categorized every participant's BMI into `"Underweight"`, `"Normal"`, `"Overweight"`, or `"Obese"`, stored as character text. When you try to summarize or plot this variable, R sorts the categories alphabetically: Normal, Obese, Overweight, Underweight — a meaningless order that has nothing to do with actual BMI severity. You need the categories to appear in their true clinical order instead.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Convert a character variable into a factor with an explicitly defined, meaningful order.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Why would R default to alphabetical order for text categories — what other order would it possibly guess?
+- If you were going to tell R the "correct" order yourself, what information would you need to supply?
+:::
+
+## The R Concept
+
+A **factor** is R's data structure for categorical variables — data that takes on a limited set of distinct values (called **levels**). Unlike plain character data, a factor can have its levels placed in a specific, meaningful order that R will then respect everywhere: in tables, summaries, and plots.
+
+```r
+factor(x, levels = c(...))
+```
+
+```r
+bmi_category <- c("Overweight", "Normal", "Obese", "Normal")
+bmi_factor <- factor(
+  bmi_category,
+  levels = c("Underweight", "Normal", "Overweight", "Obese")
+)
+```
+
+Without the `levels` argument, `factor()` still works, but defaults to alphabetical order — exactly the problem described above. Supplying `levels` explicitly, in the order you want, is what fixes it.
+
+For categories with a genuine ranking (like BMI category, or a Likert-style survey response), you can additionally mark the factor as **ordered**:
+
+```r
+factor(x, levels = c(...), ordered = TRUE)
+```
+
+An ordered factor supports `<` and `>` comparisons between categories (e.g., "Overweight" > "Normal"), which a plain factor or character vector cannot do meaningfully.
+
+## Demonstration
+
+```r
+bmi_category <- c("Overweight", "Normal", "Obese", "Normal", "Underweight")
+
+# Without specifying levels - defaults to alphabetical order
+factor(bmi_category)
+```
+
+```
+[1] Overweight  Normal      Obese       Normal      Underweight
+Levels: Normal Obese Overweight Underweight
+```
+
+```r
+# With explicit, clinically meaningful order
+bmi_factor <- factor(
+  bmi_category,
+  levels = c("Underweight", "Normal", "Overweight", "Obese")
+)
+bmi_factor
+```
+
+```
+[1] Overweight  Normal      Obese       Normal      Underweight
+Levels: Underweight Normal Overweight Obese
+```
+
+```r
+table(bmi_factor)
+```
+
+```
+bmi_factor
+Underweight      Normal  Overweight       Obese
+          1           2           1           1
+```
+
+Notice the table now lists categories in the correct clinical order, not alphabetically.
+
+## Explore
+
+Try creating an ordered version: `factor(bmi_category, levels = c("Underweight", "Normal", "Overweight", "Obese"), ordered = TRUE)`. Then try comparing two elements of it, like `bmi_factor_ordered[1] > bmi_factor_ordered[2]` — a comparison that would be meaningless on the original character vector but works logically once ordered.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+# Build the BMI category variable using base R conditional logic
+# (case_when(), a cleaner tidyverse tool for this, is covered in Level 4)
+participants$bmi_category <- ifelse(
+  participants$bmi < 18.5, "Underweight",
+  ifelse(participants$bmi < 25, "Normal",
+  ifelse(participants$bmi < 30, "Overweight", "Obese"))
+)
+
+participants$bmi_category <- factor(
+  participants$bmi_category,
+  levels = c("Underweight", "Normal", "Overweight", "Obese")
+)
+
+table(participants$bmi_category)
+```
+
+```
+Underweight      Normal  Overweight       Obese
+          3          28          39          25
+```
+
+## Interpret the Result
+
+Among the 95 participants with a recorded BMI, 3 are underweight, 28 have a normal BMI, 39 are overweight, and 25 fall into the obese category — and critically, this table now prints in the correct clinical severity order rather than alphabetically, which will also carry through correctly to any plot you build from this variable in Level 8.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting the `levels` argument entirely.** `factor(bmi_category)` without specifying `levels` still runs, but silently defaults to alphabetical order — exactly the original problem, just hidden one step further away.
+- **Misspelling a level.** If a level listed in `levels =` doesn't exactly match a value in the data (a typo, extra whitespace, different capitalization), those non-matching values silently become `NA` in the resulting factor.
+- **Trying to do arithmetic on a factor.** Factors are stored internally as integers behind the scenes, but `mean(bmi_factor)` does not give a sensible clinical answer — it either errors or averages the internal integer codes, not the category meanings. Factors are for categories, not calculations.
+- **Confusing an ordered factor's comparisons with the original character data's.** `"Obese" > "Normal"` on plain character text compares alphabetically (and happens to be `TRUE` here, misleadingly) — only an explicitly `ordered = TRUE` factor guarantees the comparison reflects your intended clinical ranking, not alphabetical coincidence.
+:::
+
+## Practice Problem
+
+Create a factor `smoking_factor` from `c("No", "Yes", "No", "Yes", "Yes")` with levels ordered as `"No"` then `"Yes"` (rather than the alphabetical default, which happens to already match here — explain in one sentence why specifying `levels` explicitly is still good practice even when it doesn't change anything visible).
+
+## Challenge Problem
+
+Blood pressure categories are often defined as `"Normal"` (systolic < 120), `"Elevated"` (120–129), `"Hypertension Stage 1"` (130–139), and `"Hypertension Stage 2"` (140+). Using `ifelse()` (nested, as in the solution above) and `participants$systolic_bp`, build an ordered factor `bp_category` with these four levels in clinically increasing order, then produce a `table()` of it.
+
+## Key Takeaways
+
+- `factor()` converts character (or numeric) data into a categorical variable with defined levels; without an explicit `levels` argument, it defaults to alphabetical order.
+- `ordered = TRUE` additionally allows meaningful `<`/`>` comparisons between categories, based on your specified order rather than alphabetical coincidence.
+- Factors are for categories, not calculations — arithmetic functions like `mean()` don't produce meaningful results on them.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What order does `factor(x)` use by default, if `levels` isn't specified?
+   a) The order values first appear in the data
+   b) Alphabetical order
+   c) Numerical order
+   d) Random order
+
+2. **True or false.** An ordered factor allows meaningful `<` and `>` comparisons between categories.
+
+3. **Predict the output.**
+   ```r
+   f <- factor(c("Low", "High", "Medium"), levels = c("Low", "Medium", "High"))
+   table(f)
+   ```
+
+4. **Find the error.** A student writes `factor(bmi_category, levels = c("UnderwEight", "Normal", "Overweight", "Obese"))` where the data actually contains `"Underweight"` (correct spelling). What happens to those values?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Alphabetical order.
+2. **True.** That's precisely the purpose of `ordered = TRUE` — it encodes a meaningful ranking, not just category membership.
+3.
+   ```
+   f
+      Low Medium   High
+        1      1      1
+   ```
+   (printed in the specified level order: Low, Medium, High)
+4. Because `"UnderwEight"` (in `levels`) doesn't exactly match `"Underweight"` (in the data), every actual `"Underweight"` value becomes `NA` in the resulting factor — a silent, easy-to-miss data loss caused by a typo in the levels argument.
+
+</details>
+:::

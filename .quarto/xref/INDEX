@@ -1,0 +1,380 @@
+{
+  "index.qmd": {
+    "index.html": "86dd64f2"
+  },
+  "01-getting-started/00-overview.qmd": {
+    "00-overview.html": "edd5179e"
+  },
+  "01-getting-started/01-what-is-r.qmd": {
+    "01-what-is-r.html": "bf726656"
+  },
+  "01-getting-started/02-what-is-rstudio.qmd": {
+    "02-what-is-rstudio.html": "a27d13e9"
+  },
+  "01-getting-started/03-rstudio-interface.qmd": {
+    "03-rstudio-interface.html": "5447e2cd"
+  },
+  "01-getting-started/04-packages.qmd": {
+    "04-packages.html": "444d60d2"
+  },
+  "01-getting-started/05-console.qmd": {
+    "05-console.html": "0bd1a9ae"
+  },
+  "01-getting-started/06-r-scripts.qmd": {
+    "06-r-scripts.html": "97f8e011"
+  },
+  "01-getting-started/07-comments.qmd": {
+    "07-comments.html": "6f052e70"
+  },
+  "01-getting-started/08-arithmetic.qmd": {
+    "08-arithmetic.html": "3d822c91"
+  },
+  "01-getting-started/09-assignment.qmd": {
+    "09-assignment.html": "4f34efad"
+  },
+  "01-getting-started/10-objects.qmd": {
+    "10-objects.html": "151cfd56"
+  },
+  "01-getting-started/11-naming-objects.qmd": {
+    "11-naming-objects.html": "62ad65cd"
+  },
+  "01-getting-started/12-data-types.qmd": {
+    "12-data-types.html": "5b676083"
+  },
+  "01-getting-started/13-numeric-data.qmd": {
+    "13-numeric-data.html": "8f18e975"
+  },
+  "01-getting-started/14-character-data.qmd": {
+    "14-character-data.html": "c92c82c0"
+  },
+  "01-getting-started/15-logical-data.qmd": {
+    "15-logical-data.html": "5df10b50"
+  },
+  "01-getting-started/16-missing-values.qmd": {
+    "16-missing-values.html": "ca935257"
+  },
+  "01-getting-started/17-basic-functions.qmd": {
+    "17-basic-functions.html": "56efde83"
+  },
+  "01-getting-started/18-getting-help.qmd": {
+    "18-getting-help.html": "2d8548d8"
+  },
+  "01-getting-started/19-working-directory.qmd": {
+    "19-working-directory.html": "cb5319cb"
+  },
+  "01-getting-started/20-importing-data.qmd": {
+    "20-importing-data.html": "461f12d4"
+  },
+  "02-data-structures/00-overview.qmd": {
+    "00-overview.html": "19083a66"
+  },
+  "02-data-structures/01-vectors.qmd": {
+    "01-vectors.html": "221f8ba1"
+  },
+  "02-data-structures/02-sequences.qmd": {
+    "02-sequences.html": "a32b7ba2"
+  },
+  "02-data-structures/03-rep.qmd": {
+    "03-rep.html": "af223e9b"
+  },
+  "02-data-structures/04-positive-indexing.qmd": {
+    "04-positive-indexing.html": "7112d832"
+  },
+  "02-data-structures/05-negative-indexing.qmd": {
+    "05-negative-indexing.html": "0e1636fe"
+  },
+  "02-data-structures/06-logical-indexing.qmd": {
+    "06-logical-indexing.html": "dbc63483"
+  },
+  "02-data-structures/07-named-vectors.qmd": {
+    "07-named-vectors.html": "d1c93205"
+  },
+  "02-data-structures/08-factors.qmd": {
+    "08-factors.html": "74d0d101"
+  },
+  "02-data-structures/09-creating-data-frames.qmd": {
+    "09-creating-data-frames.html": "50bb6a2d"
+  },
+  "02-data-structures/10-accessing-columns.qmd": {
+    "10-accessing-columns.html": "b91bd350"
+  },
+  "02-data-structures/11-accessing-rows.qmd": {
+    "11-accessing-rows.html": "9895fae2"
+  },
+  "02-data-structures/12-matrices.qmd": {
+    "12-matrices.html": "a9483786"
+  },
+  "02-data-structures/13-lists.qmd": {
+    "13-lists.html": "880ff5c9"
+  },
+  "02-data-structures/14-tibbles.qmd": {
+    "14-tibbles.html": "f8267f83"
+  },
+  "02-data-structures/15-str.qmd": {
+    "15-str.html": "8bd8e981"
+  },
+  "02-data-structures/16-dimensions.qmd": {
+    "16-dimensions.html": "bbd1b843"
+  },
+  "02-data-structures/17-length-names.qmd": {
+    "17-length-names.html": "00377ea2"
+  },
+  "03-data-import/00-overview.qmd": {
+    "00-overview.html": "dfe1ad94"
+  },
+  "03-data-import/01-reading-csv.qmd": {
+    "01-reading-csv.html": "b9fadc01"
+  },
+  "03-data-import/02-writing-csv.qmd": {
+    "02-writing-csv.html": "7265f2cd"
+  },
+  "03-data-import/03-reading-excel.qmd": {
+    "03-reading-excel.html": "00a4a9fc"
+  },
+  "03-data-import/04-writing-excel.qmd": {
+    "04-writing-excel.html": "f4a70a3d"
+  },
+  "03-data-import/05-reading-rds.qmd": {
+    "05-reading-rds.html": "477ebcfd"
+  },
+  "03-data-import/06-saving-r-objects.qmd": {
+    "06-saving-r-objects.html": "424d373b"
+  },
+  "03-data-import/07-file-paths.qmd": {
+    "07-file-paths.html": "165478bf"
+  },
+  "03-data-import/08-rstudio-projects.qmd": {
+    "08-rstudio-projects.html": "332e0dd5"
+  },
+  "03-data-import/09-messy-datasets.qmd": {
+    "09-messy-datasets.html": "b135a0c2"
+  },
+  "03-data-import/10-missing-values-import.qmd": {
+    "10-missing-values-import.html": "15e0ee77"
+  },
+  "03-data-import/11-checking-imported-data.qmd": {
+    "11-checking-imported-data.html": "9a986f6a"
+  },
+  "03-data-import/12-variable-types-import.qmd": {
+    "12-variable-types-import.html": "a3b039da"
+  },
+  "04-data-cleaning/00-overview.qmd": {
+    "00-overview.html": "fbfb3049"
+  },
+  "04-data-cleaning/01-identifying-missing-values.qmd": {
+    "01-identifying-missing-values.html": "dbd5d5f9"
+  },
+  "04-data-cleaning/02-removing-missing-values.qmd": {
+    "02-removing-missing-values.html": "c4a31e15"
+  },
+  "04-data-cleaning/03-replacing-missing-values.qmd": {
+    "03-replacing-missing-values.html": "b1665c14"
+  },
+  "04-data-cleaning/04-detecting-duplicates.qmd": {
+    "04-detecting-duplicates.html": "a8caef1b"
+  },
+  "04-data-cleaning/05-removing-duplicates.qmd": {
+    "05-removing-duplicates.html": "b48ac842"
+  },
+  "04-data-cleaning/06-renaming-variables.qmd": {
+    "06-renaming-variables.html": "8bfff697"
+  },
+  "04-data-cleaning/07-character-to-numeric.qmd": {
+    "07-character-to-numeric.html": "d3dd62ba"
+  },
+  "04-data-cleaning/08-numeric-to-character.qmd": {
+    "08-numeric-to-character.html": "f448306a"
+  },
+  "04-data-cleaning/09-character-to-factor.qmd": {
+    "09-character-to-factor.html": "a5201e07"
+  },
+  "04-data-cleaning/10-creating-new-variables.qmd": {
+    "10-creating-new-variables.html": "f046275c"
+  },
+  "04-data-cleaning/11-recoding-variables.qmd": {
+    "11-recoding-variables.html": "a2edfb99"
+  },
+  "04-data-cleaning/12-combining-categories.qmd": {
+    "12-combining-categories.html": "e90806d3"
+  },
+  "04-data-cleaning/13-binary-variables.qmd": {
+    "13-binary-variables.html": "42a9c218"
+  },
+  "04-data-cleaning/14-if-statements.qmd": {
+    "14-if-statements.html": "4f649c4d"
+  },
+  "04-data-cleaning/15-ifelse.qmd": {
+    "15-ifelse.html": "f701b217"
+  },
+  "04-data-cleaning/16-if-else-dplyr.qmd": {
+    "16-if-else-dplyr.html": "3ac41aa7"
+  },
+  "04-data-cleaning/17-case-when.qmd": {
+    "17-case-when.html": "e9ecb38d"
+  },
+  "05-tidyverse/00-overview.qmd": {
+    "00-overview.html": "f07f3004"
+  },
+  "05-tidyverse/01-select.qmd": {
+    "01-select.html": "802ddc4c"
+  },
+  "05-tidyverse/02-filter.qmd": {
+    "02-filter.html": "b5cfc806"
+  },
+  "05-tidyverse/03-arrange.qmd": {
+    "03-arrange.html": "df250ce6"
+  },
+  "05-tidyverse/04-mutate.qmd": {
+    "04-mutate.html": "63ce2b13"
+  },
+  "05-tidyverse/05-summarise.qmd": {
+    "05-summarise.html": "ba78bd16"
+  },
+  "05-tidyverse/06-group-by.qmd": {
+    "06-group-by.html": "77641068"
+  },
+  "05-tidyverse/07-count.qmd": {
+    "07-count.html": "42cd84a4"
+  },
+  "05-tidyverse/08-distinct.qmd": {
+    "08-distinct.html": "28d91b33"
+  },
+  "05-tidyverse/09-rename.qmd": {
+    "09-rename.html": "72bff8eb"
+  },
+  "05-tidyverse/10-across.qmd": {
+    "10-across.html": "3a90e335"
+  },
+  "05-tidyverse/11-native-pipe.qmd": {
+    "11-native-pipe.html": "073eb1b0"
+  },
+  "05-tidyverse/12-chaining-operations.qmd": {
+    "12-chaining-operations.html": "5db0abc4"
+  },
+  "06-data-reshaping/00-overview.qmd": {
+    "00-overview.html": "c6db65b5"
+  },
+  "06-data-reshaping/01-wide-vs-long.qmd": {
+    "01-wide-vs-long.html": "5c49f052"
+  },
+  "06-data-reshaping/02-pivot-longer.qmd": {
+    "02-pivot-longer.html": "7db4fb40"
+  },
+  "06-data-reshaping/03-pivot-wider.qmd": {
+    "03-pivot-wider.html": "2c7aa0ef"
+  },
+  "06-data-reshaping/04-separate.qmd": {
+    "04-separate.html": "a7be9e23"
+  },
+  "06-data-reshaping/05-unite.qmd": {
+    "05-unite.html": "26b24ced"
+  },
+  "06-data-reshaping/06-multiple-value-columns.qmd": {
+    "06-multiple-value-columns.html": "f8da5aa8"
+  },
+  "06-data-reshaping/07-reshaping-mini-capstone.qmd": {
+    "07-reshaping-mini-capstone.html": "0d83c7ee"
+  },
+  "06-data-reshaping/08-keys-and-relationships.qmd": {
+    "08-keys-and-relationships.html": "9b16bb0b"
+  },
+  "06-data-reshaping/09-left-join.qmd": {
+    "09-left-join.html": "662912e3"
+  },
+  "06-data-reshaping/10-inner-join.qmd": {
+    "10-inner-join.html": "9ae5edc2"
+  },
+  "06-data-reshaping/11-right-full-join.qmd": {
+    "11-right-full-join.html": "a18fab4d"
+  },
+  "06-data-reshaping/12-semi-anti-join.qmd": {
+    "12-semi-anti-join.html": "4d334bf9"
+  },
+  "06-data-reshaping/13-reshape-join-capstone.qmd": {
+    "13-reshape-join-capstone.html": "f344ec40"
+  },
+  "07-descriptive-statistics/00-overview.qmd": {
+    "00-overview.html": "faaa7164"
+  },
+  "08-data-visualization/00-overview.qmd": {
+    "00-overview.html": "12af5b31"
+  },
+  "09-functions/00-overview.qmd": {
+    "00-overview.html": "dacdd4b0"
+  },
+  "10-loops/00-overview.qmd": {
+    "00-overview.html": "616d3aec"
+  },
+  "11-statistics/00-overview.qmd": {
+    "00-overview.html": "bc4f9b92"
+  },
+  "12-advanced-analysis/00-overview.qmd": {
+    "00-overview.html": "e8569a71"
+  },
+  "13-advanced-r/00-overview.qmd": {
+    "00-overview.html": "4fca756c"
+  },
+  "14-reproducible-research/00-overview.qmd": {
+    "00-overview.html": "b5998dc7"
+  },
+  "15-capstone-projects/00-overview.qmd": {
+    "00-overview.html": "7b121a4a"
+  },
+  "07-descriptive-statistics/01-central-tendency.qmd": {
+    "01-central-tendency.html": "52a20da6"
+  },
+  "07-descriptive-statistics/02-measures-of-spread.qmd": {
+    "02-measures-of-spread.html": "5391bd25"
+  },
+  "07-descriptive-statistics/03-quantiles-and-iqr.qmd": {
+    "03-quantiles-and-iqr.html": "26f2574e"
+  },
+  "07-descriptive-statistics/04-summary-function.qmd": {
+    "04-summary-function.html": "bbd0f7e5"
+  },
+  "07-descriptive-statistics/05-frequency-tables.qmd": {
+    "05-frequency-tables.html": "ce4631d6"
+  },
+  "07-descriptive-statistics/06-cross-tabulations.qmd": {
+    "06-cross-tabulations.html": "58651a78"
+  },
+  "07-descriptive-statistics/07-correlation.qmd": {
+    "07-correlation.html": "e5d38a04"
+  },
+  "07-descriptive-statistics/08-descriptive-stats-capstone.qmd": {
+    "08-descriptive-stats-capstone.html": "dec8509c"
+  },
+  "08-data-visualization/01-grammar-of-graphics.qmd": {
+    "01-grammar-of-graphics.html": "9a77fded"
+  },
+  "08-data-visualization/02-trend-lines.qmd": {
+    "02-trend-lines.html": "0c640146"
+  },
+  "08-data-visualization/03-bar-charts.qmd": {
+    "03-bar-charts.html": "f4756455"
+  },
+  "08-data-visualization/04-histograms-density.qmd": {
+    "04-histograms-density.html": "47cda296"
+  },
+  "08-data-visualization/05-boxplots.qmd": {
+    "05-boxplots.html": "e7945d24"
+  },
+  "08-data-visualization/06-line-plots.qmd": {
+    "06-line-plots.html": "c56d389a"
+  },
+  "08-data-visualization/07-titles-labels-themes.qmd": {
+    "07-titles-labels-themes.html": "8277d9f4"
+  },
+  "08-data-visualization/08-colors-and-legends.qmd": {
+    "08-colors-and-legends.html": "9a462db3"
+  },
+  "08-data-visualization/09-facets.qmd": {
+    "09-facets.html": "b7692f85"
+  },
+  "08-data-visualization/10-saving-plots.qmd": {
+    "10-saving-plots.html": "0beae836"
+  },
+  "08-data-visualization/11-visualization-capstone.qmd": {
+    "11-visualization-capstone.html": "659b2ced"
+  }
+}

@@ -1,0 +1,151 @@
+# Logical Indexing {#sec-logical-indexing}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your supervisor asks: "What are the blood pressure readings just for the participants who smoke?" You don't know which row positions correspond to smokers — position-based indexing (positive or negative) requires knowing exact row numbers in advance, and you don't have that memorized for 100 participants. You need a way to select rows based on a *condition*, not a position.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Extract exactly the elements of a vector that satisfy a condition, using a logical vector as an index.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 1, what does a comparison like `smoker_status == "Yes"` produce — a number, or something else?
+- If you had a `TRUE`/`FALSE` value for every single participant indicating whether they smoke, could you use that entire vector as the index inside `[ ]`, instead of a single number?
+:::
+
+## The R Concept
+
+Square brackets don't just accept positions — they also accept a **logical vector** of the same length as the vector being indexed. Wherever that logical vector is `TRUE`, the corresponding element is kept; wherever it's `FALSE`, it's dropped.
+
+```r
+x[logical_vector]
+```
+
+The logical vector is usually produced on the spot using a comparison, exactly as you learned in Level 1:
+
+```r
+ages <- c(46, 53, 59, 49, 61)
+ages[ages > 55]          # keeps only elements where the condition is TRUE
+ages[ages >= 50 & ages <= 60]   # combining conditions with &, from Level 1
+```
+
+This is, in effect, the base-R version of "filtering" — the exact idea you'll formalize with the tidyverse's `filter()` function in Level 5, but built here from tools you already have.
+
+## Demonstration
+
+```r
+ages <- c(46, 53, 59, 49, 61, 18, 62, 68, 33, 36)
+
+ages > 55
+```
+
+```
+ [1] FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE
+```
+
+```r
+ages[ages > 55]
+```
+
+```
+[1] 59 61 62 68
+```
+
+```r
+ages[ages < 40]
+```
+
+```
+[1] 18 33 36
+```
+
+## Explore
+
+Try `ages[ages > 55 & ages < 65]` — combining two conditions with `&`, from Level 1. Then try applying a logical index built from *one* vector to index a *different* vector of the same length — for instance, using a `smoker` vector to subset a separate `bp` vector — which is exactly the technique you need to solve today's problem.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+# Blood pressure readings, but only for participants who smoke
+smoker_bp <- participants$systolic_bp[participants$smoker == "Yes"]
+
+length(smoker_bp)
+```
+
+```
+[1] 25
+```
+
+```r
+mean(smoker_bp, na.rm = TRUE)
+```
+
+```
+[1] 130.5417
+```
+
+Notice the two different vectors involved: `participants$smoker == "Yes"` produces a `TRUE`/`FALSE` value for every row, and that logical vector is then used to index `participants$systolic_bp` — a completely different column, but the same length, so each `TRUE`/`FALSE` lines up correctly, row for row.
+
+## Interpret the Result
+
+Of the 100 participants, 25 reported being current smokers, and their mean systolic blood pressure — based on the 24 of those 25 with a non-missing reading — was approximately 130.5 mmHg — a figure you could now compare against the mean for non-smokers to explore a potential association between smoking and blood pressure (exactly the kind of comparison Level 11 will teach you to test formally).
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Length mismatch between the logical vector and the vector being indexed.** `participants$age[participants$smoker == "Yes"]` only works correctly because both vectors have the same length (100) and are aligned row-for-row — indexing with a logical vector of a different length gives nonsensical, silently recycled results.
+- **Using `=` instead of `==`.** Just as in Level 1, `participants$smoker = "Yes"` inside an index would attempt an assignment, not a comparison, and will not filter as intended.
+- **Forgetting `NA` values propagate into logical indexing too.** If `smoker` itself contains `NA`, positions corresponding to that `NA` will return `NA` rather than being cleanly excluded — worth checking with `is.na()` first if a column has missing values.
+:::
+
+## Practice Problem
+
+Using `participants`, extract the ages of every participant with a BMI of 30 or greater (`participants$bmi >= 30`), and calculate the mean age of this group.
+
+## Challenge Problem
+
+Extract the BMI values of participants who are *both* over 65 years old *and* current smokers, combining two conditions with `&`. Report how many participants meet both criteria and their mean BMI.
+
+## Key Takeaways
+
+- Indexing a vector with a same-length logical vector keeps only the elements where that logical vector is `TRUE`.
+- The logical vector can come from a comparison on a *different* column, as long as both vectors are the same length and aligned row for row — this is how you filter one variable based on another.
+- This technique is the base-R foundation for what Level 5's `filter()` does more conveniently for entire data frames.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `x[x > 10]` return for `x <- c(5, 15, 8, 20)`?
+   a) `c(15, 20)`
+   b) `c(5, 8)`
+   c) `TRUE, TRUE, FALSE, FALSE`
+   d) An error
+
+2. **True or false.** You can use a logical vector built from one column to index a completely different column, as long as both are the same length.
+
+3. **Predict the output.**
+   ```r
+   bp <- c(118, 132, 145, 121)
+   bp[bp >= 130]
+   ```
+
+4. **Write the code.** Using `participants`, write the code to extract the `age` values of all participants living in `"Millbrook"` county.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **a)** `c(15, 20)` — the elements where `x > 10` is `TRUE`.
+2. **True.** As long as the logical vector and the target vector are the same length and correctly aligned, this works — it's exactly how the flagship example on this page filtered blood pressure by smoking status.
+3. `[1] 132 145`
+4. `participants$age[participants$county == "Millbrook"]`
+
+</details>
+:::

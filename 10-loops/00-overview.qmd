@@ -1,0 +1,27 @@
+# Level 10 — Loops and Automation {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+Some tasks — cleaning ten site files the same way, running the same table for twelve subgroups — are naturally repetitive. This level covers `for` loops, `while` loops, and the `apply()` family so you never have to do the same thing twice by hand.
+:::
+
+## What's coming
+
+- Why automation matters in research pipelines
+- `for` and `while` loops
+- Looping over vectors and data frames
+- `apply()`, `lapply()`, `sapply()`, `vapply()`, `tapply()`
+- `purrr::map()` as the tidy alternative to loops
+
+::: {.pbl-box .pbl-mission}
+**A preview mission**
+
+Your mission: your team collects data from five clinics every month, each landing in an identically structured file. Automate the entire cleaning step so it takes one run, not five.
+:::
+
+::: {.callout-note}
+## Status
+
+This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
+:::

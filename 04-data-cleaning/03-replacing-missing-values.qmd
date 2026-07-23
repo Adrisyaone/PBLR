@@ -1,0 +1,151 @@
+# Replacing Missing Values {#sec-replacing-missing}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your supervisor pushes back on the complete-case approach from the last page: "Dropping 15 participants loses too much data for a small pilot study like this one. Instead, fill in the missing BMI values with the sample's average BMI, so we keep all 100 participants in the analysis." This is a genuinely different strategy from removing rows — replacing a missing value with a reasonable stand-in, rather than discarding the participant entirely.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Replace missing values in a variable with a reasonable substitute, without discarding the rest of that participant's data.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 2, how would you build a logical vector identifying exactly which positions in a vector are `NA`?
+- If you can identify *which* positions are missing, could you assign a new value to just those positions, leaving every other value untouched?
+:::
+
+## The R Concept
+
+You can assign directly to the subset of a vector identified by `is.na()`, replacing only the missing positions and leaving everything else exactly as it was:
+
+```r
+x[is.na(x)] <- replacement_value
+```
+
+The most common simple replacement is the variable's own mean or median — this is called **mean imputation** (or median imputation), and it's a reasonable, simple starting strategy, though it does understate the true variability in the data (a limitation Level 12's multiple imputation addresses more rigorously later in the course).
+
+```r
+df$bmi[is.na(df$bmi)] <- mean(df$bmi, na.rm = TRUE)
+```
+
+Notice the `na.rm = TRUE` is still required *inside* the `mean()` call on the right-hand side — you're calculating the mean from the *non-missing* values, in order to fill in the missing ones.
+
+## Demonstration
+
+```r
+bmi_values <- c(22.1, NA, 27.5, 24.0, NA, 30.2)
+
+# The mean, calculated only from the non-missing values
+mean(bmi_values, na.rm = TRUE)
+```
+
+```
+[1] 25.95
+```
+
+```r
+# Replace only the NA positions with that mean
+bmi_values[is.na(bmi_values)] <- mean(bmi_values, na.rm = TRUE)
+bmi_values
+```
+
+```
+[1] 22.10 25.95 27.50 24.00 25.95 30.20
+```
+
+Notice the two originally missing positions are now both filled with `25.95` — the mean of the four originally non-missing values — while every real, originally observed value is completely untouched.
+
+## Explore
+
+Try running `mean(bmi_values)` again *after* the replacement above (no `na.rm` needed now, since there are no more `NA`s) — compare it to the original `25.95`. It's identical, which makes sense: replacing missing values with the mean can never change the mean itself, only reduce the apparent spread of the data (a limitation worth remembering).
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+# Preserve the original column so you can still compare before/after if needed
+participants$bmi_imputed <- participants$bmi
+participants$bmi_imputed[is.na(participants$bmi_imputed)] <- mean(participants$bmi, na.rm = TRUE)
+
+sum(is.na(participants$bmi_imputed))
+```
+
+```
+[1] 0
+```
+
+```r
+nrow(participants)
+```
+
+```
+[1] 100
+```
+
+All 100 participants now remain in the dataset — none dropped — with the 5 originally missing BMI values replaced by the sample mean, kept in a clearly separate `bmi_imputed` column so the original, unmodified `bmi` column is still available for comparison or a different analysis strategy later.
+
+## Interpret the Result
+
+`sum(is.na(participants$bmi_imputed))` returning `0` confirms every missing BMI value has been filled in, and `nrow(participants)` still showing `100` confirms no participant was dropped — directly satisfying your supervisor's request to retain the full sample, at the cost of slightly understating how much BMI actually varies across the 5 imputed participants.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Overwriting the original column directly.** Replacing `participants$bmi` in place destroys the record of which values were originally missing — always create a new column (like `bmi_imputed`) so you can compare, audit, or try a different imputation strategy later.
+- **Forgetting `na.rm = TRUE` inside the replacement calculation itself.** `mean(participants$bmi)` without `na.rm = TRUE` returns `NA` (Level 1), and assigning `NA` to replace `NA` accomplishes nothing.
+- **Treating mean imputation as a universally correct default.** It's a simple, defensible starting point for a small amount of missing data, but it artificially shrinks the variability of the imputed variable — Level 12 covers more rigorous approaches (multiple imputation) for when this matters more.
+:::
+
+## Practice Problem
+
+Using `participants$age`, create a new column `age_imputed` with the missing age values replaced by the median age (`median(participants$age, na.rm = TRUE)`) rather than the mean. Confirm `sum(is.na(participants$age_imputed))` is `0`.
+
+## Challenge Problem
+
+Explain, in two or three sentences, why replacing missing values with the mean is a reasonable default for a *small* fraction of missing data (like 5 out of 100 BMI values here) but becomes more questionable as the fraction of missing data grows larger — say, if 40 of 100 values were missing instead.
+
+## Key Takeaways
+
+- `x[is.na(x)] <- value` replaces only the missing positions in a vector, leaving every other value untouched.
+- Mean (or median) imputation is a simple strategy that keeps every row in the dataset, at the cost of slightly understating the imputed variable's true variability.
+- Always store an imputed variable in a new column, preserving the original (with its real missing values intact) for comparison or a different strategy later.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `x[is.na(x)] <- mean(x, na.rm = TRUE)` do?
+   a) Removes missing values from `x`
+   b) Replaces missing values in `x` with the mean of its non-missing values
+   c) Replaces every value in `x` with the mean
+   d) Converts `x` to character
+
+2. **True or false.** Mean imputation increases the apparent variability of a variable.
+
+3. **Predict the output.**
+   ```r
+   x <- c(10, NA, 20, NA, 30)
+   x[is.na(x)] <- mean(x, na.rm = TRUE)
+   x
+   ```
+
+4. **Find the error.**
+   ```r
+   participants$bmi[is.na(participants$bmi)] <- mean(participants$bmi)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Replaces missing values in `x` with the mean of its non-missing values.
+2. **False.** It *decreases* apparent variability — imputed values all equal the mean, reducing the overall spread compared to the true, unobserved data.
+3. `[1] 10 20 20 20 30` (the mean of `10, 20, 30` is `20`, filled into both `NA` positions).
+4. The right-hand side `mean(participants$bmi)` has no `na.rm = TRUE`, so it returns `NA` — and assigning `NA` to replace `NA` accomplishes nothing. It should be `mean(participants$bmi, na.rm = TRUE)`.
+
+</details>
+:::

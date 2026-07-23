@@ -1,0 +1,167 @@
+# Named Vectors {#sec-named-vectors}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've calculated the mean systolic blood pressure for each of the five counties in your survey — Cedar Falls, Millbrook, Oakford, Riverdale, and Springvale — and stored the five results in a plain numeric vector. A week later, you look at that vector again: `128.16, 133.30, 129.71, 124.36, 131.46`. Which number belonged to which county? You'd have to recompute everything to remember.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Attach labels directly to the values in a vector, so each number is self-documenting and can be looked up by name instead of position.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If a plain vector only lets you retrieve a value by position (`x[2]`), what extra piece of information would let you retrieve it by a meaningful label instead?
+- Have you seen anything like this before — a set of labeled values you can look up by name rather than counting positions? (Hint: a data frame's *columns* already work this way.)
+:::
+
+## The R Concept
+
+A vector can have a **name attached to every element**, either by supplying names directly inside `c()`, or by assigning them afterward with `names()`:
+
+```r
+c(name1 = value1, name2 = value2, ...)
+```
+
+```r
+x <- c(10, 20, 30)
+names(x) <- c("a", "b", "c")
+```
+
+Once named, you can index by name using `[ ]` with a quoted string, in addition to the position-based indexing you already know:
+
+```r
+x["b"]     # retrieves the element named "b", regardless of its position
+```
+
+`names()` works both ways: calling it alone shows the current names; assigning to it (`names(x) <- ...`) sets new ones.
+
+## Demonstration
+
+```r
+mean_bp_by_county <- c(
+  "Cedar Falls" = 128.16,
+  "Millbrook"   = 133.30,
+  "Oakford"     = 129.71,
+  "Riverdale"   = 124.36,
+  "Springvale"  = 131.46
+)
+
+mean_bp_by_county
+```
+
+```
+Cedar Falls    Millbrook      Oakford    Riverdale   Springvale
+     128.16       133.30       129.71       124.36       131.46
+```
+
+```r
+mean_bp_by_county["Millbrook"]
+```
+
+```
+Millbrook
+    133.3
+```
+
+```r
+names(mean_bp_by_county)
+```
+
+```
+[1] "Cedar Falls" "Millbrook"   "Oakford"     "Riverdale"   "Springvale"
+```
+
+## Explore
+
+Try `mean_bp_by_county[["Millbrook"]]` (double brackets) instead of single brackets — notice the output no longer includes the name label, just the bare number. This distinction between `[ ]` and `[[ ]]` will matter even more once you reach lists later in this level. Then try retrieving a county that doesn't exist, like `mean_bp_by_county["Oak Grove"]` — what does R return?
+
+## Solve the Problem
+
+```r
+# Building the named vector directly from the data, using tools from earlier in this level
+participants <- read.csv("data/participants.csv")
+
+counties <- unique(participants$county)
+mean_bp_by_county <- sapply(counties, function(cty) {
+  mean(participants$systolic_bp[participants$county == cty], na.rm = TRUE)
+})
+names(mean_bp_by_county) <- counties
+
+# A week later, you can still look this up instantly and unambiguously
+mean_bp_by_county["Millbrook"]
+```
+
+```
+Millbrook
+   133.30
+```
+
+::: {.callout-note}
+## A quick note on `sapply()`
+This solution uses `sapply()` to avoid repeating the same filter-and-mean calculation five times by hand — you haven't formally learned it yet (that's covered in Level 10), so don't worry about the syntax here. The point of this page is what happens *after*: attaching names so the result is self-documenting.
+:::
+
+## Interpret the Result
+
+`mean_bp_by_county["Millbrook"]` instantly and unambiguously returns 133.30 mmHg — the mean systolic blood pressure among Millbrook participants — without you needing to remember whether Millbrook was the first, second, or third value in the vector. The name *is* the lookup key, which is far more durable than remembering positional order.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Misspelling or mis-casing a name when looking it up.** `mean_bp_by_county["millbrook"]` (lowercase) returns `NA`, not an error — names are matched exactly and are case-sensitive, just like object names in Level 1.
+- **Confusing `[ ]` and `[[ ]]` on named vectors.** `x["b"]` returns a named single-element vector; `x[["b"]]` returns just the bare value with no name attached — a subtle difference that becomes more important with lists, later in this level.
+- **Forgetting names can become out of sync.** If you reorder or filter a named vector's values without also reordering `names()`, the labels will silently no longer match the values they're attached to — always build both together, as in the solution above.
+:::
+
+## Practice Problem
+
+Run `table(participants$county)` to get the real participant counts per county, then build a named vector `n_participants_by_county` from that output. Retrieve just the Springvale count by name.
+
+## Challenge Problem
+
+You have `mean_bp_by_county` from this page. Use `which.max()` (look it up with `?which.max` if needed, applying what you learned about getting help in Level 1) to identify which county has the *highest* mean blood pressure, and extract both its name and its value in one expression.
+
+## Key Takeaways
+
+- Vectors can carry names alongside their values, either set inside `c(name = value)` or assigned afterward with `names()`.
+- Named elements can be retrieved by name using `x["name"]`, which is more durable and self-documenting than remembering positional order.
+- `x["name"]` keeps the name attached to the result; `x[["name"]]` returns just the bare value.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** How do you retrieve the element named `"b"` from vector `x`, keeping its name?
+   a) `x[2]`
+   b) `x["b"]`
+   c) `x(b)`
+   d) `x.b`
+
+2. **True or false.** Name-based indexing in R is case-sensitive.
+
+3. **Predict the output.**
+   ```r
+   x <- c(low = 10, high = 90)
+   x["low"]
+   ```
+
+4. **Find the error.** A student wants the mean BP for Riverdale and writes:
+   ```r
+   mean_bp_by_county["riverdale"]
+   ```
+   but gets `NA`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `x["b"]`
+2. **True.** Names must match exactly, including capitalization.
+3. `  low \n   10` (a named single-element vector showing `low: 10`).
+4. The name was written in lowercase (`"riverdale"`) but the actual name is `"Riverdale"` (capitalized) — names are case-sensitive, so the lookup silently returns `NA` instead of erroring.
+
+</details>
+:::

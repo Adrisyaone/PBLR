@@ -1,0 +1,138 @@
+# Installing and Loading Packages {#sec-packages}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your supervisor emails you an Excel file (`.xlsx`) containing the community health survey data, not a CSV. You try to open it in R the way you've seen in a tutorial, and you get an error: `could not find function "read_excel"`. The tutorial clearly used that exact function.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand what an R package is, and install and load one so its functions become available to you.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If `read_excel` isn't a function R comes with automatically, where might it come from?
+- Have you ever used an app that required you to download a separate "add-on" or "extension" before a feature worked? How is that similar to what might be happening here?
+:::
+
+## The R Concept
+
+Base R — what you get immediately after installing R — includes a solid set of built-in functions, but it doesn't include everything. **Packages** are add-on collections of functions, data, and documentation that extend what R can do. Anyone can write and publish one; most official packages are hosted on **CRAN** (the Comprehensive R Archive Network).
+
+Working with a package is a two-step process, and beginners often only do one of the two steps:
+
+1. **Install it — once per computer.**
+   ```r
+   install.packages("readxl")
+   ```
+   This downloads the package and stores it on your machine permanently. You do not need to repeat this every time you use R — only when installing for the first time, or updating later.
+
+2. **Load it — once per R session.**
+   ```r
+   library(readxl)
+   ```
+   This tells your *current* R session "make this package's functions available right now." Every time you close and reopen RStudio, you need to load the package again with `library()` — but you do **not** need to reinstall it.
+
+Notice the quoting difference: `install.packages()` requires the package name in quotes (`"readxl"`), because it's just a piece of text identifying what to download. `library()` conventionally doesn't require quotes, though quoting it also works.
+
+## Demonstration
+
+```r
+# Step 1: install the package (only needs to be run once, ever, per computer)
+install.packages("readxl")
+```
+
+```r
+# Step 2: load the package (needs to be run once per R session)
+library(readxl)
+```
+
+Once loaded, functions from that package — like `read_excel()` — become available exactly as if they were built into R.
+
+```r
+# Now this function exists and is ready to use
+survey_data <- read_excel("data/survey.xlsx")
+```
+
+You can check which packages are already installed on your machine without loading anything:
+
+```r
+# Lists every package installed locally (long output - often dozens or hundreds of rows)
+installed.packages()[, "Package"] |> head()
+```
+
+## Explore
+
+What do you think happens if you run `library(readxl)` *without* ever running `install.packages("readxl")` first, on a computer where it's never been installed? Try to predict the error message before you test it — it will say something to the effect of "there is no package called 'readxl'."
+
+## Solve the Problem
+
+The `could not find function "read_excel"` error happened because the tutorial's code assumed the `readxl` package was already loaded — but loading it requires two things to have happened first: the package must be *installed* on your computer, and `library()` must have been *run in your current session*. Since you'd done neither, R had no idea what `read_excel` meant.
+
+The fix:
+
+```r
+install.packages("readxl")  # only needed once
+library(readxl)              # needed every session
+survey_data <- read_excel("data/survey.xlsx")
+```
+
+## Interpret the Result
+
+Once `library(readxl)` runs without error, it means the package's functions — including `read_excel()` — are now available in your current session. If `install.packages()` had failed (for example, due to no internet connection), `library()` would fail too, since there'd be nothing installed to load.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting to load the package each new session.** Installing is permanent; loading is not. A fresh RStudio session needs `library()` again even if you installed the package last week.
+- **Reinstalling every time.** Running `install.packages()` at the top of every script is unnecessary and slow — install once, then just `library()` in future sessions.
+- **Quoting inconsistency.** Forgetting the quotes in `install.packages(readxl)` (missing quotes) causes an error, since R tries to interpret `readxl` as an object rather than a package name.
+- **Typos in package names.** `install.packages("read_xl")` will fail silently with a "package not available" message if the actual package is spelled `readxl` (no underscore).
+:::
+
+## Practice Problem
+
+Write the two lines of code needed to install and then load a package called `janitor` (a real, commonly used package for cleaning messy data), assuming it has never been installed on this computer before.
+
+## Challenge Problem
+
+A classmate says their script works perfectly on their own laptop but produces `could not find function` errors on yours, even though you're both running the identical script. List two possible explanations related to what you learned on this page, and how you'd check each one.
+
+## Key Takeaways
+
+- Packages extend R with additional functions, data, and tools beyond what comes built in.
+- `install.packages("name")` downloads a package once per computer; `library(name)` loads it once per session.
+- Forgetting `library()` — not forgetting to reinstall — is the far more common cause of "could not find function" errors in day-to-day work.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Which line only needs to be run once, ever, on a given computer?
+   a) `library(readxl)`
+   b) `install.packages("readxl")`
+   c) Both need to run every session
+   d) Neither needs quotes
+
+2. **True or false.** If you restart RStudio, previously installed packages must be reinstalled before you can use them again.
+
+3. **Find the error.**
+   ```r
+   install.packages(readxl)
+   ```
+
+4. **Write the code.** Write the two lines needed to install and load a package called `lubridate`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `install.packages("readxl")` — installation is a one-time, per-computer action.
+2. **False.** Installed packages remain installed; you only need to run `library()` again to load them into the new session.
+3. The package name is missing quotes. It should be `install.packages("readxl")`.
+4. `install.packages("lubridate")` then `library(lubridate)`.
+
+</details>
+:::

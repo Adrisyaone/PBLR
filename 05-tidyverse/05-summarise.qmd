@@ -1,0 +1,145 @@
+# `summarise()` {#sec-summarise}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor wants a single-line summary of the study: how many participants, and what's the average age, average systolic blood pressure, and average BMI? In base R, you'd write four separate `mean(..., na.rm = TRUE)` calls and manually assemble the results — workable, but no single function expresses "collapse this whole dataset down to one summary row."
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Collapse a data frame down to one or more summary statistics using `dplyr::summarise()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 4, what did `mean(participants$age, na.rm = TRUE)` return — a whole data frame, or a single number?
+- If you wanted several such numbers (mean age, mean BP, mean BMI) side by side in one tidy row, would you rather compute and print each separately, or build them together?
+:::
+
+## The R Concept
+
+**`summarise()`** collapses a data frame into a single summary row (or one row per group, as you'll see next page), using the same "no `df$` prefix" style as `mutate()`:
+
+```r
+summarise(df,
+  stat1 = <summary function>(column1),
+  stat2 = <summary function>(column2)
+)
+```
+
+```r
+summarise(participants,
+  n_participants = n(),
+  mean_age = mean(age, na.rm = TRUE),
+  mean_bp = mean(systolic_bp, na.rm = TRUE)
+)
+```
+
+`n()` is a special `summarise()`-only helper that counts rows — it needs no argument because it always counts whatever rows are currently being summarised.
+
+## Demonstration
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+summarise(participants,
+  n_participants = n(),
+  mean_age = mean(age, na.rm = TRUE),
+  mean_bmi = mean(bmi, na.rm = TRUE)
+)
+```
+
+```
+  n_participants mean_age mean_bmi
+1            100 47.42553 27.12316
+```
+
+Notice the result is a data frame with exactly **one row** — `summarise()` always collapses, no matter how many rows or columns the input had.
+
+## Explore
+
+Try adding `min_age = min(age, na.rm = TRUE)` and `max_age = max(age, na.rm = TRUE)` to the same `summarise()` call, alongside the existing statistics. Confirm all five summary values appear together in the single output row.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+study_summary <- summarise(participants,
+  n_participants  = n(),
+  mean_age        = mean(age, na.rm = TRUE),
+  mean_systolic   = mean(systolic_bp, na.rm = TRUE),
+  mean_bmi        = mean(bmi, na.rm = TRUE)
+)
+
+study_summary
+```
+
+```
+  n_participants mean_age mean_systolic mean_bmi
+1            100 47.42553      129.8438 27.12316
+```
+
+Your professor's one-line summary is now a single, tidy row: 100 participants, mean age 47.4, mean systolic blood pressure 129.8, mean BMI 27.1 — every number `na.rm = TRUE` correctly excluded missing values from, exactly as `mean()` did back in Level 2.
+
+## Interpret the Result
+
+`study_summary` collapses all 100 rows of `participants` into one summary row with four statistics. This is the tidyverse's answer to the same "describe the dataset in a few numbers" task you did with individual `mean()` calls in Level 2 — now assembled together in a single readable step.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `na.rm = TRUE` inside `summarise()`.** This is exactly the Level 2 trap, still fully in force — `mean(age)` returns `NA` the instant `age` contains even one missing value; `summarise()` doesn't change this base R behavior at all.
+- **Confusing `summarise()` with `mutate()`.** `mutate()` keeps the same number of rows and adds columns; `summarise()` collapses down to one row (or one row per group) — mixing them up is one of the most common early tidyverse errors.
+- **Expecting `n()` to take an argument.** `n()` always counts the current rows automatically — `n(age)` is an error; just write `n()`.
+:::
+
+## Practice Problem
+
+Use `summarise()` to compute the number of participants, the mean `diastolic_bp`, and the maximum `bmi` in a single call.
+
+## Challenge Problem
+
+Use `summarise()` to compute what percentage of participants are current smokers (hint: `mean(smoker == "Yes") * 100` computes this directly, since `TRUE`/`FALSE` are treated as `1`/`0`). Confirm your percentage matches the smoker count from Level 2's `table(participants$smoker)` (75 No, 25 Yes).
+
+## Key Takeaways
+
+- `summarise(df, stat = <function>(column))` collapses a data frame down to one summary row.
+- `n()` is a `summarise()`-only helper that counts the current rows, with no argument needed.
+- `na.rm = TRUE` is still required inside summary functions whenever a column has missing values — `summarise()` doesn't change this base R rule.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `summarise(df, avg = mean(x, na.rm = TRUE))` return?
+   a) The original data frame, unchanged
+   b) A one-row data frame with a single column `avg`
+   c) A vector of every value of `x`
+   d) An error, since `summarise()` needs `group_by()` first
+
+2. **True or false.** `summarise()` always returns the same number of rows as the input data frame.
+
+3. **Predict the output.** What would `summarise(participants, total = n())` return?
+
+4. **Find the error.**
+   ```r
+   summarise(participants, mean_age = mean(age))
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A one-row data frame with a single column `avg`.
+2. **False.** `summarise()` collapses down to one row (or one row per group, covered next page) — never the original row count.
+3. A one-row data frame with a column `total` equal to `100` (the number of rows in `participants`).
+4. `age` has missing values, so `mean(age)` without `na.rm = TRUE` returns `NA` — the same Level 2 rule still applies inside `summarise()`. It should be `mean(age, na.rm = TRUE)`.
+
+</details>
+:::

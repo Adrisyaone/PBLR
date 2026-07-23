@@ -1,0 +1,167 @@
+# Numeric Data {#sec-numeric-data}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+A data entry error means one participant's age was typed into the spreadsheet as `"45 "` — with a trailing space — and imported into R as text. Your supervisor wants to know: is this actually going to cause a problem, and how do you fix it once you spot it?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand R's numeric data type in more depth, including how to check for it, and how to convert text that looks numeric into an actual number.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If `class()` tells you an object's type, what function might tell you *specifically* whether it's numeric — a yes/no answer rather than a label?
+- What tool would you need to turn `"45"` (text) into `45` (a real number) so you can do arithmetic with it?
+:::
+
+## The R Concept
+
+R's **numeric** type covers ordinary decimal numbers — what R internally calls "double precision" floating point numbers, which is more than enough precision for virtually all health and research data. (R also has a stricter "integer" type, marked with an `L` suffix like `5L`, but you will rarely need to use it directly as a beginner — numeric handles both whole numbers and decimals fine.)
+
+Two functions matter here:
+
+- **`is.numeric(x)`** — returns `TRUE` or `FALSE`, directly answering "is this numeric?"
+- **`as.numeric(x)`** — attempts to *convert* `x` into a numeric value. If `x` is text that clearly represents a number (like `"45"`), this works cleanly. If the text isn't a valid number (like `"forty-five"`), R will produce `NA` and a warning, rather than crashing.
+
+```r
+is.numeric(45)      # TRUE
+is.numeric("45")    # FALSE - it's character, even though it looks numeric
+as.numeric("45")    # converts "45" into the number 45
+```
+
+## Demonstration
+
+```r
+age_text <- "45"
+is.numeric(age_text)
+```
+
+```
+[1] FALSE
+```
+
+```r
+age_numeric <- as.numeric(age_text)
+age_numeric
+```
+
+```
+[1] 45
+```
+
+```r
+is.numeric(age_numeric)
+```
+
+```
+[1] TRUE
+```
+
+```r
+# What happens with genuinely invalid text
+as.numeric("forty-five")
+```
+
+```
+[1] NA
+Warning message:
+NAs introduced by coercion
+```
+
+## Explore
+
+Try `as.numeric("45 ")` (with a trailing space, matching the opening problem) — does the extra space cause a problem, or does R handle it gracefully? Then try `as.numeric("$45")` — does a dollar sign behave the same way?
+
+## Solve the Problem
+
+```r
+age_raw <- "45 "   # as it came in from the spreadsheet, with a trailing space
+is.numeric(age_raw)
+```
+
+```
+[1] FALSE
+```
+
+```r
+age_fixed <- as.numeric(age_raw)
+age_fixed
+```
+
+```
+[1] 45
+```
+
+```r
+is.numeric(age_fixed)
+```
+
+```
+[1] TRUE
+```
+
+R's `as.numeric()` handles the trailing space gracefully in this case, correctly converting `"45 "` into the number `45`. The fix is a single line, run once the problem is identified.
+
+## Interpret the Result
+
+The participant's age is now correctly stored as the number `45`, ready to be used in any calculation (like computing the sample's mean age) rather than being silently excluded or causing errors because it was still text.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Assuming `as.numeric()` always succeeds silently.** If the text isn't a valid number (extra letters, stray symbols like currency signs), `as.numeric()` returns `NA` with a warning rather than an error — easy to miss if you're not watching for warnings.
+- **Not checking before converting an entire column.** Running `as.numeric()` on a whole column of messy real-world data can silently turn several entries into `NA` if even a few values aren't clean numbers — always check the result afterward.
+- **Confusing `is.numeric()` with `as.numeric()`.** One *checks* (`is.`), the other *converts* (`as.`) — mixing them up is a common beginner slip, since they sound similar.
+:::
+
+## Practice Problem
+
+You have `bp_text <- "128"`. Confirm with `is.numeric()` that it's currently not numeric, convert it with `as.numeric()`, and confirm the conversion worked.
+
+## Challenge Problem
+
+A column of self-reported weights includes the entries `"70"`, `"68.5"`, `"unknown"`, and `"72 kg"`. Predict what `as.numeric()` would produce for each of these four values individually, and explain why two of them would likely become `NA`.
+
+## Key Takeaways
+
+- `is.numeric()` checks whether a value is numeric; `as.numeric()` attempts to convert a value into a number.
+- `as.numeric()` can gracefully handle some messiness (like stray whitespace) but returns `NA` with a warning for text that isn't a valid number.
+- Always check the result after converting real-world data — silent `NA`s from a failed conversion are easy to miss.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `as.numeric("hello")` return?
+   a) An error that stops your script
+   b) `0`
+   c) `NA`, with a warning
+   d) The text `"hello"` unchanged
+
+2. **True or false.** `is.numeric("45")` returns `TRUE`.
+
+3. **Predict the output.**
+   ```r
+   as.numeric("100")
+   ```
+
+4. **Write the code.** Convert `dose_text <- "250"` into a numeric object called `dose_numeric`, then confirm it's numeric.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** `NA`, with a warning ("NAs introduced by coercion") — R does not stop your script, but flags the failed conversion.
+2. **False.** `"45"` is character data (it's quoted); `is.numeric()` returns `FALSE` regardless of what the text looks like.
+3. `[1] 100`
+4.
+   ```r
+   dose_numeric <- as.numeric(dose_text)
+   is.numeric(dose_numeric)
+   ```
+
+</details>
+:::

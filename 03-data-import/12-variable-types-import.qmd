@@ -1,0 +1,181 @@
+# Understanding Variable Types After Import {#sec-variable-types-import}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Before you knew to specify `na.strings` properly, you imported `participants_messy.csv` with just `skip = 2` and tried `mean(participants_messy$systolic_bp, na.rm = TRUE)`. It failed:
+
+```
+Warning message:
+argument is not numeric or logical: returning NA
+```
+
+`systolic_bp` should obviously be a numeric column — blood pressure readings are numbers. So why is R treating it like it isn't?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand exactly how a single unexpected text value can force an entire numeric-looking column to import as character, and learn to catch this immediately.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 2's data types page, what happens when you mix even one piece of text into an otherwise numeric vector with `c()`?
+- If a CSV column has 19 number-looking values and exactly one cell containing the text `"N/A"` — and R doesn't yet know `"N/A"` means missing — what type would R have to make the *entire* column, to hold that one piece of text?
+:::
+
+## The R Concept
+
+This is the same **coercion** rule from Level 2's vectors page, just showing up during import instead of inside `c()`. A CSV column is read in as one vector — and if even a single cell in an otherwise-numeric column contains genuine text that isn't a recognized missing-value code, R has no choice but to make the *entire column* character, exactly the way `c(1, 2, "N/A", 4)` would become `c("1", "2", "N/A", "4")`.
+
+```r
+c(125, 123, "N/A", 117)   # the whole vector becomes character - just like a CSV column would
+```
+
+The fix isn't really about variable types at all — it's about **making sure every genuine missing-value code is included in `na.strings` before import**, exactly as the previous two pages covered. Once R correctly recognizes `"N/A"` (or `"Unknown"`, or any other disguised code) as missing rather than as literal text, the column parses as numeric the way it should.
+
+```r
+# Without na.strings covering "N/A" - forced to character by that one text value
+read.csv("file.csv")$systolic_bp
+
+# With na.strings covering "N/A" - correctly parses as numeric
+read.csv("file.csv", na.strings = c("NA", "N/A"))$systolic_bp
+```
+
+## Demonstration
+
+```r
+# Importing without recognizing "N/A" as missing
+broken <- read.csv("data/participants_messy.csv", skip = 2)
+
+class(broken$systolic_bp)
+```
+
+```
+[1] "character"
+```
+
+```r
+mean(broken$systolic_bp, na.rm = TRUE)
+```
+
+```
+Warning message:
+argument is not numeric or logical: returning NA
+[1] NA
+```
+
+```r
+# Importing with na.strings correctly covering every missing-value code
+fixed <- read.csv(
+  "data/participants_messy.csv", skip = 2,
+  na.strings = c("NA", "999", "N/A", "Unknown", "")
+)
+
+class(fixed$systolic_bp)
+```
+
+```
+[1] "integer"
+```
+
+```r
+mean(fixed$systolic_bp, na.rm = TRUE)
+```
+
+```
+[1] 122.4444
+```
+
+## Explore
+
+Run `class(broken$bmi)` and `class(fixed$bmi)` side by side — `bmi` has the same problem, caused by the disguised `"Unknown"` value instead of `"N/A"`. Confirm that fixing `na.strings` resolves both columns' type problems simultaneously, since both were victims of the exact same underlying issue.
+
+## Solve the Problem
+
+```r
+participants_messy <- read.csv(
+  "data/participants_messy.csv", skip = 2,
+  na.strings = c("NA", "999", "N/A", "Unknown", "")
+)
+
+class(participants_messy$systolic_bp)
+```
+
+```
+[1] "integer"
+```
+
+```r
+mean(participants_messy$systolic_bp, na.rm = TRUE)
+```
+
+```
+[1] 122.4444
+```
+
+The original error — `argument is not numeric or logical` — is gone entirely, not because you worked around it, but because the true root cause (a disguised missing-value code silently forcing the column to character) was fixed at the source, during import.
+
+## Interpret the Result
+
+`class(participants_messy$systolic_bp)` now correctly reports `"integer"`, and the mean systolic blood pressure among participants with a valid reading is 122.4 mmHg — a plausible, trustworthy number, now that the column is genuinely numeric rather than text that merely looked numeric to a human reader.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Trying to fix a wrong column type *after* import, rather than fixing the cause during import.** You *can* patch this after the fact with `as.numeric()` (Level 1), but it's more fragile — better to prevent the coercion in the first place with correct `na.strings`, so every function downstream sees the right type immediately.
+- **Assuming a "numeric-looking" column is safely numeric without checking `class()`.** A column can contain 999 perfectly numeric-looking values and one stray piece of text, and the entire column still silently becomes character — always verify with `class()` or `str()`, never assume from appearances.
+- **Not connecting today's error message to yesterday's fix.** `argument is not numeric or logical: returning NA` is exactly the symptom of the disguised-missing-value problem from the previous two pages — recognizing this connection saves you from re-diagnosing the same root cause from scratch every time it appears in a new column.
+:::
+
+## Practice Problem
+
+Without `na.strings` set to catch `"Unknown"`, what is `class(broken$bmi)`? After correctly setting `na.strings`, what does it become? Confirm both with code.
+
+## Challenge Problem
+
+A colleague says: "I fixed it — I just wrapped the column in `as.numeric()` after importing, and now `mean()` works." Explain, in two or three sentences, what their fix does and does not solve, compared to fixing `na.strings` at import time (hint: think about what happens to the disguised text value itself under each approach, and whether every future column in future files would need the same manual patch).
+
+## Key Takeaways
+
+- A single unrecognized text value anywhere in an otherwise-numeric CSV column forces the *entire* column to import as character — the same coercion rule from Level 2's vectors page, just triggered during import.
+- The right fix is making `na.strings` complete and correct at import time, not patching the column's type afterward.
+- `argument is not numeric or logical: returning NA` is a strong signal that a column you expected to be numeric actually imported as character — check `class()` immediately.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Why does a numeric-looking CSV column sometimes import as character?
+   a) R randomly assigns types
+   b) A single unrecognized text value (like a disguised missing-value code) forces the whole column to character
+   c) CSV files cannot contain numeric columns
+   d) The column has too many rows
+
+2. **True or false.** Fixing `na.strings` at import time is a more robust solution than patching a column's type with `as.numeric()` after the fact.
+
+3. **Predict the output.**
+   ```r
+   x <- c(10, 20, "missing", 40)
+   class(x)
+   ```
+
+4. **Find the error.** A student sees `argument is not numeric or logical: returning NA` from `mean()` and responds by wrapping the column in `as.character()` to "match its type." What's wrong with this response?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A single unrecognized text value forces the whole column to character, exactly like `c()` coercion from Level 2.
+2. **True.** Fixing `na.strings` addresses the root cause during import; patching afterward with `as.numeric()` works but must be repeated manually for every affected column, in every file, going forward.
+3. `[1] "character"`
+4. `as.character()` moves in the wrong direction entirely — the goal is a *numeric* column for `mean()` to work; the actual fix is recognizing the disguised missing-value code via `na.strings` at import (or `as.numeric()` afterward as a less robust patch), not converting further into character.
+
+</details>
+:::
+
+## Where you've arrived
+
+You started this level with a single clean `read.csv()` call from Level 1 and a vague sense that real data might not always be so cooperative. You've now read and written CSV, Excel, and `.rds` files, permanently fixed the working-directory problem with RStudio Projects, and — across the last four pages — taken a genuinely messy file apart piece by piece: extra header rows, disguised missing-value codes, fragmented text categories, and the coercion trap that ties them all together.
+
+Level 4 picks up exactly here, with the systematic, scalable tools — `case_when()`, `ifelse()`, and more — for actually *fixing* the messiness you now know how to detect.

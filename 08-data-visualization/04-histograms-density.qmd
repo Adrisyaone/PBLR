@@ -1,0 +1,133 @@
+# Histograms and Density Plots {#sec-histograms-density}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 7's `summary(participants$age)` reported a minimum of 18, a maximum of 81, a mean of 47.43, and a median of 49 — but none of those five numbers show you the actual *shape* of the age distribution. Are ages spread evenly across that range? Clustered in the middle? Your professor wants to see the full distribution, not just its five-number summary.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Visualize the distribution of a numeric variable using `geom_histogram()` and `geom_density()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- A histogram groups continuous values into "bins" (like "40-49 years old") and counts how many observations fall in each. What single argument would you expect controls how wide those bins are?
+- If a histogram shows bar *counts* per bin, what would a smoothed curve tracing the same overall shape, without discrete bins, look like instead?
+:::
+
+## The R Concept
+
+**`geom_histogram()`** divides a numeric variable into bins and counts how many observations fall into each — visually, like `geom_bar()` but for continuous rather than categorical data:
+
+```r
+ggplot(data = df, aes(x = numeric_column)) +
+  geom_histogram(binwidth = 10)
+```
+
+`binwidth` controls how wide each bin is — too wide, and you lose detail; too narrow, and the shape becomes noisy and hard to read.
+
+**`geom_density()`** shows the same kind of information as a smoothed curve instead of discrete bars — useful for seeing the overall shape without committing to a specific bin width:
+
+```r
+ggplot(data = df, aes(x = numeric_column)) +
+  geom_density()
+```
+
+## Demonstration
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+ggplot(data = participants, mapping = aes(x = age)) +
+  geom_histogram(binwidth = 10)
+```
+
+With 10-year bins, this produces bars roughly following this pattern: a small bar for ages 10-19 (5 participants), rising through 20-29 (8), 30-39 (16), peaking around 40-49 (20) and 50-59 (24), then declining through 60-69 (16), 70-79 (3), and 80-89 (2) — a distribution that rises to a peak in the 40s-50s and tapers off on both sides, roughly consistent with the mean (47.43) and median (49) sitting near that peak.
+
+## Explore
+
+Try the same plot with `binwidth = 5` instead of `10`. Finer bins reveal more detail (and more visual noise) — compare how much the overall "rises then falls, peaking in the 40s-50s" shape still holds versus how much finer fluctuation appears.
+
+## Solve the Problem
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+age_histogram <- ggplot(data = participants, mapping = aes(x = age)) +
+  geom_histogram(binwidth = 10)
+
+age_histogram
+```
+
+```r
+age_density <- ggplot(data = participants, mapping = aes(x = age)) +
+  geom_density()
+
+age_density
+```
+
+The histogram shows discrete 10-year bars rising to a peak around 40-59 and tapering at both ends; the density plot shows the same overall shape as a single smooth curve, without the bin-width choice affecting how it looks.
+
+## Interpret the Result
+
+Age in this sample isn't uniformly spread across 18-81 — it's concentrated in the 40s and 50s, with progressively fewer participants at the youngest and oldest ends. This is exactly the kind of shape information Level 7's five-number summary alone couldn't show: two datasets could share an identical mean, median, and range while having completely different distribution shapes (one peaked in the middle, one flat, one with two separate peaks) — only a histogram or density plot reveals which one you actually have.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Choosing a `binwidth` without trying a few options first.** Too wide a bin can hide real structure (like a second peak); too narrow can make the plot look noisy and uninterpretable — always try 2-3 different bin widths before settling on one for a final report.
+- **Forgetting `geom_histogram()` needs only `x`, not `y`.** Like `geom_bar()`, `geom_histogram()` computes bin counts (the y-axis) automatically — mapping a `y` variable yourself isn't necessary and usually isn't what you want.
+- **Treating a density plot's y-axis as a literal count.** A density curve's y-axis is scaled so the total area under the curve equals 1 — it should be read as showing *relative* likelihood across values, not as a raw count the way a histogram's y-axis is.
+:::
+
+## Practice Problem
+
+Build a histogram of `bmi` with `binwidth = 5`. Based on Level 7's finding that BMI's mean (27.12) and median (27.70) sit close together, would you expect a roughly symmetric shape, or a heavily skewed one?
+
+## Challenge Problem
+
+Build a histogram of `systolic_bp` with three different bin widths (5, 10, and 20). Describe in words how the visual impression of the distribution's shape changes as bin width increases — at what point does the histogram start losing meaningful detail?
+
+## Key Takeaways
+
+- `geom_histogram(binwidth = ...)` groups a numeric variable into bins and shows counts per bin, revealing distribution shape that a five-number summary alone cannot.
+- `geom_density()` shows the same kind of shape information as a smooth curve, without needing to choose a bin width.
+- Two variables can share identical means, medians, and ranges while having completely different distribution shapes — always check the shape directly rather than assuming it from summary statistics alone.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `binwidth` control in `geom_histogram()`?
+   a) The color of the bars
+   b) How wide each bin (group of values) is
+   c) The number of rows in the data
+   d) The plot's title
+
+2. **True or false.** A density plot's y-axis represents a raw count, exactly like a histogram's.
+
+3. **Predict the output.** If age is concentrated in the 40s and 50s with fewer participants at the extremes, what general shape would you expect the histogram to show?
+
+4. **Find the error.**
+   ```r
+   ggplot(data = participants, aes(x = age, y = count)) +
+     geom_histogram(binwidth = 10)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** How wide each bin (group of values) is.
+2. **False.** A density plot's y-axis is scaled so the total area under the curve equals 1, representing relative likelihood rather than a raw count.
+3. A shape that rises toward a peak in the 40s-50s and tapers off toward both younger and older ages.
+4. `geom_histogram()` computes bin counts automatically — there is no `count` column to map, and specifying `y` isn't necessary. It should simply be `aes(x = age)`.
+
+</details>
+:::

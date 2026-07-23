@@ -1,0 +1,148 @@
+# Writing Excel Files {#sec-writing-excel}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've calculated a summary table — mean blood pressure, BMI, and age by county — and your supervisor asks you to "put it in Excel so I can share it in tomorrow's meeting." They specifically want an actual `.xlsx` file, not a CSV, because they plan to add their own formatting and a second sheet with notes once you send it over.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Save a data frame or tibble from R directly to an Excel file.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- You already know `read_excel()` reads Excel files, using the `readxl` package. Do you expect the same package to also *write* Excel files, or might that require a different one?
+- If your supervisor wants to eventually add a second sheet of notes, might it matter whether the function you use supports writing more than one sheet at once?
+:::
+
+## The R Concept
+
+Writing Excel files uses a **different** package from reading them: `readxl` (Level 3's earlier page) only reads; **`writexl`** is a common, lightweight package for writing:
+
+```r
+library(writexl)
+write_xlsx(data, "path/to/output.xlsx")
+```
+
+`write_xlsx()` can also write **multiple sheets at once**, by passing a named list instead of a single data frame:
+
+```r
+write_xlsx(
+  list(Summary = summary_table, Notes = notes_table),
+  "report.xlsx"
+)
+```
+
+Each name in the list becomes a sheet name in the resulting workbook — directly answering the "second sheet with notes" part of today's problem.
+
+## Demonstration
+
+```r
+library(writexl)
+
+county_summary <- data.frame(
+  county = c("Cedar Falls", "Millbrook", "Oakford", "Riverdale", "Springvale"),
+  mean_bp = c(128.16, 133.30, 129.71, 124.36, 131.46)
+)
+
+write_xlsx(county_summary, "county_summary.xlsx")
+```
+
+```r
+# Confirm it saved correctly by reading it back
+library(readxl)
+read_excel("county_summary.xlsx")
+```
+
+```
+# A tibble: 5 x 2
+  county      mean_bp
+  <chr>         <dbl>
+1 Cedar Falls    128.
+2 Millbrook      133.
+3 Oakford        130.
+4 Riverdale      124.
+5 Springvale     131.
+```
+
+## Explore
+
+Try writing two data frames at once as separate sheets: `write_xlsx(list(Summary = county_summary, Notes = data.frame(note = "Preliminary results, pending final QC")), "report_with_notes.xlsx")`. Then use `excel_sheets()` (from the reading-Excel page) on the resulting file to confirm both sheet names appear correctly.
+
+## Solve the Problem
+
+```r
+library(writexl)
+
+county_summary <- data.frame(
+  county = c("Cedar Falls", "Millbrook", "Oakford", "Riverdale", "Springvale"),
+  mean_bp = c(128.16, 133.30, 129.71, 124.36, 131.46)
+)
+
+notes <- data.frame(
+  note = "Preliminary blood pressure summary by county - pending final QC review"
+)
+
+write_xlsx(
+  list(Summary = county_summary, Notes = notes),
+  "county_report.xlsx"
+)
+```
+
+The file `county_report.xlsx` is now ready to send — a real Excel workbook with a "Summary" sheet and a "Notes" sheet, exactly as your supervisor requested, ready for them to add their own formatting on top.
+
+## Interpret the Result
+
+`write_xlsx()` completing without error confirms `county_report.xlsx` now exists on disk with two properly separated sheets — your supervisor can open it in Excel, see the "Summary" sheet's numbers immediately, and switch to "Notes" without you needing to send two separate files or explain how to combine them.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Confusing which package reads versus writes.** `readxl::read_excel()` reads; `writexl::write_xlsx()` writes — they are two separate packages, despite the similar names, and neither can do the other's job.
+- **Forgetting the list structure for multiple sheets.** `write_xlsx(data)` (a single data frame) writes one sheet with a generic default name; to control sheet names or write several sheets, you need a *named list*, as shown in the solution.
+- **Expecting `write_xlsx()` to preserve advanced Excel formatting.** It writes clean, plain data — colors, formulas, and conditional formatting from a previous version of a file are not preserved or added; that layer of polish is left for your supervisor (or a more specialized package) to add afterward.
+:::
+
+## Practice Problem
+
+Create a small data frame summarizing mean age by sex (`sex = c("Female", "Male")`, `mean_age = c(48.2, 46.7)`), and write it to a file called `age_by_sex.xlsx` using `write_xlsx()`.
+
+## Challenge Problem
+
+Write two data frames — your county summary and a second small data frame with just the overall sample size (`data.frame(n_total = 100)`) — into one workbook called `final_report.xlsx`, with sheet names `"By County"` and `"Overall"`. Then read both sheets back with `read_excel()` to confirm each imported correctly.
+
+## Key Takeaways
+
+- `writexl::write_xlsx()` saves a data frame or tibble to a real Excel file — a separate package from `readxl`, which only reads.
+- Passing a named list instead of a single data frame writes multiple sheets at once, with each name becoming a sheet name.
+- Writing Excel files preserves the data cleanly but not advanced formatting — that layer is typically added afterward by whoever opens it in Excel.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Which package's function writes Excel files, as covered on this page?
+   a) `readxl::read_excel()`
+   b) `writexl::write_xlsx()`
+   c) `readr::write_csv()`
+   d) Base R's `write.csv()`
+
+2. **True or false.** `readxl` can both read and write Excel files.
+
+3. **Predict the output.** What determines the sheet names when writing multiple sheets with `write_xlsx()`?
+
+4. **Write the code.** Write the code to save a data frame `results` to a single-sheet Excel file named `results.xlsx`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `writexl::write_xlsx()`
+2. **False.** `readxl` only reads Excel files; writing requires a separate package like `writexl`.
+3. The names in the list passed to `write_xlsx()` — each name becomes that sheet's name in the workbook.
+4. `write_xlsx(results, "results.xlsx")`
+
+</details>
+:::

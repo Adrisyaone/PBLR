@@ -1,0 +1,27 @@
+# Level 3 — Data Import and Export {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+Real research data doesn't live inside your R script — it lives in CSV exports from REDCap, Excel files from a partner clinic, or `.rds` files a colleague sent you. Level 1 got you as far as a single clean `read.csv()` call; this level is about everything that happens when the file *isn't* clean — extra header rows, inconsistent missing-value codes, mismatched capitalization — and how to get data in and out of R without silently corrupting anything.
+:::
+
+## What you'll build toward
+
+By the end of this level you'll read and write CSV, Excel, and `.rds` files; understand file paths well enough to never fight `setwd()` again, using RStudio Projects instead; and — the real heart of this level — import a genuinely messy dataset, `data/participants_messy.csv`, and catch every way it could quietly corrupt your analysis before it does.
+
+## Topics in this level
+
+- Reading and writing CSV files (with `readr`, the tidyverse's faster, more predictable alternative to base R)
+- Reading and writing Excel files
+- Reading RDS files and saving R objects
+- File paths, relative paths, and RStudio Projects
+- Importing messy, real-world datasets
+- Handling missing values on import
+- Checking imported data and understanding variable types after import
+
+## A preview mission
+
+Your mission across this level: take `data/participants_messy.csv` — a raw survey export exactly as it arrived from the field team, complete with metadata header lines, inconsistent capitalization, and three different disguises for a missing value — and load it into R without a single column silently corrupting along the way.
+
+By the last page, you'll have a repeatable checklist you can run on *any* newly imported dataset, for the rest of this course and beyond.

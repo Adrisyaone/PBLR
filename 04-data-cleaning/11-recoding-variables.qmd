@@ -1,0 +1,125 @@
+# Recoding Variables {#sec-recoding-variables}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your supervisor wants the final report to use clearer language than the raw data's terse `"Yes"`/`"No"` smoking codes — specifically, `"Current smoker"` and `"Non-smoker"`, which read better in a table meant for a general audience. You need to replace every `"Yes"` with `"Current smoker"` and every `"No"` with `"Non-smoker"`, throughout the entire column.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Recode a variable's category labels — one existing value replaced with a new one, one-to-one — without touching any other column.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 2, if you built a logical vector flagging every row where `smoker == "Yes"`, could you use that same logical vector to assign a new label to just those rows?
+- Is this the same idea as Level 4's replacing-missing-values page — assigning a new value only to a targeted subset of positions?
+:::
+
+## The R Concept
+
+Recoding a variable's labels uses exactly the same targeted-assignment pattern from the replacing-missing-values page, just with a real category condition instead of `is.na()`:
+
+```r
+df$new_col <- df$old_col                          # start from a copy
+df$new_col[df$old_col == "Yes"] <- "Current smoker"
+df$new_col[df$old_col == "No"]  <- "Non-smoker"
+```
+
+For a two-category recode like this one, `ifelse()` (covered properly two pages from now) is often a faster one-line alternative — but building the recode with explicit logical indexing first makes the underlying mechanics completely transparent, which is the point of this page.
+
+## Demonstration
+
+```r
+smoker_raw <- c("Yes", "No", "No", "Yes", "No")
+
+smoker_label <- smoker_raw   # start from a copy, not the original
+smoker_label[smoker_raw == "Yes"] <- "Current smoker"
+smoker_label[smoker_raw == "No"]  <- "Non-smoker"
+
+smoker_label
+```
+
+```
+[1] "Current smoker" "Non-smoker"      "Non-smoker"      "Current smoker"
+[5] "Non-smoker"
+```
+
+## Explore
+
+Try `table(smoker_raw, smoker_label)` — a cross-tabulation confirming every `"Yes"` became `"Current smoker"` and every `"No"` became `"Non-smoker"`, with no mismatches. This kind of before/after cross-check is a valuable habit any time you recode a variable.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+participants$smoking_status <- participants$smoker
+participants$smoking_status[participants$smoker == "Yes"] <- "Current smoker"
+participants$smoking_status[participants$smoker == "No"]  <- "Non-smoker"
+
+table(participants$smoker, participants$smoking_status)
+```
+
+```
+     Current smoker Non-smoker
+  No               0         75
+  Yes             25          0
+```
+
+Every `"Yes"` correctly recoded to `"Current smoker"` (25 participants) and every `"No"` to `"Non-smoker"` (75 participants), confirmed by the cross-tabulation showing no unexpected mismatches — the report-ready labels your supervisor asked for.
+
+## Interpret the Result
+
+The cross-tabulation's diagonal pattern — `"Yes"` always paired with `"Current smoker"`, `"No"` always paired with `"Non-smoker"`, and zero off-diagonal counts — confirms the recode is exactly correct, with every original category mapped to precisely one new label and nothing left ambiguous or mismatched.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Recoding directly into the original column, losing the original labels.** Starting from a copy (`df$new_col <- df$old_col`, then modifying the copy) preserves the original `smoker` column for any downstream code that still expects `"Yes"`/`"No"`.
+- **Forgetting to recode every category.** If a variable has more than two categories and you only recode some of them, the un-recoded values silently remain in their original form, mixed in among the newly recoded ones.
+- **Not verifying the recode with a cross-tabulation.** `table(old, new)` is a fast, nearly foolproof way to catch a mismatched or incomplete recode before it reaches a report.
+:::
+
+## Practice Problem
+
+Recode `participants$sex` into a new column `sex_label`, converting `"Female"` to `"F"` and `"Male"` to `"M"`. Verify with a cross-tabulation.
+
+## Challenge Problem
+
+Your supervisor changes the request: instead of `"Current smoker"`/`"Non-smoker"`, they want `"Current smoker"`, `"Former smoker"`, and `"Never smoker"` — a three-category recode that the raw `"Yes"`/`"No"` data cannot actually support (it was never collected with a former-smoker distinction). Explain, in a sentence or two, why no amount of recoding code can fix this — what would actually need to change, further upstream, to support this request?
+
+## Key Takeaways
+
+- Recoding uses the same targeted-assignment pattern as replacing missing values, applied to a real category condition instead of `is.na()`.
+- Always recode into a new column, preserving the original for any code that still depends on the original labels.
+- `table(old_column, new_column)` is a fast, reliable way to verify a recode mapped every category correctly and completely.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What is the safest way to recode a variable?
+   a) Overwrite the original column directly
+   b) Recode into a new column, preserving the original
+   c) Recode only some categories and leave the rest as-is
+   d) Recode without checking the result
+
+2. **True or false.** `table(old_column, new_column)` is a useful way to verify a recode was applied correctly.
+
+3. **Predict the output.** If `x <- c("A", "B", "A")` and you recode `"A"` to `"Group 1"` and `"B"` to `"Group 2"`, what would the recoded vector be?
+
+4. **Find the error.** A student recodes `smoker` but only handles `"Yes"`, forgetting to also recode `"No"`. What happens to the `"No"` values in the new column?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Recode into a new column, preserving the original.
+2. **True.** It's a fast, reliable cross-check that every original category mapped correctly to its new label.
+3. `c("Group 1", "Group 2", "Group 1")`
+4. Since the new column started as a copy of the original, the un-recoded `"No"` values remain exactly as `"No"` — silently unrecoded and inconsistent with the newly labeled `"Yes"` values.
+
+</details>
+:::

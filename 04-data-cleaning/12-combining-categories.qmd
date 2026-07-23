@@ -1,0 +1,156 @@
+# Combining Categories {#sec-combining-categories}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your supervisor wants a simpler regional comparison than five separate counties allow: "Group Cedar Falls and Millbrook as 'North Region,' and Oakford, Riverdale, and Springvale as 'South Region.' I don't need county-level detail for this particular report — I need exactly two regions." This is a genuinely different operation from recoding: several *different* original categories all need to collapse into the *same* new category.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Collapse several existing categories into a smaller number of broader groups.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From the recoding page, you mapped each old category to exactly one new label, one-to-one. What's different about mapping *several* old categories to the *same* new label?
+- Could you use `%in%` (checking whether a value is one of several options) instead of a single `==` comparison, to flag "any of these counties belongs to the North Region"?
+:::
+
+## The R Concept
+
+Combining categories extends the recoding pattern from the last page, using **`%in%`** to check membership in a *set* of values rather than equality with just one:
+
+```r
+x %in% c("value1", "value2")   # TRUE if x matches ANY of these, not just one
+```
+
+```r
+df$new_col[df$old_col %in% c("CategoryA", "CategoryB")] <- "Combined Group"
+```
+
+This is the natural extension of `==` (from the recoding page) to "matches one of several things" rather than "matches exactly this one thing" — precisely what's needed when multiple original categories all collapse into the same broader group.
+
+## Demonstration
+
+```r
+county <- c("Cedar Falls", "Millbrook", "Oakford", "Riverdale", "Springvale", "Cedar Falls")
+
+# Check membership in a set, rather than equality with a single value
+county %in% c("Cedar Falls", "Millbrook")
+```
+
+```
+[1]  TRUE  TRUE FALSE FALSE FALSE  TRUE
+```
+
+```r
+region <- county   # start from a copy, same pattern as recoding
+region[county %in% c("Cedar Falls", "Millbrook")] <- "North Region"
+region[county %in% c("Oakford", "Riverdale", "Springvale")] <- "South Region"
+
+region
+```
+
+```
+[1] "North Region" "North Region" "South Region" "South Region" "South Region"
+[6] "North Region"
+```
+
+## Explore
+
+Run `table(county, region)` — a cross-tabulation confirming every one of the five counties mapped into exactly one of the two intended regions, with no county left unmapped and no county mapped to both.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+participants$region <- participants$county
+participants$region[participants$county %in% c("Cedar Falls", "Millbrook")] <- "North Region"
+participants$region[participants$county %in% c("Oakford", "Riverdale", "Springvale")] <- "South Region"
+
+table(participants$region)
+```
+
+```
+North Region South Region
+          41           59
+```
+
+```r
+# Verify every county mapped correctly and completely
+table(participants$county, participants$region)
+```
+
+```
+              North Region South Region
+  Cedar Falls           20            0
+  Millbrook             21            0
+  Oakford                0           17
+  Riverdale              0           16
+  Springvale             0           26
+```
+
+Every county correctly collapsed into exactly one of the two intended regions — 41 participants in the North Region, 59 in the South Region — with the cross-tabulation confirming no county was missed or double-counted.
+
+## Interpret the Result
+
+The two-way table's diagonal-block pattern — Cedar Falls and Millbrook entirely in the North Region column, Oakford, Riverdale, and Springvale entirely in the South Region column, with zero counts everywhere else — confirms the regional grouping is complete and correct, exactly matching your supervisor's five-counties-into-two-regions request.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Using `==` instead of `%in%` for a multi-category match.** `county == c("Cedar Falls", "Millbrook")` does not do what you might expect — it compares element-by-element in a way that rarely matches your intent; `%in%` is the correct tool for "matches any of these."
+- **Leaving a category unmapped by accident.** If you forget to include one of the five counties in either group, those rows keep their original county name in the new `region` column, silently mixed in among the properly grouped values — the cross-tabulation check catches this immediately.
+- **Assuming combining categories is the same operation as recoding.** Recoding (previous page) is one-to-one; combining categories is many-to-one — the logic (`%in%` vs. `==`) reflects that real difference.
+:::
+
+## Practice Problem
+
+Combine `participants$county` into three regions instead of two: `"Cedar Falls"` and `"Millbrook"` as `"North"`, `"Oakford"` and `"Riverdale"` as `"Central"`, and `"Springvale"` alone as `"East"`. Verify with a cross-tabulation.
+
+## Challenge Problem
+
+Your supervisor later asks for a *different* grouping of the same five counties for a separate report. Explain, in a sentence or two, why storing the *first* regional grouping in a new column (`region`) rather than overwriting `county` directly makes it easy to add this second, different grouping (perhaps `region_v2`) without losing either version or re-deriving anything from scratch.
+
+## Key Takeaways
+
+- `%in%` checks membership in a set of values, extending the single-value `==` comparison from the recoding page to "matches any of these."
+- Combining categories is a many-to-one operation — several original categories collapse into one broader group — distinct from recoding's one-to-one relabeling.
+- A two-way `table(old_column, new_column)` cross-tabulation confirms every original category was mapped exactly once, with nothing missed or double-mapped.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `x %in% c("A", "B")` check?
+   a) Whether `x` equals `"A"` and `"B"` simultaneously
+   b) Whether `x` matches either `"A"` or `"B"`
+   c) Whether `x` is alphabetically between `"A"` and `"B"`
+   d) Whether `x` is missing
+
+2. **True or false.** Combining categories and recoding a variable are the same operation.
+
+3. **Predict the output.**
+   ```r
+   x <- c("Red", "Blue", "Green")
+   x %in% c("Red", "Green")
+   ```
+
+4. **Write the code.** Write the code to combine `"Yes"` and `"Sometimes"` into a single category `"Any use"` in a vector called `alcohol_use`, leaving `"No"` unchanged.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Whether `x` matches either `"A"` or `"B"`.
+2. **False.** Recoding is one-to-one; combining categories is many-to-one — a genuinely different mapping.
+3. `[1]  TRUE FALSE  TRUE`
+4.
+   ```r
+   alcohol_use[alcohol_use %in% c("Yes", "Sometimes")] <- "Any use"
+   ```
+
+</details>
+:::

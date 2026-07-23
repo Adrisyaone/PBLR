@@ -1,0 +1,26 @@
+# Level 5 — Tidyverse {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+Base R can do everything you've done through Level 4 — but reread some of that code: `participants[participants$age >= 65 & participants$systolic_bp >= 130, ]`. It works, but it doesn't read like the question you're actually asking. The tidyverse — `dplyr` especially — lets you write "take the data, filter to seniors with elevated blood pressure, group by county, summarise the mean" almost exactly as you'd say it out loud.
+:::
+
+## What you'll build toward
+
+By the end of this level you'll rewrite nearly everything from Level 4 more readably: selecting and filtering with `select()` and `filter()`, sorting with `arrange()`, building and summarizing variables with `mutate()` and `summarise()`, grouped analysis with `group_by()`, quick counts and unique values with `count()` and `distinct()`, tidyverse-style renaming, applying one operation across many columns with `across()`, and chaining every one of these together with the native pipe `|>` into a single, readable pipeline.
+
+## Topics in this level
+
+- `select()`, `filter()`, `arrange()`
+- `mutate()` and `summarise()`
+- `group_by()`, `count()`, `distinct()`
+- `rename()` and `across()`
+- The native pipe `|>`
+- Chaining multi-step analyses
+
+## A preview mission
+
+Your mission across this level: your professor asks you to identify every participant 65 or older with elevated blood pressure — in one readable pipeline, not a maze of nested brackets and repeated `df$` references.
+
+By the last page, you'll write a single chained pipeline — import, filter, group, summarise, arrange — that reads, top to bottom, almost exactly like the research question it answers.

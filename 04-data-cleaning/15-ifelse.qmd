@@ -1,0 +1,140 @@
+# `ifelse()` {#sec-ifelse}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You want to label every one of the 100 participants as `"Senior"` (age 65+) or `"Non-senior"` — a per-row decision across an entire column, not the single, one-time decision the last page's `if` was built for. You try wrapping `if` around `participants$age >= 65` directly, and it fails immediately, exactly as the previous page's Common Mistakes warned.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Apply a single condition across every row of a column at once, producing a different value depending on whether each row's condition is `TRUE` or `FALSE`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From the binary-variables page, you already built `is_hypertensive` using a comparison and `as.numeric()`. What if, instead of `1`/`0`, you wanted actual text labels for each outcome?
+- Could a function exist that does what `if`/`else` does, but automatically, for every element of a vector at once?
+:::
+
+## The R Concept
+
+**`ifelse()`** is the vectorized sibling of `if`/`else` — it evaluates a condition across an *entire* vector at once, returning one value for every `TRUE` and another for every `FALSE`:
+
+```r
+ifelse(condition, value_if_true, value_if_false)
+```
+
+```r
+ifelse(participants$age >= 65, "Senior", "Non-senior")
+```
+
+This is exactly the tool the previous page's binary-variables and recoding pages were building toward manually with logical indexing — `ifelse()` compresses that same idea (a condition, a value for `TRUE`, a value for `FALSE`) into a single function call.
+
+## Demonstration
+
+```r
+ages <- c(72, 45, 68, 30, 81)
+
+ifelse(ages >= 65, "Senior", "Non-senior")
+```
+
+```
+[1] "Senior"     "Non-senior" "Senior"     "Non-senior" "Senior"
+```
+
+```r
+# Compare to the manual, logical-indexing approach from earlier this level
+age_group <- rep(NA_character_, length(ages))
+age_group[ages >= 65] <- "Senior"
+age_group[ages < 65]  <- "Non-senior"
+age_group
+```
+
+```
+[1] "Senior"     "Non-senior" "Senior"     "Non-senior" "Senior"
+```
+
+Both approaches give an identical result — `ifelse()` is simply a faster, more compact way to express exactly what the earlier logical-indexing pattern was already doing.
+
+## Explore
+
+Try `ifelse(c(72, NA, 68) >= 65, "Senior", "Non-senior")` — what happens to the `NA` position? `ifelse()` correctly propagates missingness: if the condition itself is `NA` (because the underlying age is missing), the result is `NA` too, neither `"Senior"` nor `"Non-senior"` — exactly the correct behavior, consistent with everything this level has taught about missing data.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+participants$age_group <- ifelse(participants$age >= 65, "Senior", "Non-senior")
+
+table(participants$age_group, useNA = "always")
+```
+
+```
+Non-senior     Senior       <NA>
+        83         11          6
+```
+
+Every participant is now labeled `"Senior"` or `"Non-senior"` in one line, with the 6 participants missing `age` correctly showing `NA` rather than being forced into either category.
+
+## Interpret the Result
+
+11 of the 94 participants with a recorded age are 65 or older, 83 are under 65, and the 6 participants with missing age data correctly remain `NA` for this new label — `ifelse()` produced, in a single line, exactly the same correct, missing-data-aware result the manual logical-indexing approach would have taken several lines to build.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Using `if` instead of `ifelse()` on a whole column.** This is exactly the error the previous page's Explore and Challenge sections set up — `if` cannot evaluate a multi-element vector; `ifelse()` is built specifically for that.
+- **Forgetting `ifelse()` still requires exactly three arguments in order.** `ifelse(condition, value_if_true, value_if_false)` — reversing the last two silently swaps your logic (`"Senior"` for people *under* 65, and vice versa) with no error to warn you.
+- **Assuming `ifelse()` always returns the type you expect.** `ifelse()` can sometimes silently convert types in surprising ways (particularly with dates or factors) — this is precisely the motivation for `if_else()`, covered on the next page, which is stricter about this.
+:::
+
+## Practice Problem
+
+Create `bp_group` using `ifelse()`, labeling participants `"Elevated"` if `systolic_bp >= 130` and `"Normal"` otherwise. Confirm missing values propagate correctly with `table(..., useNA = "always")`.
+
+## Challenge Problem
+
+Nest two `ifelse()` calls to create a three-category `age_category`: `"Youth"` (under 18), `"Adult"` (18–64), and `"Senior"` (65+) — using the pattern `ifelse(condition1, "Youth", ifelse(condition2, "Adult", "Senior"))`. Test it on `c(15, 45, 70)` and confirm all three labels appear correctly.
+
+## Key Takeaways
+
+- `ifelse(condition, value_if_true, value_if_false)` applies a condition across an entire vector at once, unlike `if`, which requires a single value.
+- `ifelse()` correctly propagates `NA`: a missing input produces a missing (`NA`) result, never a guessed category.
+- Nested `ifelse()` calls can build more than two categories, though this gets unwieldy quickly — a limitation `case_when()` (this level's final page) resolves much more cleanly.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `ifelse(x > 10, "high", "low")` return for `x <- c(5, 15)`?
+   a) `c("low", "high")`
+   b) `c("high", "low")`
+   c) A single value, `"high"` or `"low"`
+   d) An error, since `x` has more than one element
+
+2. **True or false.** `ifelse()` requires a single-value condition, exactly like `if`.
+
+3. **Predict the output.**
+   ```r
+   ifelse(c(10, NA, 30) > 20, "big", "small")
+   ```
+
+4. **Find the error.**
+   ```r
+   ifelse(participants$age >= 65, "Non-senior", "Senior")
+   ```
+   A student intends `"Senior"` for age 65+.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **a)** `c("low", "high")` — `ifelse()` evaluates every element of the vector.
+2. **False.** `ifelse()` is specifically vectorized — it works across an entire vector, unlike `if`, which requires exactly one value.
+3. `[1] "small" NA "big"`
+4. The second and third arguments are swapped — this labels people *under* 65 as `"Senior"` and 65+ as `"Non-senior"`, backwards from what's intended. It should be `ifelse(participants$age >= 65, "Senior", "Non-senior")`.
+
+</details>
+:::

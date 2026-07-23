@@ -1,0 +1,127 @@
+# What Is RStudio? {#sec-what-is-rstudio}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've installed R on your laptop, as instructed. When you open it, a plain, small window appears — no toolbars, no file browser, no obvious way to see the data you're working with. Meanwhile, your classmates all have a colorful window with four organized sections. They tell you: "You need RStudio too — nobody actually works in plain R."
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand what RStudio is, how it relates to R, and why almost every R user works through it instead of through R's bare-bones window.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If R is the "engine" that runs your code, what job might a separate application be doing around that engine?
+- What features would make it easier to write, organize, and rerun code — beyond just a blank box to type into?
+:::
+
+## The R Concept
+
+**RStudio** is an *Integrated Development Environment* (IDE) for R. That's a general term for an application that wraps a programming language in helpful tools: a place to write and organize code, a way to see your data and objects, a place plots appear, and a way to browse files — all without leaving the app.
+
+Concretely, RStudio gives you:
+
+- A **Source** pane, where you write and save scripts (reusable files of R code).
+- A **Console** pane, where code actually runs and results appear.
+- An **Environment** pane, listing every object you've created (like a running "what's currently loaded" panel).
+- A combined **Files / Plots / Packages / Help / Viewer** pane, for browsing your project folder, viewing charts, managing installed add-ons, and reading documentation.
+
+You'll tour each of these panes in detail on the next page. For now, the key idea is: **R does the computing; RStudio gives you a workspace to do that computing in.** Installing R alone gives you the engine with no dashboard. Installing RStudio (in addition to R, not instead of it) gives you the dashboard, the windows, and the seatbelt.
+
+::: {.callout-note}
+## A note on Posit
+RStudio is made by a company called Posit. You may see "RStudio" and "Posit" used somewhat interchangeably in newer documentation — they refer to the same IDE.
+:::
+
+## Demonstration
+
+Once RStudio is open, you can confirm both R and RStudio are working by asking R to report its own version.
+
+```r
+# Ask R which version of itself is running
+R.version.string
+```
+
+```
+[1] "R version 4.4.1 (2024-06-14)"
+```
+
+You can also check which packages come built into R by default without installing anything extra.
+
+```r
+# A quick built-in function - more on functions later in this level
+getRversion()
+```
+
+```
+[1] '4.4.1'
+```
+
+## Explore
+
+If RStudio is installed on your machine, open it and locate the version number yourself: click **Help > About RStudio** in the menu bar. Compare that to the R version reported by the code above — notice they're reported separately, because they're genuinely two different pieces of software with two different version numbers.
+
+## Solve the Problem
+
+Your classmates were right: you need both pieces of software, installed separately, working together.
+
+1. **R** is installed first — it's the calculation engine, downloaded from CRAN (the Comprehensive R Archive Network).
+2. **RStudio** is installed second — it's the application you actually open day-to-day, and it automatically finds and uses the R installation on your machine.
+
+From this point in the course forward, "opening R" always means opening RStudio.
+
+## Interpret the Result
+
+Seeing `R.version.string` print a real version number confirms that RStudio has successfully connected to an R installation on your computer. If that line had produced an error instead, it would mean R itself wasn't installed correctly — a problem to fix before writing any further code.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Installing only RStudio.** RStudio is not R — without R installed underneath it, RStudio has no engine to run and will show an error on startup.
+- **Installing them in the wrong order.** Install R first, then RStudio; RStudio looks for an existing R installation when it starts.
+- **Expecting to "code in RStudio."** You write code in RStudio, but RStudio hands that code to R to actually execute — RStudio itself doesn't understand R code on its own.
+:::
+
+## Practice Problem
+
+Without running any code, describe in one sentence the difference between what R does and what RStudio does — as if explaining it to a classmate who just asked "wait, aren't those the same thing?"
+
+## Challenge Problem
+
+Look up (or recall) one other IDE used for a different programming language (for example, PyCharm for Python, or VS Code for many languages). Name one feature it likely shares with RStudio, based on what you now know an IDE provides.
+
+## Key Takeaways
+
+- RStudio is an IDE — a workspace built around R, not a replacement for R.
+- You must install R first, then RStudio, in that order.
+- From here on, "using R" in this course means working inside RStudio.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** RStudio is:
+   a) A different programming language than R
+   b) An IDE that runs on top of R
+   c) A cloud storage service
+   d) A type of R package
+
+2. **True or false.** You can run RStudio without ever installing R.
+
+3. **Find the error.** A student says: "I installed RStudio, so I don't need R." What's wrong with this statement?
+
+4. **Write the code.** Write the line of R code from this page that asks R to report its own version as a string.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** An IDE that runs on top of R.
+2. **False.** RStudio requires a working R installation underneath it; it has no engine of its own.
+3. RStudio needs R installed separately — it's the interface, not the engine. Without R, RStudio has nothing to run your code with.
+4. `R.version.string`
+
+</details>
+:::

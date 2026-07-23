@@ -1,0 +1,148 @@
+# `separate()` {#sec-separate}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+`bp_wide` has a `clinic_site` column like `"Oakford-North"`, `"Riverdale-South"` — a county name and a clinic direction, joined together with a hyphen. Your professor wants to analyze clinic directions on their own (are North-side clinics recording different blood pressures than South-side ones?), but right now "county" and "direction" are stuck together as one compound piece of text in a single column.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Split one column into two or more columns using `tidyr::separate()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Looking at `"Oakford-North"`, what character separates the two pieces of information packed into this single value?
+- From Level 4, `case_when()` and `ifelse()` create new columns from existing ones. Would you expect a "split one column into two" function to also require you to describe both what to split by and what to name the new pieces?
+:::
+
+## The R Concept
+
+**`separate()`** splits one column into multiple columns, based on a separator character:
+
+```r
+separate(df, col, into = c("new_col1", "new_col2"), sep = "separator")
+```
+
+```r
+separate(bp_wide, clinic_site, into = c("county_check", "direction"), sep = "-")
+```
+
+`into` names the new columns, in the order the split pieces appear (left piece first); `sep` specifies the character (or pattern) to split on — here, a hyphen.
+
+## Demonstration
+
+```r
+library(tidyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+bp_split <- separate(bp_wide, clinic_site,
+  into = c("county_check", "direction"),
+  sep = "-"
+)
+
+head(bp_split[, c("id", "county", "county_check", "direction")], 4)
+```
+
+```
+  id      county county_check direction
+1  1     Oakford      Oakford     North
+2  2   Riverdale    Riverdale     South
+3  3     Oakford      Oakford      East
+4  4   Millbrook    Millbrook      West
+```
+
+`clinic_site` is gone from the result; `county_check` and `direction` have taken its place — and notice `county_check` matches the existing `county` column exactly, confirming the split worked correctly.
+
+## Explore
+
+Try `table(bp_split$direction)`. With 28 participants across 4 directions (North, South, East, West), confirm the counts are as you'd expect, then try `identical(bp_split$county, bp_split$county_check)` to formally verify the split matches the original `county` column for every row.
+
+## Solve the Problem
+
+```r
+library(tidyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+bp_split <- separate(bp_wide, clinic_site,
+  into = c("county_check", "direction"),
+  sep = "-"
+)
+
+table(bp_split$direction)
+```
+
+```
+ East North South  West
+    7     7     7     7
+```
+
+```r
+identical(bp_split$county, bp_split$county_check)
+```
+
+```
+[1] TRUE
+```
+
+Clinic direction is now its own column, evenly split 7-7-7-7 across North/South/East/West, ready for your professor's direction-based analysis — and the `identical()` check confirms the split extracted exactly the county information already present elsewhere, with nothing lost or corrupted.
+
+## Interpret the Result
+
+`direction` can now be used in `group_by()`, `filter()`, or anywhere else a normal column works — something impossible while it was fused into `clinic_site` as compound text. The `county_check` column, having served its verification purpose, would typically be dropped (`select(-county_check)`) once confirmed correct, since keeping a genuine duplicate of `county` around isn't useful going forward.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Getting `into`'s column order backwards.** `into = c("county_check", "direction")` assumes the *first* split piece (before the separator) is county and the *second* is direction — matching `"Oakford-North"`'s actual left-to-right order. If the original text were reversed, you'd need to reverse `into` as well.
+- **Choosing a `sep` that appears more than once in the data.** If a county name itself contained a hyphen, `sep = "-"` would split it into more than two pieces, breaking the intended two-column split — always check for separator characters appearing unexpectedly inside the values themselves.
+- **Forgetting `separate()` removes the original column by default.** After `separate(df, clinic_site, ...)`, there is no more `clinic_site` column in the result unless you explicitly keep it (with the `remove = FALSE` argument).
+:::
+
+## Practice Problem
+
+Use `separate()` to split `clinic_site` into `county_check` and `direction`, then use `filter()` (Level 5) to find every participant seen at a `"North"` clinic.
+
+## Challenge Problem
+
+After separating `clinic_site`, use `group_by(direction)` and `summarise()` to compute the mean `sbp_visit1` for each clinic direction. Does blood pressure appear to differ meaningfully by clinic direction, or does this look more like random noise given the small group sizes (7 participants per direction)?
+
+## Key Takeaways
+
+- `separate(df, col, into = c("new1", "new2"), sep = "...")` splits one column into multiple columns based on a separator.
+- `into`'s column names must be given in the same left-to-right order the split pieces appear in the original values.
+- `separate()` removes the original compound column by default, replacing it with the split-out pieces.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** In `separate(df, col, into = c("a", "b"), sep = "-")`, if `col` contains `"X-Y"`, what does `a` become?
+   a) `"X-Y"`
+   b) `"X"`
+   c) `"Y"`
+   d) `NA`
+
+2. **True or false.** `separate()` keeps the original compound column in the result by default.
+
+3. **Predict the output.** If `clinic_site` contains `"Millbrook-East"`, what would `direction` equal after separating with `sep = "-"`?
+
+4. **Find the error.**
+   ```r
+   separate(bp_wide, clinic_site, into = c("direction", "county_check"), sep = "-")
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `"X"` — the first split piece (before the separator) becomes the first `into` column.
+2. **False.** `separate()` removes the original column by default unless `remove = FALSE` is specified.
+3. `"East"`.
+4. `into`'s order is backwards — since `clinic_site` values are formatted as `"county-direction"` (e.g., `"Millbrook-East"`), the first piece is the county and the second is the direction. This code would incorrectly label `"Millbrook"` as `direction` and `"East"` as `county_check`. It should be `into = c("county_check", "direction")`.
+
+</details>
+:::

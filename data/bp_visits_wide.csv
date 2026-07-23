@@ -1,0 +1,29 @@
+id,county,clinic_site,sbp_visit1,sbp_visit2,sbp_visit3,weight_visit1,weight_visit2,weight_visit3
+1,Oakford,Oakford-North,125,120,117,101.4,100.8,101.0
+2,Riverdale,Riverdale-South,123,121,129,80.1,79.6,79.0
+3,Oakford,Oakford-East,130,128,124,81.8,80.6,80.1
+4,Millbrook,Millbrook-West,117,117,116,87.9,88.7,88.8
+5,Millbrook,Millbrook-North,139,139,138,62.1,62.8,62.7
+6,Riverdale,Riverdale-South,117,109,106,69.4,69.5,69.4
+7,Riverdale,Riverdale-East,110,106,103,56.9,54.9,55.5
+8,Millbrook,Millbrook-West,100,94,,85.8,86.0,
+9,Springvale,Springvale-North,149,140,137,64.7,64.9,62.9
+10,Millbrook,Millbrook-South,131,129,,75.0,73.0,
+12,Cedar Falls,Cedar Falls-East,152,153,144,84.1,82.9,82.1
+13,Springvale,Springvale-West,121,116,107,84.1,84.1,83.8
+14,Riverdale,Riverdale-North,128,119,122,85.0,85.2,84.3
+15,Springvale,Springvale-South,118,105,95,96.2,96.2,96.3
+16,Millbrook,Millbrook-East,120,115,111,87.9,86.9,88.3
+17,Springvale,Springvale-West,117,112,112,61.0,61.3,62.2
+18,Oakford,Oakford-North,104,104,105,84.1,83.2,82.2
+19,Cedar Falls,Cedar Falls-South,109,101,103,82.1,81.5,81.1
+20,Oakford,Oakford-East,115,109,121,53.8,54.1,54.0
+21,Oakford,Oakford-West,129,122,118,75.0,74.3,73.0
+22,Springvale,Springvale-North,124,123,126,56.1,55.3,56.2
+23,Cedar Falls,Cedar Falls-South,144,135,127,75.0,73.9,73.8
+24,Springvale,Springvale-East,129,131,120,83.5,83.6,81.8
+25,Riverdale,Riverdale-West,167,168,167,76.9,76.6,77.6
+26,Oakford,Oakford-North,121,120,132,52.3,50.0,49.4
+27,Cedar Falls,Cedar Falls-South,139,132,138,82.9,82.5,81.4
+29,Millbrook,Millbrook-East,126,128,123,85.0,85.2,84.8
+30,Riverdale,Riverdale-West,95,91,97,63.3,61.5,62.0

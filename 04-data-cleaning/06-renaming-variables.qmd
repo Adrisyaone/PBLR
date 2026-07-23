@@ -1,0 +1,146 @@
+# Renaming Variables {#sec-renaming-variables}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your department's official data dictionary requires blood pressure columns to be named `sbp` and `dbp` (standard clinical abbreviations), not `systolic_bp` and `diastolic_bp`. Every script you write from now on needs to reference the new names — but you don't want to reimport or manually retype the entire dataset to fix just two column names.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Rename one or more columns in a data frame without touching any of the data itself.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 2, what function retrieves (or sets) a data frame's column names?
+- If `names(df)` returns a character vector of column names, could you change just *one* element of that vector, the same way you'd change one element of any other vector (Level 2's indexing)?
+:::
+
+## The R Concept
+
+`names(df)` (Level 2) can be assigned to directly, and — combined with logical or position-based indexing — you can rename specific columns without disturbing any others:
+
+```r
+names(df)[names(df) == "old_name"] <- "new_name"
+```
+
+Read this carefully: `names(df) == "old_name"` produces a logical vector, `TRUE` at the one position matching `"old_name"`; that logical vector then indexes into `names(df)` on the left-hand side, replacing just that one name.
+
+For renaming several columns at once, you can also assign a full replacement vector for `names()`, or rename by *position* if you know exactly which column index you need:
+
+```r
+names(df)[5] <- "sbp"   # rename the 5th column specifically, by position
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+names(participants)
+```
+
+```
+[1] "id"           "age"          "sex"          "county"       "systolic_bp"
+[6] "diastolic_bp" "bmi"          "smoker"
+```
+
+```r
+names(participants)[names(participants) == "systolic_bp"] <- "sbp"
+names(participants)[names(participants) == "diastolic_bp"] <- "dbp"
+
+names(participants)
+```
+
+```
+[1] "id"     "age"    "sex"    "county" "sbp"    "dbp"    "bmi"    "smoker"
+```
+
+```r
+# The data itself is completely unchanged - only the column labels
+head(participants$sbp)
+```
+
+```
+[1] 125 123 130 117 139 117
+```
+
+## Explore
+
+Try renaming by position instead: `names(participants)[5] <- "systolic_bp_renamed"`. This works too, but is riskier — if the column order ever changes (say, after a join in Level 6), a position-based rename would silently rename the *wrong* column. Name-based renaming (matching on the current name, as in the solution) is more robust against exactly this kind of accidental reordering.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+names(participants)[names(participants) == "systolic_bp"] <- "sbp"
+names(participants)[names(participants) == "diastolic_bp"] <- "dbp"
+
+names(participants)
+```
+
+```
+[1] "id"     "age"    "sex"    "county" "sbp"    "dbp"    "bmi"    "smoker"
+```
+
+Every script you write from this point forward can now use `participants$sbp` and `participants$dbp`, matching your department's data dictionary exactly, with the underlying blood pressure values themselves completely unchanged.
+
+## Interpret the Result
+
+The column names now read `sbp` and `dbp` instead of `systolic_bp` and `diastolic_bp`, but every value in every row is identical to before — renaming a column is purely a labeling change, with zero effect on the data itself, exactly as you'd want when the *only* thing that needed to change was compliance with a naming standard.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Renaming by position when the column order might change.** A position-based rename (`names(df)[5] <- ...`) silently renames whichever column is currently 5th — if a join or reordering operation shifts columns around later, this becomes a subtle, hard-to-spot bug.
+- **Misspelling the old name in a name-based rename.** `names(df)[names(df) == "Systolic_BP"] <- "sbp"` (wrong capitalization) matches nothing — the logical vector is all `FALSE`, so no column gets renamed, with no error or warning at all.
+- **Forgetting that renaming doesn't reorder columns.** After renaming, `sbp` and `dbp` still sit in the same position in the data frame as `systolic_bp` and `diastolic_bp` did — renaming and reordering are two entirely separate operations.
+:::
+
+## Practice Problem
+
+Rename the `bmi` column to `bmi_kg_m2` (a more explicit, unit-labeled name), using the name-based approach, and confirm with `names()` that it worked.
+
+## Challenge Problem
+
+Rename `sex` to `sex_reported` and `smoker` to `smoking_status` in a single block of code (two separate rename lines are fine), then use `str()` to confirm both the new names and the underlying data are exactly as expected.
+
+## Key Takeaways
+
+- `names(df)[names(df) == "old_name"] <- "new_name"` renames a column by matching its current name, leaving the underlying data completely untouched.
+- Name-based renaming is more robust than position-based renaming, which silently breaks if column order changes later.
+- Renaming never reorders or modifies the data itself — it only changes the label used to refer to a column.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `names(df)[names(df) == "age"] <- "participant_age"` do?
+   a) Deletes the `age` column
+   b) Renames the `age` column to `participant_age`
+   c) Changes every value in the `age` column
+   d) Creates a new column called `participant_age` alongside `age`
+
+2. **True or false.** Renaming a column can change the values stored in it.
+
+3. **Predict the output.** After `names(df)[names(df) == "bmi"] <- "bmi_kg_m2"`, what would `df$bmi` return?
+
+4. **Find the error.**
+   ```r
+   names(df)[names(df) == "Age"] <- "participant_age"
+   ```
+   assuming the actual column is named `age` (lowercase).
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Renames the `age` column to `participant_age`.
+2. **False.** Renaming only changes the column label; the values themselves are completely unaffected.
+3. An error (`$ operator is invalid for atomic vectors`-style issue) or `NULL` — depending on context, but effectively: `bmi` no longer exists as a name, since it was renamed to `bmi_kg_m2`.
+4. The capitalization doesn't match (`"Age"` vs. the actual `"age"`), so the logical comparison is all `FALSE` and nothing gets renamed — no error is raised, which makes this mistake easy to miss.
+
+</details>
+:::

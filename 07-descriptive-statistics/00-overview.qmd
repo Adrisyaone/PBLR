@@ -1,0 +1,26 @@
+# Level 7 — Descriptive Statistics {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+Before you model anything, you have to describe it: what's the average age, how spread out is the blood pressure data, what proportion of participants smoke? This level covers the summary statistics every health report opens with — by hand, in base R, and in the tidyverse.
+:::
+
+## What you'll build toward
+
+You'll return to `data/participants.csv` — the same 100-participant dataset from every earlier level — and this time describe it numerically rather than clean or reshape it: central tendency, spread, quantiles, frequency tables, cross-tabulations, and correlation. You'll finish by assembling everything into a single descriptive report, the kind of numeric summary that opens almost every health study.
+
+## Topics in this level
+
+- Mean, median, and mode — and a base R trap around the word "mode" itself
+- Range, variance, and standard deviation
+- Quantiles, percentiles, and the interquartile range (IQR)
+- `summary()` and the five-number summary
+- Frequency tables and proportions with `table()` and `prop.table()`
+- Cross-tabulations between two categorical variables
+- Correlation with `cor()`
+- A capstone: assembling a full descriptive statistics report
+
+## A preview mission
+
+Your mission across this level: write the first paragraph of a health report — the "Table 1" description of your study sample that every published study opens with — entirely from numbers you compute yourself, correctly handling the missing values that have run through this dataset since Level 1.

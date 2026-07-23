@@ -1,0 +1,146 @@
+# `rename()` {#sec-rename}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor asks you to rename `systolic_bp` and `diastolic_bp` to the clearer `sbp` and `dbp` before sharing the dataset with a collaborator. In Level 4's base R, you did this with `names(df)[names(df) == "old"] <- "new"` — correct, but you had to look up the column's *position* indirectly through `names()` matching, rather than just naming old and new directly.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Rename one or more columns directly, using `dplyr::rename()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 4, what did `names(participants)[names(participants) == "systolic_bp"] <- "sbp"` actually do, step by step?
+- If a function let you just write "new name equals old name" directly, would you still need to go through `names()` matching at all?
+:::
+
+## The R Concept
+
+**`rename()`** renames columns with a direct `new_name = old_name` mapping — no `names()` indirection required:
+
+```r
+rename(df, new_name = old_name)
+```
+
+```r
+rename(participants, sbp = systolic_bp, dbp = diastolic_bp)
+```
+
+Read the argument order carefully: it's **new name first, old name second** — the reverse of how you might instinctively say it aloud ("rename systolic_bp to sbp"), but consistent with every other tidyverse verb's `new_column = <expression>` pattern (`mutate()`, `summarise()`).
+
+## Demonstration
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+renamed <- rename(participants, sbp = systolic_bp, dbp = diastolic_bp)
+
+names(renamed)
+```
+
+```
+[1] "id"      "age"     "sex"     "county"  "sbp"     "dbp"     "bmi"
+[8] "smoker"
+```
+
+`systolic_bp` and `diastolic_bp` are gone from the column names; `sbp` and `dbp` have taken their place, in the same column positions.
+
+## Explore
+
+Try `rename(participants, participant_id = id)` and confirm with `names()` that only `id` changed, while every other column name — including its position in the data frame — stayed exactly the same. `rename()` never reorders columns, unlike `select()`.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+for_collaborator <- rename(participants,
+  sbp = systolic_bp,
+  dbp = diastolic_bp
+)
+
+names(for_collaborator)
+```
+
+```
+[1] "id"      "age"     "sex"     "county"  "sbp"     "dbp"     "bmi"
+[8] "smoker"
+```
+
+```r
+head(for_collaborator[, c("sbp", "dbp")], 3)
+```
+
+```
+  sbp dbp
+1 125  79
+2 123  80
+3 130  77
+```
+
+The dataset is ready to share with your professor's collaborator, using the clearer `sbp`/`dbp` names — with every value untouched, only the column labels changed.
+
+## Interpret the Result
+
+`for_collaborator` has identical data to `participants`, just with two columns relabeled. This is purely cosmetic — no values changed, no rows were reordered, and `nrow()`/`ncol()` are identical to the original.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Reversing the argument order.** `rename(participants, systolic_bp = sbp)` would try to rename a column called `sbp` (which doesn't exist yet) to `systolic_bp` — the *opposite* of the intended renaming. Always read it as "new = old."
+- **Expecting `rename()` to reorder columns.** Unlike `select()`, `rename()` never changes column order or drops any columns — it only relabels the ones you specify, leaving everything else (including position) untouched.
+- **Forgetting to reassign the result.** Like every other dplyr verb covered so far, `rename()` returns a new data frame; `participants` itself is unaffected unless you write `participants <- rename(participants, ...)`.
+:::
+
+## Practice Problem
+
+Use `rename()` to rename `bmi` to `body_mass_index` and `county` to `region`, and confirm with `names()` that both changes took effect while all other column names and their order stayed the same.
+
+## Challenge Problem
+
+Compare Level 4's base R approach (`names(df)[names(df) == "old"] <- "new"`) against `rename()` for renaming three columns at once. Which approach scales better as the number of renamed columns grows, and why?
+
+## Key Takeaways
+
+- `rename(df, new_name = old_name)` relabels a column directly — argument order is new name first, old name second.
+- `rename()` never reorders or drops columns; it only changes labels, leaving positions and all other columns untouched.
+- Like other dplyr verbs, `rename()` returns a new data frame and must be reassigned to keep the change.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** In `rename(df, new_name = old_name)`, which comes first?
+   a) The old name
+   b) The new name
+   c) Order doesn't matter
+   d) Neither — both must be quoted strings in a vector
+
+2. **True or false.** `rename()` can change the order of columns in a data frame.
+
+3. **Predict the output.** After `df2 <- rename(df, patient_id = id)`, does `df` still have a column called `id`?
+
+4. **Find the error.**
+   ```r
+   rename(participants, systolic_bp = sbp)
+   # intended to rename systolic_bp to sbp
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The new name comes first, then `=`, then the old name.
+2. **False.** `rename()` only changes column labels — it never reorders or drops columns.
+3. Yes — `rename()` returns a new data frame (`df2`); the original `df` is completely unaffected.
+4. The argument order is reversed. Since `participants` has a column named `systolic_bp` (not `sbp`), this call tries to rename a nonexistent `sbp` column. It should be `rename(participants, sbp = systolic_bp)`.
+
+</details>
+:::

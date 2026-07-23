@@ -1,0 +1,153 @@
+# `filter()` {#sec-filter}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your epidemiology professor asks you to identify all participants aged 65 years or older who also have elevated blood pressure (systolic 130 or higher) — the group a clinician would flag for closer monitoring. In base R (Level 2), you'd write `participants[participants$age >= 65 & participants$systolic_bp >= 130, ]` — correct, but dense, with `participants$` repeated for every condition and the row/column comma easy to forget.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Subset rows of a data frame based on one or more conditions, using `dplyr::filter()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 2's logical indexing, what did `participants$age >= 65 & participants$systolic_bp >= 130` produce — and what did you do with that result to subset rows?
+- If a function were named directly after the action "filter to rows matching a condition," would you expect to still need `participants$` in front of every column name?
+:::
+
+## The R Concept
+
+**`filter()`** keeps only the rows where a condition is `TRUE`, using column names directly with no `df$` prefix and no comma-based row/column indexing:
+
+```r
+filter(df, condition)
+```
+
+```r
+filter(participants, age >= 65 & systolic_bp >= 130)
+```
+
+Multiple conditions can also be separated by commas instead of `&` — `filter()` treats a comma-separated list of conditions as "all of these must be true," identical to combining them with `&`:
+
+```r
+filter(participants, age >= 65, systolic_bp >= 130)   # equivalent to using &
+```
+
+## Demonstration
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+# Base R, from Level 2 - for comparison
+base_r_result <- participants[participants$age >= 65 & participants$systolic_bp >= 130, ]
+nrow(base_r_result)
+```
+
+```
+[1] 4
+```
+
+```r
+# dplyr - same result, more directly readable
+tidy_result <- filter(participants, age >= 65 & systolic_bp >= 130)
+nrow(tidy_result)
+```
+
+```
+[1] 4
+```
+
+```r
+identical(base_r_result, tidy_result)
+```
+
+```
+[1] TRUE
+```
+
+## Explore
+
+Try `filter(participants, age >= 65, systolic_bp >= 130)` (commas instead of `&`) and confirm it produces the identical result. Then try `filter(participants, county == "Oakford" | county == "Millbrook")` — using `|` (or) to match either of two counties at once, extending Level 1's logical operators directly.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+at_risk <- filter(participants, age >= 65 & systolic_bp >= 130)
+
+at_risk
+```
+
+```
+   id age    sex      county systolic_bp diastolic_bp  bmi smoker
+1  31  70   Male     Oakford         145           85   NA     No
+2  51  66   Male Cedar Falls         133           77 34.5     No
+3  62  81   Male   Millbrook         153           95 30.3    Yes
+4  84  67 Female   Riverdale         134           79 26.8     No
+```
+
+Exactly 4 participants meet both criteria — ready to hand to your professor as the flagged, at-risk subgroup, in one readable line rather than a bracket-and-comma expression.
+
+## Interpret the Result
+
+Four participants — ages 70, 66, 81, and 67 — are both 65 or older and have elevated systolic blood pressure (130+), spanning four different counties and including one current smoker. This is exactly the clinically relevant subgroup your professor asked you to identify, produced by a single `filter()` call whose logic is legible at a glance.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `filter()` needs no `df$` prefix.** `filter(participants, participants$age >= 65)` still technically runs, but defeats the point — `filter(participants, age >= 65)` is the idiomatic, intended style.
+- **Using `=` instead of `==`.** Exactly the Level 1 trap, still relevant here: `filter(participants, sex = "Female")` is a syntax error inside `filter()` (R interprets `=` as a named-argument assignment) — it must be `sex == "Female"`.
+- **Confusing `&` (and) with `|` (or), or forgetting the distinction entirely.** `filter(participants, age >= 65 & systolic_bp >= 130)` requires *both* conditions; `filter(participants, age >= 65 | systolic_bp >= 130)` requires only *either* one — very different result sets.
+:::
+
+## Practice Problem
+
+Use `filter()` to find every participant who is a current smoker (`smoker == "Yes"`) **and** has a BMI of 30 or higher. Report how many participants meet both criteria.
+
+## Challenge Problem
+
+Use `filter()` with `%in%` (Level 4) to find every participant living in either Riverdale or Cedar Falls, then separately confirm this matches the count you'd get by adding `table(participants$county)`'s counts for those two counties individually.
+
+## Key Takeaways
+
+- `filter(df, condition)` keeps only rows matching a condition, using column names directly with no `df$` prefix or bracket-comma syntax.
+- Multiple conditions can be combined with `&` (and), `|` (or), or by separating them with commas (equivalent to `&`).
+- `filter()` produces exactly the same result as base R's logical row indexing (Level 2) — the difference is entirely in readability, not correctness.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `filter(df, age >= 65 & bmi >= 30)` return?
+   a) Every row where either condition is true
+   b) Every row where both conditions are true
+   c) Only the `age` and `bmi` columns
+   d) A single logical value
+
+2. **True or false.** Separating conditions with a comma inside `filter()` behaves like combining them with `&`.
+
+3. **Predict the output.** How many rows would `filter(df, TRUE)` return, for any data frame `df`?
+
+4. **Find the error.**
+   ```r
+   filter(participants, sex = "Female")
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Every row where both conditions are true.
+2. **True.** A comma-separated list of conditions in `filter()` is equivalent to combining them with `&`.
+3. Every row — `TRUE` matches everything, so `filter(df, TRUE)` returns the entire, unfiltered data frame.
+4. `filter()` requires `==` for comparison, not `=` (which R interprets as a named-argument assignment inside the function call). It should be `filter(participants, sex == "Female")`.
+
+</details>
+:::

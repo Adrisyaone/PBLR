@@ -1,0 +1,179 @@
+# `case_when()` {#sec-case-when}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Back in Level 2, you built a four-category `bmi_category` variable using three *nested* `ifelse()` calls: `ifelse(bmi < 18.5, "Underweight", ifelse(bmi < 25, "Normal", ifelse(bmi < 30, "Overweight", "Obese")))`. It worked, but even at four categories it was already hard to read at a glance — and your supervisor now wants a five-category blood pressure classification. Nesting `ifelse()` four levels deep would be close to unreadable.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Use `case_when()` to handle several conditions at once, cleanly, without nesting `ifelse()` calls inside each other.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If you had five conditions to check in order, would you rather read them as five separate, parallel lines, or as `ifelse()` nested four levels deep?
+- What should happen if a row matches none of your listed conditions — should it get a value at all, or should something else happen?
+:::
+
+## The R Concept
+
+**`case_when()`**, from `dplyr` (arriving properly in Level 5), evaluates a series of conditions **in order**, top to bottom, and assigns the value from the **first** one that matches:
+
+```r
+library(dplyr)
+case_when(
+  condition1 ~ value1,
+  condition2 ~ value2,
+  condition3 ~ value3,
+  TRUE ~ default_value
+)
+```
+
+Each line reads naturally: "condition `~` (results in) value." The final `TRUE ~ default_value` line acts as a catch-all — since `TRUE` always matches, it captures any row that didn't match an earlier condition (equivalent to the final `else` in a nested `ifelse()` chain, but far more readable at a glance).
+
+```r
+case_when(
+  bmi < 18.5 ~ "Underweight",
+  bmi < 25   ~ "Normal",
+  bmi < 30   ~ "Overweight",
+  TRUE       ~ "Obese"
+)
+```
+
+Notice this reads almost like a sentence: "if BMI is under 18.5, Underweight; if under 25 (having already excluded under-18.5), Normal;" and so on — each condition is only evaluated for rows that didn't match anything above it.
+
+## Demonstration
+
+```r
+library(dplyr)
+
+bmi_values <- c(17.2, 22.5, 28.9, 33.1, NA)
+
+case_when(
+  bmi_values < 18.5 ~ "Underweight",
+  bmi_values < 25   ~ "Normal",
+  bmi_values < 30   ~ "Overweight",
+  TRUE              ~ "Obese"
+)
+```
+
+```
+[1] "Underweight" "Normal"      "Overweight"  "Obese"       NA
+```
+
+Notice the `NA` BMI correctly produces `NA` in the result — even the catch-all `TRUE ~ "Obese"` doesn't fire for a missing input, because `case_when()` (like `ifelse()` and `if_else()`) correctly propagates missingness rather than guessing.
+
+Compare this to the equivalent, harder-to-read nested `ifelse()` from Level 2:
+
+```r
+ifelse(bmi_values < 18.5, "Underweight",
+  ifelse(bmi_values < 25, "Normal",
+    ifelse(bmi_values < 30, "Overweight", "Obese")))
+```
+
+Both produce the same result — `case_when()` simply reads far more clearly once there are more than two categories involved.
+
+## Explore
+
+Try adding a fifth category to the blood pressure classification: `"Normal"` (< 120), `"Elevated"` (120–129), `"Hypertension Stage 1"` (130–139), `"Hypertension Stage 2"` (140–179), and `"Hypertensive Crisis"` (180+), using `case_when()` on `participants$systolic_bp`. Notice how each additional category is just one more readable line, rather than another level of nesting.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+participants$bp_category <- case_when(
+  participants$systolic_bp < 120 ~ "Normal",
+  participants$systolic_bp < 130 ~ "Elevated",
+  participants$systolic_bp < 140 ~ "Hypertension Stage 1",
+  participants$systolic_bp < 180 ~ "Hypertension Stage 2",
+  TRUE                            ~ "Hypertensive Crisis"
+)
+
+table(participants$bp_category, useNA = "always")
+```
+
+```
+            Elevated                Normal Hypertension Stage 1
+                  18                    32                    17
+Hypertension Stage 2   Hypertensive Crisis                  <NA>
+                  29                     0                     4
+```
+
+Five clinically meaningful categories, built in five clean, parallel lines — no nested nightmare of nine mismatched parentheses to debug, and the 4 participants with missing `systolic_bp` correctly show `NA` rather than being forced into any category.
+
+## Interpret the Result
+
+The blood pressure classification is now complete across all five clinical categories, with the missing-data behavior correctly preserved (4 participants with missing `systolic_bp` remain `NA`, not defaulted into `"Normal"` or any other category) — exactly the behavior you'd want, and considerably easier to read, extend, or hand off to a colleague than an equivalent nested `ifelse()` chain would have been.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting conditions are checked in order, top to bottom.** If you accidentally list a broader condition before a narrower one (like `systolic_bp < 180` before `systolic_bp < 120`), the narrower condition below it will *never* be reached, since the broader one already matched first.
+- **Forgetting the final `TRUE ~ default` catch-all.** Without it, any row that doesn't match any listed condition becomes `NA` in the result — sometimes exactly what you want, but often an unintentional gap if you forgot a category.
+- **Using `=` instead of `~`.** `case_when()`'s syntax specifically requires the tilde (`~`), not an equals sign — a common typo for anyone used to other assignment-style syntax in R.
+:::
+
+## Practice Problem
+
+Using `case_when()`, classify `participants$age` into `"Child"` (under 18), `"Adult"` (18–64), and `"Senior"` (65+). Confirm the result with `table(..., useNA = "always")`.
+
+## Challenge Problem
+
+Rebuild Level 2's four-category `bmi_category` variable using `case_when()` instead of nested `ifelse()`, and confirm with `table()` that it produces exactly the same category counts as Level 2's original version (3 Underweight, 28 Normal, 39 Overweight, 25 Obese).
+
+## Key Takeaways
+
+- `case_when()` evaluates conditions in order and assigns the value from the first match — far more readable than nesting `ifelse()` calls for three or more categories.
+- A final `TRUE ~ default_value` line acts as a catch-all for any row that matched nothing above it.
+- Like `ifelse()` and `if_else()`, `case_when()` correctly propagates missing values — a missing input never gets forced into the catch-all category.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** In `case_when()`, what does the final `TRUE ~ "default"` line do?
+   a) Nothing; it's optional decoration
+   b) Catches any row that didn't match an earlier condition
+   c) Overrides every other condition
+   d) Only applies to missing values
+
+2. **True or false.** `case_when()` conditions are checked in order, and the first match wins.
+
+3. **Predict the output.**
+   ```r
+   x <- c(5, 15, 25, NA)
+   case_when(
+     x < 10 ~ "low",
+     x < 20 ~ "medium",
+     TRUE   ~ "high"
+   )
+   ```
+
+4. **Find the error.**
+   ```r
+   case_when(
+     age = "Senior" ~ age >= 65,
+     TRUE ~ "Non-senior"
+   )
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Catches any row that didn't match an earlier condition.
+2. **True.** Conditions are evaluated top to bottom, and the first `TRUE` match determines the result.
+3. `[1] "low"    "medium" "high"   NA`
+4. The condition and value are reversed, and `=` is used instead of `~`. It should be `age >= 65 ~ "Senior"`.
+
+</details>
+:::
+
+## Where you've arrived
+
+You started this level with a vague sense that real data needs fixing before it can be trusted, and a stack of tools scattered across Level 1 through Level 3 for spotting problems. You've now built a complete, systematic toolkit for actually *fixing* what you find: identifying, removing, and replacing missing values; detecting and removing duplicates; renaming and retyping variables in every direction; building new variables and recoding, combining, and binarizing categories; and — across these last four pages — the full progression from a single `if` decision to `ifelse()`'s vectorized version, `if_else()`'s type-safe version, and `case_when()`'s clean, multi-condition version.
+
+That last tool, `case_when()`, is also your bridge into Level 5: it's a `dplyr` function, and Level 5 is where you meet the rest of the tidyverse — `filter()`, `mutate()`, `summarise()`, and the pipe `|>` — that will make everything you've done so far in base R read even more like the sentence you'd say the question in out loud.

@@ -1,0 +1,151 @@
+# Correlation with `cor()` {#sec-correlation}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor asks: "Does blood pressure tend to rise with BMI in this sample? What about with age?" So far, every statistic in this level has described *one* variable at a time. Answering "does X relate to Y" needs a way to summarize how **two numeric variables move together** — not a cross-tabulation (previous page, which is for categorical variables), but its numeric counterpart.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Compute and interpret a correlation coefficient using `cor()`, measuring the strength and direction of a linear relationship between two numeric variables.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If two variables moved in perfect lockstep — every increase in one matched by a proportional increase in the other — what would you expect a "relationship strength" number to look like at its most extreme?
+- Correlation coefficients range from -1 to 1. What do you think a value near 0 would indicate about the relationship between two variables?
+:::
+
+## The R Concept
+
+**`cor()`** computes the Pearson correlation coefficient between two numeric variables, a single number between **-1 and 1**:
+
+```r
+cor(x, y, use = "complete.obs")
+```
+
+- **+1** means a perfect positive relationship (as one variable increases, so does the other, exactly proportionally).
+- **-1** means a perfect negative relationship (as one increases, the other decreases, exactly proportionally).
+- **0** means no linear relationship at all.
+
+Values in between describe weaker versions of these patterns — a common rough guide treats values below about 0.3 in magnitude as "weak," 0.3-0.7 as "moderate," and above 0.7 as "strong," though these thresholds vary by field. The `use = "complete.obs"` argument tells `cor()` to use only rows where **both** variables are non-missing — `cor()` has no separate `na.rm` argument like `mean()` does.
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+cor(participants$bmi, participants$systolic_bp, use = "complete.obs")
+```
+
+```
+[1] 0.1631
+```
+
+A weak positive correlation: higher BMI is very slightly associated with higher systolic blood pressure in this sample, but the relationship is far from strong.
+
+```r
+cor(participants$age, participants$systolic_bp, use = "complete.obs")
+```
+
+```
+[1] -0.2211
+```
+
+A weak negative correlation between age and blood pressure — the opposite direction you might have expected, and a reminder that real (and simulated) data doesn't always match intuition.
+
+## Explore
+
+Try `cor(participants$systolic_bp, participants$diastolic_bp, use = "complete.obs")`. Since both are blood pressure readings taken from the same participants at the same time, you'd expect a much stronger relationship than either of the two above — confirm whether that's the case.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+cor_bmi_bp <- cor(participants$bmi, participants$systolic_bp, use = "complete.obs")
+cor_age_bp <- cor(participants$age, participants$systolic_bp, use = "complete.obs")
+cor_sbp_dbp <- cor(participants$systolic_bp, participants$diastolic_bp, use = "complete.obs")
+
+cor_bmi_bp
+```
+
+```
+[1] 0.1631
+```
+
+```r
+cor_age_bp
+```
+
+```
+[1] -0.2211
+```
+
+```r
+cor_sbp_dbp
+```
+
+```
+[1] 0.9204
+```
+
+Systolic and diastolic blood pressure correlate very strongly (0.92) — participants with higher systolic readings consistently have higher diastolic readings too, exactly as clinically expected — while BMI (0.16) and age (-0.22) show only weak relationships with systolic blood pressure in this particular sample.
+
+## Interpret the Result
+
+The very strong systolic-diastolic correlation (0.92) makes clinical sense: both numbers describe the same underlying cardiovascular measurement taken at the same moment, so it would be surprising if they *didn't* move together closely. The weak BMI-blood pressure and age-blood pressure correlations are worth reporting honestly rather than downplaying — this dataset simply doesn't show the strong BMI-BP or age-BP relationship sometimes assumed by default, a useful (if less dramatic) finding in its own right, and a genuine contrast against just how strong a correlation *can* look when two variables are this closely related.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Assuming a weak correlation means "no relationship at all."** A correlation of 0.16 is weak, but not necessarily zero — `cor()` measures *linear* relationship strength specifically; a strong non-linear relationship could still produce a low `cor()` value.
+- **Interpreting correlation as causation.** A positive BMI-blood pressure correlation doesn't establish that higher BMI *causes* higher blood pressure — other explanations (age, genetics, unmeasured factors) could produce the same pattern.
+- **Forgetting `cor()`'s missing-value argument is `use`, not `na.rm`.** Unlike `mean()`, `sd()`, or `quantile()`, `cor()` uses `use = "complete.obs"` (or other options) rather than `na.rm = TRUE` — a different argument name for a related idea.
+:::
+
+## Practice Problem
+
+Compute the correlation between `age` and `bmi`. Is it stronger, weaker, or similar in magnitude to the age-blood pressure correlation computed above?
+
+## Challenge Problem
+
+Compute `cor(participants$age, participants$systolic_bp, use = "complete.obs")` separately for smokers and non-smokers (hint: use `filter()` from Level 5 to split the data first). Does the age-blood pressure relationship look different within each smoking group?
+
+## Key Takeaways
+
+- `cor(x, y, use = "complete.obs")` computes a correlation coefficient between -1 and 1, describing the strength and direction of a linear relationship between two numeric variables.
+- Values near 0 indicate a weak (or no) linear relationship; values near ±1 indicate a strong one, with the sign indicating direction.
+- Correlation, however strong, never by itself establishes that one variable causes changes in another.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does a correlation of -0.85 indicate?
+   a) A strong positive relationship
+   b) A strong negative relationship
+   c) No relationship at all
+   d) An invalid result, since correlations can't be negative
+
+2. **True or false.** A high correlation between two variables proves that one causes the other.
+
+3. **Predict the output.** If two variables have absolutely no linear relationship, what value would `cor()` return, approximately?
+
+4. **Find the error.**
+   ```r
+   cor(participants$bmi, participants$systolic_bp, na.rm = TRUE)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A strong negative relationship — the sign indicates direction (negative means as one variable rises, the other tends to fall), and 0.85 in magnitude indicates a strong relationship.
+2. **False.** Correlation never establishes causation by itself — a strong relationship could arise from a third, unmeasured factor influencing both variables.
+3. Approximately `0`.
+4. `cor()` doesn't accept `na.rm` — its missing-value argument is called `use`. It should be `cor(participants$bmi, participants$systolic_bp, use = "complete.obs")`.
+
+</details>
+:::

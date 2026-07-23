@@ -1,0 +1,147 @@
+# `inner_join()` {#sec-inner-join}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+For your professor's actual statistical analysis — comparing baseline BMI to follow-up blood pressure — participants with a completely missing follow-up record (the `NA` rows from `left_join()`) are useless; there's nothing to compare them against. You want only participants who have **both** a baseline and a follow-up record, with no `NA`s to work around.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Combine two data frames, keeping only rows whose key appears in **both**, using `dplyr::inner_join()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From two pages ago, how many ids appear in both `baseline_enrollment.csv` and `followup_visit.csv`?
+- If `left_join()` keeps every left-hand row (filling in `NA`s for non-matches), what would you expect a join that keeps *only* matches to do with those same non-matching rows instead?
+:::
+
+## The R Concept
+
+**`inner_join()`** keeps only the rows whose key exists in **both** data frames — any row without a match on either side is dropped entirely, so the join itself introduces no *new* `NA`s (though `NA`s already present in either file's own columns, from earlier missingness, still come along for the ride):
+
+```r
+inner_join(df1, df2, by = "key_column")
+```
+
+```r
+inner_join(baseline, followup, by = "id")
+```
+
+Unlike `left_join()`, `inner_join()`'s result can have *fewer* rows than either original data frame — exactly the count of ids common to both.
+
+## Demonstration
+
+```r
+library(dplyr)
+
+baseline <- read.csv("data/baseline_enrollment.csv")
+followup <- read.csv("data/followup_visit.csv")
+
+complete_cases <- inner_join(baseline, followup, by = "id")
+
+nrow(complete_cases)
+```
+
+```
+[1] 15
+```
+
+15 rows — exactly the number of ids found in both files with `intersect()` two pages ago.
+
+```r
+sum(is.na(complete_cases))
+```
+
+```
+[1] 3
+```
+
+Not zero — `inner_join()` guarantees every remaining row has a **matching `id` on both sides**, but it does nothing to clean up missingness that already existed *within* either file's own columns (recall `baseline_bmi` and `age` each had one pre-existing missing value from Level 3-4's messiness). The join only controls whether rows appear at all, not whether every field inside them is complete.
+
+## Explore
+
+Try `range(complete_cases$id)`. Confirm the ids present are exactly 1 through 15 — the ids identified as common to both files — with none of the dropouts (16-20) or new recruits (21-25) appearing anywhere in the result.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+baseline <- read.csv("data/baseline_enrollment.csv")
+followup <- read.csv("data/followup_visit.csv")
+
+complete_cases <- inner_join(baseline, followup, by = "id")
+
+nrow(complete_cases)
+```
+
+```
+[1] 15
+```
+
+```r
+cor(complete_cases$baseline_bmi, complete_cases$followup_sbp, use = "complete.obs")
+```
+
+```
+[1] -0.1682
+```
+
+15 participant records with matching baseline and follow-up ids, ready for your professor's comparison — `use = "complete.obs"` (Level 11 preview) further narrows the correlation itself to the 13 participants with *both* a non-missing `baseline_bmi` and `followup_sbp`, showing a weak negative correlation not worth drawing strong conclusions from at this sample size.
+
+## Interpret the Result
+
+`complete_cases` intentionally excludes the 5 dropouts (no follow-up record at all) and the 5 new recruits (no baseline record at all) — leaving only participants where a genuine before-and-after comparison is *possible*. It doesn't, however, guarantee every column within those 15 rows is filled in — `id10`'s `baseline_bmi` and `id13`'s `age` remain `NA`, exactly as they were in the original files, a reminder that matching keys and complete data are two separate concerns. It's also worth remembering *who* got excluded by the join itself, since dropouts are rarely random (Level 12 will return to this idea).
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Using `inner_join()` when you actually wanted to preserve everyone.** If your goal was "show me the full enrolled cohort, follow-up or not," `inner_join()` silently discards the very dropout information `left_join()` would have preserved — pick the join type based on what you actually need to see.
+- **Not reporting how many rows were dropped.** Going from 20 baseline participants to 15 complete cases is itself an important finding (25% attrition) — an `inner_join()` without also reporting the original counts can hide a meaningful loss of data from a reader.
+- **Assuming `inner_join()` and `left_join()` differ only when there's missing data.** If every key matched perfectly in both directions, `inner_join()` and `left_join()` would return identical results — the difference only becomes visible once you have non-matching rows, exactly the case here.
+- **Assuming `inner_join()` guarantees a fully complete dataset.** `inner_join()` only guarantees every remaining row has a matching key on both sides — it says nothing about whether the individual columns within those matched rows are themselves free of `NA`, as `id10`'s missing `baseline_bmi` shows here.
+:::
+
+## Practice Problem
+
+Compute `nrow(baseline) - nrow(complete_cases)` and confirm it equals the 5 dropouts identified two pages ago with `setdiff()`.
+
+## Challenge Problem
+
+Use `inner_join()` and then `group_by(county)` + `summarise()` (Level 5) to compute the mean `followup_sbp` for each county among only the 15 complete-case participants. Compare this to what you'd get if you mistakenly used all 20 baseline rows via `left_join()` and forgot to handle the `NA`s.
+
+## Key Takeaways
+
+- `inner_join(df1, df2, by = "key")` keeps only rows whose key exists in both data frames — no `NA`s are produced, but rows without a match are silently dropped.
+- `inner_join()`'s result can have fewer rows than either input, exactly the count of matching keys.
+- Always report how many rows a join dropped — an `inner_join()`'s missing participants are themselves often an important finding (like attrition), not just a technical detail.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `inner_join(baseline, followup, by = "id")` keep?
+   a) Every row from `baseline`, regardless of a match
+   b) Every row from `followup`, regardless of a match
+   c) Only rows whose `id` exists in both data frames
+   d) Every row from either data frame
+
+2. **True or false.** `inner_join()` can never produce a result containing any `NA` values.
+
+3. **Predict the output.** Given 20 `baseline` ids and 15 common to both files, how many rows would `inner_join(baseline, followup, by = "id")` produce?
+
+4. **Short answer.** Why might reporting only the `inner_join()` result, without mentioning the original 20 baseline participants, be misleading in a study report?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** Only rows whose `id` exists in both data frames.
+2. **False.** `inner_join()` prevents *new* `NA`s from being introduced by non-matching keys, but `NA`s already present in either file's own columns before the join (like `id10`'s missing `baseline_bmi`) still appear in the result.
+3. 15 rows — exactly the ids common to both `baseline` and `followup`.
+4. It would hide the fact that 5 of the original 20 enrolled participants (25%) had no follow-up data at all — an attrition rate that's often clinically and statistically important to report alongside any complete-case analysis.
+
+</details>
+:::

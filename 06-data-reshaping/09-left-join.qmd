@@ -1,0 +1,162 @@
+# `left_join()` {#sec-left-join}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor wants one combined dataset: every baseline-enrolled participant, with follow-up data attached wherever it exists — and participants who dropped out should still appear, just with missing follow-up values, rather than disappearing from the dataset entirely. You need to keep **all 20 baseline participants**, no matter what happened at follow-up.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Combine two data frames, keeping every row from the first ("left") data frame, using `dplyr::left_join()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From the previous page, how many participants are in `baseline_enrollment.csv`, and how many of them also appear in `followup_visit.csv`?
+- If a join is designed to keep *every* row from the left-hand data frame, what should happen to the follow-up columns for a participant who has no matching follow-up record?
+:::
+
+## The R Concept
+
+**`left_join()`** keeps every row from the first ("left") data frame, and attaches matching columns from the second ("right") data frame wherever a match exists — filling in `NA` where it doesn't:
+
+```r
+left_join(left_df, right_df, by = "key_column")
+```
+
+```r
+left_join(baseline, followup, by = "id")
+```
+
+The result always has **at least as many rows as `left_df`** (exactly as many, unless the key has duplicates on the right side) — nothing from `baseline` is ever dropped, regardless of whether `followup` has a matching row.
+
+## Demonstration
+
+```r
+library(dplyr)
+
+baseline <- read.csv("data/baseline_enrollment.csv")
+followup <- read.csv("data/followup_visit.csv")
+
+combined <- left_join(baseline, followup, by = "id")
+
+nrow(combined)
+```
+
+```
+[1] 20
+```
+
+All 20 baseline participants are present, exactly as many rows as `baseline` alone had.
+
+```r
+combined[combined$id %in% c(16, 17, 18), ]
+```
+
+```
+   id age    sex      county baseline_bmi followup_sbp followup_smoker
+16  16  45 Female   Millbrook         30.4           NA              NA
+17  17  79 Female  Springvale         21.1           NA              NA
+18  18  26   Male     Oakford         29.1           NA              NA
+```
+
+Participants 16, 17, and 18 — who have no follow-up record — still appear in `combined`, with `NA` filling in for `followup_sbp` and `followup_smoker`.
+
+## Explore
+
+Try `sum(is.na(combined$followup_sbp))`. You might expect exactly 5 (the dropout ids 16-20) — but check `combined[combined$id == 11, ]` too. Participant 11 *does* have a follow-up record, yet still shows `NA` for `followup_sbp`, because that participant's blood pressure was already missing in the original data (recall Level 4's messiness) — a pre-existing gap the join carries forward, not a sign the join failed to find a match.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+baseline <- read.csv("data/baseline_enrollment.csv")
+followup <- read.csv("data/followup_visit.csv")
+
+combined <- left_join(baseline, followup, by = "id")
+
+nrow(combined)
+```
+
+```
+[1] 20
+```
+
+```r
+sum(is.na(combined$followup_sbp))
+```
+
+```
+[1] 6
+```
+
+```r
+combined[combined$id == 11, c("id", "county", "followup_sbp")]
+```
+
+```
+   id    county followup_sbp
+11 11 Riverdale           NA
+```
+
+6, not 5: the 5 true dropout ids (16-20, no matching record at all) plus participant 11, who *does* have a follow-up row but whose blood pressure reading was already missing in the source data — a pre-existing gap the join simply carries forward, not a sign of a failed match.
+
+## Interpret the Result
+
+`combined` now represents every participant your study enrolled, whether or not they returned for follow-up — the true dropouts are visible as fully `NA` follow-up rows rather than silently vanishing, which is exactly the honest, complete picture your professor needs (a disappearing dropout would understate how many participants were actually lost to follow-up). Participant 11's single missing reading is a different, narrower kind of gap — present in the original `followup_visit.csv` before the join ever ran — and worth distinguishing from true loss to follow-up.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Confusing "left" with alphabetical or numerical order.** "Left" refers to which data frame is listed *first* in the function call, `left_join(baseline, followup, ...)` — `baseline` is "left" here simply because it's the first argument, not because of anything about its contents.
+- **Forgetting to specify `by`.** Without `by = "id"`, `left_join()` tries to guess a shared column name automatically — usually correct here, but relying on this guess silently can go wrong if both data frames happen to share an unrelated column name too.
+- **Assuming `NA` after a join means the join failed.** An `NA` in `followup_sbp` after `left_join()` is *expected and correct* for a participant with no follow-up record — it's information (this person didn't return), not an error.
+:::
+
+## Practice Problem
+
+Use `left_join(followup, baseline, by = "id")` — reversing which data frame is "left." Compare `nrow()` of this result to the original `left_join(baseline, followup, by = "id")`. Are they the same? Why or why not?
+
+## Challenge Problem
+
+Use `left_join()` and then `filter(!(id %in% followup$id))` (Level 5) to extract just the 5 *true* dropout participants (ids 16-20) into their own data frame, ready for a "lost to follow-up" report — and explain why `filter(is.na(followup_sbp))` alone would incorrectly include participant 11 as well.
+
+## Key Takeaways
+
+- `left_join(left_df, right_df, by = "key")` keeps every row of `left_df`, filling in `NA` for any right-hand columns where no match exists.
+- "Left" simply means "listed first in the function call" — it has nothing to do with the data's content or order.
+- An `NA` produced by a join is meaningful information (no match found), not necessarily a mistake.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What happens to a row in `baseline` that has no matching `id` in `followup` after `left_join(baseline, followup, by = "id")`?
+   a) It is dropped from the result
+   b) It is kept, with `NA` for the follow-up columns
+   c) It causes an error
+   d) It is duplicated
+
+2. **True or false.** `left_join(baseline, followup, ...)` and `left_join(followup, baseline, ...)` always produce the same number of rows.
+
+3. **Predict the output.** How many rows would `left_join(baseline, followup, by = "id")` produce, given 20 baseline participants?
+
+4. **Find the error.**
+   ```r
+   combined <- left_join(baseline, followup)
+   # unsure whether this correctly used "id" as the join key
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** It is kept, with `NA` filled in for the follow-up columns.
+2. **False.** `left_join()` keeps all rows of whichever data frame is listed first — swapping the order can change the row count if the two files have different unmatched-id counts.
+3. 20 rows — every baseline participant is retained regardless of follow-up match status.
+4. This isn't necessarily wrong (`left_join()` will guess a shared column automatically), but it's fragile style — always specify `by = "id"` explicitly, so the join key is unambiguous and documented in the code itself.
+
+</details>
+:::

@@ -1,0 +1,120 @@
+# Boxplots with `geom_boxplot()` {#sec-boxplots}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor wants to compare BMI between smokers and non-smokers — not just their means, but their full distributions side by side: medians, middle 50%, and any extreme values in each group. A histogram (previous page) only shows one variable at a time; comparing two groups would mean building two separate histograms and eyeballing them against each other.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Compare a numeric variable's distribution across groups using `geom_boxplot()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 7, a box in a boxplot typically represents the middle 50% of the data. Which two values from Level 7's `quantile()` page define the edges of that box?
+- If you wanted one boxplot per smoking status, side by side, which variable would you map to `x`, and which to `y`?
+:::
+
+## The R Concept
+
+**`geom_boxplot()`** draws a box spanning the 1st to 3rd quartile (the IQR, Level 7), a line at the median, and "whiskers" extending to the most extreme non-outlier values — with individual points beyond the whiskers flagged as potential outliers, echoing Level 7's 1.5×IQR rule:
+
+```r
+ggplot(data = df, aes(x = group_column, y = numeric_column)) +
+  geom_boxplot()
+```
+
+Mapping a categorical variable to `x` and a numeric variable to `y` produces one boxplot per category, side by side for direct comparison.
+
+## Demonstration
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+ggplot(data = participants, mapping = aes(x = smoker, y = bmi)) +
+  geom_boxplot()
+```
+
+This produces two boxplots side by side: non-smokers' box spans roughly 23.3 to 29.65 (median 27.8), while smokers' box spans roughly 24.12 to 30.32 (median 26.25) — visibly similar in spread, with the non-smoker group's median sitting slightly higher than the smoker group's.
+
+## Explore
+
+Try `ggplot(data = participants, aes(x = county, y = systolic_bp)) + geom_boxplot()` — five boxplots side by side instead of two. This extends the same idea from Level 5's `group_by(county)` + `summarise()` grouped means, but shows each county's *full* blood pressure distribution rather than collapsing it to a single number.
+
+## Solve the Problem
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+bmi_smoker_boxplot <- ggplot(data = participants, mapping = aes(x = smoker, y = bmi)) +
+  geom_boxplot()
+
+bmi_smoker_boxplot
+```
+
+Non-smokers (n=71): median BMI 27.8, middle 50% spanning roughly 23.3-29.65, full range 15.6-38.6. Smokers (n=24): median BMI 26.25, middle 50% spanning roughly 24.12-30.32, full range 18.1-35.8. The two boxes overlap substantially, visually confirming that BMI doesn't differ dramatically by smoking status in this sample.
+
+## Interpret the Result
+
+The boxplot shows the two groups' BMI distributions are broadly similar — overlapping boxes and comparable medians — rather than one group being dramatically higher or lower than the other. This is a more complete picture than comparing two means alone: it also shows that non-smokers have a slightly wider full range (down to 15.6) than smokers (down to 18.1), a detail a bare mean-comparison would miss entirely.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Reading the line inside the box as the mean.** The line inside a `geom_boxplot()` box is the **median**, not the mean — the two can differ, especially for skewed data, and conflating them leads to a misreading of the plot.
+- **Assuming points beyond the whiskers are always errors.** Points plotted individually beyond a boxplot's whiskers are flagged as *potential* outliers by the 1.5×IQR rule (Level 7) — worth investigating, not automatically wrong or removable.
+- **Comparing boxplots without checking group sizes.** A boxplot for a group of 5 participants and one for a group of 95 look visually similar in a plot, even though the smaller group's summary is far less stable — always report each group's `n` alongside a boxplot comparison.
+:::
+
+## Practice Problem
+
+Build a boxplot comparing `systolic_bp` between smokers and non-smokers. Does blood pressure appear to differ more between smoking groups than BMI did?
+
+## Challenge Problem
+
+Build a boxplot of `bmi` across all five counties (`aes(x = county, y = bmi)`). Combine this with Level 5's `group_by(county) + summarise()` output for mean BMI per county, and check whether the boxplot's visual median ranking matches the numeric mean ranking — they don't always agree, especially for skewed distributions.
+
+## Key Takeaways
+
+- `geom_boxplot()` shows the median, interquartile range, and potential outliers for a numeric variable, one box per category when a categorical variable is mapped to `x`.
+- The line inside the box is the median, not the mean — don't conflate the two when reading a boxplot.
+- Comparing full distributions (via boxplots) reveals more than comparing single summary statistics like means alone.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does the line inside a `geom_boxplot()` box represent?
+   a) The mean
+   b) The median
+   c) The mode
+   d) The maximum value
+
+2. **True or false.** Points plotted beyond a boxplot's whiskers are always data entry errors.
+
+3. **Predict the output.** If you map a categorical variable with 5 categories to `x` and a numeric variable to `y`, how many boxes would `geom_boxplot()` draw?
+
+4. **Find the error.**
+   ```r
+   ggplot(data = participants, aes(x = bmi, y = smoker)) +
+     geom_boxplot()
+   # intended: one BMI boxplot per smoking status, side by side
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The median.
+2. **False.** Points beyond the whiskers are *potential* outliers worth investigating, not automatically confirmed errors.
+3. 5 boxes, one per category.
+4. The `x` and `y` mappings are reversed — `smoker` (the categorical grouping variable) should be on `x`, and `bmi` (the numeric variable being compared) should be on `y`. It should be `aes(x = smoker, y = bmi)`.
+
+</details>
+:::

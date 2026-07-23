@@ -1,0 +1,149 @@
+# Saving R Objects {#sec-saving-r-objects}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've just spent twenty minutes building `participants_cleaned` — the dataset with a properly leveled `bmi_category` factor from Level 2, filtered and recoded exactly right. Tomorrow you'll continue the analysis, and you don't want to rerun all of today's cleaning steps from scratch, nor do you want to risk losing the factor's level order by saving it as a CSV (as you just learned two pages ago).
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Save an R object to disk in a way that preserves it exactly, ready to reload tomorrow with zero reconstruction needed.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- You already know `readRDS()` reads an `.rds` file back into R. What would the natural, mirror-image function for *writing* one be called?
+- Between a CSV (Level 3's writing-CSV page) and an `.rds` file, which one is built specifically to avoid the factor-flattening problem you just saw?
+:::
+
+## The R Concept
+
+**`saveRDS()`** writes a single R object to disk as an `.rds` file, preserving its exact type and structure — the save-side counterpart to `readRDS()`:
+
+```r
+saveRDS(object, "path/to/file.rds")
+```
+
+```r
+saveRDS(participants_cleaned, "data/participants_cleaned.rds")
+```
+
+Reloading it later, in a future session, restores the object *exactly* as it was — same factor levels, same column types, same everything — with `readRDS()`:
+
+```r
+participants_cleaned <- readRDS("data/participants_cleaned.rds")
+```
+
+::: {.callout-note}
+## `saveRDS()` vs. `save()`
+You may also encounter `save()` in older code, which can bundle *multiple* named objects into one `.RData` file, reloaded with `load()`. This course prefers `saveRDS()`/`readRDS()` because they work with exactly one object at a time, assigned explicitly to a name you choose on reload — `load()` instead restores objects under their *original* names automatically, which can silently overwrite an existing object in your session with the same name.
+:::
+
+## Demonstration
+
+```r
+participants_cleaned <- participants
+participants_cleaned$bmi_category <- factor(
+  ifelse(participants_cleaned$bmi < 18.5, "Underweight",
+  ifelse(participants_cleaned$bmi < 25, "Normal",
+  ifelse(participants_cleaned$bmi < 30, "Overweight", "Obese"))),
+  levels = c("Underweight", "Normal", "Overweight", "Obese")
+)
+
+saveRDS(participants_cleaned, "data/participants_cleaned.rds")
+```
+
+```r
+# Confirm it round-trips perfectly
+reloaded <- readRDS("data/participants_cleaned.rds")
+identical(participants_cleaned, reloaded)
+```
+
+```
+[1] TRUE
+```
+
+## Explore
+
+Try saving the same object as a CSV instead (`write_csv(participants_cleaned, "test.csv")`), then reload it with `read_csv("test.csv")` and check `class(reloaded_csv$bmi_category)`. Compare that to `class(reloaded$bmi_category)` from the `.rds` round-trip above — one preserves `"factor"`, the other silently becomes `"character"`.
+
+## Solve the Problem
+
+```r
+# Today's cleaning work, ready to preserve exactly
+saveRDS(participants_cleaned, "data/participants_cleaned.rds")
+```
+
+```r
+# Tomorrow, in a fresh R session:
+participants_cleaned <- readRDS("data/participants_cleaned.rds")
+
+class(participants_cleaned$bmi_category)
+```
+
+```
+[1] "factor"
+```
+
+Tomorrow's session starts exactly where today's left off — the factor's level order intact, with zero re-cleaning required.
+
+## Interpret the Result
+
+`identical()` returning `TRUE` confirms the object that came back out of `readRDS()` is, in every respect, identical to the object that went into `saveRDS()` — no information lost, no type quietly changed, unlike the CSV round-trip you tested in the Explore step.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Using `.rds` when you actually need to share the file with someone outside R.** `.rds` preserves everything perfectly, but only within R — for external sharing, go back to CSV or Excel (earlier this level).
+- **Confusing `saveRDS()`/`readRDS()` with `save()`/`load()`.** The latter restores objects under their original saved names automatically, which can silently clobber an existing object of the same name in your current session — `saveRDS()`/`readRDS()` avoid this by requiring you to explicitly assign the reloaded object to a name yourself.
+- **Forgetting to actually rerun `saveRDS()` after further changes.** An `.rds` file is a frozen snapshot at the moment you saved it — if you keep working on `participants_cleaned` afterward, the file on disk won't reflect those later changes until you save it again.
+:::
+
+## Practice Problem
+
+Create a small list called `analysis_notes` with elements `date = "2026-07-23"` and `analyst = "your name"`. Save it with `saveRDS()` to `notes.rds`, then reload it into a new object and confirm with `identical()` that the round-trip preserved it exactly.
+
+## Challenge Problem
+
+Explain, in your own words, why a research team maintaining a multi-step cleaning pipeline (raw import → clean → recode → analyze) would want to `saveRDS()` the output of each intermediate step, rather than only saving the very final result. What would you gain if step 3 of 5 turned out to have a bug?
+
+## Key Takeaways
+
+- `saveRDS()` writes a single R object to disk, exactly preserving its type and structure; `readRDS()` restores it later, identically.
+- `saveRDS()`/`readRDS()` are preferred over `save()`/`load()` because they require explicit naming on reload, avoiding silent overwrites.
+- Use `.rds` for your own R-to-R intermediate work; use CSV or Excel (earlier this level) when the destination is outside R.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `saveRDS()` do?
+   a) Saves a plot to a PNG file
+   b) Saves a single R object to disk, preserving its exact structure
+   c) Saves multiple objects under their original names
+   d) Converts a data frame to a CSV
+
+2. **True or false.** `readRDS()` requires you to explicitly assign the result to an object name.
+
+3. **Predict the output.**
+   ```r
+   x <- factor(c("Low", "High"), levels = c("Low", "High"))
+   saveRDS(x, "x.rds")
+   y <- readRDS("x.rds")
+   identical(x, y)
+   ```
+
+4. **Write the code.** Write the code to save a data frame `cleaned_data` to `"data/cleaned_data.rds"`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Saves a single R object to disk, preserving its exact structure.
+2. **True.** Unlike `load()`, which restores objects under their original names automatically, `readRDS()` requires you to assign its result explicitly.
+3. `[1] TRUE`
+4. `saveRDS(cleaned_data, "data/cleaned_data.rds")`
+
+</details>
+:::

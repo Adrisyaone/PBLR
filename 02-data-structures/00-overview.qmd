@@ -1,0 +1,27 @@
+# Level 2 — Data Structures in R {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+In Level 1 you worked with single values — one age, one BMI, one label. But `participants.csv` holds 100 rows and 8 columns at once, and your supervisor's questions keep needing you to work with *many* values together: every participant's age, just the smokers' blood pressure, one participant's entire record. This level builds the containers R gives you for that — vectors, factors, data frames, matrices, lists, and tibbles — and the tools to reach into exactly the piece you need.
+:::
+
+## What you'll build toward
+
+By the end of this level you'll be comfortable creating and indexing vectors, converting messy category columns into well-ordered factors, building and slicing data frames by row and column, understanding matrices and lists as R's other core structures, and using `str()`, dimension functions, `length()`, and `names()` to orient yourself in any object — familiar or brand new.
+
+Every page keeps using the same running dataset from Level 1: `data/participants.csv`, the 100-participant community health survey.
+
+## Topics in this level
+
+- Vectors and `c()`
+- Sequences with `seq()` and repetition with `rep()`
+- Positive, negative, and logical indexing
+- Named vectors
+- Factors for categorical data
+- Data frames: creating them, and accessing rows and columns
+- Matrices and lists
+- Tibbles
+- Inspecting structure with `str()`, dimensions, `length()`, and `names()`
+
+By the last page, you'll be able to look at any R object — a vector, a factor, a data frame, a list, a matrix you've never seen before — and quickly answer "what is this, and how big is it?" without guessing.

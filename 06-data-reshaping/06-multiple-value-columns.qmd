@@ -1,0 +1,180 @@
+# Pivoting Multiple Measurements at Once {#sec-multiple-value-columns}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Back on the `pivot_longer()` page, a Common Mistake warned that pivoting only `sbp_visit1`/`sbp_visit2`/`sbp_visit3` leaves `weight_visit1`/`weight_visit2`/`weight_visit3` untouched — duplicating each participant's weight values across all three of their new long rows. Your professor actually wants **both** measurements reshaped together, correctly: one row per participant-visit, with separate `sbp` and `weight` columns side by side.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Reshape multiple measurement types to long format simultaneously, using `pivot_longer()`'s special `.value` token.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Look at the column name `sbp_visit1`. It actually encodes *two* pieces of information at once — which measurement, and which visit. Can you identify each piece?
+- If `pivot_longer()` could split a column name into pieces the same way `separate()` splits a column's *values*, what would you want the "measurement" piece to become, versus the "visit" piece?
+:::
+
+## The R Concept
+
+Column names like `sbp_visit1` and `weight_visit1` encode **two** pieces of information joined by an underscore: which measurement (`sbp` or `weight`), and which visit (`visit1`). The special `.value` token in `names_to`, combined with `names_sep`, tells `pivot_longer()` to split each column name into pieces and use *one specific piece* (wherever `.value` is placed) as the name of a whole new **column**, rather than folding it into a single generic value column:
+
+```r
+pivot_longer(df,
+  cols = matches("visit"),
+  names_to = c(".value", "visit"),
+  names_sep = "_"
+)
+```
+
+```r
+pivot_longer(bp_wide,
+  cols = c(starts_with("sbp_visit"), starts_with("weight_visit")),
+  names_to = c(".value", "visit"),
+  names_sep = "_"
+)
+```
+
+Here, `sbp_visit1` splits at the underscore into `"sbp"` and `"visit1"`. Because `.value` occupies the *first* position in `names_to`, that first piece (`"sbp"`) becomes an actual **column name** in the result, while the second piece (`"visit1"`) becomes a value in a `visit` column — giving you `sbp` and `weight` as two separate, properly reshaped columns, instead of duplicating one across the other.
+
+## Demonstration
+
+```r
+library(tidyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+bp_long_both <- pivot_longer(bp_wide,
+  cols = c(starts_with("sbp_visit"), starts_with("weight_visit")),
+  names_to = c(".value", "visit"),
+  names_sep = "_"
+)
+
+names(bp_long_both)
+```
+
+```
+[1] "id"          "county"      "clinic_site" "visit"       "sbp"
+[6] "weight"
+```
+
+Both `sbp` and `weight` now exist as genuine, separate columns — not one duplicated across the other's long rows.
+
+```r
+head(bp_long_both[, c("id", "visit", "sbp", "weight")], 6)
+```
+
+```
+  id  visit sbp weight
+1  1 visit1 125  101.4
+2  1 visit2 120  100.8
+3  1 visit3 117  101.0
+4  2 visit1 123   80.1
+5  2 visit2 121   79.6
+6  2 visit3 129   79.0
+```
+
+## Explore
+
+Try `nrow(bp_long_both)`. It should still be 84 (28 participants × 3 visits) — reshaping two measurements together doesn't create extra rows, since `.value` correctly keeps `sbp` and `weight` as separate columns within the same row, rather than stacking them into additional rows.
+
+## Solve the Problem
+
+```r
+library(tidyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+bp_long_both <- pivot_longer(bp_wide,
+  cols = c(starts_with("sbp_visit"), starts_with("weight_visit")),
+  names_to = c(".value", "visit"),
+  names_sep = "_"
+)
+
+nrow(bp_long_both)
+```
+
+```
+[1] 84
+```
+
+```r
+sum(!is.na(bp_long_both$sbp))
+```
+
+```
+[1] 82
+```
+
+```r
+sum(!is.na(bp_long_both$weight))
+```
+
+```
+[1] 82
+```
+
+84 rows (not 168), with both `sbp` and `weight` correctly present as their own columns in every row — exactly the properly reshaped structure your professor asked for, with no duplication of one measurement across the other.
+
+## Interpret the Result
+
+`bp_long_both` is now genuinely "tidy": one row per participant-visit combination, with each measurement type in its own column. This is the format that would let you `group_by(visit)` and compute means of *both* `sbp` and `weight` in a single `summarise(across(...))` call (Level 5), something the earlier single-measurement reshape couldn't offer without either duplicating data or reshaping twice.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting to include `.value` in `names_to`.** Without it, `pivot_longer()` has no way to know that `"sbp"` and `"weight"` should become separate columns rather than both being lumped into one undifferentiated value column.
+- **Choosing the wrong `names_sep`.** `sbp_visit1` splits correctly on the *first* underscore into `"sbp"` and `"visit1"` — but if a measurement name itself contained an underscore, the split would produce more pieces than the two `names_to` expects.
+- **Reshaping each measurement separately when they didn't need to be.** Doing two separate `pivot_longer()` calls (one for `sbp`, one for `weight`) and then trying to `merge` them back together is far more error-prone than using `.value` to reshape both in a single step.
+:::
+
+## Practice Problem
+
+Confirm that `bp_long_both`'s `sbp` column, restricted to `visit == "visit1"`, matches `bp_wide$sbp_visit1` exactly (hint: use `filter()` from Level 5, then compare with `identical()` after matching row order by `id`).
+
+## Challenge Problem
+
+Use `bp_long_both`, `group_by(visit)`, and `summarise(across(c(sbp, weight), ~ mean(.x, na.rm = TRUE)))` (Level 5's `across()`) to compute mean blood pressure and mean weight for each visit in a single call.
+
+## Key Takeaways
+
+- The `.value` token in `pivot_longer()`'s `names_to` lets you reshape multiple measurement types into separate columns at once, rather than lumping them all into a single generic value column.
+- `names_sep` (or `names_pattern`) tells `pivot_longer()` how to split each compound column name into its `.value` and other pieces.
+- Reshaping multiple measurements together in one call avoids both row-count duplication and the awkwardness of merging separately reshaped pieces back together.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does the `.value` token do inside `pivot_longer()`'s `names_to`?
+   a) Deletes that piece of the column name
+   b) Uses that piece of the split column name as an actual new column name
+   c) Converts that piece to numeric
+   d) Has no special meaning; it's just a placeholder string
+
+2. **True or false.** Reshaping `sbp` and `weight` together with `.value` produces more rows than reshaping `sbp` alone.
+
+3. **Predict the output.** After the `.value`-based reshape, how many columns would `bp_long_both` have among `id`, `county`, `clinic_site`, `visit`, `sbp`, `weight`?
+
+4. **Find the error.**
+   ```r
+   pivot_longer(bp_wide,
+     cols = c(starts_with("sbp_visit"), starts_with("weight_visit")),
+     names_to = "visit",
+     names_sep = "_"
+   )
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Uses that piece of the split column name as an actual new column name.
+2. **False.** Both reshapes produce 84 rows — `.value` keeps `sbp` and `weight` as separate columns within the same rows, rather than adding extra rows.
+3. 6 columns: `id`, `county`, `clinic_site`, `visit`, `sbp`, `weight`.
+4. `names_to` is missing the `.value` token — with just `"visit"`, `pivot_longer()` expects only one piece per column name and can't know that `"sbp"` and `"weight"` should become separate columns. It should be `names_to = c(".value", "visit")`.
+
+</details>
+:::

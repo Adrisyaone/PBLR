@@ -1,0 +1,202 @@
+# `pivot_wider()` {#sec-pivot-wider}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've reshaped to long format and computed mean blood pressure per county per visit with `group_by(county, visit)` + `summarise()` — but the result is 15 rows (5 counties × 3 visits) stacked vertically, which is awkward for a report table. Your professor wants a compact table with one row per county and one column per visit, so all three visits can be compared side by side at a glance.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Convert long-format data back into wide format using `tidyr::pivot_wider()` — the reverse of `pivot_longer()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If `pivot_longer()` takes several columns and stacks them into two, what would you expect the *reverse* operation to do with those same two columns?
+- Looking at a long-format table with a `visit` column and a `mean_sbp` column, which one should become new column *names*, and which one should fill in the new column *values*?
+:::
+
+## The R Concept
+
+**`pivot_wider()`** takes one column of names and one column of values, and spreads them back out into separate columns:
+
+```r
+pivot_wider(df,
+  names_from = name_column,
+  values_from = value_column
+)
+```
+
+```r
+pivot_wider(county_visit_means,
+  names_from = visit,
+  values_from = mean_sbp
+)
+```
+
+This is exactly the reverse of `pivot_longer()`'s `names_to`/`values_to`: `names_from` says which column's *values* should become new column *names*, and `values_from` says which column's values should fill in those new columns.
+
+## Demonstration
+
+```r
+library(dplyr)
+library(tidyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+bp_long_sbp <- pivot_longer(bp_wide,
+  cols = starts_with("sbp_visit"),
+  names_to = "visit",
+  names_prefix = "sbp_",
+  values_to = "sbp"
+)
+
+county_visit_means <- bp_long_sbp |>
+  group_by(county, visit) |>
+  summarise(mean_sbp = round(mean(sbp, na.rm = TRUE), 2), .groups = "drop")
+
+county_visit_means
+```
+
+```
+# A tibble: 15 x 3
+   county      visit  mean_sbp
+   <chr>       <chr>     <dbl>
+ 1 Cedar Falls visit1   136.00
+ 2 Cedar Falls visit2   130.25
+ 3 Cedar Falls visit3   128.00
+ 4 Millbrook   visit1   122.17
+ 5 Millbrook   visit2   120.33
+ 6 Millbrook   visit3   122.00
+ 7 Oakford     visit1   120.67
+ 8 Oakford     visit2   117.17
+ 9 Oakford     visit3   119.50
+10 Riverdale   visit1   123.33
+11 Riverdale   visit2   119.00
+12 Riverdale   visit3   120.67
+13 Springvale  visit1   126.33
+14 Springvale  visit2   121.17
+15 Springvale  visit3   116.17
+```
+
+15 rows, exactly as `group_by(county, visit)` would produce (5 counties × 3 visits) — readable, but each county's three visits are spread across three separate rows.
+
+```r
+report_table <- pivot_wider(county_visit_means,
+  names_from = visit,
+  values_from = mean_sbp
+)
+
+report_table
+```
+
+```
+# A tibble: 5 x 4
+  county      visit1 visit2 visit3
+  <chr>        <dbl>  <dbl>  <dbl>
+1 Cedar Falls 136.00 130.25 128.00
+2 Millbrook   122.17 120.33 122.00
+3 Oakford     120.67 117.17 119.50
+4 Riverdale   123.33 119.00 120.67
+5 Springvale  126.33 121.17 116.17
+```
+
+Now 5 rows (one per county) and 3 visit columns — exactly the compact report table your professor asked for.
+
+## Explore
+
+Try `pivot_wider()` on `bp_long_sbp` directly (not the summarised version), using `names_from = visit, values_from = sbp`. Confirm this reconstructs something very close to the original `bp_wide` data frame — `pivot_wider()` is the true inverse of `pivot_longer()`, so reshaping long-to-wide and back again returns you to (almost) where you started.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+library(tidyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+bp_long_sbp <- pivot_longer(bp_wide,
+  cols = starts_with("sbp_visit"),
+  names_to = "visit",
+  names_prefix = "sbp_",
+  values_to = "sbp"
+)
+
+county_visit_report <- bp_long_sbp |>
+  group_by(county, visit) |>
+  summarise(mean_sbp = round(mean(sbp, na.rm = TRUE), 2), .groups = "drop") |>
+  pivot_wider(names_from = visit, values_from = mean_sbp)
+
+county_visit_report
+```
+
+```
+# A tibble: 5 x 4
+  county      visit1 visit2 visit3
+  <chr>        <dbl>  <dbl>  <dbl>
+1 Cedar Falls 136.00 130.25 128.00
+2 Millbrook   122.17 120.33 122.00
+3 Oakford     120.67 117.17 119.50
+4 Riverdale   123.33 119.00 120.67
+5 Springvale  126.33 121.17 116.17
+```
+
+Cedar Falls starts with the highest mean blood pressure (136.00) and shows the clearest downward trend across visits (136.00 → 130.25 → 128.00), while Springvale shows the largest overall drop from visit 1 to visit 3 (126.33 → 116.17).
+
+## Interpret the Result
+
+`county_visit_report` compresses 15 long-format rows into 5 wide-format rows, one per county, with visits laid out side by side — exactly the shape a reader scanning a report wants, even though `group_by()` + `summarise()` (Level 5) only knows how to produce the longer, stacked version. Note that Cedar Falls has only 4 participants in this subset (versus 6 in each other county), so its more dramatic-looking trend rests on a notably smaller sample.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `pivot_wider()` needs unique name-value combinations.** If `county_visit_means` had two rows with the same `county` and `visit` (a duplicate), `pivot_wider()` would need to combine them into a list-column rather than a single value — a common source of confusing "list of lists" output for beginners.
+- **Confusing `names_from` and `values_from`.** `names_from` picks which column's *values* become the new column headers; `values_from` picks which column's values fill in underneath them. Swapping them produces an error or nonsensical column names.
+- **Forgetting small group sizes remain small after reshaping.** Cedar Falls' n=4 doesn't become more reliable just because its numbers are now displayed in a wide table instead of a long one — reshaping changes layout, not sample size.
+:::
+
+## Practice Problem
+
+Use `group_by(county, visit)` and `summarise()` to compute the mean `weight` per county per visit (after first pivoting the weight columns to long format), then use `pivot_wider()` to build a county-by-visit weight report table.
+
+## Challenge Problem
+
+Starting from `bp_long_sbp`, use `pivot_wider(names_from = visit, values_from = sbp)` directly (no `group_by()`/`summarise()` first) to reconstruct a wide table. Compare its columns to the original `bp_wide`'s `sbp_visit1`/`sbp_visit2`/`sbp_visit3` columns — are the values identical?
+
+## Key Takeaways
+
+- `pivot_wider(df, names_from = ..., values_from = ...)` is the reverse of `pivot_longer()`, spreading long rows back into wide columns.
+- `names_from` selects which column's values become new column names; `values_from` selects which column fills them in.
+- `pivot_wider()` requires unique name-value combinations per row group — duplicates produce list-columns instead of single values.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `names_from` specify in `pivot_wider()`?
+   a) Which column's values become new column names
+   b) Which column holds the final row count
+   c) Which column to group by
+   d) Which column's values fill in the new columns
+
+2. **True or false.** `pivot_wider()` is the reverse operation of `pivot_longer()`.
+
+3. **Predict the output.** If a long-format table has 5 counties and 3 visits (15 rows total), how many rows would `pivot_wider(names_from = visit, values_from = mean_sbp)` produce?
+
+4. **Find the error.**
+   ```r
+   pivot_wider(county_visit_means, names_from = mean_sbp, values_from = visit)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **a)** Which column's values become new column names.
+2. **True.** `pivot_wider()` reverses what `pivot_longer()` does, spreading long rows back into wide columns.
+3. 5 rows — one per county, since each county's 3 visit-rows collapse into 1 wide row with 3 visit columns.
+4. `names_from` and `values_from` are swapped — this would try to use the numeric `mean_sbp` values as column *names* and the text `visit` values as the data filling them in, which is backwards. It should be `names_from = visit, values_from = mean_sbp`.
+
+</details>
+:::

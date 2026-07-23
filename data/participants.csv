@@ -1,0 +1,101 @@
+id,age,sex,county,systolic_bp,diastolic_bp,bmi,smoker
+1,46,Female,Oakford,125,79,35.1,No
+2,53,Female,Riverdale,123,80,27.7,No
+3,59,Female,Oakford,130,77,28.3,No
+4,49,Female,Millbrook,117,72,30.4,No
+5,61,Female,Millbrook,139,79,21.5,No
+6,18,Female,Riverdale,117,64,24.0,No
+7,62,Male,Riverdale,110,64,19.7,No
+8,68,Female,Millbrook,100,53,29.7,Yes
+9,33,Male,Springvale,149,88,22.4,No
+10,36,Male,Millbrook,131,86,NA,No
+11,62,Female,Riverdale,NA,84,38.6,No
+12,39,Female,Cedar Falls,152,96,29.1,No
+13,NA,Female,Springvale,121,72,29.1,No
+14,41,Male,Riverdale,128,81,29.4,No
+15,35,Female,Springvale,118,73,33.3,No
+16,45,Female,Millbrook,120,78,30.4,No
+17,79,Female,Springvale,117,73,21.1,Yes
+18,26,Male,Oakford,104,62,29.1,No
+19,80,Female,Cedar Falls,109,79,28.4,No
+20,55,Male,Oakford,115,80,18.6,Yes
+21,42,Male,Oakford,129,73,NA,Yes
+22,26,Male,Springvale,124,77,19.4,No
+23,29,Female,Cedar Falls,144,94,NA,No
+24,51,Male,Springvale,129,80,28.9,No
+25,53,Female,Riverdale,167,100,26.6,No
+26,23,Female,Oakford,121,77,18.1,Yes
+27,NA,Female,Cedar Falls,139,78,28.7,No
+28,55,Female,Millbrook,NA,79,24.7,Yes
+29,39,Male,Millbrook,126,68,29.4,Yes
+30,59,Male,Riverdale,95,55,21.9,Yes
+31,70,Male,Oakford,145,85,NA,No
+32,56,Male,Cedar Falls,122,75,35.7,No
+33,18,Female,Oakford,149,94,30.3,Yes
+34,47,Female,Riverdale,NA,81,28.8,No
+35,43,Male,Oakford,127,80,27.8,No
+36,18,Male,Springvale,152,88,23.1,No
+37,31,Female,Oakford,117,70,23.2,No
+38,64,Female,Millbrook,147,102,21.9,Yes
+39,33,Male,Riverdale,112,64,25.6,Yes
+40,44,Male,Millbrook,134,82,32.2,No
+41,33,Male,Springvale,177,107,34.0,No
+42,53,Male,Springvale,135,86,30.4,Yes
+43,35,Female,Springvale,151,83,27.8,No
+44,62,Female,Riverdale,138,94,27.2,No
+45,46,Female,Springvale,158,100,27.1,No
+46,65,Female,Springvale,115,66,25.3,Yes
+47,23,Male,Millbrook,159,100,30.7,Yes
+48,54,Female,Springvale,91,56,15.6,No
+49,63,Male,Cedar Falls,156,105,28.3,No
+50,74,Male,Millbrook,114,75,33.5,No
+51,66,Male,Cedar Falls,133,77,34.5,No
+52,52,Female,Millbrook,154,95,28.9,No
+53,37,Female,Riverdale,145,100,35.8,Yes
+54,60,Male,Springvale,125,70,30.2,No
+55,33,Female,Springvale,115,72,28.4,No
+56,19,Male,Millbrook,124,66,32.1,No
+57,31,Male,Millbrook,109,60,26.7,No
+58,41,Male,Cedar Falls,106,63,22.8,No
+59,58,Female,Springvale,149,95,23.3,Yes
+60,53,Female,Cedar Falls,104,57,29.7,No
+61,59,Male,Riverdale,90,54,34.2,No
+62,81,Male,Millbrook,153,95,30.3,Yes
+63,49,Male,Cedar Falls,148,86,30.6,Yes
+64,42,Male,Oakford,108,67,26.6,No
+65,49,Female,Oakford,120,80,38.2,No
+66,60,Male,Cedar Falls,132,86,31.2,No
+67,35,Female,Springvale,122,80,17.3,No
+68,62,Male,Cedar Falls,117,65,29.6,No
+69,43,Female,Oakford,159,98,29.0,No
+70,46,Male,Oakford,144,92,31.0,Yes
+71,52,Female,Springvale,146,89,NA,No
+72,27,Male,Springvale,148,91,27.4,No
+73,49,Female,Springvale,93,58,20.7,No
+74,50,Female,Cedar Falls,140,91,27.8,No
+75,40,Female,Oakford,134,89,26.3,No
+76,28,Male,Cedar Falls,114,74,31.2,Yes
+77,40,Female,Millbrook,137,85,22.1,No
+78,54,Male,Cedar Falls,116,78,27.8,No
+79,NA,Male,Riverdale,149,96,26.0,Yes
+80,53,Male,Springvale,136,90,25.2,No
+81,NA,Male,Oakford,146,93,26.5,Yes
+82,39,Female,Cedar Falls,153,98,25.8,No
+83,54,Female,Springvale,116,75,18.6,No
+84,67,Female,Riverdale,134,79,26.8,No
+85,51,Female,Cedar Falls,NA,73,21.8,No
+86,60,Female,Cedar Falls,125,70,30.2,No
+87,66,Male,Millbrook,101,65,24.5,No
+88,36,Male,Cedar Falls,117,74,24.4,Yes
+89,52,Female,Springvale,112,82,27.8,Yes
+90,45,Male,Cedar Falls,108,63,22.4,No
+91,57,Male,Millbrook,135,81,22.9,No
+92,18,Female,Millbrook,179,110,23.2,No
+93,56,Male,Springvale,136,92,24.7,Yes
+94,47,Female,Riverdale,114,73,23.4,No
+95,NA,Male,Millbrook,155,98,27.5,No
+96,69,Female,Riverdale,119,78,22.3,No
+97,38,Male,Millbrook,132,87,24.9,No
+98,NA,Male,Oakford,132,86,32.2,No
+99,56,Female,Springvale,128,74,23.1,No
+100,22,Female,Springvale,155,100,26.7,No

@@ -1,0 +1,155 @@
+# Detecting Duplicates {#sec-detecting-duplicates}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You learn that two research assistants both entered data for the same visit last week, without realizing the other had already done it. You suspect this means at least one participant now appears *twice* in `participants.csv` — but with 100 rows, you can't just scroll through and eyeball it. You need R to find any duplicate rows for you.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Detect duplicate rows in a data frame automatically, rather than checking by hand.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If two rows have exactly identical values in every column, what would make them "the same" row to R?
+- Would you expect R to flag *both* copies of a duplicate as duplicates, or only the second (repeat) occurrence?
+:::
+
+## The R Concept
+
+**`duplicated(x)`** returns a logical vector, `TRUE` for any element (or, for a data frame, any *row*) that is an exact repeat of an earlier one:
+
+```r
+duplicated(df)
+```
+
+Critically, `duplicated()` marks only the *second and later* occurrences as `TRUE` — the *first* occurrence of a value is always `FALSE`, even though it's the one being repeated. This asymmetry is deliberate: it directly tells you which rows you could safely remove while keeping exactly one copy of each.
+
+```r
+sum(duplicated(df))    # how many duplicate rows exist
+df[duplicated(df), ]   # view just the duplicate rows themselves
+```
+
+## Demonstration
+
+```r
+# A simple example to see the FALSE/TRUE pattern clearly
+ages <- c(45, 62, 45, 38, 62, 62)
+duplicated(ages)
+```
+
+```
+[1] FALSE FALSE  TRUE FALSE  TRUE  TRUE
+```
+
+Notice: the *first* `45` and the *first* `62` are both `FALSE` (not yet a repeat of anything); the *second* `45` and every repeat of `62` after the first are `TRUE`.
+
+```r
+participants <- read.csv("data/participants.csv")
+
+# Simulating the two-research-assistants scenario: duplicate participant #1's row
+participants_dup <- rbind(participants, participants[1, ])
+
+nrow(participants_dup)
+```
+
+```
+[1] 101
+```
+
+```r
+sum(duplicated(participants_dup))
+```
+
+```
+[1] 1
+```
+
+## Explore
+
+Run `which(duplicated(participants_dup))` — this tells you the exact row *position* of the duplicate, rather than just how many exist. Then run `participants_dup[duplicated(participants_dup), ]` to view the duplicated row's actual contents.
+
+## Solve the Problem
+
+```r
+participants_dup <- rbind(participants, participants[1, ])
+
+# How many duplicate rows exist?
+sum(duplicated(participants_dup))
+```
+
+```
+[1] 1
+```
+
+```r
+# Which row is it, and what does it contain?
+participants_dup[duplicated(participants_dup), ]
+```
+
+```
+    id age    sex  county systolic_bp diastolic_bp  bmi smoker
+1.1  1  46 Female Oakford         125           79 35.1     No
+```
+
+You've now confirmed the research assistants' suspicion precisely: participant #1's row was entered twice, and you know exactly what it contains — ready to remove on the next page.
+
+## Interpret the Result
+
+`duplicated()` correctly flags the second copy of participant #1 as a duplicate (`TRUE`) while leaving the first, original entry as `FALSE` — exactly the behavior you need to identify and later remove the redundant copy without losing the original.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Expecting both copies of a duplicate to be flagged `TRUE`.** Only the second (and any later) occurrence is `TRUE`; the first is always `FALSE`. If you want to see *all* copies of anything that has a duplicate, you'd need a different check (like `duplicated(x) | duplicated(x, fromLast = TRUE)`).
+- **Confusing exact row duplicates with duplicate IDs.** `duplicated(df)` by default checks whether *every column* matches exactly — two rows with the same `id` but a corrected `age` value would *not* be flagged as duplicates by this check (a distinct, trickier problem covered in this page's challenge).
+- **Assuming duplicates can't happen in "clean" data.** They're extremely common in real research data entry — merged files, resubmitted forms, and exactly this page's two-research-assistants scenario are all frequent causes.
+:::
+
+## Practice Problem
+
+Using `participants_dup` from this page, run `table(duplicated(participants_dup))` and interpret both counts: how many rows are marked `FALSE` (unique or first occurrence) and how many are marked `TRUE` (a repeat).
+
+## Challenge Problem
+
+Suppose instead the second research assistant's entry for participant #1 had a typo — `age` recorded as `47` instead of the correct `46`, with every other column identical. Would `duplicated()` still catch this as a duplicate? Explain why or why not, and describe (in words) what you'd need to check instead to catch a "duplicate participant with conflicting values" like this one.
+
+## Key Takeaways
+
+- `duplicated(df)` flags rows that are exact repeats of an earlier row; the first occurrence is always `FALSE`, later copies are `TRUE`.
+- `sum(duplicated(df))` counts duplicate rows; `df[duplicated(df), ]` shows you their actual contents.
+- `duplicated()` only catches *exact* row matches — a repeated participant with even one differing value (like a corrected typo) will not be flagged by this check alone.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** For `c(5, 5, 5)`, what does `duplicated()` return?
+   a) `TRUE TRUE TRUE`
+   b) `FALSE TRUE TRUE`
+   c) `FALSE FALSE TRUE`
+   d) `FALSE FALSE FALSE`
+
+2. **True or false.** `duplicated()` marks the *first* occurrence of a repeated value as `TRUE`.
+
+3. **Predict the output.**
+   ```r
+   x <- c("a", "b", "a", "a")
+   sum(duplicated(x))
+   ```
+
+4. **Write the code.** Write the code to view just the duplicate rows of a data frame called `survey_data`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `FALSE TRUE TRUE` — the first `5` is not yet a repeat.
+2. **False.** The first occurrence is always `FALSE`; only subsequent repeats are `TRUE`.
+3. `[1] 2` — the 3rd and 4th `"a"` are both repeats of the 1st.
+4. `survey_data[duplicated(survey_data), ]`
+
+</details>
+:::

@@ -1,0 +1,153 @@
+# Changing Variable Types: Character to Numeric {#sec-character-to-numeric}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+A partner clinic sends you self-reported weights, but their form allowed free text: the column contains entries like `"70"`, `"68.5 kg"`, `"72kg"`, and `"unknown"`. Level 3 briefly covered `as.numeric()`, but that was for clean text like `"45"` — this column has units and inconsistent spacing mixed into otherwise-numeric text, and a plain `as.numeric()` call will not handle it gracefully.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Convert a messy character column, containing units and inconsistent formatting, into a clean numeric column.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 1, what does `as.numeric("70")` return? What about `as.numeric("70kg")`?
+- If a piece of text has non-numeric characters mixed in that you need to strip away *before* converting, what king of tool would remove specific characters from a string?
+:::
+
+## The R Concept
+
+`as.numeric()` alone only works on text that's *already* a clean, valid number — anything else (extra units, stray letters) produces `NA` with a warning, exactly as you saw in Level 1. The fix is to **clean the text first**, then convert:
+
+**`gsub(pattern, replacement, x)`** removes (or replaces) a pattern of characters throughout a string — here, used to strip out anything that isn't a digit or a decimal point:
+
+```r
+gsub("[^0-9.]", "", x)   # remove everything except digits and decimal points
+```
+
+```r
+weight_text <- "68.5 kg"
+weight_clean <- gsub("[^0-9.]", "", weight_text)   # "68.5"
+weight_numeric <- as.numeric(weight_clean)          # 68.5
+```
+
+The pattern `"[^0-9.]"` is a small piece of **regular expression** syntax: `[0-9.]` means "any digit or decimal point," and the leading `^` inside the brackets means "not" — so the whole pattern matches "anything that is *not* a digit or decimal point," which `gsub()` then deletes (replacing it with `""`, empty text).
+
+## Demonstration
+
+```r
+weight_raw <- c("70", "68.5 kg", "72kg", "unknown")
+
+# Strip out anything that isn't a digit or decimal point
+weight_stripped <- gsub("[^0-9.]", "", weight_raw)
+weight_stripped
+```
+
+```
+[1] "70"   "68.5" "72"   ""
+```
+
+```r
+weight_numeric <- as.numeric(weight_stripped)
+```
+
+```
+Warning message:
+NAs introduced by coercion
+```
+
+```r
+weight_numeric
+```
+
+```
+[1] 70.0 68.5 72.0   NA
+```
+
+Notice `"unknown"` correctly became `NA` — stripping every character from it left an empty string `""`, which `as.numeric()` correctly cannot interpret as a number, and appropriately converts to `NA` with a warning rather than guessing.
+
+## Explore
+
+Try `gsub("[^0-9.]", "", "72 KG")` (uppercase, with a space) and confirm it still correctly strips down to `"72"` — the pattern removes *any* non-digit, non-decimal character, regardless of what that character actually is.
+
+## Solve the Problem
+
+```r
+weight_raw <- c("70", "68.5 kg", "72kg", "unknown", "65.2 kg")
+
+weight_clean <- as.numeric(gsub("[^0-9.]", "", weight_raw))
+weight_clean
+```
+
+```
+[1] 70.0 68.5 72.0   NA 65.2
+```
+
+```r
+mean(weight_clean, na.rm = TRUE)
+```
+
+```
+[1] 68.925
+```
+
+The messy, unit-contaminated text column is now a clean numeric vector, with the genuinely unreadable `"unknown"` entry correctly and appropriately converted to `NA` rather than silently guessed at.
+
+## Interpret the Result
+
+The mean weight among the four participants with an interpretable value is 68.925 kg — a real, usable number, obtained only because the units and inconsistent spacing were stripped away *before* attempting the numeric conversion, rather than attempting `as.numeric()` directly on the original, unit-contaminated text.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Calling `as.numeric()` directly on unit-contaminated text.** `as.numeric("68.5 kg")` fails (returns `NA` with a warning) because of the trailing `" kg"` — the units must be stripped first.
+- **Writing a pattern that's too aggressive or too narrow.** `"[^0-9.]"` removes anything that isn't a digit or period; if your data used commas as decimal separators (common outside the US), you'd need a different pattern, or to convert commas to periods first.
+- **Not checking for new `NA`s after conversion.** Always compare `sum(is.na(x))` before and after a cleaning step like this — genuinely unreadable entries (like `"unknown"`) should become `NA`, but you want to confirm that's the *only* thing generating new missingness, not a pattern mistake affecting otherwise-valid entries.
+:::
+
+## Practice Problem
+
+Clean and convert `height_raw <- c("165cm", "172.5 cm", "180", "n/a")` into a numeric vector, then calculate the mean height among the valid entries.
+
+## Challenge Problem
+
+A dosage column contains `c("5mg", "10 mg", "7.5mg", "twice daily")` — the last entry isn't a dose at all, just free-text scheduling information mistakenly entered in the wrong column. Clean and convert this column, and explain why `"twice daily"` correctly becomes `NA` even though it doesn't look like a disguised missing-value code the way `"unknown"` did.
+
+## Key Takeaways
+
+- `as.numeric()` alone cannot handle text with embedded units or extra characters — it must be cleaned first, typically with `gsub()`, before conversion.
+- `gsub("[^0-9.]", "", x)` strips away everything except digits and decimal points, a common first step for numeric-looking but unit-contaminated text.
+- Always check for newly introduced `NA`s after a cleaning-and-converting step, to confirm they're the entries you expected (genuinely unreadable text), not a pattern mistake.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `gsub("[^0-9.]", "", "72kg")` return?
+   a) `"72kg"`
+   b) `"72"`
+   c) `"kg"`
+   d) `NA`
+
+2. **True or false.** `as.numeric("68.5 kg")` correctly returns `68.5`, ignoring the units automatically.
+
+3. **Predict the output.**
+   ```r
+   as.numeric(gsub("[^0-9.]", "", "15.2 mmHg"))
+   ```
+
+4. **Write the code.** Write the code to clean and convert `dose_raw <- c("5mg", "10mg", "unclear")` into a numeric vector.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `"72"` — everything except digits and the decimal point is stripped away.
+2. **False.** `as.numeric()` alone fails on unit-contaminated text; the units must be removed first with something like `gsub()`.
+3. `[1] 15.2`
+4. `as.numeric(gsub("[^0-9.]", "", dose_raw))`
+
+</details>
+:::

@@ -1,0 +1,28 @@
+# Level 13 — Advanced R Programming {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+To build tools other researchers rely on — not just one-off scripts — you need to understand how R actually works under the hood: environments, object systems, error handling, and version control.
+:::
+
+## What's coming
+
+- Environments, scoping, and closures
+- S3, S4, and R6 object systems
+- Debugging and `tryCatch()`
+- Functional programming patterns
+- Package development and documentation
+- Git and GitHub for reproducible collaboration
+
+::: {.pbl-box .pbl-mission}
+**A preview mission**
+
+Your mission: turn a script you've rerun ten times into a small, tested, documented R package your whole team can install and trust.
+:::
+
+::: {.callout-note}
+## Status
+
+This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
+:::

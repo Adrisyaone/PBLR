@@ -1,0 +1,119 @@
+# Bar Charts with `geom_bar()` {#sec-bar-charts}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 7's `table(participants$county)` printed five county names next to five counts — accurate, but a wall of numbers your professor wants turned into something a reader can absorb in half a second: a chart showing at a glance which county contributed the most participants, and which the fewest.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Build a bar chart of category counts using `geom_bar()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 7's `table(participants$county)` already counted rows per county for you. Does `geom_bar()` need you to count rows yourself first, or can it count them automatically?
+- If `county` goes on the x-axis, what would you expect the y-axis to represent, even though you never explicitly mapped anything to `y`?
+:::
+
+## The R Concept
+
+**`geom_bar()`** counts the number of rows for each category **automatically** — you only map the categorical variable to `x`; `ggplot2` handles the counting internally, similar to how `table()` did in Level 4:
+
+```r
+ggplot(data = df, aes(x = category_column)) +
+  geom_bar()
+```
+
+This is different from `geom_point()` and `geom_smooth()`, which plot values that already exist in your data — `geom_bar()` computes a new value (the count) as part of drawing the plot.
+
+## Demonstration
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+ggplot(data = participants, mapping = aes(x = county)) +
+  geom_bar()
+```
+
+This produces five bars, one per county, with height equal to that county's participant count — Springvale's bar is the tallest (26 participants), and Riverdale's is the shortest (16 participants), matching Level 5's `count(participants, county)` exactly.
+
+## Explore
+
+Try adding `+ coord_flip()` to the plot above. This rotates the chart so county names run along the y-axis and bars extend horizontally — often more readable when category names (like "Cedar Falls") are long enough to overlap when printed underneath vertical bars.
+
+## Solve the Problem
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+county_bar_chart <- ggplot(data = participants, mapping = aes(x = county)) +
+  geom_bar()
+
+county_bar_chart
+```
+
+Five bars in the order R's default alphabetical sorting places county names: Cedar Falls (20), Millbrook (21), Oakford (17), Riverdale (16), Springvale (26) — Springvale's bar visibly the tallest, Riverdale's the shortest, exactly matching the raw counts from Level 4's `table()`.
+
+## Interpret the Result
+
+The bar chart makes the county size ranking immediately visible without requiring a reader to compare five separate numbers by eye — Springvale's larger contribution to the study (26 of 100 participants) and Riverdale's smaller one (16 of 100) are now a visual fact rather than a row in a table. This is exactly the kind of quick, scannable summary a report's opening figure often needs.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Mapping `y` to a count that doesn't exist yet.** `geom_bar()` computes counts internally — writing `aes(x = county, y = count)` looks for a column literally named `count` in your data frame, which doesn't exist, and produces an error. Just map `x`; let `geom_bar()` handle the rest.
+- **Confusing `geom_bar()` with `geom_col()`.** `geom_bar()` counts rows automatically; `geom_col()` expects you to have *already* computed the heights yourself (for example, with Level 5's `summarise()`) and maps a column directly to bar height instead of counting.
+- **Leaving bars in default alphabetical order when a ranked order would communicate more clearly.** Sorting bars by height (largest to smallest) is often more readable than alphabetical order — a refinement covered later in this level alongside labels and themes.
+:::
+
+## Practice Problem
+
+Build a bar chart of `smoker` status. With only two categories ("No" and "Yes"), confirm the relative bar heights visually match the 75/25 split found in Level 7.
+
+## Challenge Problem
+
+Level 5's `count(participants, county, sort = TRUE)` already sorts counties by size. Research (or predict from what you already know about `ggplot2`'s "factor" handling) how you might reorder `geom_bar()`'s x-axis categories by count rather than alphabetically, without changing the underlying data.
+
+## Key Takeaways
+
+- `geom_bar()` automatically counts rows per category — map only `x` to the categorical column, and let `ggplot2` compute the bar heights.
+- `geom_bar()` (auto-counting) differs from `geom_col()` (plotting pre-computed values) — choosing the right one depends on whether your data already has the heights you want to plot.
+- A bar chart turns a `table()`-style count comparison into an instantly scannable visual ranking.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `geom_bar()` do when you map only `x` to a categorical column?
+   a) It errors, requiring a `y` mapping too
+   b) It automatically counts rows per category and uses that as bar height
+   c) It plots every row as a separate point
+   d) It computes the mean of `x` per category
+
+2. **True or false.** `geom_bar()` and `geom_col()` work identically in every situation.
+
+3. **Predict the output.** Given county counts of 20, 21, 17, 16, and 26, which county's bar would be tallest?
+
+4. **Find the error.**
+   ```r
+   ggplot(data = participants, aes(x = county, y = count)) +
+     geom_bar()
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** It automatically counts rows per category and uses that count as the bar height.
+2. **False.** `geom_bar()` counts rows automatically; `geom_col()` requires the bar heights to already exist as a column in the data — they serve different purposes.
+3. Springvale, with 26 participants — the largest count among the five counties.
+4. There is no column literally named `count` in `participants` — `geom_bar()` computes counts internally and doesn't need (or expect) a `y` mapping at all. It should simply be `aes(x = county)`.
+
+</details>
+:::

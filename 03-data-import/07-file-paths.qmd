@@ -1,0 +1,134 @@
+# File Paths and Relative Paths {#sec-file-paths}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your script has `participants <- read.csv("/Users/jordan/Documents/health-survey-project/data/participants.csv")` — the absolute path from Level 1's working-directory page. You send the script to a classmate, whose computer is a different operating system with a completely different folder structure. It fails immediately, because that exact path only exists on your machine.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand the difference between absolute and relative file paths deeply enough to write scripts that work on *any* computer, not just your own.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If two people both have a project folder called `health-survey-project`, but it lives at a different absolute location on each of their computers, what's the one thing likely to stay the same *inside* that folder?
+- From Level 1, what did `getwd()` tell you, and what did a path like `"data/participants.csv"` depend on?
+:::
+
+## The R Concept
+
+An **absolute path** describes a file's exact location starting from the very root of the file system — `/Users/jordan/Documents/health-survey-project/data/participants.csv` (Mac/Linux) or `C:/Users/Jordan/Documents/health-survey-project/data/participants.csv` (Windows). It's precise, but only valid on the one computer where that exact folder structure exists.
+
+A **relative path** describes a file's location *relative to the current working directory* — `data/participants.csv` says "look inside a folder called `data`, relative to wherever we currently are," without caring what's above that in the folder structure. As long as two people both have the same *internal* project structure (a `data` folder inside their project folder, wherever that project folder happens to live), the same relative path works for both of them.
+
+```r
+# Absolute - only works on Jordan's computer
+read.csv("/Users/jordan/Documents/health-survey-project/data/participants.csv")
+
+# Relative - works on anyone's computer, as long as their working directory
+# is set to the project folder, and it contains a "data" subfolder
+read.csv("data/participants.csv")
+```
+
+This is exactly why every code example since Level 1 has used `"data/participants.csv"` — a relative path, deliberately, so the exact same code works on your computer, a classmate's, or a grading server, without a single change.
+
+## Demonstration
+
+```r
+getwd()
+```
+
+```
+[1] "/Users/jordan/Documents/health-survey-project"
+```
+
+```r
+# Relative path - depends on the working directory shown above
+participants <- read.csv("data/participants.csv")
+nrow(participants)
+```
+
+```
+[1] 100
+```
+
+```r
+# The SAME relative path, run by a classmate with a totally different absolute location
+# but an identical internal project structure, works identically:
+# getwd() -> "/home/priya/school/health-survey-project"
+# read.csv("data/participants.csv") -> works exactly the same way
+```
+
+## Explore
+
+Run `getwd()` on your own machine right now, and compare it to a classmate's, if possible. Your absolute paths are almost certainly completely different — but if you both run `read.csv("data/participants.csv")` from within your respective project folders, both succeed identically.
+
+## Solve the Problem
+
+```r
+# Broken - hardcoded to one specific computer
+participants <- read.csv("/Users/jordan/Documents/health-survey-project/data/participants.csv")
+```
+
+```r
+# Fixed - portable relative path, works on any computer with the same internal structure
+participants <- read.csv("data/participants.csv")
+```
+
+Sending this fixed version to your classmate now works immediately on their machine too, with no editing required on their end — the entire point of preferring relative paths in shared or collaborative code.
+
+## Interpret the Result
+
+Switching from an absolute to a relative path doesn't change what the code *does* on your own machine — `nrow(participants)` still returns `100` either way — but it changes whether the code is *portable*, which matters enormously the moment more than one person, or more than one computer, is involved.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Hardcoding an absolute path in shared code.** This is one of the most common reasons a script "works on my machine" but fails immediately for anyone else.
+- **Assuming a relative path works from any starting point.** A relative path is only correct *relative to a specific working directory* — if your working directory isn't set to the project folder, `"data/participants.csv"` will fail even though the file genuinely exists somewhere on disk.
+- **Mixing backslashes into paths on Windows.** As covered in Level 1, R paths always use forward slashes (`/`), regardless of operating system — even on Windows.
+:::
+
+## Practice Problem
+
+You and a classmate both have a project folder structure with a `data` subfolder and a `scripts` subfolder inside your respective (differently located) project folders. Write the relative path you'd use, from within a script that assumes the working directory is the project folder, to read a file called `survey_2024.csv` sitting in `data`.
+
+## Challenge Problem
+
+Explain, in your own words, why a relative path alone still isn't a *complete* solution to portability — what has to be true about the working directory for a relative path to work correctly? (This sets up the next page's solution.)
+
+## Key Takeaways
+
+- Absolute paths describe a file's exact location from the root of the file system; they only work on the one computer where that exact structure exists.
+- Relative paths describe a location relative to the current working directory; the same relative path works across different computers, as long as the internal project structure matches.
+- Relative paths still depend on the working directory being set correctly — they solve *portability of the path itself*, but not yet the working-directory problem from Level 1 entirely (the next page finishes that job).
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Which of these is a relative path?
+   a) `/Users/jordan/data/file.csv`
+   b) `C:/Users/Jordan/data/file.csv`
+   c) `data/file.csv`
+   d) All of the above are equally relative
+
+2. **True or false.** A relative path will work identically on any computer, regardless of the current working directory.
+
+3. **Predict the output.** If `getwd()` returns `"/home/priya/project"` and the file is at `"/home/priya/project/data/survey.csv"`, what relative path correctly loads it?
+
+4. **Find the error.** A student shares a script containing `read.csv("/Users/alex/Desktop/data.csv")` with a classmate, who gets a "file not found" error even though they have the identical data file.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** `data/file.csv`
+2. **False.** A relative path depends entirely on the current working directory being set to the right location first.
+3. `read.csv("data/survey.csv")`
+4. The script hardcodes an absolute path specific to Alex's computer (`/Users/alex/Desktop/...`); the classmate's computer has a different folder structure, so that exact path doesn't exist for them. The fix is a relative path plus a correctly set working directory (or, better, an RStudio Project — next page).
+
+</details>
+:::

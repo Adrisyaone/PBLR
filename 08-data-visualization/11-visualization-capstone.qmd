@@ -1,0 +1,126 @@
+# Level 8 Capstone: One Figure, Two Variables, One Story {#sec-visualization-capstone}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+This level's mission from the very first page: show your research team how blood pressure differs by age *and* smoking status — in one figure, not several separate ones. You now have every ingredient — scatter plots, trend lines, color grouping, titles, labels, and themes — but you've only ever used them one or two at a time. Your professor wants them combined into a single, polished figure that tells the complete story at a glance.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Combine `geom_point()`, `geom_smooth()`, color grouping, and full labeling into one finished, presentation-ready figure.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- To show blood pressure by age *and* smoking status simultaneously, how many variables need to be mapped in `aes()` at once?
+- If you add `geom_smooth(method = "lm")` to a plot where `color` is already mapped to `smoker`, would you expect one trend line for the whole dataset, or one trend line per smoking group?
+:::
+
+## The R Concept
+
+When `color` (or `fill`) is mapped inside the initial `ggplot()` call, every subsequent layer — including `geom_smooth()` — automatically applies **per group**, without any extra code:
+
+```r
+ggplot(data = df, aes(x = x_col, y = y_col, color = grouping_col)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+This produces one trend line *per category* of the grouping variable, each colored to match its group's points — because the `color` mapping set in `ggplot()` applies to every layer that follows, not just `geom_point()`.
+
+## Demonstration
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+ggplot(data = participants, mapping = aes(x = age, y = systolic_bp, color = smoker)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+This produces two trend lines instead of one — a separate line fit only to smokers' data, and another fit only to non-smokers' data — both layered over the same color-coded scatter of points, with `se = FALSE` hiding the confidence bands to keep the figure less cluttered with two groups already present.
+
+## Explore
+
+Try removing `se = FALSE` and comparing how much busier the plot looks with both groups' confidence bands shown. With relatively small group sizes (22 smokers, 68 non-smokers) and weak underlying correlations, decide for yourself whether the added confidence-band detail helps or clutters this particular figure.
+
+## Solve the Problem
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+bp_by_age_smoking <- ggplot(data = participants, mapping = aes(x = age, y = systolic_bp, color = smoker)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Blood Pressure by Age and Smoking Status",
+    subtitle = "Weak downward trend in both groups; non-smokers show a slightly steeper decline",
+    x = "Age (years)",
+    y = "Systolic Blood Pressure (mmHg)",
+    color = "Current Smoker"
+  ) +
+  theme_minimal()
+
+bp_by_age_smoking
+```
+
+Two gently downward-sloping trend lines, one per smoking group: non-smokers' line slopes slightly more steeply downward (correlation -0.25, n=68) than smokers' line (correlation -0.14, n=22), though both relationships remain weak. `alpha = 0.7` makes overlapping points partially transparent, helping visually dense regions of the plot stay readable.
+
+## Interpret the Result
+
+This single figure answers the level's opening mission directly: blood pressure shows a weak negative relationship with age in both smoking groups, with non-smokers showing a marginally steeper downward trend than smokers — though given both groups' correlations are well below 0.3 in magnitude, and the smoker group is fairly small (n=22), this difference between the two slopes shouldn't be over-interpreted as a confirmed, meaningfully different pattern. What the figure does successfully avoid is any *false* impression of a strong relationship in either group — the loosely scattered points and shallow trend lines honestly represent how weak these patterns actually are.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Building an impressively multi-layered figure that overstates a weak finding.** Combining many `ggplot2` techniques into one figure doesn't make an underlying weak relationship (correlations of -0.14 and -0.25) look stronger than it is — a well-built figure should still honestly represent uncertainty and weak effects, not disguise them with visual polish.
+- **Forgetting that `color` mapped once in `ggplot()` cascades to every later layer.** This is what makes `geom_smooth()` automatically fit separate lines per group here — a useful shortcut, but one that can surprise you if you expected a single combined trend line instead.
+- **Overcrowding a figure with too many simultaneous elements.** Adding confidence bands, multiple colors, dense point overlap, and heavy labeling all at once can make a figure harder to read, not easier — `alpha` (transparency) and `se = FALSE` (hiding confidence bands) are both tools for keeping a multi-layered figure legible.
+:::
+
+## Practice Problem
+
+Build the same style of combined figure (`geom_point()` + `geom_smooth()` + color + labels + theme) for BMI and blood pressure by sex instead of age and smoking status. Does mapping `color = sex` reveal a more or less visible difference between groups than smoking status did?
+
+## Challenge Problem
+
+Combine faceting (Page 9) with color grouping in a single figure: facet the age-blood pressure scatter plot by `county` (5 panels) while still coloring points by `smoker` within each panel. With county-level sample sizes as small as 16, discuss whether this much subdivision (5 counties × 2 smoking groups) still produces a figure with enough data per group to draw any meaningful visual conclusions.
+
+## Key Takeaways
+
+- Mapping `color` (or `fill`) once in the initial `ggplot()` call cascades automatically to every subsequent layer, including `geom_smooth()`, producing one trend line per group without extra code.
+- A polished, multi-layered figure should still honestly represent the strength (or weakness) of the underlying pattern — visual sophistication is not a substitute for accurately representing uncertainty.
+- `alpha` (point transparency) and `se = FALSE` (hiding confidence bands) are both tools for keeping a busy, multi-group figure legible rather than cluttered.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** If `color = smoker` is mapped in the initial `ggplot()` call, what happens when you add `geom_smooth(method = "lm")`?
+   a) One trend line is fit to the entire dataset, ignoring smoking status
+   b) One trend line is fit separately for each smoking group
+   c) `geom_smooth()` ignores the color mapping entirely
+   d) The plot errors, since `geom_smooth()` can't be combined with color mapping
+
+2. **True or false.** A visually polished, multi-layered figure can make a weak relationship look stronger than it actually is if built carelessly.
+
+3. **Predict the output.** With smokers' correlation at -0.14 and non-smokers' at -0.25, which group's trend line would slope more steeply downward?
+
+4. **Short answer.** Why does `se = FALSE` help keep a two-group trend line figure more readable?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** One trend line is fit separately for each smoking group, since the `color` mapping set in `ggplot()` cascades to every subsequent layer.
+2. **True.** Visual polish (multiple colors, trend lines, clean themes) doesn't change the underlying data — a careless figure could visually overstate a weak pattern's strength if built without care.
+3. Non-smokers, with the stronger (more negative) correlation of -0.25.
+4. `se = FALSE` hides each group's confidence band — with two overlapping trend lines already present, adding two shaded confidence regions on top could make the figure visually cluttered and harder to read.
+
+</details>
+:::

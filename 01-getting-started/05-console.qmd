@@ -1,0 +1,124 @@
+# Using the Console {#sec-console}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You're in a meeting and your supervisor asks, out loud: "Quick — if we enrolled 120 participants and 18 dropped out, what percentage completed the study?" Everyone's looking at you. You don't want to open a whole new script file, name it, and save it just to answer one quick question.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Use the RStudio Console to run a one-off calculation immediately, without creating or saving a file.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- What's the actual arithmetic needed to turn "102 out of 120 completed" into a percentage?
+- Does this calculation need to be saved for later, or is it truly a one-time question?
+:::
+
+## The R Concept
+
+The **Console** is the pane where R code runs immediately and directly — you type a line, press Enter, and see the result right away. Nothing you type there is automatically saved anywhere as a file. This makes the Console perfect for:
+
+- Quick, one-off calculations
+- Checking what a function does before using it in a real script
+- Peeking at an object's value in the middle of a longer analysis
+
+It's a poor choice for anything you'll want to rerun, hand to a colleague, or revisit next month — for that, you want a script (next page).
+
+You can tell you're in the Console because it has a `>` prompt at the start of the line, waiting for input. Type your code after the `>` and press **Enter** to run it.
+
+## Demonstration
+
+Typed directly into the Console:
+
+```r
+> 102 / 120 * 100
+```
+
+```
+[1] 85
+```
+
+You can also press the **up arrow** key in the Console to recall the previous command, edit it, and rerun it — useful when your supervisor immediately follows up with "okay, now what if it's 110 out of 120?"
+
+```r
+> 110 / 120 * 100
+```
+
+```
+[1] 91.66667
+```
+
+## Explore
+
+In the Console, calculate what percentage 18 out of 120 represents — the dropout rate rather than the completion rate. Then use the up-arrow to recall that line and change `18` to `25`. Notice how much faster this is than retyping the whole line.
+
+## Solve the Problem
+
+Back in the meeting, you type directly into the Console:
+
+```r
+> 102 / 120 * 100
+[1] 85
+```
+
+You answer immediately: "85% of participants completed the study." No file needed, no saving required — exactly the right use of the Console.
+
+## Interpret the Result
+
+`85` means that of the 120 enrolled participants, 85 out of every 100 (equivalently, 102 out of 120) completed the study — an 85% completion rate, which is generally considered a strong retention rate in longitudinal health research.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Doing important, reusable analysis only in the Console.** If you'll need this calculation again — for a report, for next month's update — put it in a script instead (next page).
+- **Losing track of what was run.** The Console's History tab keeps a record, but it's not as organized or intentional as a saved script with comments explaining each step.
+- **Forgetting the calculation entirely once the Console is cleared or RStudio is closed.** Nothing in the Console is saved unless you explicitly copy it elsewhere.
+:::
+
+## Practice Problem
+
+In the Console, calculate the percentage of a study where 340 out of 400 participants returned for a 6-month follow-up visit.
+
+## Challenge Problem
+
+Your supervisor now asks a follow-up: "What if we'd also included 40 participants who transferred to another clinic?" Using the up-arrow to build on your previous answer, calculate the new completion percentage out of a total of 440 enrolled, assuming the same 340 completed.
+
+## Key Takeaways
+
+- The Console runs code immediately but does not save it as a file.
+- Use the Console for quick, one-off questions — not for analysis you'll need to reproduce or share.
+- The up-arrow key recalls previous commands in the Console, which speeds up rapid back-and-forth questions.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** The Console is best suited for:
+   a) Long-term, reusable analysis scripts
+   b) Quick, one-off calculations and checks
+   c) Storing your final report
+   d) Installing RStudio itself
+
+2. **True or false.** Code typed into the Console is automatically saved as a file when you close RStudio.
+
+3. **Predict the output.**
+   ```r
+   45 / 60 * 100
+   ```
+
+4. **Write the code.** Write the Console command to calculate what percentage 7 is of 28.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Quick, one-off calculations and checks.
+2. **False.** Console input is not saved as a file; only scripts you explicitly save are preserved.
+3. `[1] 75`
+4. `7 / 28 * 100`, which evaluates to `[1] 25`.
+
+</details>
+:::

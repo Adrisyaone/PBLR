@@ -1,0 +1,170 @@
+# Basic Data Types {#sec-data-types}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You import a participant's age from a form and try to calculate next year's age:
+
+```r
+age <- "34"
+age_next_year <- age + 1
+```
+
+```
+Error in age + 1 : non-numeric argument to binary operator
+```
+
+R refuses to do the math, even though `"34"` clearly looks like a number to you.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand that R distinguishes between different fundamental *types* of data, and learn to check which type you're actually working with.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Does `"34"` (with quotation marks) look different from `34` (without quotes) when you type it?
+- What other kinds of information, besides numbers, might a health dataset contain — names, yes/no answers, dates?
+:::
+
+## The R Concept
+
+Every value in R has a **data type**, and R treats different types differently, even when they look similar to a human. The three you'll use constantly, starting today:
+
+- **Numeric** — actual numbers you can do math with: `34`, `22.8`, `-5`.
+- **Character** — text, always wrapped in quotes: `"34"`, `"Female"`, `"Riverdale"`. Note that `"34"` is text, *not* a number, purely because of the quotes.
+- **Logical** — `TRUE` or `FALSE` values (no quotes), used for yes/no conditions.
+
+You can check any object's type with `class()`:
+
+```r
+class(34)      # numeric
+class("34")    # character
+class(TRUE)    # logical
+```
+
+The error at the top of this page happened because `age <- "34"` created a *character* object — text that happens to look like a number — and R correctly refuses to perform arithmetic on text.
+
+## Demonstration
+
+```r
+class(34)
+```
+
+```
+[1] "numeric"
+```
+
+```r
+class("34")
+```
+
+```
+[1] "character"
+```
+
+```r
+class(TRUE)
+```
+
+```
+[1] "logical"
+```
+
+```r
+# The type mismatch that caused the original error
+age <- "34"
+class(age)
+```
+
+```
+[1] "character"
+```
+
+## Explore
+
+Run `class(age + 1)` after setting `age <- "34"` and confirm you see the same error as in the opening problem. Then try `class(as.numeric(age) + 1)` — you're using a *conversion function* here, which you'll study properly on the numeric-data page next, but notice how wrapping `age` changes the outcome.
+
+## Solve the Problem
+
+The fix is to make sure `age` is stored as a numeric value, not text:
+
+```r
+age <- 34          # no quotes -> numeric
+class(age)
+```
+
+```
+[1] "numeric"
+```
+
+```r
+age_next_year <- age + 1
+age_next_year
+```
+
+```
+[1] 35
+```
+
+## Interpret the Result
+
+`age_next_year` now correctly equals `35`, because `age` was stored as an actual number rather than a piece of text. The lesson generalizes: any time R refuses to do arithmetic you expect it to handle, `class()` is the first diagnostic tool to reach for.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Adding quotes around numbers by habit.** `age <- "34"` looks harmless but silently creates text, not a number — a very common source of confusing downstream errors.
+- **Assuming R will "figure out" what you meant.** Unlike Excel, R does not automatically guess that `"34"` should behave like a number in a math context — it enforces the type strictly.
+- **Forgetting quotes around genuine text.** `sex <- Female` (no quotes) will error, because R interprets `Female` as an object name it can't find, not as the text `"Female"`.
+:::
+
+## Practice Problem
+
+For each of the following, predict the result of `class()` before running it: `class(120)`, `class("120")`, `class(FALSE)`, `class("TRUE")`.
+
+## Challenge Problem
+
+A dataset column for blood type contains values like `"O+"`, `"AB-"`, `"A+"`. Explain, in your own words, why this column should be stored as character data rather than numeric, even though blood types are sometimes informally coded with numbers elsewhere.
+
+## Key Takeaways
+
+- Every R value has a type; the three fundamentals are numeric, character, and logical.
+- `class()` reveals an object's current type — your first stop when arithmetic or comparisons behave unexpectedly.
+- Quotes make the difference between a number (`34`) and text that merely looks like a number (`"34"`).
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What is the class of `"25"` (with quotes)?
+   a) numeric
+   b) character
+   c) logical
+   d) integer
+
+2. **True or false.** R will automatically convert `"25"` to a number if you try to do math with it.
+
+3. **Find the error.**
+   ```r
+   n_visits <- "4"
+   total_visits <- n_visits + 2
+   ```
+
+4. **Predict the output.**
+   ```r
+   class(TRUE)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** character — the quotes make it text, regardless of what it looks like.
+2. **False.** R will raise an error (`non-numeric argument to binary operator`) rather than silently converting it.
+3. `n_visits` is stored as character text (`"4"`), not a number, so `+ 2` fails. Fix: `n_visits <- 4` (no quotes).
+4. `[1] "logical"`
+
+</details>
+:::

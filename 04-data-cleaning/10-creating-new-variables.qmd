@@ -1,0 +1,151 @@
+# Creating New Variables {#sec-creating-new-variables}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your supervisor asks: "Pulse pressure — the difference between systolic and diastolic blood pressure — is actually a better predictor of cardiovascular risk in older adults than either number alone. Can you add that as a variable?" This isn't a variable that exists anywhere in the raw data; it needs to be *calculated* from two columns that do.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Create a brand-new column in a data frame, calculated from one or more existing columns.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 1, how would you calculate the difference between two single numbers?
+- From Level 2, if `df$col1` and `df$col2` are both vectors of the same length, what would `df$col1 - df$col2` produce — one number, or a whole vector of differences?
+:::
+
+## The R Concept
+
+Assigning to a column name that **doesn't yet exist** in a data frame creates it, exactly as assigning to a brand-new object name creates that object (Level 1):
+
+```r
+df$new_column <- <some calculation using existing columns>
+```
+
+Because columns are vectors of matching length (Level 2), arithmetic between two columns happens **element-wise** — row 1's calculation uses row 1's values from each column, row 2 uses row 2's values, and so on, automatically, all at once.
+
+```r
+df$pulse_pressure <- df$systolic_bp - df$diastolic_bp
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+# Before: no such column exists
+"pulse_pressure" %in% names(participants)
+```
+
+```
+[1] FALSE
+```
+
+```r
+participants$pulse_pressure <- participants$systolic_bp - participants$diastolic_bp
+
+"pulse_pressure" %in% names(participants)
+```
+
+```
+[1] TRUE
+```
+
+```r
+head(participants[, c("systolic_bp", "diastolic_bp", "pulse_pressure")])
+```
+
+```
+  systolic_bp diastolic_bp pulse_pressure
+1         125           79             46
+2         123           80             43
+3         130           77             53
+4         117           72             45
+5         139           79             60
+6         117           64             53
+```
+
+## Explore
+
+Run `summary(participants$pulse_pressure)` to see the range of pulse pressure values across the sample. Then check `sum(is.na(participants$pulse_pressure))` — since `pulse_pressure` is calculated from two columns that each have some missing values, what would you expect this count to be, compared to the missingness in `systolic_bp` or `diastolic_bp` alone?
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+participants$pulse_pressure <- participants$systolic_bp - participants$diastolic_bp
+
+mean(participants$pulse_pressure, na.rm = TRUE)
+```
+
+```
+[1] 49.35417
+```
+
+```r
+sum(is.na(participants$pulse_pressure))
+```
+
+```
+[1] 4
+```
+
+The new `pulse_pressure` variable is calculated for every participant with both a systolic and diastolic reading, with a mean of about 49.4 mmHg across the sample — ready to hand back to your supervisor as a genuinely new, derived clinical variable.
+
+## Interpret the Result
+
+`sum(is.na(participants$pulse_pressure))` returning `4` (matching exactly the 4 participants missing `systolic_bp`, since `diastolic_bp` has no missing values at all) confirms that a calculation is only as complete as its *least* complete input — any row missing either ingredient produces a missing result, which propagates the same way any arithmetic with `NA` does (Level 1).
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Expecting a new variable to be complete even when its inputs aren't.** A derived variable inherits missingness from every column it depends on — `pulse_pressure` is missing wherever `systolic_bp` (or, in general, either ingredient) is missing.
+- **Overwriting an existing column by accident.** Assigning to a column name that *does* already exist replaces it silently, with no warning — always double check `names(df)` if you're not sure whether a name is already taken.
+- **Forgetting the calculation is element-wise.** `df$systolic_bp - df$diastolic_bp` computes 100 separate subtractions, one per row, all at once — not a single overall subtraction of two summary numbers.
+:::
+
+## Practice Problem
+
+Create a new column `bp_ratio` calculated as `systolic_bp / diastolic_bp`, and report its mean (excluding missing values).
+
+## Challenge Problem
+
+Create a new column `age_at_next_checkup` representing each participant's age one year from now (`age + 1`). Then explain, in one sentence, why this new column will have exactly the same number of missing values as `age` itself — no more, no fewer.
+
+## Key Takeaways
+
+- Assigning to a data frame column name that doesn't yet exist creates it; assigning to one that already exists overwrites it.
+- Arithmetic between two columns happens element-wise, row by row, automatically — the same rule from Level 2's vectors applies directly to data frame columns.
+- A derived variable is missing wherever any of its input columns are missing, inheriting incompleteness from its ingredients.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `df$new_col <- df$a - df$b` do if `new_col` doesn't already exist?
+   a) Raises an error
+   b) Creates a new column calculated element-wise from `a` and `b`
+   c) Overwrites column `a`
+   d) Does nothing until `new_col` is explicitly declared first
+
+2. **True or false.** A new column calculated from two existing columns will always have zero missing values, regardless of its inputs.
+
+3. **Predict the output.** If `df$x <- c(10, NA, 30)` and `df$y <- c(1, 2, 3)`, what would `df$x - df$y` produce?
+
+4. **Write the code.** Write the code to create a new column `bmi_times_10` equal to `participants$bmi` multiplied by 10.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Creates a new column, calculated element-wise from `a` and `b`.
+2. **False.** A derived column is missing wherever any of its input columns are missing — it cannot be more complete than its least complete ingredient.
+3. `c(9, NA, 27)`
+4. `participants$bmi_times_10 <- participants$bmi * 10`
+
+</details>
+:::

@@ -1,0 +1,134 @@
+# RStudio Projects {#sec-rstudio-projects}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've switched to relative paths, as the last page recommended. But you still have to remember to run `setwd()` at the start of every session, pointing to wherever your project folder happens to live on *your* machine — and if you forget, or open the wrong folder, every relative path in your script breaks. You want the working directory to just always be correct, automatically, without you thinking about it.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Set up an RStudio Project so your working directory is always correct automatically, finally solving the working-directory problem for good.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If RStudio could somehow "remember" which folder belongs to which project, what would it need to automatically do the moment you opened that project?
+- Would you rather manually run `setwd()` every single session, or have this happen automatically the moment you open your work?
+:::
+
+## The R Concept
+
+An **RStudio Project** is a folder containing a special `.Rproj` file that marks it as a self-contained project. Opening that `.Rproj` file (by double-clicking it, or via **File > Open Project** in RStudio) automatically:
+
+- Sets your working directory to the project folder itself — no `setwd()` needed, ever, for anyone who opens that project.
+- Keeps your Environment, open scripts, and history organized separately from other projects.
+- Makes every relative path inside your scripts (like `"data/participants.csv"`) work correctly and identically for *anyone* who opens the same project folder, on any computer.
+
+Creating one: **File > New Project > New Directory** (or **Existing Directory**, if you already have a folder like this course's `R-PBL/`), then choose "New Project," and RStudio creates a `.Rproj` file inside it.
+
+```r
+# Once inside an RStudio Project, this just works - no setwd() ever needed
+participants <- read.csv("data/participants.csv")
+```
+
+::: {.callout-note}
+## An even more robust alternative: the `here` package
+Some teams go one step further with the `here` package, which finds your project's root folder automatically (by looking for the `.Rproj` file) and builds paths from there — `here::here("data", "participants.csv")` works correctly even when called from a script buried several subfolders deep. RStudio Projects alone solve the vast majority of path problems you'll encounter in this course; `here` is worth knowing about as you take on larger, multi-folder projects later on.
+:::
+
+## Demonstration
+
+```r
+# BEFORE an RStudio Project: manual setwd() needed every session
+setwd("/Users/jordan/Documents/health-survey-project")  # different for every user!
+participants <- read.csv("data/participants.csv")
+```
+
+```r
+# AFTER opening R-PBL.Rproj: working directory is already correct, automatically
+getwd()
+```
+
+```
+[1] "/Users/jordan/Documents/health-survey-project"
+```
+
+```r
+# No setwd() anywhere in the script - it's simply never needed again
+participants <- read.csv("data/participants.csv")
+nrow(participants)
+```
+
+```
+[1] 100
+```
+
+## Explore
+
+If you have RStudio installed, try creating a new project from an existing folder (**File > New Project > Existing Directory**) using any folder on your computer. Notice a new `.Rproj` file appears inside it, and that closing and reopening RStudio *through that `.Rproj` file* automatically returns you to the correct working directory every time.
+
+## Solve the Problem
+
+The fix isn't a line of code at all — it's a one-time setup step: turn your project folder into an RStudio Project by creating a `.Rproj` file inside it (**File > New Project**), then always open your work by double-clicking that `.Rproj` file, rather than opening RStudio generically and navigating to your files afterward.
+
+```r
+# From that point forward, every script in this project can simply use:
+participants <- read.csv("data/participants.csv")
+
+# ...with zero setwd() calls, on any computer, for any collaborator who opens the project.
+```
+
+## Interpret the Result
+
+Once you're working inside an RStudio Project, `getwd()` always reports the project's own folder — automatically, the moment you open it — which means every relative path from the previous page now works reliably, permanently, for you and for anyone else who opens the same project.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Opening RStudio generically instead of through the `.Rproj` file.** If you launch RStudio first and then navigate to your files manually, the working directory is *not* automatically set to your project folder — always open the `.Rproj` file directly (or use **File > Open Project**) to get the automatic benefit.
+- **Still including `setwd()` inside a script, out of habit, even within an RStudio Project.** This actually works against the whole point — a hardcoded `setwd()` will override the project's automatic, portable behavior and reintroduce the exact one-computer-only fragility this page just fixed.
+- **Forgetting the `.Rproj` file needs to actually be committed or shared alongside the rest of the project folder.** If you email just your scripts and data but not the `.Rproj` file, a collaborator won't get the automatic working-directory benefit — they'd need to create their own Project pointing at the folder you sent.
+:::
+
+## Practice Problem
+
+Describe, step by step, exactly what you would click in RStudio to turn an existing folder called `my-analysis` into an RStudio Project (you do not need to actually have the folder — describe the menu steps from memory).
+
+## Challenge Problem
+
+A team of four analysts share a single RStudio Project folder via a shared drive. Explain, in one or two sentences, why every one of their scripts can safely use relative paths like `read.csv("data/participants.csv")` with zero `setwd()` calls anywhere, even though all four analysts have the shared folder mounted at a different absolute path on their own machines.
+
+## Key Takeaways
+
+- An RStudio Project (a `.Rproj` file inside a folder) automatically sets the working directory to that folder the moment it's opened — no manual `setwd()` needed, ever again.
+- Always open your work by opening the `.Rproj` file directly, not by launching RStudio generically first.
+- Combined with relative paths (previous page), RStudio Projects make a script fully portable across computers and collaborators — the complete, permanent fix to the working-directory problem first raised in Level 1.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does opening a `.Rproj` file automatically do?
+   a) Installs all required packages
+   b) Sets the working directory to that project's folder
+   c) Cleans your data automatically
+   d) Converts your scripts to Quarto documents
+
+2. **True or false.** Including `setwd()` inside a script within an RStudio Project is still good practice.
+
+3. **Predict the output.** If a `.Rproj` file lives at `/home/priya/project/analysis.Rproj`, what will `getwd()` return immediately after opening it?
+
+4. **Find the error.** A team's shared script includes `setwd("/Users/jordan/Documents/project")` at the top, even though the whole team works inside a shared RStudio Project. What's wrong with this line?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Sets the working directory to that project's folder, automatically.
+2. **False.** A hardcoded `setwd()` overrides the Project's automatic, portable working directory, reintroducing the exact one-computer-only fragility RStudio Projects are meant to eliminate.
+3. `/home/priya/project`
+4. The hardcoded `setwd()` only works on Jordan's computer and breaks the working directory for every other team member — it should be removed entirely, letting the RStudio Project handle the working directory automatically.
+
+</details>
+:::

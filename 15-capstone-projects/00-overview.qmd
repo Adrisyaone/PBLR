@@ -1,0 +1,30 @@
+# Level 15 — Real-World Capstone Projects {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+Everything up to this point was scaffolded. Here, you get a research question and raw data, and you're expected to design the entire workflow yourself — from cleaning through modeling to a reproducible final report.
+:::
+
+## What's coming
+
+- Physical activity and obesity
+- Factors associated with hypertension
+- Smoking and cardiovascular risk
+- Predictors of cognitive decline
+- Neighborhood deprivation and health outcomes
+- Longitudinal and survival analysis projects
+- A reproducible research report and interactive dashboard
+- An independent project from raw data to publication-ready results
+
+::: {.pbl-box .pbl-mission}
+**A preview mission**
+
+Your mission: pick a real public-health question, and take it from a raw CSV file all the way to a report you'd be comfortable putting your name on.
+:::
+
+::: {.callout-note}
+## Status
+
+This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
+:::

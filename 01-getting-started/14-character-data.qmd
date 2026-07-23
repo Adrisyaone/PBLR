@@ -1,0 +1,160 @@
+# Character Data {#sec-character-data}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You need to record each participant's county of residence and generate a short label like `"Participant from Riverdale"` for a summary report. You try:
+
+```r
+county <- Riverdale
+```
+
+```
+Error: object 'Riverdale' not found
+```
+
+R seems to think `Riverdale` should already exist somewhere, rather than treating it as the text you meant to store.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand R's character (text) data type, how to create and combine strings of text, and why quotes matter so much.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- What's different between `Riverdale` and `"Riverdale"` from R's point of view?
+- If you wanted to glue two pieces of text together — like a label and a name — what kind of tool would you need?
+:::
+
+## The R Concept
+
+**Character** data is text, and it must always be wrapped in quotes — either single (`'text'`) or double (`"text"`); this course uses double quotes consistently. Without quotes, R assumes you're referring to an *object name*, not literal text — which is exactly why `county <- Riverdale` failed: R went looking for an existing object called `Riverdale` and found none.
+
+Useful functions for working with character data:
+
+- **`nchar(x)`** — counts the number of characters in a string.
+- **`paste(...)`** — combines multiple pieces of text (and even numbers) into one string, separated by a space by default.
+- **`paste0(...)`** — same as `paste()`, but with no separator between pieces — handy when you want text glued together with no gap.
+
+```r
+nchar("Riverdale")             # 9
+paste("Participant from", "Riverdale")   # "Participant from Riverdale"
+paste0("ID_", 42)              # "ID_42"
+```
+
+## Demonstration
+
+```r
+county <- "Riverdale"
+class(county)
+```
+
+```
+[1] "character"
+```
+
+```r
+nchar(county)
+```
+
+```
+[1] 9
+```
+
+```r
+label <- paste("Participant from", county)
+label
+```
+
+```
+[1] "Participant from Riverdale"
+```
+
+```r
+participant_id <- paste0("ID_", 42)
+participant_id
+```
+
+```
+[1] "ID_42"
+```
+
+## Explore
+
+Try `paste("Participant from", county, sep = "-")` — the `sep` argument changes the default separator. What does the output look like now? Then try combining three pieces of text at once: `paste("Age:", 45, "County:", county)`.
+
+## Solve the Problem
+
+```r
+county <- "Riverdale"   # quotes required - this is text, not an object reference
+label <- paste("Participant from", county)
+label
+```
+
+```
+[1] "Participant from Riverdale"
+```
+
+The original error is fixed simply by adding quotes: R now correctly stores the literal text `"Riverdale"` rather than searching for a nonexistent object with that name.
+
+## Interpret the Result
+
+`label` now holds a complete, human-readable sentence built by combining fixed text (`"Participant from"`) with a stored value (`county`) — exactly the kind of thing you'd use to generate personalized summaries or labels across many participants at once (a technique you'll extend to entire columns of data later in the course).
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting quotes around text.** `county <- Riverdale` causes an "object not found" error, since R interprets unquoted text as an object reference, not literal text.
+- **Mixing up `"TRUE"` and `TRUE`.** `"TRUE"` (quoted) is character data — just the text "TRUE" — while `TRUE` (unquoted) is logical data. They look similar but behave very differently.
+- **Expecting `paste()` to add punctuation automatically.** `paste("Age:", 45)` produces `"Age: 45"` with the default single-space separator — if you want something else (a comma, no space), you need the `sep` argument.
+- **Confusing `paste()` and `paste0()`.** `paste("ID_", 42)` produces `"ID_ 42"` (note the space), while `paste0("ID_", 42)` produces `"ID_42"` — a small but common source of unwanted spaces in generated labels.
+:::
+
+## Practice Problem
+
+Create an object `city <- "Oakford"`. Use `paste0()` to build a string reading exactly `"Site: Oakford"` (no extra space after the colon).
+
+## Challenge Problem
+
+You have `first_name <- "Amara"` and `last_name <- "Okafor"`. Build a single string `full_id` that reads `"Okafor, Amara"` using `paste()` with an appropriate separator.
+
+## Key Takeaways
+
+- Character data must be quoted; unquoted text is interpreted as an object name and will error if that name doesn't exist.
+- `paste()` combines text with a space separator by default (customizable via `sep`); `paste0()` combines text with no separator.
+- `nchar()` counts the characters in a string — useful for spotting unexpectedly long or short text entries during data checks.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Which of these correctly stores the text "Female"?
+   a) `sex <- Female`
+   b) `sex <- "Female"`
+   c) `sex = Female`
+   d) `sex <- Female()`
+
+2. **True or false.** `paste0()` adds a space between combined pieces of text by default.
+
+3. **Predict the output.**
+   ```r
+   paste0("Visit_", 3)
+   ```
+
+4. **Find the error.**
+   ```r
+   status <- Active
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `sex <- "Female"` — quotes are required for text.
+2. **False.** `paste0()` uses no separator by default; `paste()` uses a single space by default.
+3. `[1] "Visit_3"`
+4. `Active` is unquoted, so R looks for an object named `Active` and fails. It should be `status <- "Active"`.
+
+</details>
+:::

@@ -1,0 +1,134 @@
+# Writing CSV Files {#sec-writing-csv}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've spent an hour cleaning and recoding the `participants` dataset — fixing capitalization, adding a BMI category column, filtering out a pilot test row. Your supervisor asks you to email the cleaned version to a colleague at another clinic, who doesn't use R at all. You need to get this data *out* of R and into a plain file they can open in Excel.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Save a data frame or tibble from R to a CSV file on disk.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If `read_csv()` reads a file *into* R, what do you imagine the mirror-image function for writing *out* of R might be called?
+- Your colleague doesn't use R — what file format would be usable by literally anyone, regardless of what software they have?
+:::
+
+## The R Concept
+
+**`write_csv()`** (from `readr`) saves a data frame or tibble to a CSV file:
+
+```r
+write_csv(data, "path/to/output.csv")
+```
+
+Base R has an equivalent, `write.csv()`, but with one especially important difference worth knowing: base R's `write.csv()` includes row names as an extra, unnamed first column by default, unless you explicitly turn that off (`row.names = FALSE`) — a common source of a mysterious extra column when colleagues open your file. `readr`'s `write_csv()` never adds row names, which is one of several reasons this course prefers it.
+
+```r
+write_csv(participants, "participants_cleaned.csv")       # readr - no extra column, ever
+write.csv(participants, "participants_cleaned.csv", row.names = FALSE)  # base R equivalent
+```
+
+## Demonstration
+
+```r
+library(readr)
+
+# A small cleaned example
+cleaned_sample <- data.frame(
+  id = c(1, 2, 3),
+  age = c(46, 53, 59),
+  county = c("Oakford", "Riverdale", "Oakford")
+)
+
+write_csv(cleaned_sample, "cleaned_sample.csv")
+```
+
+```r
+# Reading it back in confirms it saved correctly
+read_csv("cleaned_sample.csv")
+```
+
+```
+# A tibble: 3 x 3
+     id   age county
+  <dbl> <dbl> <chr>
+1     1    46 Oakford
+2     2    53 Riverdale
+3     3    59 Oakford
+```
+
+## Explore
+
+Try the base R equivalent without `row.names = FALSE`: `write.csv(cleaned_sample, "test_with_rownames.csv")`, then open the resulting file (or read it back with `read_csv()`) and look for an unexpected, unnamed first column containing `1, 2, 3` — the row names base R added automatically. Compare that to `write_csv()`'s output, which never has this issue.
+
+## Solve the Problem
+
+```r
+library(readr)
+
+participants <- read_csv("data/participants.csv")
+
+# ... cleaning steps happen here (Level 4 covers this properly) ...
+
+write_csv(participants, "participants_cleaned.csv")
+```
+
+The file `participants_cleaned.csv` is now saved in your working directory, ready to attach to an email — a plain CSV that opens correctly in Excel, Google Sheets, or any other spreadsheet software your colleague uses, with no R installation required on their end at all.
+
+## Interpret the Result
+
+`write_csv()` completing with no error message means the file was written successfully to disk. Unlike an R object living only in your current session (gone the moment you close RStudio, unless saved), a CSV file on disk persists permanently and can be opened by anyone — this is the entire point of *exporting* data, as opposed to just holding it in memory.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `row.names = FALSE` with base R's `write.csv()`.** Without it, an unwanted, unnamed row-number column gets added to the output file — a frequent source of confusion for whoever opens it next.
+- **Overwriting the original raw data file by accident.** Writing your cleaned output to the *same* filename as your original import (`data/participants.csv`) permanently destroys your original raw data — always write cleaned output to a clearly different filename.
+- **Forgetting the file extension.** `write_csv(data, "output")` (no `.csv`) still creates a file, just without the extension most software expects — always include `.csv` explicitly.
+:::
+
+## Practice Problem
+
+Create a small data frame with 3 participants' `id` and `bmi_category`, and write it to a file called `bmi_summary.csv` using `write_csv()`. Then read it back in to confirm it saved correctly.
+
+## Challenge Problem
+
+Explain, in one or two sentences, why writing your cleaned output to a new filename (like `participants_cleaned.csv`) rather than overwriting `data/participants.csv` is a form of the same "reproducibility" principle from Level 1 — specifically, what would you lose if the original raw file were gone and only the cleaned version remained?
+
+## Key Takeaways
+
+- `write_csv()` (readr) saves a data frame or tibble to disk as a CSV file, without adding an unwanted row-name column.
+- Base R's `write.csv()` requires `row.names = FALSE` explicitly to avoid that same extra column.
+- Always write cleaned or processed output to a new filename — never overwrite your original raw data file.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `write_csv()` do differently from base R's `write.csv()` by default?
+   a) It adds row names automatically
+   b) It never adds row names
+   c) It only works on numeric data
+   d) It requires a `.txt` extension
+
+2. **True or false.** It's safe to save your cleaned data by overwriting the original raw data file.
+
+3. **Predict the output.** After `write_csv(df, "out.csv")` runs successfully with no error, where does the resulting file live?
+
+4. **Write the code.** Write the code to save a tibble called `results` to a file named `results_final.csv`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** It never adds row names, unlike base R's `write.csv()` without `row.names = FALSE`.
+2. **False.** Always preserve the original raw file; write cleaned output to a new filename.
+3. In your current working directory, unless a different path was specified.
+4. `write_csv(results, "results_final.csv")`
+
+</details>
+:::

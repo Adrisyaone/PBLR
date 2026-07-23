@@ -1,0 +1,153 @@
+# Accessing Rows {#sec-accessing-rows}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your supervisor flags an unusual result and asks: "Can you pull up participant #42's entire record? I want to see everything we have on them — age, county, blood pressure, all of it." You know how to grab a single *column* across all rows. Now you need the opposite: a single *row*, across all columns.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Extract one or more complete rows from a data frame, keeping every column.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- A data frame is two-dimensional — rows and columns. If vector indexing used one number in `[ ]`, how many numbers (or positions) might a data frame need?
+- Do you think leaving one of those two positions blank might mean something specific, like "give me all of them"?
+:::
+
+## The R Concept
+
+Data frames are indexed with **two** positions inside the brackets, separated by a comma: `df[rows, columns]`. Leaving either side blank means "all of them":
+
+```r
+df[row_number, ]     # one full row, every column (note the comma!)
+df[, column_number]  # one full column, every row
+df[row_number, column_number]  # a single specific cell
+```
+
+This comma is what distinguishes row-and-column indexing from the single-bracket column shortcut you saw on the last page (`df["age"]`, no comma, meant something entirely different — a column by name).
+
+```r
+participants[42, ]      # participant #42's complete record, every column
+participants[1:5, ]     # the first 5 participants, every column
+participants[42, "age"] # just participant #42's age - a specific cell
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+participants[42, ]
+```
+
+```
+   id age  sex    county systolic_bp diastolic_bp  bmi smoker
+42 42  53 Male Springvale         135           86 30.4    Yes
+```
+
+```r
+participants[1:3, ]
+```
+
+```
+  id age    sex   county systolic_bp diastolic_bp  bmi smoker
+1  1  46 Female  Oakford         125           79 35.1     No
+2  2  53 Female Riverdale         123           80 27.7     No
+3  3  59 Female  Oakford         130           77 28.3     No
+```
+
+```r
+participants[42, "age"]
+```
+
+```
+[1] 53
+```
+
+## Explore
+
+Try `participants[42]` — the same thing, but *without* the comma. Notice this doesn't give you the row at all; it behaves like column-selection instead (specifically, it tries to select the 42nd *column*, which doesn't exist in an 8-column data frame, producing an error or unexpected result). The comma is not optional decoration — it fundamentally changes what R thinks you're asking for.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+# Participant #42's entire record, every column
+participants[42, ]
+```
+
+```
+   id age  sex    county systolic_bp diastolic_bp  bmi smoker
+42 42  53 Male Springvale         135           86 30.4    Yes
+```
+
+Your supervisor now has the complete picture for participant #42 in one line: 53 years old, male, from Springvale, with a systolic BP of 135, diastolic of 86, BMI of 30.4, and a current smoker.
+
+## Interpret the Result
+
+`participants[42, ]` returns a one-row data frame containing every variable recorded for that single participant — exactly the "everything we have on them" your supervisor asked for, rather than a bare vector, since a row genuinely mixes multiple data types (numbers and text together) that only a data frame (not a vector) can hold.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting the comma.** `participants[42, ]` (row 42, all columns) and `participants[42]` (attempting to select the 42nd column) are completely different operations — the comma is essential, not optional.
+- **Confusing row *position* with the `id` column's value.** `participants[42, ]` returns the 42nd *row* in the data frame — this only matches `id == 42` because the data happens to be sorted and unfiltered; after any filtering or reordering (Level 5 onward), row position and `id` value can diverge completely.
+- **Leaving a trailing comma off by habit from vector indexing.** Vectors use one index (`x[5]`); data frames need two, separated by a comma, even when you want "all columns" (in which case the space after the comma is simply left blank, not omitted).
+:::
+
+## Practice Problem
+
+Extract the complete records for participants 10 through 15 (using a range) from `participants`.
+
+## Challenge Problem
+
+Extract just participant #7's `county` and `smoker` values in a single expression (hint: the column position can also be a vector of column names, like `c("county", "smoker")`, inside the same two-position bracket syntax).
+
+## Key Takeaways
+
+- Data frames use two-position indexing, `df[rows, columns]`, separated by a comma; leaving one side blank means "all."
+- Omitting the comma entirely changes the meaning of the expression — it no longer refers to rows at all.
+- A single row returns a one-row data frame (since rows can mix types); a single column returns a vector (via `$` or `[[ ]]`) or a one-column data frame (via `[ ]`, from the previous page).
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `df[5, ]` return?
+   a) The 5th column
+   b) The 5th row, all columns
+   c) The first 5 rows
+   d) An error
+
+2. **True or false.** `df[5, ]` and `df[5]` do the same thing.
+
+3. **Predict the output.**
+   ```r
+   df <- data.frame(x = c(10, 20, 30), y = c("a", "b", "c"))
+   df[2, ]
+   ```
+
+4. **Find the error.** A student wants participant #10's record and writes:
+   ```r
+   participants[10]
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The 5th row, all columns.
+2. **False.** `df[5, ]` returns row 5 (all columns); `df[5]` attempts to select column 5 — the comma changes the meaning entirely.
+3.
+   ```
+     x y
+   2 20 b
+   ```
+4. Missing the comma — `participants[10]` attempts to select the 10th column, not row 10. It should be `participants[10, ]`.
+
+</details>
+:::

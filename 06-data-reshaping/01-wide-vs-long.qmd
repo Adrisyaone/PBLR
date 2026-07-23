@@ -1,0 +1,142 @@
+# Wide Format vs. Long Format {#sec-wide-vs-long}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor gives you `data/bp_visits_wide.csv`: 28 participants, one row each, with separate columns `sbp_visit1`, `sbp_visit2`, `sbp_visit3` for blood pressure at three clinic visits. You're asked to plot how blood pressure changes over time, using `visit` as one axis. But there's no single `visit` column to plot against — the visit information is baked into the *column names themselves*, not into any column's values.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Recognize the difference between wide format and long format data, and understand why some tasks require one shape or the other.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- In `sbp_visit1`, `sbp_visit2`, `sbp_visit3`, is "which visit" stored as a *value* somewhere, or as part of a *column name*?
+- If you wanted to `group_by(visit)` (Level 5) and compute a mean blood pressure per visit, could you do that if "visit" isn't an actual column containing values like `1`, `2`, `3`?
+:::
+
+## The R Concept
+
+**Wide format** stores one row per observational unit (here, one row per participant), with separate columns for each repeated measurement:
+
+```
+id  sbp_visit1  sbp_visit2  sbp_visit3
+1   125         120         117
+2   123         121         129
+```
+
+**Long format** stores one row per *combination* of observational unit and measurement occasion, with the measurement occasion itself living in a column:
+
+```
+id  visit   sbp
+1   visit1  125
+1   visit2  120
+1   visit3  117
+2   visit1  123
+2   visit2  121
+2   visit3  129
+```
+
+Both represent the *exact same information* — no data is gained or lost — but long format has an actual `visit` column you can `filter()`, `group_by()`, or plot against, while wide format encodes that same information into column names that dplyr functions can't directly reference as values.
+
+## Demonstration
+
+```r
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+names(bp_wide)
+```
+
+```
+[1] "id"           "county"       "clinic_site"  "sbp_visit1"
+[5] "sbp_visit2"   "sbp_visit3"   "weight_visit1" "weight_visit2"
+[9] "weight_visit3"
+```
+
+```r
+nrow(bp_wide)
+```
+
+```
+[1] 28
+```
+
+28 rows — one per participant — with visit information spread across six separate measurement columns (three for `sbp`, three for `weight`).
+
+## Explore
+
+Try `mean(bp_wide$sbp_visit1, na.rm = TRUE)`, then `mean(bp_wide$sbp_visit2, na.rm = TRUE)`, then `mean(bp_wide$sbp_visit3, na.rm = TRUE)` — three separate lines, one per visit, because there's no single `sbp` column to `group_by(visit)` on. This repetition is exactly the signal that a reshape is needed.
+
+## Solve the Problem
+
+```r
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+# Wide format: three repeated columns, one row per participant
+head(bp_wide[, c("id", "sbp_visit1", "sbp_visit2", "sbp_visit3")], 3)
+```
+
+```
+  id sbp_visit1 sbp_visit2 sbp_visit3
+1  1        125        120        117
+2  2        123        121        129
+3  3        130        128        124
+```
+
+There is no way to `group_by()` a "visit" here, because "visit" isn't a column of values — it's spread across three column *names*. The next page's `pivot_longer()` is exactly the tool that fixes this.
+
+## Interpret the Result
+
+`bp_wide` is a perfectly valid, common way to store repeated-measures data — and it's often the *easier* format for a human to read at a glance, comparing one participant's three visits side by side. But it's the wrong shape for `group_by(visit)`-style analysis or for plotting change over time, which is why reshaping tools exist at all: not to "fix" wide format, but to convert between the shape that's easy to *read* and the shape that's easy to *analyze*.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Assuming one format is objectively "correct."** Neither wide nor long is inherently better — wide is often better for reading and data entry; long is often better for `group_by()`-style analysis and plotting. The right shape depends on the task.
+- **Trying to `group_by()` a value that's actually a column name.** `group_by(bp_wide, visit)` fails outright — there is no `visit` column in wide format; the visit information lives in the column *names* `sbp_visit1`/`sbp_visit2`/`sbp_visit3`, not in any column's values.
+- **Forgetting reshaping doesn't change the underlying data.** Converting wide to long (or back) doesn't add, remove, or recalculate anything — it only changes which pieces of information are stored as column names versus column values.
+:::
+
+## Practice Problem
+
+Look at `bp_wide`'s `weight_visit1`, `weight_visit2`, `weight_visit3` columns. Without writing any reshaping code yet, describe in words what the long-format equivalent would look like: what would the column names be, and how many rows would it have?
+
+## Challenge Problem
+
+If `bp_wide` has 28 rows and 3 visits' worth of `sbp` columns, how many rows would a long-format version (one row per participant-visit combination, `sbp` only) have? What if you also included the `weight` measurements in the same long format?
+
+## Key Takeaways
+
+- Wide format has one row per unit, with repeated measurements spread across multiple columns.
+- Long format has one row per unit-and-occasion combination, with the occasion itself stored as an actual column of values.
+- Both formats hold identical information — the right choice depends on whether you're reading data by eye or feeding it into `group_by()`-style analysis or plotting.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** In wide format, how is repeated measurement information (like "visit number") typically stored?
+   a) In an actual column of values
+   b) Encoded in the column names
+   c) It cannot be stored in wide format at all
+   d) As row names
+
+2. **True or false.** Converting data from wide to long format changes the underlying values.
+
+3. **Predict the output.** If `bp_wide` has 28 rows and 3 visit columns for `sbp`, how many rows would the fully reshaped long format (`sbp` only) have?
+
+4. **Short answer.** Why can't you `group_by(bp_wide, visit)` directly on the wide-format data?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Encoded in the column names (e.g., `sbp_visit1`, `sbp_visit2`).
+2. **False.** Reshaping only changes the *shape* of the data (which information is a column name vs. a column value) — no values are added, removed, or recalculated.
+3. 84 rows (28 participants × 3 visits).
+4. There is no `visit` column in the wide-format data — the visit information is embedded in the column names (`sbp_visit1`, etc.), not stored as values `group_by()` can reference.
+
+</details>
+:::

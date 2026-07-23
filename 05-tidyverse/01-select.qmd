@@ -1,0 +1,170 @@
+# `select()` {#sec-select}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor asks for a simplified version of the dataset for a handout: just `id`, `age`, and `county` — none of the blood pressure, BMI, or smoking columns. In base R, you'd write `participants[, c("id", "age", "county")]` — functional, but the intent ("just give me these three columns") isn't especially obvious from the syntax itself.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Choose specific columns from a data frame using `dplyr::select()`, and understand why its syntax reads more directly than base R's bracket indexing.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 2, what did `participants[, c("id", "age", "county")]` do — which part specified rows, and which specified columns?
+- If a function were named literally after what it does — "select these columns" — what would you expect its arguments to look like?
+:::
+
+## The R Concept
+
+**`select()`**, from `dplyr` (part of the tidyverse), picks columns by name, with no quotes and no brackets required:
+
+```r
+library(dplyr)
+select(df, col1, col2, col3)
+```
+
+```r
+select(participants, id, age, county)
+```
+
+You can also **exclude** columns with a minus sign, mirroring Level 2's negative indexing:
+
+```r
+select(participants, -bmi)         # everything except bmi
+select(participants, -c(bmi, smoker))   # everything except bmi and smoker
+```
+
+And several helper functions let you select by *pattern* rather than typing every name: `starts_with("sys")`, `ends_with("_bp")`, `contains("bp")` — useful once a dataset has dozens of similarly named columns.
+
+## Demonstration
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+simplified <- select(participants, id, age, county)
+head(simplified, 3)
+```
+
+```
+  id age    county
+1  1  46   Oakford
+2  2  53 Riverdale
+3  3  59   Oakford
+```
+
+```r
+without_extras <- select(participants, -bmi, -smoker)
+names(without_extras)
+```
+
+```
+[1] "id"           "age"          "sex"          "county"       "systolic_bp"
+[6] "diastolic_bp"
+```
+
+```r
+bp_only <- select(participants, ends_with("_bp"))
+head(bp_only, 3)
+```
+
+```
+  systolic_bp diastolic_bp
+1         125           79
+2         123           80
+3         130           77
+```
+
+## Explore
+
+Try `select(participants, county, age, id)` — notice the *order* of the columns in the result matches the order you listed them in, not their original order in the dataset. This is a genuinely useful side effect: `select()` can reorder columns, not just filter which ones appear.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+handout_data <- select(participants, id, age, county)
+
+head(handout_data)
+```
+
+```
+  id age    county
+1  1  46   Oakford
+2  2  53 Riverdale
+3  3  59   Oakford
+4  4  49 Millbrook
+5  5  61 Millbrook
+6  6  18 Riverdale
+```
+
+```r
+ncol(handout_data)
+```
+
+```
+[1] 3
+```
+
+Exactly the three columns your professor asked for, in the order requested, with the code itself reading almost like the request: "select `id`, `age`, `county`."
+
+## Interpret the Result
+
+`handout_data` now contains only the three requested columns, ready to export (Level 3's `write_csv()`) or print directly for the handout — and reading the `select()` call back, its intent is immediately obvious in a way `participants[, c("id", "age", "county")]` requires a moment more thought to parse.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Quoting column names inside `select()`.** Unlike base R's bracket indexing, `select()` uses **unquoted** column names directly — `select(participants, "age")` still works, but `select(participants, age)` is the idiomatic tidyverse style.
+- **Forgetting the minus sign drops, rather than keeps, a column.** `select(participants, -age)` returns *every column except* `age` — a common first-encounter mix-up.
+- **Forgetting to load `dplyr`.** Like every package function since Level 1, `select()` requires `library(dplyr)` (or `library(tidyverse)`) first.
+:::
+
+## Practice Problem
+
+Use `select()` to create a data frame with just `county`, `smoker`, and `bmi`, in that order, and confirm with `names()` that the columns appear in the order you specified.
+
+## Challenge Problem
+
+Use `select()` with a helper function (`starts_with()`, `ends_with()`, or `contains()`) to select every column whose name contains the text `"bp"`, without typing `systolic_bp` or `diastolic_bp` by name individually.
+
+## Key Takeaways
+
+- `select(df, col1, col2, ...)` picks columns by unquoted name, reading more directly than base R's bracket-and-quotes indexing.
+- A minus sign (`-col`) excludes a column rather than selecting it; the order columns are listed in becomes their order in the result.
+- Helper functions like `starts_with()`, `ends_with()`, and `contains()` select columns by name pattern, useful for datasets with many similarly named variables.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `select(df, -age)` do?
+   a) Selects only the `age` column
+   b) Selects every column except `age`
+   c) Removes all rows where `age` is missing
+   d) Renames the `age` column
+
+2. **True or false.** Column names inside `select()` must be quoted.
+
+3. **Predict the output.** What columns (and in what order) would `select(df, county, id)` return, if `df` originally has columns in the order `id, age, county`?
+
+4. **Write the code.** Write the `select()` call to keep only `id` and `smoker` from `participants`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Selects every column except `age`.
+2. **False.** `select()` uses unquoted column names as its idiomatic style, though quoted names also work.
+3. `county` first, then `id` — in the order listed in the `select()` call, not the original order.
+4. `select(participants, id, smoker)`
+
+</details>
+:::

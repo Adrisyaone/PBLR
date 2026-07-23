@@ -1,0 +1,154 @@
+# Creating Data Frames {#sec-creating-data-frames}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've been recruiting participants for a small pilot study, and so far you've recorded each person's data in separate vectors as you went: an `id` vector, an `age` vector, a `sex` vector, and a `systolic_bp` vector. Your supervisor asks to see "the data" — but four loose, separate vectors floating around your R session isn't a dataset, it's four disconnected lists that happen to be the same length.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Combine several related vectors into a single, rectangular table — a data frame — where each vector becomes a column.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If four vectors are each the same length, and each position across them describes the same person, what would it mean to line them up side by side?
+- You've already used a data frame — `participants`, imported with `read.csv()` in Level 1. What did each column of that object actually turn out to be, based on what you learned two pages ago about vectors?
+:::
+
+## The R Concept
+
+A **data frame** is R's standard structure for rectangular, spreadsheet-like data: rows represent observations (here, participants), and columns represent variables (age, sex, blood pressure), with every column being a vector of the same length. In fact, `read.csv()` from Level 1 was doing exactly this the whole time — converting a CSV file's rows and columns into a data frame automatically.
+
+You build one directly with **`data.frame()`**:
+
+```r
+data.frame(column1 = vector1, column2 = vector2, ...)
+```
+
+```r
+pilot_data <- data.frame(
+  id = c(1, 2, 3),
+  age = c(45, 62, 38),
+  sex = c("Female", "Male", "Female")
+)
+```
+
+Every vector you pass in must be the **same length** — mismatched lengths raise an error, since R has no way to decide how a shorter vector's values should line up against a longer one.
+
+## Demonstration
+
+```r
+pilot_data <- data.frame(
+  id = c(1, 2, 3, 4),
+  age = c(45, 62, 38, 71),
+  sex = c("Female", "Male", "Female", "Male"),
+  systolic_bp = c(120, 145, 118, 152)
+)
+
+pilot_data
+```
+
+```
+  id age    sex systolic_bp
+1  1  45 Female         120
+2  2  62   Male         145
+3  3  38 Female         118
+4  4  71   Male         152
+```
+
+```r
+class(pilot_data)
+```
+
+```
+[1] "data.frame"
+```
+
+## Explore
+
+Try building a data frame from vectors of mismatched length — for example, `id = c(1, 2, 3)` alongside `age = c(45, 62)` (only two values). Predict the error message before running it: R will complain that "arguments imply differing number of rows."
+
+## Solve the Problem
+
+```r
+id <- c(1, 2, 3, 4)
+age <- c(45, 62, 38, 71)
+sex <- c("Female", "Male", "Female", "Male")
+systolic_bp <- c(120, 145, 118, 152)
+
+pilot_data <- data.frame(id, age, sex, systolic_bp)
+pilot_data
+```
+
+```
+  id age    sex systolic_bp
+1  1  45 Female         120
+2  2  62   Male         145
+3  3  38 Female         118
+4  4  71   Male         152
+```
+
+Now, instead of four disconnected vectors, you have a single object — `pilot_data` — that represents one coherent dataset, ready to hand to your supervisor or feed into any function that expects a data frame (which is most of the rest of this course).
+
+## Interpret the Result
+
+`pilot_data` bundles four separate vectors into one rectangular table where each row now represents a complete participant record — exactly the structure your supervisor expects when they ask to see "the data," and exactly what `read.csv()` was building for you automatically back in Level 1.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Mismatched vector lengths.** Every column passed to `data.frame()` must have the same number of elements — R will not guess how to pad a shorter vector.
+- **Forgetting column names inside `data.frame()`.** `data.frame(id, age, sex)` (as shown in the solution) works and reuses the object names as column names automatically — but if you instead pass unnamed literal vectors like `data.frame(c(1,2,3))`, you'll get an unhelpful auto-generated column name like `c.1..2..3.`.
+- **Assuming character columns become factors automatically.** In older versions of R, character columns were silently converted to factors inside `data.frame()` by default; modern R (4.0 and later) keeps them as character unless you explicitly convert them — worth knowing if you ever read documentation or code written for older R versions.
+:::
+
+## Practice Problem
+
+Create a data frame `visit_log` with columns `participant_id = c(101, 102, 103)`, `visit_date = c("2026-01-05", "2026-01-06", "2026-01-06")`, and `completed = c(TRUE, TRUE, FALSE)`. Confirm its class and print it.
+
+## Challenge Problem
+
+Someone hands you four vectors: `name <- c("Amara", "Priya")`, `age <- c(34, 41)`, `bp <- c(118, 132, 140)`, and `smoker <- c(TRUE, FALSE)`. Attempting `data.frame(name, age, bp, smoker)` will fail. Identify which vector is the problem and explain, in one sentence, exactly why data frames require this constraint.
+
+## Key Takeaways
+
+- A data frame bundles multiple same-length vectors into one rectangular table, with each vector becoming a column.
+- `data.frame(col1 = vec1, col2 = vec2, ...)` builds one directly; every column must have the same number of elements.
+- `read.csv()` (Level 1) was building a data frame the entire time — importing a file is really just constructing a data frame from its rows and columns.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What must be true of every vector passed into `data.frame()`?
+   a) They must all be numeric
+   b) They must all be the same length
+   c) They must all have names
+   d) They must all be factors
+
+2. **True or false.** `read.csv()` and `data.frame()` produce objects of the same class.
+
+3. **Predict the output.**
+   ```r
+   df <- data.frame(x = c(1, 2), y = c("a", "b"))
+   class(df)
+   ```
+
+4. **Find the error.**
+   ```r
+   data.frame(id = c(1, 2, 3), age = c(45, 62))
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** They must all be the same length.
+2. **True.** `read.csv()` returns a `data.frame`, exactly like a direct `data.frame()` call.
+3. `[1] "data.frame"`
+4. `id` has 3 values but `age` has only 2 — mismatched lengths raise an error ("arguments imply differing number of rows").
+
+</details>
+:::

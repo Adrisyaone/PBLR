@@ -1,0 +1,175 @@
+# Range, Variance, and Standard Deviation {#sec-measures-of-spread}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Two counties could have the exact same mean systolic blood pressure, yet look completely different in practice — one where almost everyone clusters tightly around that average, another where readings swing wildly from very low to very high. The mean alone (Level 2) can't tell these two situations apart. Your professor wants a number that captures **how spread out** the data is, not just its center.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Compute and interpret the three most common measures of spread: range, variance, and standard deviation.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If every participant had exactly the same blood pressure reading, what would the "spread" of that data be?
+- The **range** is the distance between the smallest and largest value. Is a single very extreme outlier likely to affect the range a little, or a lot?
+:::
+
+## The R Concept
+
+The **range** is simply the difference between the maximum and minimum values:
+
+```r
+max(x, na.rm = TRUE) - min(x, na.rm = TRUE)
+# or, more directly:
+range(x, na.rm = TRUE)   # returns c(min, max)
+```
+
+**Variance** measures the average squared distance of each value from the mean — squaring makes every deviation positive and emphasizes larger deviations more heavily:
+
+```r
+var(x, na.rm = TRUE)
+```
+
+**Standard deviation** is the square root of variance, which brings the measure back into the *same units* as the original data (unlike variance, which is in squared units) — making it the far more commonly reported of the two:
+
+```r
+sd(x, na.rm = TRUE)
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+range(participants$age, na.rm = TRUE)
+```
+
+```
+[1] 18 81
+```
+
+```r
+var(participants$age, na.rm = TRUE)
+```
+
+```
+[1] 226.0105
+```
+
+```r
+sd(participants$age, na.rm = TRUE)
+```
+
+```
+[1] 15.0336
+```
+
+Ages range from 18 to 81 (a 63-year span), with a standard deviation of about 15 years — meaning a "typical" participant's age deviates from the mean (47.43) by roughly 15 years in either direction.
+
+## Explore
+
+Try computing `sd(participants$systolic_bp, na.rm = TRUE)` and `sd(participants$bmi, na.rm = TRUE)`. Compare their relative sizes to their means — a standard deviation of 15 means something very different for a variable averaging 47 than it would for one averaging 130.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+age_range <- range(participants$age, na.rm = TRUE)
+age_sd <- sd(participants$age, na.rm = TRUE)
+
+bp_range <- range(participants$systolic_bp, na.rm = TRUE)
+bp_sd <- sd(participants$systolic_bp, na.rm = TRUE)
+
+age_range
+```
+
+```
+[1] 18 81
+```
+
+```r
+age_sd
+```
+
+```
+[1] 15.0336
+```
+
+```r
+bp_range
+```
+
+```
+[1]  90 179
+```
+
+```r
+bp_sd
+```
+
+```
+[1] 18.8709
+```
+
+Age spans 63 years with an SD of about 15; systolic blood pressure spans 89 points (90 to 179) with an SD of about 18.9 — both meaningfully spread out, but on entirely different scales, which is exactly why reporting the units alongside any spread measure matters.
+
+## Interpret the Result
+
+A standard deviation of 15.03 years for `age` tells you that most participants fall within roughly 32 to 62 years of age (mean ± 1 SD) — a genuinely wide range for this study. Systolic blood pressure's SD of 18.87 similarly indicates substantial participant-to-participant variation, not a tightly clustered sample. Neither the range nor the SD by itself tells the complete story — the range is entirely determined by just two extreme values, while the SD reflects the spread of *every* value at once, which is why SD is usually the more informative of the two for describing a full distribution.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Reporting variance instead of standard deviation in a written summary.** Variance is in *squared* units (e.g., "years²"), which is rarely meaningful to a reader — always convert to standard deviation (or report both, with SD emphasized) before writing up results.
+- **Relying on the range alone to describe spread.** The range depends entirely on the two most extreme values in the entire dataset — a single unusually high or low measurement can make the range look far more dramatic than the data's typical spread actually is.
+- **Forgetting `na.rm = TRUE` for `var()` and `sd()`, not just `mean()`.** Every one of these functions follows the same Level 2 rule: any missing value makes the result `NA` unless explicitly told to remove it first.
+:::
+
+## Practice Problem
+
+Compute the range, variance, and standard deviation of `bmi`. Given BMI's mean (27.12) and SD, would a BMI of 40 be unusually far from typical, or well within the range you'd expect for this sample?
+
+## Challenge Problem
+
+Compute the standard deviation of `systolic_bp` separately for smokers and non-smokers (hint: use `participants$systolic_bp[participants$smoker == "Yes"]` from Level 2's logical indexing, or `filter()` from Level 5). Does blood pressure appear more variable within one smoking group than the other?
+
+## Key Takeaways
+
+- Range is the distance between the minimum and maximum values — simple, but sensitive to just two extreme data points.
+- Variance measures average squared distance from the mean; standard deviation (its square root) restates that spread in the data's original units, making it far easier to interpret.
+- A measure of central tendency (Page 1) and a measure of spread (this page) together give a far more complete picture than either alone.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What units is standard deviation expressed in, relative to the original data?
+   a) Squared units
+   b) The same units as the original data
+   c) Always a percentage
+   d) Unitless
+
+2. **True or false.** The range is affected only by the two most extreme values in a dataset, regardless of how the rest of the data is distributed.
+
+3. **Predict the output.** If every value in a vector were identical, what would `sd(x)` equal?
+
+4. **Find the error.**
+   ```r
+   cat("The typical age varies by about", var(participants$age, na.rm = TRUE), "years from the mean.")
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The same units as the original data — this is precisely why SD is reported far more often than variance.
+2. **True.** The range depends entirely on the minimum and maximum; every other value in between has no effect on it whatsoever.
+3. `0` — with no variation among identical values, there is no spread at all.
+4. This reports `var()` (variance, in squared years) as if it were a spread measured in years — but variance and standard deviation are not interchangeable. It should use `sd(participants$age, na.rm = TRUE)` instead, which is in the same units (years) as the original data.
+
+</details>
+:::

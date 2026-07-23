@@ -1,0 +1,147 @@
+# Saving Plots with `ggsave()` {#sec-saving-plots}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Every plot built in this level so far only exists inside your R session — visible while you're working, but gone the moment you close RStudio, and impossible to paste into a Word document or slide deck your professor asked for. You need an actual image file on disk: a `.png` or `.pdf` you can attach to an email or drop into a report.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Save a `ggplot2` plot to an image file using `ggsave()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 3, what did `write_csv()` need to know in order to save a data frame to disk? Would you expect a plot-saving function to need similar information?
+- If you don't tell `ggsave()` which plot to save, what do you think it saves instead?
+:::
+
+## The R Concept
+
+**`ggsave()`** writes the most recently displayed (or a specifically named) plot to an image file, with the format determined automatically by the file extension:
+
+```r
+ggsave("filename.png", plot = my_plot, width = 8, height = 6, dpi = 300)
+```
+
+- `"filename.png"` — the file to create; `.png`, `.pdf`, `.jpg`, and `.svg` are all supported, chosen by the extension.
+- `plot = my_plot` — which saved plot object to write; if omitted, `ggsave()` saves whatever plot was most recently displayed.
+- `width`, `height` — the image's dimensions, typically in inches.
+- `dpi` — resolution ("dots per inch"); 300 is a common standard for print-quality output.
+
+## Demonstration
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+bmi_bp_plot <- ggplot(data = participants, mapping = aes(x = bmi, y = systolic_bp)) +
+  geom_point() +
+  labs(
+    title = "BMI and Systolic Blood Pressure",
+    x = "Body Mass Index (BMI)",
+    y = "Systolic Blood Pressure (mmHg)"
+  ) +
+  theme_minimal()
+
+ggsave("bmi_bp_scatter.png", plot = bmi_bp_plot, width = 8, height = 6, dpi = 300)
+```
+
+This creates a file called `bmi_bp_scatter.png` in your working directory (Level 1) — a standalone image file, ready to attach to an email, insert into a Word document, or embed in a slide deck.
+
+## Explore
+
+Try saving the same plot twice: once as `"bmi_bp_scatter.png"` and once as `"bmi_bp_scatter.pdf"`. Both calls use the exact same `ggsave()` syntax — only the file extension changes, and `ggsave()` picks the appropriate image format based on it.
+
+## Solve the Problem
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+county_bar_chart <- ggplot(data = participants, mapping = aes(x = county)) +
+  geom_bar() +
+  labs(
+    title = "Number of Participants by County",
+    x = "County",
+    y = "Number of Participants"
+  ) +
+  theme_minimal()
+
+ggsave("county_bar_chart.png", plot = county_bar_chart, width = 8, height = 5, dpi = 300)
+
+file.exists("county_bar_chart.png")
+```
+
+```
+[1] TRUE
+```
+
+`file.exists()` (Level 3) confirms the image file was actually written to disk — ready to attach to your professor's report exactly as requested.
+
+## Interpret the Result
+
+`county_bar_chart.png` now exists as a genuine file on disk, independent of your R session — closing RStudio, restarting your computer, or emailing the file to someone without R installed at all doesn't affect it, unlike a plot that only exists as an object in your current session's memory.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting to specify `plot = ...` when the intended plot isn't the most recently displayed one.** `ggsave()` defaults to saving whatever was last shown on screen — if you've displayed a different plot since building the one you actually want saved, omitting `plot = ...` silently saves the wrong image.
+- **Choosing a `dpi` too low for print use.** The default `dpi = 300` is standard for print-quality output; much lower values (like 72, common for web images) can look blurry or pixelated when printed or zoomed into.
+- **Not checking the file actually saved where expected.** Like Level 3's `write_csv()`, `ggsave()` writes relative to your current working directory (Level 1) unless given a full file path — always confirm with `file.exists()` or by checking your file browser.
+:::
+
+## Practice Problem
+
+Save the BMI-by-smoking-status boxplot (Page 5) as `"bmi_smoker_boxplot.png"`, with `width = 7`, `height = 5`, and `dpi = 300`. Confirm the file exists afterward.
+
+## Challenge Problem
+
+Save the same plot in three different formats (`.png`, `.pdf`, `.svg`) using three separate `ggsave()` calls, and research (or predict from what you know about file formats generally) one practical difference between a `.png` and an `.svg` file that might matter for a report intended to be resized or printed at large scale.
+
+## Key Takeaways
+
+- `ggsave("filename.ext", plot = my_plot, width = ..., height = ..., dpi = ...)` writes a `ggplot2` plot to an image file, with format determined by the file extension.
+- Without an explicit `plot = ...` argument, `ggsave()` saves whichever plot was most recently displayed — not necessarily the one you intend.
+- A saved image file persists independently of your R session, unlike a plot object that exists only in memory until saved.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What determines the image format `ggsave()` writes?
+   a) The `dpi` argument
+   b) The file extension in the filename
+   c) The `width` and `height` arguments
+   d) `ggsave()` always writes `.png` regardless
+
+2. **True or false.** If `plot = ...` is omitted, `ggsave()` saves whichever plot object appears first (alphabetically) in your environment.
+
+3. **Predict the output.** After `ggsave("my_plot.png", plot = my_plot)`, what would `file.exists("my_plot.png")` return, assuming the save succeeded?
+
+4. **Find the error.**
+   ```r
+   ggplot(data = participants, aes(x = bmi)) +
+     geom_histogram(binwidth = 5)
+
+   plot1 <- ggplot(data = participants, aes(x = age)) +
+     geom_histogram(binwidth = 10)
+
+   ggsave("age_histogram.png", width = 8, height = 6)
+   # intended to save plot1 (the age histogram)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The file extension in the filename (`.png`, `.pdf`, `.jpg`, `.svg`, etc.).
+2. **False.** Without `plot = ...`, `ggsave()` saves whichever plot was most recently *displayed*, not the first one alphabetically in the environment.
+3. `TRUE`.
+4. The BMI histogram was displayed last (even though `plot1`, the age histogram, was assigned afterward but never explicitly shown), so `ggsave()` without `plot = ...` would save the wrong plot. It should explicitly specify `ggsave("age_histogram.png", plot = plot1, width = 8, height = 6)`.
+
+</details>
+:::

@@ -1,0 +1,210 @@
+# Level 7 Capstone: A Descriptive Statistics Report {#sec-descriptive-stats-capstone}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor's final request for this level: write the opening paragraph of a study report — the "Table 1" every published health study begins with, describing the sample before any deeper analysis. It needs to state, clearly and correctly: how many participants, their age and BMI (center and spread), the sex and smoking breakdown, and how blood pressure varies by county — pulling together every tool from this entire level.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Assemble a complete descriptive statistics report from `participants.csv`, combining central tendency, spread, frequency tables, and grouped summaries into one coherent set of findings.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Looking back over this level's seven pages, which functions would you need to describe a single *numeric* variable like `age` completely (center, spread, and missingness)?
+- Which functions would you need to describe a single *categorical* variable like `sex` or `smoker` completely (counts and percentages)?
+:::
+
+## The R Concept
+
+A complete descriptive report typically combines, for each numeric variable: `mean()`, `median()`, `sd()`, `range()`, and a missing-value count; and for each categorical variable: `table()` and `prop.table()`. `dplyr`'s `group_by()` + `summarise()` (Level 5) extends this to grouped numeric summaries, like blood pressure by county.
+
+```r
+numeric_summary <- function(x) {
+  c(
+    n_valid = sum(!is.na(x)),
+    n_missing = sum(is.na(x)),
+    mean = round(mean(x, na.rm = TRUE), 2),
+    sd = round(sd(x, na.rm = TRUE), 2),
+    median = median(x, na.rm = TRUE),
+    min = min(x, na.rm = TRUE),
+    max = max(x, na.rm = TRUE)
+  )
+}
+```
+
+## Demonstration
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+nrow(participants)
+```
+
+```
+[1] 100
+```
+
+```r
+round(mean(participants$age, na.rm = TRUE), 2)
+```
+
+```
+[1] 47.43
+```
+
+```r
+round(sd(participants$age, na.rm = TRUE), 2)
+```
+
+```
+[1] 15.03
+```
+
+```r
+round(prop.table(table(participants$sex)) * 100, 1)
+```
+
+```
+Female   Male
+  52.0   48.0
+```
+
+## Explore
+
+Try wrapping the numeric-summary calculations above into a small reusable function (a Level 9 preview), taking a column as input and returning a named vector of statistics — so you don't have to retype `mean()`, `sd()`, `median()`, `min()`, and `max()` separately for every variable in the report.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+# Sample size
+n_total <- nrow(participants)
+
+# Age: center, spread, missingness
+age_mean <- round(mean(participants$age, na.rm = TRUE), 2)
+age_sd <- round(sd(participants$age, na.rm = TRUE), 2)
+age_median <- median(participants$age, na.rm = TRUE)
+age_missing <- sum(is.na(participants$age))
+
+# BMI: center and spread
+bmi_mean <- round(mean(participants$bmi, na.rm = TRUE), 2)
+bmi_sd <- round(sd(participants$bmi, na.rm = TRUE), 2)
+
+# Sex breakdown
+sex_pct <- round(prop.table(table(participants$sex)) * 100, 1)
+
+# Smoking status
+smoker_pct <- round(prop.table(table(participants$smoker)) * 100, 1)
+
+# Blood pressure by county
+bp_by_county <- participants |>
+  group_by(county) |>
+  summarise(n = n(), mean_sbp = round(mean(systolic_bp, na.rm = TRUE), 2)) |>
+  arrange(desc(mean_sbp))
+
+n_total
+```
+
+```
+[1] 100
+```
+
+```r
+age_mean
+```
+
+```
+[1] 47.43
+```
+
+```r
+sex_pct
+```
+
+```
+Female   Male
+  52.0   48.0
+```
+
+```r
+bp_by_county
+```
+
+```
+# A tibble: 5 x 3
+  county          n mean_sbp
+  <chr>       <int>    <dbl>
+1 Millbrook      21   133.30
+2 Springvale     26   131.46
+3 Oakford        17   129.71
+4 Cedar Falls    20   128.16
+5 Riverdale      16   124.36
+```
+
+Every number your professor's Table 1 paragraph needs is now computed: sample size, age center and spread, sex breakdown, smoking rate, and blood pressure ranked by county.
+
+## Interpret the Result
+
+Putting it into a written paragraph:
+
+*"The study sample included 100 participants, with a mean age of 47.4 years (SD = 15.0, 6 missing) and mean BMI of 27.1 (SD = 4.6). The sample was 52% female and 48% male, and 25% of participants reported current smoking. Mean systolic blood pressure ranged from 124.4 mmHg in Riverdale to 133.3 mmHg in Millbrook across the study's five counties."*
+
+Every number in that paragraph traces directly back to a specific function call from this level — nothing was estimated or eyeballed. This is exactly the kind of opening paragraph a published health study begins with, built entirely from tools covered across eight pages.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Reporting a mean without its missing-value count.** "Mean age was 47.4" is incomplete without also noting that 6 of 100 ages were missing — a reader needs to know how much of the sample that mean actually reflects.
+- **Rounding at different points inconsistently.** Rounding `age_mean` to 2 decimals but leaving `bp_by_county`'s means unrounded (or rounded differently) makes a report look inconsistent — decide on a rounding convention and apply it uniformly.
+- **Writing the narrative paragraph before double-checking every number against its source calculation.** It's easy to transpose two percentages, or misremember which county had the highest blood pressure, when translating numbers into prose — always re-verify each stated number against the code that produced it before finalizing a report.
+:::
+
+## Practice Problem
+
+Extend the report to include the smoking percentage by sex (from Level 7's cross-tabulation page) as an additional sentence in the paragraph.
+
+## Challenge Problem
+
+Write a complete "Table 1" for just the subset of participants aged 65 and older (Level 5's `filter()`), reporting sample size, mean age, mean BMI, sex breakdown, and smoking rate for this older subgroup specifically. How does this subgroup's profile compare to the full sample's?
+
+## Key Takeaways
+
+- A complete descriptive report combines central tendency, spread, and missingness for numeric variables, and counts with percentages for categorical variables.
+- `group_by()` + `summarise()` (Level 5) extends single-variable descriptive statistics into grouped comparisons, like blood pressure by county.
+- Every number in a written report should be traceable back to a specific, reproducible calculation — never eyeballed or estimated.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Which piece of information should always accompany a reported mean for a variable with missing data?
+   a) The variable's storage type
+   b) The count (or percentage) of missing values
+   c) The variable's alphabetical position in the data frame
+   d) Nothing extra is needed
+
+2. **True or false.** A complete descriptive report only needs numeric summaries; categorical variables don't need to be described.
+
+3. **Predict the output.** Given the reported percentages (52% female, 48% male), would you expect these two numbers to sum to 100?
+
+4. **Short answer.** Why is it good practice to re-verify every number in a written report paragraph against its source calculation before finalizing it?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The count or percentage of missing values, so a reader knows how much of the sample the reported mean actually reflects.
+2. **False.** Categorical variables (like `sex` and `smoker`) need their own counts and percentages — a complete report describes every relevant variable, numeric and categorical alike.
+3. Yes — since every participant has exactly one recorded sex in this dataset, the two percentages should sum to 100.
+4. Numbers are easy to transpose, mis-round, or misremember when translating from code output into prose — a final verification pass catches these errors before they reach a reader who may take the report at face value.
+
+</details>
+:::

@@ -1,0 +1,157 @@
+# Changing Variable Types: Character to Factor {#sec-character-to-factor}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 11 will teach you to model whether a participant smokes as a predictor of blood pressure. Statistical modeling functions in R generally expect categorical predictors to be **factors**, not plain character text — and beyond that, you'd like `"No"` (not `"Yes"`) treated as the baseline, reference category for that future model, since "compared to non-smokers" is the natural way to phrase the result.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Convert a character column into a factor, with explicit control over which category serves as the reference level.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 2, what argument to `factor()` controls the order of its categories?
+- If a factor's *first* level is typically treated as its reference or baseline category by modeling functions, which category would you want listed first for `smoker`?
+:::
+
+## The R Concept
+
+`as.factor(x)` performs a basic character-to-factor conversion, but — exactly like Level 2's factors page warned — it defaults to **alphabetical** level order, which is not necessarily the order you want for a reference category. Building the factor explicitly with `factor()` and a specified `levels` argument gives you full control:
+
+```r
+factor(x, levels = c("reference_category", "other_category"))
+```
+
+```r
+smoker_factor <- factor(participants$smoker, levels = c("No", "Yes"))
+```
+
+Whichever category is listed *first* in `levels` becomes the factor's reference level — the one every other category is implicitly compared against in a model like the ones you'll build starting in Level 11.
+
+::: {.callout-note}
+## `relevel()` as an alternative
+If a factor already exists with the wrong reference level, `relevel(x, ref = "No")` changes just the reference level without rebuilding the whole factor from scratch. Both approaches — specifying `levels` up front, or `relevel()` afterward — arrive at the same result.
+:::
+
+## Demonstration
+
+```r
+smoker_raw <- c("Yes", "No", "No", "Yes", "No")
+
+# Basic conversion - defaults to alphabetical order ("No" happens to come first anyway here)
+as.factor(smoker_raw)
+```
+
+```
+[1] Yes No  No  Yes No
+Levels: No Yes
+```
+
+```r
+# Explicit, deliberate order - not relying on alphabetical coincidence
+smoker_factor <- factor(smoker_raw, levels = c("No", "Yes"))
+smoker_factor
+```
+
+```
+[1] Yes No  No  Yes No
+Levels: No Yes
+```
+
+```r
+levels(smoker_factor)
+```
+
+```
+[1] "No"  "Yes"
+```
+
+## Explore
+
+Try a category pair where alphabetical order would *not* match your intended reference level — for instance, `treatment_group <- c("Treatment", "Control", "Treatment", "Control")`. Run `as.factor(treatment_group)` and notice `"Control"` happens to come first alphabetically anyway; now imagine categories named `"Drug A"` and `"Placebo"` instead, where alphabetical order (`"Drug A"` first) would *not* match the reference level a researcher would actually want (`"Placebo"` as baseline) — exactly the situation explicit `levels` protects against.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+participants$smoker_factor <- factor(participants$smoker, levels = c("No", "Yes"))
+
+levels(participants$smoker_factor)
+```
+
+```
+[1] "No"  "Yes"
+```
+
+```r
+table(participants$smoker_factor)
+```
+
+```
+ No Yes
+ 75  25
+```
+
+`"No"` is now explicitly the first, reference level — guaranteed by the deliberate `levels` argument, not by alphabetical coincidence — ready for Level 11's modeling functions to correctly interpret smoking status as "smoker vs. the reference non-smoker group."
+
+## Interpret the Result
+
+`levels(participants$smoker_factor)` confirms `"No"` is listed first, and `table()` confirms 75 non-smokers and 25 current smokers in the sample — the factor is now both correctly typed for modeling and explicitly, deliberately ordered, rather than relying on alphabetical order to happen to produce the right reference category.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Relying on `as.factor()`'s alphabetical default without checking whether it matches your intended reference category.** It happens to work for `"No"`/`"Yes"` (alphabetically, `"No"` comes first anyway), but this is coincidence, not something to depend on for every categorical variable.
+- **Assuming factor order doesn't matter until you actually build a model.** It matters immediately for how `table()`, plots (Level 8), and summaries display the category — not just for eventual regression output.
+- **Forgetting a factor still displays its labels, even though it's stored as integers internally.** `smoker_factor` prints as `"Yes"`/`"No"` text, exactly as expected — the underlying integer codes (Level 2) are an implementation detail, not something you need to manage directly.
+:::
+
+## Practice Problem
+
+Convert `participants$sex` into a factor with `"Male"` as the reference (first) level, even though `"Female"` would come first alphabetically. Confirm with `levels()` that `"Male"` is listed first.
+
+## Challenge Problem
+
+A colleague's model output describes an effect as "relative to Riverdale," implying `county` was converted to a factor with Riverdale as the reference level. Write the `factor()` call that would produce this, given the five counties in `participants$county` (Cedar Falls, Millbrook, Oakford, Riverdale, Springvale) — you determined the correct full set of counties back in Level 2.
+
+## Key Takeaways
+
+- `as.factor()` performs a basic conversion but defaults to alphabetical level order, which may not match your intended reference category.
+- `factor(x, levels = c("reference", ...))` gives explicit, deliberate control over which category is the reference (first) level.
+- Getting the reference level right matters immediately for tables and plots, not just for eventual regression models in Level 11.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What determines a factor's reference level, when built with `factor(x, levels = c(...))`?
+   a) Whichever category is most frequent
+   b) Whichever category is listed first in `levels`
+   c) Whichever category is alphabetically last
+   d) It's always chosen randomly
+
+2. **True or false.** `as.factor()` always produces the same reference level as an explicit `factor(x, levels = ...)` call.
+
+3. **Predict the output.**
+   ```r
+   f <- factor(c("High", "Low"), levels = c("Low", "High"))
+   levels(f)
+   ```
+
+4. **Write the code.** Write the code to convert a character vector `outcome <- c("Improved", "Not Improved")` into a factor with `"Not Improved"` as the reference (first) level.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Whichever category is listed first in `levels`.
+2. **False.** `as.factor()` defaults to alphabetical order, which only matches an explicit `levels` specification by coincidence.
+3. `[1] "Low"  "High"`
+4. `factor(outcome, levels = c("Not Improved", "Improved"))`
+
+</details>
+:::

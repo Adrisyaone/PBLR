@@ -1,0 +1,155 @@
+# Frequency Tables and Proportions {#sec-frequency-tables}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor wants to know: "What percentage of participants are current smokers?" You know `table(participants$smoker)` from Level 4 gives raw counts (75 No, 25 Yes) — but a raw count of 25 doesn't directly answer a question phrased in terms of *percentage*. You need to convert those counts into proportions yourself.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Convert a frequency table's raw counts into proportions and percentages using `prop.table()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If 25 out of 100 participants smoke, what proportion (a number between 0 and 1) does that represent? What percentage?
+- From Level 4, what does `table(participants$smoker)` return — and could you divide that result by the total number of participants yourself, without a dedicated function?
+:::
+
+## The R Concept
+
+**`prop.table()`** takes a table of counts (from `table()`) and converts every count into a proportion of the total:
+
+```r
+counts <- table(x)
+prop.table(counts)
+```
+
+Multiplying by 100 converts proportions into percentages:
+
+```r
+round(prop.table(counts) * 100, 1)
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+smoker_counts <- table(participants$smoker)
+smoker_counts
+```
+
+```
+ No Yes
+ 75  25
+```
+
+```r
+prop.table(smoker_counts)
+```
+
+```
+  No  Yes
+0.75 0.25
+```
+
+```r
+round(prop.table(smoker_counts) * 100, 1)
+```
+
+```
+  No  Yes
+75.0 25.0
+```
+
+75% of participants are non-smokers, 25% are current smokers — the exact percentage your professor asked for, computed directly from the raw counts you already knew how to produce.
+
+## Explore
+
+Try `table(participants$county)` followed by `round(prop.table(table(participants$county)) * 100, 1)`. With 5 counties, confirm the percentages sum to (approximately) 100% — small rounding differences can occur when percentages don't divide evenly.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+county_counts <- table(participants$county)
+county_percentages <- round(prop.table(county_counts) * 100, 1)
+
+county_counts
+```
+
+```
+Cedar Falls   Millbrook     Oakford   Riverdale  Springvale
+         20          21          17          16          26
+```
+
+```r
+county_percentages
+```
+
+```
+Cedar Falls   Millbrook     Oakford   Riverdale  Springvale
+       20.0        21.0        17.0        16.0        26.0
+```
+
+Springvale is both the largest county by raw count (26 participants) and by percentage (26.0%) — with Riverdale the smallest at 16 participants (16.0%). Since these percentages happen to divide evenly (all counts are whole percentages of 100), they sum to exactly 100%.
+
+## Interpret the Result
+
+Reporting "26% of participants are from Springvale" is far more interpretable to most readers than "26 participants are from Springvale" without knowing the total — `prop.table()` is what turns Level 4's raw `table()` counts into the percentages that actually appear in published health reports.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `prop.table()` operates on the *table*, not the original vector.** `prop.table(participants$county)` (passing the raw column) doesn't work as intended — `prop.table()` expects a `table()` object as input, not the original data.
+- **Not rounding before displaying percentages.** `prop.table(counts) * 100` alone can produce long, hard-to-read decimals (like `16.666666...`) — `round(..., 1)` keeps a report readable without implying false precision.
+- **Reporting percentages without also reporting the underlying counts.** A percentage alone ("25% smoke") hides the sample size behind it — 25% of 100 participants carries very different weight than 25% of just 8, so both numbers usually belong together in a report.
+:::
+
+## Practice Problem
+
+Compute the percentage of participants who are `"Female"` versus `"Male"` using `table()` and `prop.table()` on the `sex` column.
+
+## Challenge Problem
+
+Compute `table(participants$smoker)` percentages both including and excluding any missing values (check whether `smoker` has any `NA`s first with `sum(is.na(participants$smoker))`). Does handling missing values change the reported percentages meaningfully in this case?
+
+## Key Takeaways
+
+- `prop.table(table(x))` converts a frequency table's raw counts into proportions (summing to 1).
+- Multiplying by 100 and rounding produces reader-friendly percentages.
+- Always report percentages alongside their underlying counts, so a reader can judge how much data the percentage is actually based on.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `prop.table()` expect as its input?
+   a) A raw data frame
+   b) A `table()` object of counts
+   c) A single numeric value
+   d) A character vector
+
+2. **True or false.** Proportions from `prop.table()` always sum to exactly 1.
+
+3. **Predict the output.** If 40 out of 100 participants are male, what would `prop.table(table(sex))["Male"]` return?
+
+4. **Find the error.**
+   ```r
+   prop.table(participants$smoker)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A `table()` object of counts — `prop.table()` converts counts to proportions, so it needs a table as input.
+2. **True.** By definition, every category's count divided by the total will sum to exactly 1 (aside from potential floating-point rounding at many decimal places).
+3. `0.4`.
+4. `prop.table()` was given the raw `smoker` column directly, rather than a `table()` of its counts. It should be `prop.table(table(participants$smoker))`.
+
+</details>
+:::

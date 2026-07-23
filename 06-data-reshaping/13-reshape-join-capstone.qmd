@@ -1,0 +1,163 @@
+# Level 6 Capstone: Reshaping and Joining Together {#sec-reshape-join-capstone}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor's final question for this level ties everything together: "Does blood pressure change from visit 1 to visit 3 differ between younger and older participants?" Answering this needs **two** separate skills from this level at once — reshaping `bp_visits_wide.csv` to compute each participant's change score (Page 7), and then joining that result against `baseline_enrollment.csv` to bring in each participant's `age`, since age was never part of the visits file to begin with.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Chain reshaping and joining together in a single analysis: reshape to compute a per-participant value, then join in demographic information from a separate file to analyze it further.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- `bp_visits_wide.csv` and `baseline_enrollment.csv` are two entirely separate files. What column do they share that could serve as a join key?
+- Not every participant in `bp_visits_wide.csv` will necessarily have a matching row in `baseline_enrollment.csv` (they're different studies' worth of ids). Which join type keeps every visits-file participant regardless of whether a baseline match exists?
+:::
+
+## The R Concept
+
+Real analyses frequently need both reshaping *and* joining — reshape one dataset into an analysis-ready shape, then join in additional variables from an entirely different source before the real analysis can happen:
+
+```r
+df |>
+  pivot_longer(...) |>          # reshape to long
+  filter(...) |>
+  pivot_wider(...) |>            # reshape back to wide, aligned for calculation
+  mutate(change = ...) |>        # compute the per-unit value
+  left_join(other_df, by = "id") # bring in variables the first file never had
+```
+
+## Demonstration
+
+```r
+library(dplyr)
+library(tidyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+baseline <- read.csv("data/baseline_enrollment.csv")
+
+bp_change <- bp_wide |>
+  pivot_longer(cols = starts_with("sbp_visit"), names_to = "visit", names_prefix = "sbp_", values_to = "sbp") |>
+  filter(visit %in% c("visit1", "visit3")) |>
+  pivot_wider(names_from = visit, values_from = sbp) |>
+  filter(!is.na(visit3)) |>
+  mutate(change = visit3 - visit1)
+
+nrow(bp_change)
+```
+
+```
+[1] 26
+```
+
+```r
+bp_change_with_age <- left_join(bp_change, baseline[, c("id", "age")], by = "id")
+
+sum(is.na(bp_change_with_age$age))
+```
+
+```
+[1] 10
+```
+
+10 of the 26 complete-case participants have no usable `age` — 9 simply aren't in `baseline_enrollment.csv` at all (this visits study enrolled a broader group than the baseline file covers), and 1 (participant 13) is in `baseline_enrollment.csv` but has a missing `age` value there.
+
+## Explore
+
+Try `filter(bp_change_with_age, is.na(age))` and inspect which ids these are. Confirm 9 of them are ids outside `baseline_enrollment.csv`'s range entirely (using `setdiff()`), and 1 (id 13) is inside the range but has its own pre-existing missing `age`.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+library(tidyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+baseline <- read.csv("data/baseline_enrollment.csv")
+
+bp_change <- bp_wide |>
+  pivot_longer(cols = starts_with("sbp_visit"), names_to = "visit", names_prefix = "sbp_", values_to = "sbp") |>
+  filter(visit %in% c("visit1", "visit3")) |>
+  pivot_wider(names_from = visit, values_from = sbp) |>
+  filter(!is.na(visit3)) |>
+  mutate(change = visit3 - visit1)
+
+bp_change_with_age <- bp_change |>
+  left_join(baseline[, c("id", "age")], by = "id") |>
+  filter(!is.na(age)) |>
+  mutate(age_group = ifelse(age >= 50, "50+", "Under 50"))
+
+age_group_summary <- bp_change_with_age |>
+  group_by(age_group) |>
+  summarise(n = n(), mean_change = round(mean(change), 2)) |>
+  arrange(age_group)
+
+age_group_summary
+```
+
+```
+# A tibble: 2 x 3
+  age_group     n mean_change
+  <chr>     <int>       <dbl>
+1 50+           7       -1.86
+2 Under 50      9       -8.56
+```
+
+Among the 16 participants with usable age and complete visit data, those under 50 show a much larger average blood pressure decrease (-8.56) than those 50 and older (-1.86) — the opposite of what you might have guessed, and a good reminder to report a surprising pattern rather than dismiss it, while still treating it cautiously (n=7 and n=9 are both small groups).
+
+## Interpret the Result
+
+Answering your professor's question required chaining nearly every tool from this level: `pivot_longer()` and `pivot_wider()` to align visit1 and visit3 for a per-participant change score, `filter()` to handle dropouts (Page 7), and finally `left_join()` to bring in `age` from a completely separate file — with 10 participants necessarily excluded from the final age-based comparison because that information simply doesn't exist for them. The under-50 group's larger average blood pressure drop is a genuine pattern in this small dataset, but with 7 and 9 participants per group, it's a hypothesis to investigate further (Level 11), not a settled conclusion.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting that joining across studies often means partial coverage, not full coverage.** `bp_visits_wide.csv` and `baseline_enrollment.csv` weren't guaranteed to describe the same participants — 9 of 26 simply had no baseline record at all, which is normal and expected, not a data error to "fix."
+- **Silently dropping unmatched rows without reporting how many.** The move from 26 complete-case participants to 16 with usable age is a meaningful reduction — always state it explicitly rather than letting the final summary table's row count speak for itself.
+- **Treating a striking small-sample pattern as a confirmed finding.** The under-50 group's larger blood pressure drop, based on just 9 participants, is worth flagging and investigating further — not yet reported as if it were a validated result.
+:::
+
+## Practice Problem
+
+Redo this pipeline joining in `sex` instead of `age` from `baseline_enrollment.csv`, and compare mean blood pressure change between male and female participants (among those with a usable `sex` value).
+
+## Challenge Problem
+
+Redo the join using `full_join()` instead of `left_join()` between `bp_change` and `baseline`. Does `nrow()` of the result change? Explain what `full_join()` would add here that `left_join()` didn't, given that `baseline` might contain enrolled participants who aren't in `bp_visits_wide.csv` at all.
+
+## Key Takeaways
+
+- Real analyses often require reshaping *and* joining together — reshaping to compute a per-unit value, then joining to bring in variables that weren't part of the original file.
+- Joining across two independently collected files frequently produces partial, not full, coverage — always report how many rows lack a match, and why that's expected rather than an error.
+- A striking pattern found in a small, joined subset should be reported as a lead worth investigating, not treated as a final answer.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Why was `left_join()` (not `inner_join()`) used to bring `age` into `bp_change`?
+   a) `left_join()` runs faster
+   b) To keep every complete-case visits participant, even those without a baseline match, rather than silently dropping them
+   c) `inner_join()` doesn't exist in dplyr
+   d) There is no difference between the two here
+
+2. **True or false.** Every participant in `bp_visits_wide.csv` also appears in `baseline_enrollment.csv`.
+
+3. **Predict the output.** If 26 participants have complete visit data and 10 lack a usable `age`, how many remain in the final age-group summary?
+
+4. **Short answer.** Why should the under-50 group's larger average blood pressure drop be reported cautiously, even though the calculation itself is correct?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** To keep every complete-case visits participant, even those without a baseline match, rather than silently dropping them (an `inner_join()` would have removed them immediately, hiding the coverage gap).
+2. **False.** 9 of the 26 complete-case participants have no matching id in `baseline_enrollment.csv` at all.
+3. 16 participants (26 minus the 10 lacking a usable age).
+4. The comparison rests on only 7 (50+) and 9 (under 50) participants — small enough that the pattern could easily be due to chance rather than a real, generalizable effect; it's worth investigating further, not yet reporting as a confirmed finding.
+
+</details>
+:::

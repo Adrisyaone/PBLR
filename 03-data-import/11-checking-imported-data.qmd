@@ -1,0 +1,175 @@
+# Checking Imported Data {#sec-checking-imported-data}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've now learned, across this level, that a file can have extra header rows, disguised missing-value codes, and inconsistent capitalization — each discovered somewhat by accident, one page at a time. Before your next real analysis, you want a single, repeatable checklist you run on *any* freshly imported dataset, so you catch all of these problems immediately, together, rather than stumbling onto them one at a time.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Build a systematic, repeatable checklist for verifying any newly imported dataset before trusting it for analysis.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Across this entire level, which functions have you used to catch a problem *immediately after* importing a file?
+- If you had to explain to a new intern "always run these steps first, no matter what file you just imported," what would you tell them to check, in order?
+:::
+
+## The R Concept
+
+There's no single function that catches everything — but combining tools from this level and Level 2 into one consistent post-import routine catches nearly every common problem:
+
+```r
+dim(data)                       # does row/column count match expectations? (Level 2)
+names(data)                     # are column names sensible, not garbled? (this level)
+str(data)                       # did every column import as the expected type? (Level 1/2)
+head(data)                      # do the first few rows look right, at a glance?
+sapply(data, function(x) sum(is.na(x)))   # how much missing data per column?
+sapply(data[sapply(data, is.character)], function(x) length(unique(x)))  # hidden duplicate categories?
+```
+
+::: {.callout-note}
+## Don't worry about the `sapply()` syntax yet
+The last two lines use `sapply()` to run a check across *every* column at once, rather than one at a time — you haven't formally learned it yet (Level 10 covers it properly), but you can already read what it's *for*: applying the same check to every column automatically instead of retyping it once per column.
+:::
+
+Running this checklist takes seconds and turns "I hope this imported correctly" into "I've verified this imported correctly," every time.
+
+## Demonstration
+
+```r
+participants_messy <- read.csv(
+  "data/participants_messy.csv", skip = 2,
+  na.strings = c("NA", "999", "N/A", "Unknown", "")
+)
+
+dim(participants_messy)
+```
+
+```
+[1] 20  8
+```
+
+```r
+names(participants_messy)
+```
+
+```
+[1] "id"           "age"          "sex"          "county"       "systolic_bp"
+[6] "diastolic_bp" "bmi"          "smoker"
+```
+
+```r
+str(participants_messy)
+```
+
+```
+'data.frame':   20 obs. of  8 variables:
+ $ id          : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ age         : int  46 53 59 45 61 18 62 NA 33 36 ...
+ $ sex         : chr  "Female" "Female" "Female" "Female" ...
+ $ county      : chr  "Oakford" "riverdale" "OAKFORD " "Millbrook" ...
+ $ systolic_bp : int  125 123 130 117 139 117 110 100 149 131 ...
+ $ diastolic_bp: int  79 80 77 72 79 64 64 53 88 86 ...
+ $ bmi         : num  35.1 27.7 28.3 30.4 21.5 24 19.7 29.7 22.4 NA ...
+ $ smoker      : chr  "No" "No" "No" "No" ...
+```
+
+## Explore
+
+Run `sapply(participants_messy, function(x) sum(is.na(x)))` and look for which columns have any missing data at all. Then run `sapply(participants_messy[sapply(participants_messy, is.character)], function(x) length(unique(x)))` and compare `county`'s count to `sex`'s and `smoker`'s — one of these three text columns should stand out as far messier than the other two.
+
+## Solve the Problem
+
+```r
+participants_messy <- read.csv(
+  "data/participants_messy.csv", skip = 2,
+  na.strings = c("NA", "999", "N/A", "Unknown", "")
+)
+
+# Full checklist, run every time
+dim(participants_messy)
+```
+
+```
+[1] 20  8
+```
+
+```r
+sapply(participants_messy, function(x) sum(is.na(x)))
+```
+
+```
+          id          age          sex       county  systolic_bp diastolic_bp
+           0            2            0            0            2            0
+         bmi       smoker
+           2            1
+```
+
+```r
+sapply(participants_messy[sapply(participants_messy, is.character)],
+       function(x) length(unique(x)))
+```
+
+```
+   sex county smoker
+     2     13      2
+```
+
+In four short commands, you now know: the data has the expected 20 rows and 8 columns; `age`, `systolic_bp`, and `bmi` have some missing values (2, 2, and 2 respectively) that need `na.rm = TRUE` in any summary; and `county` has 13 apparent categories where `sex` and `smoker` have a clean, expected 2 each — immediately flagging `county` as the column needing cleanup before any analysis grouped by it.
+
+## Interpret the Result
+
+This four-step checklist — dimensions, missingness per column, and distinct-category counts per text column — took seconds to run and surfaced every major issue this level has covered: the right row/column count, exactly which columns have missing data and how much, and precisely which text column (`county`) needs standardizing before it can be trusted. This is the routine worth running on *every* new dataset you import, for the rest of this course.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Running this checklist once and considering the data "clean."** This checklist *diagnoses* problems — it doesn't fix them. `county`'s 13 categories still need Level 4's systematic cleaning tools before analysis.
+- **Skipping the checklist on "simple-looking" files.** Even a clean-looking 20-row file hid a disguised missing-value code (`999`) and 13 fragmented category values — appearances after a quick glance are not a substitute for actually running the checks.
+- **Checking dimensions and stopping there.** `dim()` confirms row/column *count* is right, but says nothing about whether the *contents* imported correctly — always follow it with the type and missingness checks too.
+:::
+
+## Practice Problem
+
+Run this full checklist on the clean `data/participants.csv` file (imported the normal way, no `skip` or special `na.strings` needed) instead of the messy file. Confirm every column shows sensible missingness counts and that `sex`, `county`, and `smoker` all show plausible, small numbers of distinct categories.
+
+## Challenge Problem
+
+Imagine a new intern asks you: "Why bother with all these checks if `read.csv()` already ran successfully with no error message?" Write a two-to-three sentence answer, using at least one specific example from this level, explaining why a successful import is not the same as a *correct* import.
+
+## Key Takeaways
+
+- A successful, error-free import is not the same as a correct one — always verify dimensions, column types, missingness, and category counts afterward.
+- `dim()`, `names()`, `str()`, and per-column missingness/uniqueness checks together form a fast, repeatable routine worth running on every new dataset.
+- This checklist diagnoses problems; fixing them (like standardizing `county`'s 13 fragmented categories into 5) is Level 4's job.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does a successful `read.csv()` call with no error message guarantee?
+   a) The data is completely clean and ready for analysis
+   b) Only that R was able to read the file into a data frame - nothing about its correctness
+   c) That there are no missing values
+   d) That all column names are unique
+
+2. **True or false.** `dim()` alone is sufficient to confirm a dataset imported correctly.
+
+3. **Predict the output.** If a data frame has 50 rows and one column, `age`, with 5 missing values, what would `sum(is.na(df$age))` return?
+
+4. **Write the code.** Write the single line of code to count the number of distinct values in a column called `region`, in a data frame called `survey`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Only that R was able to read the file into a data frame — it says nothing about whether the contents are correct.
+2. **False.** `dim()` confirms row/column count only; it says nothing about column types, missing data, or hidden category duplicates.
+3. `[1] 5`
+4. `length(unique(survey$region))`
+
+</details>
+:::

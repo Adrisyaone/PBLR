@@ -1,0 +1,152 @@
+# Cross-Tabulations {#sec-cross-tabulations}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You know 25% of all participants smoke (previous page) — but your professor's actual question is more specific: "Does the smoking rate differ between men and women?" A single overall percentage can't answer this; you need to look at smoking status *separately within each sex* — exactly the kind of two-variable breakdown `table()` alone (with one argument) can't produce.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Build a two-way frequency table — a cross-tabulation — showing how two categorical variables relate to each other.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 5, `count(participants, sex, smoker)` produced counts for every sex-and-smoking-status combination as separate *rows*. Could `table()` produce something similar, but shaped like a grid instead?
+- If you wanted to know "what percentage of *women* smoke" specifically, would you divide by the total number of participants, or just the total number of women?
+:::
+
+## The R Concept
+
+**`table()` with two arguments** builds a cross-tabulation — a grid with one variable's categories as rows and the other's as columns:
+
+```r
+table(row_variable, column_variable)
+```
+
+```r
+table(participants$sex, participants$smoker)
+```
+
+To convert this into row-wise percentages (e.g., "of all women, what percent smoke?"), use `prop.table()` with `margin = 1` (percentages *within each row*):
+
+```r
+prop.table(table(participants$sex, participants$smoker), margin = 1)
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+sex_smoker_table <- table(participants$sex, participants$smoker)
+sex_smoker_table
+```
+
+```
+        No Yes
+Female  42  10
+Male    33  15
+```
+
+Now you can see, at a glance, that among the 52 women, 42 don't smoke and 10 do — and among the 48 men, 33 don't smoke and 15 do.
+
+```r
+round(prop.table(sex_smoker_table, margin = 1) * 100, 1)
+```
+
+```
+          No  Yes
+Female  80.8 19.2
+Male    68.8 31.2
+```
+
+`margin = 1` computes each row's percentages *within that row* — 80.8% and 19.2% for women sum to 100%, and 68.8% and 31.2% for men sum to 100% separately, rather than all four percentages summing to 100% together.
+
+## Explore
+
+Try `prop.table(sex_smoker_table)` with **no** `margin` argument at all. Notice all four percentages now sum to 100% *overall*, answering a different question ("what percent of the entire study is female non-smokers?") than the row-wise version above ("what percent of women don't smoke?").
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+sex_smoker_table <- table(participants$sex, participants$smoker)
+sex_smoker_pct <- round(prop.table(sex_smoker_table, margin = 1) * 100, 1)
+
+sex_smoker_table
+```
+
+```
+        No Yes
+Female  42  10
+Male    33  15
+```
+
+```r
+sex_smoker_pct
+```
+
+```
+          No  Yes
+Female  80.8 19.2
+Male    68.8 31.2
+```
+
+Yes — the smoking rate does differ meaningfully by sex in this sample: 31.2% of men smoke, compared to 19.2% of women, a 12-percentage-point difference directly answering your professor's question.
+
+## Interpret the Result
+
+Reporting the overall 25% smoking rate (previous page) alone would have hidden this sex difference entirely — the cross-tabulation reveals that men in this sample smoke at nearly double the rate of women. As always, this is a descriptive pattern in n=48 men and n=52 women, not yet a tested statistical claim (Level 11 covers how to test whether a difference like this is likely to reflect a real, generalizable pattern versus chance).
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting to specify `margin` and misreading the resulting percentages.** Without `margin = 1` or `margin = 2`, `prop.table()` computes percentages relative to the *entire table*, not within each row or column — a very different (and often not what you intended) question.
+- **Confusing `margin = 1` (row percentages) with `margin = 2` (column percentages).** `margin = 1` makes each *row* sum to 100%; `margin = 2` makes each *column* sum to 100% instead — mixing these up flips which variable you're computing percentages "within."
+- **Drawing a causal conclusion from a descriptive cross-tabulation.** "Men smoke more than women in this sample" is a valid descriptive finding — it is not, by itself, evidence that being male *causes* higher smoking rates; cross-tabulations describe patterns, they don't establish causation.
+:::
+
+## Practice Problem
+
+Build a cross-tabulation of `county` and `smoker`, then compute column percentages (`margin = 2`) to answer: "of all current smokers, what percentage live in each county?"
+
+## Challenge Problem
+
+Use `table(participants$sex, participants$smoker)` together with `margin = 2` (instead of `margin = 1`) to compute: "of all smokers, what percentage are male versus female?" Explain in words why this answers a different question than the row-percentage version already computed above.
+
+## Key Takeaways
+
+- `table(var1, var2)` builds a two-way cross-tabulation, showing how two categorical variables relate.
+- `prop.table(cross_tab, margin = 1)` computes row-wise percentages; `margin = 2` computes column-wise percentages; omitting `margin` computes percentages relative to the whole table.
+- A cross-tabulation can reveal patterns (like a sex difference in smoking rate) that an overall single-variable summary completely hides — but it remains a descriptive finding, not a causal claim.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `margin = 1` mean in `prop.table(tab, margin = 1)`?
+   a) Percentages computed within each column
+   b) Percentages computed within each row
+   c) Percentages computed relative to the whole table
+   d) It has no effect
+
+2. **True or false.** A cross-tabulation can reveal patterns that an overall single-variable frequency table would hide.
+
+3. **Predict the output.** In `sex_smoker_table`, do the row percentages for "Female" (`80.8`, `19.2`) sum to 100?
+
+4. **Short answer.** Why is "men smoke more than women in this sample" a safer statement than "being male causes higher smoking rates," based on this cross-tabulation alone?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Percentages computed within each row.
+2. **True.** The overall 25% smoking rate hid a substantial sex difference (19.2% vs. 31.2%) that only the cross-tabulation revealed.
+3. Yes — `80.8 + 19.2 = 100`, exactly as expected for row percentages.
+4. A cross-tabulation only describes an association observed in this particular sample — it doesn't rule out other explanations (like differences in age, county, or other unmeasured factors between the male and female participants) that a purely descriptive table can't account for.
+
+</details>
+:::

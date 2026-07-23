@@ -1,0 +1,127 @@
+# What Is R? {#sec-what-is-r}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've just started as a public health intern at your local health department. On your first day, your supervisor says: "We collected survey data from 100 participants in our community health study. I need the average age reported by Friday. Everyone here uses R for this — go ahead and get started."
+
+You've used Excel before. You've never heard of R. You don't even know if it's software you install, a website, or a programming language.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand what R actually is, why a health department would use it instead of Excel, and what it means to "write code" to answer a data question.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- When you've calculated an average before (in Excel, or by hand), what steps did you follow?
+- What happens in Excel if you need to repeat the exact same calculation on next month's data — do you redo all your clicks?
+- What might be an advantage of *writing down* the steps of a calculation, rather than just clicking through a menu?
+:::
+
+## The R Concept
+
+**R** is a free, open-source programming language built specifically for statistics, data analysis, and graphics. It was created by statisticians, for statisticians — which is why it's the default choice in public health, epidemiology, biostatistics, and academic research more broadly.
+
+A few things make R different from a spreadsheet:
+
+- **You write instructions, not clicks.** Instead of selecting a range of cells and clicking "AVERAGE," you write a line of code that says, in effect, "take this data and compute its mean." That line can be saved, reused, and rerun on next month's data in seconds.
+- **It's reproducible.** Anyone with your code and your data can get the exact same result. A colleague reviewing your Excel file has to guess which cells you clicked; a colleague reading your R script can see exactly what you did.
+- **It's built for data, not documents.** R has no concept of a "sheet" with 500 unrelated things on it. It's designed around clean, structured data and the operations researchers actually need: summarizing, filtering, modeling, plotting.
+- **It's free and extensible.** R itself is free, and thousands of free add-ons (called *packages*) extend it — for reading messy Excel files, running survival analysis, mapping disease outbreaks, and far more.
+
+R is not the app with the blue icon you click to open. That's a separate program called **RStudio**, which you'll meet on the next page. R is the *language and engine underneath* — RStudio is the workspace you'll actually sit in.
+
+## Demonstration
+
+Every R session, however small, starts with running code. Let's run the simplest possible line: basic arithmetic.
+
+```r
+# R can act as a calculator right out of the box
+2 + 2
+```
+
+```
+[1] 4
+```
+
+That `[1] 4` is R's answer. The `[1]` just means "this is result number 1" — you'll see why that notation matters once you work with longer lists of numbers.
+
+Here's a second line, doing something closer to what your supervisor actually wants: averaging a few numbers.
+
+```r
+# The average of four ages, computed directly
+(34 + 51 + 62 + 29) / 4
+```
+
+```
+[1] 44
+```
+
+## Explore
+
+Try changing the numbers in the calculation above to four different ages. Then try adding a fifth age to the sum — remember to also change the number you divide by. What happens if you forget to update the divisor?
+
+## Solve the Problem
+
+You don't yet have the tools to import your supervisor's actual 100-participant file — that's coming in a later page. But you can already answer the *conceptual* question your supervisor implicitly asked: **is R the right tool for this, and what will doing this work in R actually look like?**
+
+Yes — R is exactly the right tool. Once your data is loaded into R (Level 1, later pages), computing a mean will take a single line of code, `mean()`, no matter how many participants there are. Whether it's 100 or 100,000 rows, the code doesn't get any harder.
+
+## Interpret the Result
+
+When you ran `2 + 2` and got `[1] 4`, you weren't just testing a calculator — you confirmed that R is installed, running, and ready to take instructions. That's the same confirmation a much bigger analysis needs: R evaluates your code and hands back an answer, every time, the same way.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Confusing R and RStudio.** People often say "open R" when they mean "open RStudio." You'll always work inside RStudio, which runs R for you behind the scenes.
+- **Assuming R is only for expert statisticians.** R is used by beginners and experts alike — the language scales with you.
+- **Expecting a menu-driven experience.** If you're used to Excel's toolbar, the biggest adjustment is trusting that a line of text *is* the instruction, not a shortcut to one.
+:::
+
+## Practice Problem
+
+List three tasks in your own field (or one you're interested in — clinical research, survey analysis, health policy) where you currently rely on Excel or manual calculation, and that could instead be done with reusable, written instructions.
+
+## Challenge Problem
+
+Write two or three sentences, in your own words, explaining to a classmate who has never coded why a health department might choose R over Excel for analyzing a 10,000-row patient dataset. Be specific about at least one concrete advantage.
+
+## Key Takeaways
+
+- R is a free, open-source programming language built for statistics and data analysis.
+- Working in R means *writing instructions* rather than clicking through menus — which makes your work reusable and reproducible.
+- R and RStudio are not the same thing; R is the language, RStudio is the workspace (next page).
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** R is best described as:
+   a) A spreadsheet program
+   b) A programming language for statistics and data analysis
+   c) A database management system
+   d) A word processor
+
+2. **True or false.** R and RStudio are two names for the exact same program.
+
+3. **Predict the output.** What will the following code print?
+   ```r
+   10 * 3 - 5
+   ```
+
+4. **Write the code.** Write one line of R code that calculates the average of the numbers 12, 18, and 24 without using any function — just arithmetic.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A programming language for statistics and data analysis.
+2. **False.** R is the underlying language; RStudio is a separate application (an IDE) that makes R easier to use.
+3. `[1] 25` (10 × 3 = 30, then 30 − 5 = 25).
+4. `(12 + 18 + 24) / 3`, which evaluates to `[1] 18`.
+
+</details>
+:::

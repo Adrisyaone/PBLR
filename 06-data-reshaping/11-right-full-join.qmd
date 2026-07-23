@@ -1,0 +1,174 @@
+# `right_join()` and `full_join()` {#sec-right-full-join}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor now wants two more views of the same data. First: a dataset centered on the *follow-up* file — every follow-up participant, including the 5 new recruits (ids 21-25) who joined the study after baseline and therefore have no baseline record at all. Second: a single dataset with **every participant who ever appeared in either file**, baseline or follow-up, with no one excluded.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Keep every row from the second ("right") data frame using `dplyr::right_join()`, and keep every row from **either** data frame using `dplyr::full_join()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If `left_join()` keeps every row of the *first* data frame listed, what would you expect a function named `right_join()` to keep instead?
+- If you wanted a dataset with absolutely nobody excluded — every id from `baseline` and every id from `followup` — would `left_join()` or `right_join()` alone be enough on their own?
+:::
+
+## The R Concept
+
+**`right_join()`** is `left_join()` with the roles reversed — it keeps every row of the **second** data frame, filling in `NA` for any first-data-frame columns that don't have a match:
+
+```r
+right_join(df1, df2, by = "key_column")
+# equivalent to:
+left_join(df2, df1, by = "key_column")   # with column order preserved differently
+```
+
+```r
+right_join(baseline, followup, by = "id")
+```
+
+**`full_join()`** goes further still, keeping **every** row from **both** data frames — matched where possible, `NA`-filled on whichever side lacks a match:
+
+```r
+full_join(df1, df2, by = "key_column")
+```
+
+```r
+full_join(baseline, followup, by = "id")
+```
+
+## Demonstration
+
+```r
+library(dplyr)
+
+baseline <- read.csv("data/baseline_enrollment.csv")
+followup <- read.csv("data/followup_visit.csv")
+
+right_result <- right_join(baseline, followup, by = "id")
+
+nrow(right_result)
+```
+
+```
+[1] 20
+```
+
+```r
+right_result[right_result$id %in% c(21, 22), ]
+```
+
+```
+   id age  sex county baseline_bmi followup_sbp followup_smoker
+21  21  NA <NA>   <NA>           NA          129             Yes
+22  22  NA <NA>   <NA>           NA          124              No
+```
+
+Participants 21 and 22 — new recruits with no baseline record — still appear, with `NA` filling in every baseline column.
+
+```r
+full_result <- full_join(baseline, followup, by = "id")
+
+nrow(full_result)
+```
+
+```
+[1] 25
+```
+
+## Explore
+
+Try `sort(unique(full_result$id))`. Confirm it runs from 1 to 25 with no gaps — every id that appeared in *either* file is present exactly once, whether it was a dropout, a new recruit, or a complete case.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+baseline <- read.csv("data/baseline_enrollment.csv")
+followup <- read.csv("data/followup_visit.csv")
+
+right_result <- right_join(baseline, followup, by = "id")
+nrow(right_result)
+```
+
+```
+[1] 20
+```
+
+```r
+sum(is.na(right_result$baseline_bmi))
+```
+
+```
+[1] 6
+```
+
+```r
+full_result <- full_join(baseline, followup, by = "id")
+nrow(full_result)
+```
+
+```
+[1] 25
+```
+
+`right_join()` produces 20 rows (every follow-up participant), with 6 missing `baseline_bmi` values — the 5 genuinely new recruits (21-25) plus participant 10, whose baseline BMI was already missing in the source data. `full_join()` produces 25 rows — the complete union of every id that appeared anywhere across both files.
+
+## Interpret the Result
+
+`right_result` answers "who showed up at follow-up, and what do we know about them from baseline (if anything)?" — useful when the follow-up file is your primary population of interest. `full_result` answers a broader question: "who was ever part of this study, at any point?" — the union of all 25 distinct participants across both files, useful for a complete accounting of the whole study's reach, dropouts and new recruits alike.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `right_join(df1, df2)` and `left_join(df2, df1)` aren't quite identical.** They keep the same *rows*, but the resulting column order differs (whichever data frame is listed first keeps its columns first) — the row-level result is equivalent, but the layout isn't automatically identical.
+- **Reaching for `full_join()` by default "just to be safe."** `full_join()` guarantees no one is excluded, but it also guarantees more `NA`s to handle — if your analysis genuinely needs complete cases (Page 10's `inner_join()`), a `full_join()` just adds cleanup work rather than solving the problem.
+- **Losing track of which `NA`s mean "no matching record" versus "record exists but this specific field was missing."** As seen throughout this level, both kinds of `NA` can appear in the same joined column, and conflating them can lead to miscounting genuine non-participation versus ordinary data entry gaps.
+:::
+
+## Practice Problem
+
+Use `right_join(baseline, followup, by = "id")` and then `filter(is.na(age))` (Level 5) to extract the new recruits who have no baseline record. How many are there, and does that match the 5 identified with `setdiff()` on the keys-and-relationships page?
+
+## Challenge Problem
+
+Compute `nrow(full_join(baseline, followup, by = "id"))` using only `nrow(baseline)`, `nrow(followup)`, and the `intersect()`/`setdiff()` counts from the keys-and-relationships page (hint: total unique ids = baseline count + followup count − ids common to both). Confirm your formula matches the actual `full_join()` row count.
+
+## Key Takeaways
+
+- `right_join(df1, df2, by = "key")` keeps every row of `df2`, mirroring `left_join()` with the roles reversed.
+- `full_join(df1, df2, by = "key")` keeps every row from either data frame — the complete union of both files' ids.
+- Choose the join type based on which population you actually want represented in the result, not by defaulting to whichever seems "safest."
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `right_join(baseline, followup, by = "id")` keep?
+   a) Every row from `baseline`
+   b) Every row from `followup`
+   c) Only rows present in both
+   d) No rows — it always errors
+
+2. **True or false.** `full_join()` can produce a result with more rows than either original data frame alone.
+
+3. **Predict the output.** Given 20 baseline ids, 20 followup ids, and 15 common to both, how many rows would `full_join(baseline, followup, by = "id")` produce?
+
+4. **Short answer.** Why might `right_join()` be more useful than `left_join()` if your analysis is primarily about the follow-up visit itself, rather than the original enrolled cohort?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Every row from `followup`.
+2. **True.** `full_join()`'s row count equals the number of *distinct* ids across both files combined — which can exceed either individual file's row count whenever there are any non-matching ids on either side.
+3. 25 rows (20 + 20 − 15 common = 25 distinct ids total).
+4. `right_join()` centers the result on the follow-up population (including new recruits not in baseline), whereas `left_join()` would center it on the original baseline cohort (including dropouts) — the right choice depends on which group is the actual subject of the analysis.
+
+</details>
+:::

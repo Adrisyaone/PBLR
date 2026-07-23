@@ -1,0 +1,181 @@
+# Mean, Median, and Mode {#sec-central-tendency}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor asks for "the average age" of your 100 participants. You know `mean(participants$age, na.rm = TRUE)` from Level 2 — but a colleague mentions that with 6 missing ages and a few unusually young or old participants, the mean alone might not tell the whole story. They suggest also reporting the median, and the *mode* — but when you type `mode(participants$age)` into R, the result looks nothing like what you expected.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Compute and correctly interpret the three measures of central tendency — mean, median, and mode — and understand why R's built-in `mode()` function is not what it sounds like.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 2, what does `mean(x, na.rm = TRUE)` compute, and why is `na.rm = TRUE` necessary for `age`?
+- The *median* is "the middle value when sorted." If `age` has 94 non-missing values (an even number), how would you expect the median to be computed — is there a single middle value, or two?
+:::
+
+## The R Concept
+
+The **mean** is the sum of all values divided by how many there are — sensitive to unusually large or small values ("outliers"). The **median** is the middle value once the data is sorted (or the average of the two middle values, for an even count) — much less affected by outliers. The **mode** is the most frequently occurring value:
+
+```r
+mean(x, na.rm = TRUE)
+median(x, na.rm = TRUE)
+```
+
+R has **no built-in function for the statistical mode**. The function called `mode()` in base R does something completely unrelated — it reports an object's storage type (`"numeric"`, `"character"`, etc.), not its most frequent value:
+
+```r
+mode(participants$age)
+```
+
+```
+[1] "numeric"
+```
+
+That's `age`'s storage type, not its most common value — a well-known trap for anyone coming from other statistical software. Finding the actual statistical mode requires `table()` (Level 4) instead:
+
+```r
+table(x)[which.max(table(x))]
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+mean(participants$age, na.rm = TRUE)
+```
+
+```
+[1] 47.42553
+```
+
+```r
+median(participants$age, na.rm = TRUE)
+```
+
+```
+[1] 49
+```
+
+The mean (47.43) and median (49) are reasonably close here, suggesting `age` isn't wildly skewed by extreme outliers — though they're not identical, so it's still worth reporting both.
+
+```r
+mode(participants$age)
+```
+
+```
+[1] "numeric"
+```
+
+Exactly the trap described above — `mode()` reports the storage type, telling you nothing about which age value is most common.
+
+## Explore
+
+Try `table(participants$age)` directly and scan the output for the largest count. Then try `sort(table(participants$age), decreasing = TRUE)[1:3]` to see the three most frequent ages at a glance, without scanning the whole table by eye.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+mean_age <- mean(participants$age, na.rm = TRUE)
+median_age <- median(participants$age, na.rm = TRUE)
+
+age_table <- table(participants$age)
+mode_age <- names(age_table)[which.max(age_table)]
+
+mean_age
+```
+
+```
+[1] 47.42553
+```
+
+```r
+median_age
+```
+
+```
+[1] 49
+```
+
+```r
+mode_age
+```
+
+```
+[1] "53"
+```
+
+```r
+age_table[mode_age]
+```
+
+```
+53
+ 5
+```
+
+Mean age 47.43, median age 49, and the single most common age is 53 (occurring 5 times) — three different, complementary answers to "what's typical," none of which is simply "more correct" than the others.
+
+## Interpret the Result
+
+The mean pulls slightly lower than the median here, hinting at a slight leftward skew (a few younger participants pulling the average down relative to the middle value) — consistent with what you'd expect from a health study spanning ages 18 to 81. The mode (53) tells a different kind of story: it doesn't describe "the middle" or "the average," just which single value happens to repeat most often — useful for categorical data, but often less informative than the mean or median for a wide-ranging numeric variable like age.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Using `mode()` expecting the statistical mode.** As demonstrated above, `mode()` in R reports an object's storage type — this is one of the most common traps for beginners, especially those coming from Excel or other statistical software where "mode" always means "most frequent value."
+- **Forgetting `na.rm = TRUE` for mean and median alike.** Both `mean()` and `median()` return `NA` by default if any value is missing — the Level 2 rule applies to both identically, not just to `mean()`.
+- **Assuming mean and median should always be close together.** They coincide closely for roughly symmetric data, but can diverge substantially for skewed data (like income, where a few very high earners pull the mean well above the median) — a difference between them is itself useful information, not an error.
+:::
+
+## Practice Problem
+
+Compute the mean, median, and mode of `bmi`. Are the mean and median close together, or do they diverge notably? What might that suggest about the shape of the BMI distribution?
+
+## Challenge Problem
+
+Write your own small function (Level 9 preview) called `get_mode()` that takes a vector and returns its most frequent value using `table()` and `which.max()`, handling `NA` values appropriately. Test it on `participants$county` (a categorical variable, where "mode" is a much more natural summary than it is for `age`).
+
+## Key Takeaways
+
+- Mean, median, and mode each describe "what's typical" differently — mean is sensitive to outliers, median is not, and mode identifies the single most frequent value.
+- R's built-in `mode()` function reports storage type, not the statistical mode — use `table()` combined with `which.max()` instead.
+- A meaningful difference between mean and median can itself be an informative finding about a variable's distribution shape.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `mode(participants$age)` actually return in base R?
+   a) The most frequent age
+   b) The middle age value
+   c) The storage type of the `age` column (e.g., `"numeric"`)
+   d) An error, since `mode()` doesn't exist
+
+2. **True or false.** `median()` is generally less sensitive to extreme outliers than `mean()`.
+
+3. **Predict the output.** If `age` has 94 non-missing values (an even count), how is the median calculated?
+
+4. **Find the error.**
+   ```r
+   most_common_age <- mode(participants$age)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** The storage type of the `age` column — `mode()` in base R is unrelated to the statistical mode.
+2. **True.** The median only depends on the middle value(s) once sorted, so extreme values don't pull it the way they pull the mean.
+3. As the average of the two middle values once all 94 non-missing ages are sorted.
+4. `mode()` doesn't compute the statistical mode in R — it returns the object's storage type. Finding the actual most frequent age requires `table(participants$age)` combined with `which.max()`.
+
+</details>
+:::

@@ -1,0 +1,157 @@
+# Reading Excel Files {#sec-reading-excel}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+A partner clinic sends you their portion of the community health survey as `clinic_data.xlsx`, not a CSV. You try `read_csv("clinic_data.xlsx")`, following the pattern from earlier in this level — and it fails, producing garbled, nonsensical output instead of a clean error. CSV-reading functions have no idea what to do with Excel's actual file format.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Import an Excel file (`.xlsx`) into R using the appropriate package and function.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- A CSV file is plain text you could open in Notepad; is an `.xlsx` file the same kind of plain text, or something more complex under the hood?
+- From the packages page in Level 1, what two steps are always required before using a function from a package you haven't used yet in this session?
+:::
+
+## The R Concept
+
+Excel files (`.xlsx`, and the older `.xls`) are **not** plain text like CSV — they're a compressed, structured file format that can include multiple sheets, formatting, and formulas. Reading one requires a dedicated package: **`readxl`**.
+
+```r
+library(readxl)
+my_data <- read_excel("path/to/file.xlsx")
+```
+
+A few arguments matter especially often with real Excel files:
+
+```r
+read_excel("file.xlsx", sheet = "Sheet2")   # a specific sheet by name (or position: sheet = 2)
+read_excel("file.xlsx", skip = 2)           # skip metadata rows before the real header, same idea as CSV
+read_excel("file.xlsx", na = c("", "N/A"))  # custom missing-value codes, covered in depth later this level
+```
+
+`read_excel()` (like `read_csv()`) returns a tibble, and — importantly — it does not modify the original Excel file at all; reading is always non-destructive.
+
+## Demonstration
+
+```r
+library(readxl)
+
+# List every sheet in a workbook before importing, if you're not sure which one you need
+excel_sheets("data/clinic_data.xlsx")
+```
+
+```
+[1] "Enrollment" "Follow-up"
+```
+
+```r
+clinic_data <- read_excel("data/clinic_data.xlsx", sheet = "Enrollment")
+
+clinic_data
+```
+
+```
+# A tibble: 25 x 6
+      id   age sex    county      systolic_bp smoker
+   <dbl> <dbl> <chr>  <chr>             <dbl> <chr>
+ 1   101    42 Male   Oakford             129 Yes
+ 2   102    26 Male   Springvale          124 No
+ 3   103    29 Female Cedar Falls         144 No
+ # ... with 22 more rows
+```
+
+## Explore
+
+Try `read_excel("data/clinic_data.xlsx")` with no `sheet` argument at all — by default, `read_excel()` reads the *first* sheet in the workbook. If that happens to not be the sheet you wanted (say, "Follow-up" instead of "Enrollment"), you'd get valid-looking but entirely wrong data with no error at all — which is exactly why checking `excel_sheets()` first is good practice on an unfamiliar file.
+
+## Solve the Problem
+
+```r
+library(readxl)
+
+# CSV-reading functions can't parse Excel's file format at all
+clinic_data <- read_excel("data/clinic_data.xlsx", sheet = "Enrollment")
+
+nrow(clinic_data)
+```
+
+```
+[1] 25
+```
+
+```r
+str(clinic_data)
+```
+
+```
+tibble [25 x 6] (S3: tbl_df/tbl/data.frame)
+ $ id         : num [1:25] 101 102 103 104 105 ...
+ $ age        : num [1:25] 42 26 29 51 53 ...
+ $ sex        : chr [1:25] "Male" "Male" "Female" "Male" ...
+ $ county     : chr [1:25] "Oakford" "Springvale" "Cedar Falls" "Springvale" ...
+ $ systolic_bp: num [1:25] 129 124 144 129 167 ...
+ $ smoker     : chr [1:25] "Yes" "No" "No" "No" ...
+```
+
+## Interpret the Result
+
+`clinic_data` now holds the 25-participant Enrollment sheet from the partner clinic's Excel file, correctly imported as a tibble — with `readxl` handling Excel's internal file structure automatically, something no CSV-reading function (base R or `readr`) could ever have done.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Trying to read an Excel file with `read_csv()` or `read.csv()`.** These functions only understand plain-text, comma-delimited files — Excel's actual binary/XML structure requires `readxl` (or a similar dedicated package).
+- **Not checking which sheet you're actually reading.** `read_excel()` silently defaults to the first sheet in the workbook if `sheet` isn't specified — always check `excel_sheets()` first on an unfamiliar file to avoid analyzing the wrong data entirely.
+- **Forgetting `library(readxl)`.** The same package-loading rule from Level 1 applies here exactly as everywhere else.
+:::
+
+## Practice Problem
+
+List all the sheets in `data/clinic_data.xlsx` using `excel_sheets()`, then import the `"Follow-up"` sheet specifically and check its `nrow()`.
+
+## Challenge Problem
+
+You're told a partner's file has a title row and a blank row before the real header starts (three rows total before the data). Write the `read_excel()` call that correctly skips past them, using the `skip` argument.
+
+## Key Takeaways
+
+- Excel files require the `readxl` package (`read_excel()`) — CSV-reading functions cannot parse Excel's file format at all.
+- `excel_sheets()` lists every sheet in a workbook before you import, helping you avoid silently reading the wrong (default first) sheet.
+- `read_excel()` returns a tibble and never modifies the original file, exactly like `read_csv()`.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Which package provides `read_excel()`?
+   a) `readr`
+   b) `readxl`
+   c) `dplyr`
+   d) Base R, no package needed
+
+2. **True or false.** `read_csv()` can correctly parse an `.xlsx` file if you just change the file extension in the function call.
+
+3. **Predict the output.** If you call `read_excel("file.xlsx")` with no `sheet` argument on a workbook with 3 sheets, which sheet gets read?
+
+4. **Write the code.** Write the code to load `readxl` and list every sheet name in `"data/clinic_data.xlsx"` without importing any data yet.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `readxl`
+2. **False.** `read_csv()` only understands plain-text CSV format; Excel files require `readxl`.
+3. The first sheet in the workbook, by default.
+4.
+   ```r
+   library(readxl)
+   excel_sheets("data/clinic_data.xlsx")
+   ```
+
+</details>
+:::

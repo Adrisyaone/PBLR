@@ -1,0 +1,166 @@
+# Accessing Columns {#sec-accessing-columns}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've been using `participants$age` since Level 1 to grab a single column, and it's worked fine. But a colleague's script instead uses `participants[["age"]]`, and another uses `participants["age"]` — and confusingly, that last one behaves differently from the other two in a way that broke their code. You need to understand what's actually going on before you get bitten by the same thing.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Learn the different ways to extract a single column from a data frame, and understand exactly how they differ.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- You already know a data frame's column is really just a vector (from earlier in this level). If you ask for "the column itself," should you expect back a vector, or something else?
+- Could there be a difference between "give me this one column, still wrapped as a mini data frame" versus "give me this one column's raw values directly"?
+:::
+
+## The R Concept
+
+There are three common ways to pull a single column out of a data frame, and they don't all return the same *type* of result:
+
+```r
+df$column        # returns the column as a bare vector
+df[["column"]]   # also returns the column as a bare vector - equivalent to $
+df["column"]     # returns a one-column DATA FRAME, not a bare vector
+```
+
+The first two (`$` and `[[ ]]`) behave the same way for this purpose — both hand you the raw vector, ready for `mean()`, indexing, or anything else you'd do with a vector. The third, single-bracket form (`["column"]`), instead returns a *data frame* containing just that one column — useful when you specifically want to keep the rectangular structure (for example, to pass a single-column subset into a function that expects a data frame), but it will not behave like a plain vector if you try to use it as one.
+
+```r
+class(participants$age)        # "integer" or "numeric" - a bare vector
+class(participants["age"])     # "data.frame" - still a data frame!
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+class(participants$age)
+```
+
+```
+[1] "integer"
+```
+
+```r
+class(participants[["age"]])
+```
+
+```
+[1] "integer"
+```
+
+```r
+class(participants["age"])
+```
+
+```
+[1] "data.frame"
+```
+
+```r
+# This works, because $ returns a bare vector
+mean(participants$age, na.rm = TRUE)
+```
+
+```
+[1] 47.42553
+```
+
+```r
+# This does NOT work as expected - participants["age"] is still a data frame
+mean(participants["age"], na.rm = TRUE)
+```
+
+```
+Warning message:
+argument is not numeric or logical: returning NA
+[1] NA
+```
+
+## Explore
+
+Try `head(participants["age"])` versus `head(participants$age)` — notice the first prints like a small data frame (with a column header and row numbers), while the second prints like a plain vector of numbers with no header. This is the same distinction from a different angle.
+
+## Solve the Problem
+
+The colleague's bug is now explainable: they used single-bracket `participants["age"]` somewhere expecting a plain vector, but got a one-column data frame instead — which is why a function like `mean()` failed on it. The fix is switching to `$` or `[[ ]]`:
+
+```r
+# Broken - passes a one-column data frame to mean()
+mean(participants["age"], na.rm = TRUE)
+```
+
+```r
+# Fixed - passes a bare vector to mean()
+mean(participants[["age"]], na.rm = TRUE)
+```
+
+```
+[1] 47.42553
+```
+
+## Interpret the Result
+
+Both `$` and `[[ ]]` correctly return the mean age of 47.4 years, because both hand `mean()` a plain numeric vector. Single-bracket `["age"]` silently returns a data frame instead, which most vector-oriented functions like `mean()` cannot process directly — this is a genuinely common source of confusing bugs, and now you know exactly why it happens.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Assuming `["column"]` and `[["column"]]` are interchangeable.** They are not: single brackets preserve the data frame structure (one column, still a data frame); double brackets (or `$`) extract the bare vector.
+- **Using `$` with a column name stored in a variable.** `$` requires the literal column name typed directly — `participants$col_name` where `col_name <- "age"` does *not* work as you might expect (it looks for a column literally named `col_name`). For column names stored in variables, use `participants[[col_name]]` instead.
+- **Typos with `$` failing silently.** `participants$Age` (wrong capitalization) doesn't error — it returns `NULL`, which can cause confusing downstream failures far from the actual mistake.
+:::
+
+## Practice Problem
+
+Using `participants`, extract the `bmi` column three different ways — `$`, `[[ ]]`, and `[ ]` — and use `class()` on each result to confirm which two match and which one differs.
+
+## Challenge Problem
+
+You have a column name stored in a variable: `col_name <- "systolic_bp"`. Write the code to extract that column from `participants` as a bare vector, using `col_name` rather than typing `systolic_bp` literally (hint: this requires one of the three approaches on this page, not `$`).
+
+## Key Takeaways
+
+- `df$column` and `df[["column"]]` both return the column as a bare vector, ready for vector functions like `mean()`.
+- `df["column"]` (single brackets) returns a one-column data frame instead — structurally different, and not directly usable by most vector functions.
+- `[[ ]]` (unlike `$`) also works with a column name stored in a variable, which `$` cannot do.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Which of these returns a bare vector, not a data frame?
+   a) `df["age"]`
+   b) `df[["age"]]`
+   c) Both return the same thing
+   d) Neither returns a vector
+
+2. **True or false.** `df$col_name` works correctly even when `col_name` is a variable holding the string `"age"`, rather than the literal word `age`.
+
+3. **Predict the output.**
+   ```r
+   df <- data.frame(x = c(1, 2, 3))
+   class(df["x"])
+   ```
+
+4. **Find the error.**
+   ```r
+   mean(participants["bmi"], na.rm = TRUE)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `df[["age"]]` returns a bare vector; `df["age"]` returns a one-column data frame.
+2. **False.** `$` requires the literal column name; it does not substitute the value of a variable. Use `df[[col_name]]` for that.
+3. `[1] "data.frame"`
+4. `participants["bmi"]` returns a one-column data frame, not a bare vector, so `mean()` cannot compute on it directly (it returns `NA` with a warning). It should be `mean(participants[["bmi"]], na.rm = TRUE)` or `mean(participants$bmi, na.rm = TRUE)`.
+
+</details>
+:::

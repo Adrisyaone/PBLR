@@ -1,0 +1,28 @@
+# Level 12 — Advanced Data Analysis {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+Real epidemiological analysis rarely stops at a single regression line. This level covers the complications that show up in genuine research: confounding, effect modification, missing data, survey weights, longitudinal structure, and mixed models.
+:::
+
+## What's coming
+
+- Confounding, effect modification, and interaction terms
+- Model diagnostics and multicollinearity
+- Multiple imputation and propensity score matching
+- Survey-weighted and complex survey analysis
+- Mixed-effects models and GEEs
+- Time-to-event analysis with time-varying covariates
+
+::: {.pbl-box .pbl-mission}
+**A preview mission**
+
+Your mission: your regression says smoking predicts disease — but is age secretly driving both? Untangle a confounded research question the way a real epidemiologist would.
+:::
+
+::: {.callout-note}
+## Status
+
+This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
+:::

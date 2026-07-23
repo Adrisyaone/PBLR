@@ -1,0 +1,28 @@
+# Level 14 — Reproducible Research {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+A result nobody else can reproduce isn't finished research. This level is about Quarto itself: turning code, figures, tables, and citations into a single reproducible document, website, or presentation — including the very book you're reading now.
+:::
+
+## What's coming
+
+- R Markdown vs. Quarto, and YAML front matter
+- Code chunks, inline code, tables, and figures
+- Cross-references, citations, and bibliographies
+- Parameterized reports
+- HTML, PDF, and Word output
+- Building websites, books, and presentations
+
+::: {.pbl-box .pbl-mission}
+**A preview mission**
+
+Your mission: turn a messy analysis script into a polished, reproducible report that regenerates itself the moment the underlying data changes.
+:::
+
+::: {.callout-note}
+## Status
+
+This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
+:::

@@ -1,0 +1,123 @@
+# Adding Trend Lines with `geom_smooth()` {#sec-trend-lines}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+The BMI-blood pressure scatter plot from the previous page shows a scattered cloud of points, but your professor asks a harder question to answer just by squinting at the cloud: "Is there an overall upward trend hiding in that scatter, even if it's weak?" You need a line summarizing the general direction of the relationship, layered right on top of the raw points.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Add a trend line to a scatter plot using `geom_smooth()`, layered on top of `geom_point()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If `ggplot2` layers stack using `+`, what would you expect happens if you add a second `geom_*()` layer after `geom_point()`, using the exact same `aes()` mapping?
+- Level 7's correlation between BMI and blood pressure was positive (0.16), though weak. What direction would you expect a trend line summarizing that relationship to slope?
+:::
+
+## The R Concept
+
+**`geom_smooth()`** adds a fitted trend line (with a shaded confidence band by default) on top of existing data, layered with `+` exactly like any other geom:
+
+```r
+ggplot(data = df, aes(x = x_col, y = y_col)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+`method = "lm"` fits a straight line (linear model, previewing Level 11); omitting `method` lets `ggplot2` choose a curved, more flexible trend line instead, which can be useful for spotting non-linear patterns a straight line would miss.
+
+## Demonstration
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+ggplot(data = participants, mapping = aes(x = bmi, y = systolic_bp)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+This adds a straight trend line through the scattered points, sloping gently upward — consistent with the weak positive correlation (0.16) from Level 7 — along with a shaded gray band showing the uncertainty around that line. Because the underlying relationship is weak, the line's upward slope is subtle, and the confidence band is fairly wide relative to the data's spread.
+
+## Explore
+
+Try the same plot with `age` and `systolic_bp` instead of `bmi`. Given Level 7's correlation there was **negative** (-0.22, both weak but opposite in sign from the BMI relationship), predict which direction the trend line will slope before running the code, then confirm.
+
+## Solve the Problem
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+age_bp_trend <- ggplot(data = participants, mapping = aes(x = age, y = systolic_bp)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+age_bp_trend
+```
+
+The trend line here slopes gently *downward* as age increases — matching the negative correlation (-0.22) found in Level 7. As with the BMI plot, the relationship is weak enough that the line's slope is subtle and the surrounding confidence band is fairly wide, visually reinforcing that this isn't a strong, dependable pattern.
+
+## Interpret the Result
+
+Both trend lines make Level 7's correlation coefficients visually concrete: a gentle upward line for the weak positive BMI-BP relationship, and a gentle downward line for the weak negative age-BP relationship. In both cases, the *direction* of the trend line matches the sign of the correlation exactly, while its *subtlety* (a nearly flat slope, a wide confidence band) reflects just how weak both relationships are — exactly consistent with correlation magnitudes both under 0.25 in absolute value.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Interpreting a fitted trend line as proof of a strong relationship.** A `geom_smooth()` line can be drawn through *any* scatter of points, even ones with essentially no real relationship — always look at how tightly the points hug the line, and how wide the confidence band is, not just whether a line was drawn at all.
+- **Forgetting `method = "lm"` fits a straight line specifically.** Without it, `geom_smooth()` defaults to a flexible curved fit (`loess`), which can look more dramatic than a straight-line relationship actually warrants — be explicit about which you intend.
+- **Adding `geom_smooth()` without `geom_point()` first and expecting to see the raw data.** `geom_smooth()` alone only shows the fitted line and confidence band — without `geom_point()`, the underlying scatter of individual observations disappears entirely.
+:::
+
+## Practice Problem
+
+Build a scatter plot with a `geom_smooth(method = "lm")` trend line for `systolic_bp` against `diastolic_bp`. Given Level 7's much stronger correlation (0.92) here, describe how you'd expect the points to hug the trend line more tightly than in either plot above.
+
+## Challenge Problem
+
+Build the same BMI-blood pressure plot twice: once with `geom_smooth(method = "lm")` and once with `geom_smooth()` (no `method` specified, defaulting to `loess`). Compare the two trend lines — do they tell a meaningfully different story for this particular relationship, or do they look similar given how weak the underlying pattern is?
+
+## Key Takeaways
+
+- `geom_smooth()` adds a fitted trend line (with a confidence band) on top of a scatter plot, layered with `+`.
+- `method = "lm"` fits a straight line; omitting `method` fits a more flexible curve, useful for spotting non-linear patterns.
+- A trend line's slope direction should match the sign of the corresponding `cor()` value — always check the two against each other.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `method = "lm"` specify inside `geom_smooth()`?
+   a) A flexible curved fit
+   b) A straight-line (linear) fit
+   c) The plot's color scheme
+   d) The confidence level
+
+2. **True or false.** A `geom_smooth()` trend line can be drawn even when the underlying relationship between two variables is very weak.
+
+3. **Predict the output.** If two variables have a correlation of -0.22, which direction would you expect their `geom_smooth(method = "lm")` trend line to slope?
+
+4. **Find the error.**
+   ```r
+   ggplot(data = participants, aes(x = bmi, y = systolic_bp)) +
+     geom_smooth(method = "lm")
+   # intended to show both the raw data points and the trend line
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A straight-line (linear) fit.
+2. **True.** A trend line can be fit through any scatter of points, regardless of how weak the actual relationship is — the confidence band's width and how loosely points scatter around the line are what reveal that weakness.
+3. Downward (negative slope), since a negative correlation means the variables tend to move in opposite directions.
+4. `geom_point()` is missing — this code only shows the trend line and confidence band, not the individual data points. It should be `geom_point() + geom_smooth(method = "lm")`.
+
+</details>
+:::

@@ -1,0 +1,151 @@
+# `distinct()` {#sec-distinct}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Before analyzing `county` any further, your professor wants a quick sanity check: exactly how many *different* counties actually appear in the dataset, and what are their names — without caring yet how many participants are in each. `count()` from the last page tells you counts, but sometimes you just want the unique *values* themselves, nothing more.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+List the unique combinations of values in one or more columns, using `dplyr::distinct()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 3, what did `unique(participants$county)` return?
+- If `count()` gives you unique values *plus* how many rows have each, what would you expect a function that gives you *only* the unique values (no counts) to look like?
+:::
+
+## The R Concept
+
+**`distinct()`** returns the unique rows (or unique combinations of specified columns), with no count attached:
+
+```r
+distinct(df, column)
+```
+
+```r
+distinct(participants, county)
+```
+
+This is the tidyverse counterpart to Level 3's `unique(participants$county)` — but because `distinct()` operates on a data frame rather than a single vector, it can also find unique *combinations* across several columns at once:
+
+```r
+distinct(participants, county, sex)   # every county-sex combination that occurs
+```
+
+## Demonstration
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+distinct(participants, county)
+```
+
+```
+       county
+1     Oakford
+2   Riverdale
+3   Millbrook
+4  Springvale
+5 Cedar Falls
+```
+
+Five distinct counties — the rows appear in the order they were first encountered in the dataset (row 1 is `Oakford` because participant #1 lives there), not alphabetically.
+
+```r
+nrow(distinct(participants, county))
+```
+
+```
+[1] 5
+```
+
+## Explore
+
+Try `distinct(participants, county, sex)` and check `nrow()` on the result. With 5 counties and 2 sex categories, there are at most 10 possible combinations — confirm whether all 10 actually occur in the data, or whether some combination is missing entirely.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+unique_counties <- distinct(participants, county)
+
+nrow(unique_counties)
+```
+
+```
+[1] 5
+```
+
+```r
+unique_county_sex <- distinct(participants, county, sex)
+
+nrow(unique_county_sex)
+```
+
+```
+[1] 10
+```
+
+Five distinct counties confirmed, matching what `unique(participants$county)` reported in Level 3 and what `count(participants, county)` implied by returning 5 rows on the previous page. All 10 possible county-and-sex combinations occur at least once in the data.
+
+## Interpret the Result
+
+`distinct()` confirms there are exactly 5 unique counties in the study — no unexpected typos or extra category hiding in the data (recall Level 3's messy dataset, where inconsistent capitalization made "13 distinct-looking values" collapse to only 5 real counties after cleaning). This clean dataset's `county` column has no such problem.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Confusing `distinct()` with `count()`.** `distinct()` returns only the unique values themselves, with no counts attached; `count()` returns the unique values *plus* how many rows had each. Reach for `distinct()` when you only care "what values exist," and `count()` when you also care "how many of each."
+- **Expecting `distinct()` to sort its output.** Unlike `arrange()`, `distinct()` returns unique values in the order they first appear in the data, not alphabetically or numerically — combine with `arrange()` afterward if sorted output matters.
+- **Forgetting `distinct()` on a whole data frame (no columns specified) checks every column.** `distinct(participants)` with no column names looks for entire duplicate *rows* across all columns — a different (and much rarer) kind of duplicate than a single repeated `county` value.
+:::
+
+## Practice Problem
+
+Use `distinct()` to find every unique combination of `smoker` and `sex` that occurs in the dataset, and report how many there are.
+
+## Challenge Problem
+
+Compare `nrow(distinct(participants, county, smoker))` to the number of rows produced by last page's `count(participants, county, smoker)`. Should these two numbers be the same? Explain why or why not.
+
+## Key Takeaways
+
+- `distinct(df, column)` returns the unique values of a column (or unique combinations of several columns), with no counts attached.
+- `distinct()` is the tidyverse counterpart to Level 3's `unique()`, extended to work across multiple columns at once.
+- Rows appear in first-encountered order, not sorted — pair with `arrange()` if sorted output is needed.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** How does `distinct()` differ from `count()`?
+   a) `distinct()` returns unique values with counts; `count()` doesn't
+   b) `distinct()` returns unique values with no counts; `count()` returns unique values with counts
+   c) They are identical in every way
+   d) `distinct()` only works on numeric columns
+
+2. **True or false.** `distinct(participants, county)` sorts the counties alphabetically.
+
+3. **Predict the output.** If `smoker` has only two possible values ("Yes" and "No"), how many rows would `distinct(participants, smoker)` return?
+
+4. **Write the code.** Write the code to find every unique combination of `county` and `smoker` in `participants`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `distinct()` returns unique values with no counts; `count()` returns unique values with counts.
+2. **False.** `distinct()` preserves first-encountered order, not alphabetical order.
+3. 2 rows — one for `"Yes"`, one for `"No"`.
+4. `distinct(participants, county, smoker)`
+
+</details>
+:::

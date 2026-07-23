@@ -1,0 +1,132 @@
+# Getting Help in R {#sec-getting-help}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You just learned that `mean()` has an argument called `na.rm`. But you also notice `round()` takes a second argument you've been supplying without really understanding — `round(bmi, 1)` — and you're not sure what that `1` actually controls, or what other arguments `round()` might accept that you don't know about yet.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Learn to use R's built-in help system to answer your own questions about any function, without needing to search the internet or ask a colleague first.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If a function's documentation were built directly into R, what symbol might you type before a function's name to pull it up?
+- What information would you expect a function's help page to contain — just examples, or something more structured?
+:::
+
+## The R Concept
+
+Every function that ships with R (and every well-made package function) has a **help page** describing exactly what it does. Three ways to access it:
+
+```r
+?round        # opens the help page for round() in the Help pane
+help(round)   # identical to ?round
+args(round)   # shows just the function's arguments, without the full page
+```
+
+A typical help page has a consistent structure worth learning to skim:
+
+- **Description** — a short summary of what the function does.
+- **Usage** — the function's exact syntax, including argument names and their default values.
+- **Arguments** — an explanation of each argument.
+- **Value** — what the function returns.
+- **Examples** — runnable code demonstrating typical use, at the very bottom (often the fastest place to start reading).
+
+For functions with special characters in their name (like `if` or `+`), you need to wrap the name in backticks or quotes: `` ?`+` `` or `help("if")`.
+
+## Demonstration
+
+```r
+?round
+```
+
+Opens the help page in the Help pane, showing (abbreviated):
+
+```
+round(x, digits = 0)
+
+Arguments:
+x        a numeric vector.
+digits   integer indicating the number of decimal places to round to.
+```
+
+```r
+args(round)
+```
+
+```
+function (x, digits = 0)
+NULL
+```
+
+This confirms: `round()`'s second argument is called `digits`, and it defaults to `0` if you don't supply it — which is exactly why `round(bmi, 1)` rounds to 1 decimal place, since `1` is being matched to the `digits` argument by its position.
+
+## Explore
+
+Run `?mean` and scroll to the Arguments section. Confirm you can now see, in R's own documentation, the `na.rm` argument you used on the previous page, along with its default value. Then try `example(round)` — a function that runs the worked examples straight from the help page.
+
+## Solve the Problem
+
+```r
+?round
+```
+
+Reading the help page's Usage section — `round(x, digits = 0)` — answers your question directly: the second argument to `round()` is named `digits`, and it controls how many decimal places the result is rounded to. `round(bmi, 1)` rounds `bmi` to 1 decimal place; had you written `round(bmi, 0)` (or just `round(bmi)`, relying on the default), it would round to the nearest whole number instead.
+
+## Interpret the Result
+
+Knowing that `round()`'s second argument is specifically called `digits` — not just "some number you put there" — means you can now write clearer code by naming it explicitly: `round(bmi, digits = 1)`, which is more self-explanatory to a future reader than the shorter, positional `round(bmi, 1)`.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Jumping to a search engine before checking `?function`.** Built-in help is often faster and always version-matched to the R you're actually running — search results may reference an outdated or different version of a function.
+- **Being intimidated by a help page's dense formatting.** Skip straight to the Examples section at the bottom first — it's usually the fastest way to understand a function's practical use before reading the more formal Arguments section.
+- **Forgetting quotes or backticks for special names.** `?if` alone will error; you need `` ?`if` `` or `help("if")`.
+- **Not realizing argument defaults are shown in Usage.** `round(x, digits = 0)` tells you `digits` defaults to `0` if you don't specify it — this is often the fastest way to discover a function's default behavior.
+:::
+
+## Practice Problem
+
+Use `?sum` to answer: does `sum()` have an `na.rm` argument, similar to `mean()`? Confirm your answer by reading the Arguments section.
+
+## Challenge Problem
+
+You encounter an unfamiliar function, `quantile()`, in a colleague's script. Use `?quantile` to identify what its default argument (besides `x`) is called, and what value it defaults to when not specified.
+
+## Key Takeaways
+
+- `?function_name` (or `help(function_name)`) opens R's built-in documentation in the Help pane.
+- A help page's Usage section shows argument names and their defaults; the Examples section (often the fastest starting point) shows runnable code.
+- Checking built-in help first is usually faster and more reliable than searching the web, especially for base R functions.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Which command opens the help page for `sd()`?
+   a) `sd?`
+   b) `?sd`
+   c) `help sd`
+   d) `sd.help()`
+
+2. **True or false.** A function's help page always lists its default argument values, if it has any.
+
+3. **Predict the output.** What section of a help page would you check to find out what a function *returns*?
+
+4. **Write the code.** Write the command to view the help page for the function `paste`, using the `help()` form rather than `?`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `?sd`
+2. **True.** The Usage section of a help page shows every argument along with any default value it has.
+3. The **Value** section describes what the function returns.
+4. `help(paste)`
+
+</details>
+:::

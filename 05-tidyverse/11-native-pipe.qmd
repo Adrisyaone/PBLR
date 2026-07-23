@@ -1,0 +1,158 @@
+# The Native Pipe `|>` {#sec-native-pipe}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor asks you to filter to seniors (65+), then look at just the first 3 rows. Nesting the calls works — `head(filter(participants, age >= 65), 3)` — but notice you have to read it **inside-out**: R evaluates `filter()` first, even though it's written second, buried inside `head()`'s parentheses. As soon as you chain three or four steps together, this inside-out reading becomes genuinely hard to follow.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Chain multiple operations together in the order you actually think about them, using R's native pipe operator `|>`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- In `head(filter(participants, age >= 65), 3)`, which function runs *first* — the one written first, or the one written innermost?
+- If you could rewrite that same operation top-to-bottom, left-to-right, in the exact order the steps actually happen, what would that look like?
+:::
+
+## The R Concept
+
+The **native pipe**, `|>` (built into base R since version 4.1, no package required), takes whatever is on its left and inserts it as the **first argument** of the function on its right:
+
+```r
+x |> f()
+# is exactly equivalent to:
+f(x)
+```
+
+```r
+participants |> filter(age >= 65)
+# is exactly equivalent to:
+filter(participants, age >= 65)
+```
+
+Chained together, a pipe reads top-to-bottom in the exact order the steps happen — no more inside-out nesting:
+
+```r
+participants |> filter(age >= 65) |> head(3)
+```
+
+This is identical to `head(filter(participants, age >= 65), 3)` — same result, same functions, same arguments — but now written in the order you'd describe it aloud: "take `participants`, filter to age 65+, then take the first 3."
+
+## Demonstration
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+# Nested version - reads inside-out
+nested_result <- head(filter(participants, age >= 65), 3)
+
+# Piped version - reads top-to-bottom
+piped_result <- participants |> filter(age >= 65) |> head(3)
+
+identical(nested_result, piped_result)
+```
+
+```
+[1] TRUE
+```
+
+```r
+piped_result
+```
+
+```
+  id age    sex      county systolic_bp diastolic_bp  bmi smoker
+1 17  79 Female  Springvale         117           73 21.1    Yes
+2 19  80 Female Cedar Falls         109           79 28.4     No
+3 31  70   Male     Oakford         145           85   NA     No
+```
+
+## Explore
+
+Try adding a third step to the pipeline: `participants |> filter(age >= 65) |> arrange(desc(systolic_bp)) |> head(3)`. Read it aloud as you look at it — "take `participants`, filter to seniors, sort by blood pressure descending, take the top 3" — and notice the code reads in that exact same order.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+at_risk_seniors <- participants |>
+  filter(age >= 65 & systolic_bp >= 130) |>
+  arrange(desc(systolic_bp))
+
+at_risk_seniors
+```
+
+```
+  id age    sex      county systolic_bp diastolic_bp  bmi smoker
+1 62  81   Male   Millbrook         153           95 30.3    Yes
+2 31  70   Male     Oakford         145           85   NA     No
+3 84  67 Female   Riverdale         134           79 26.8     No
+4 51  66   Male Cedar Falls         133           77 34.5     No
+```
+
+Filtering and sorting are now two clearly ordered steps in one pipeline — read top to bottom, this code says exactly what it does: "take `participants`, filter to at-risk seniors, sort by blood pressure with the highest first."
+
+## Interpret the Result
+
+The same 4 at-risk seniors identified back on the `filter()` page are now sorted by systolic blood pressure, highest first — participant #62 (age 81, BP 153) stands out as the most urgent case, followed by #31, #84, and #51. The pipe made the two-step process ("filter, then sort") visibly sequential rather than nested inside one another.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Confusing the native pipe `|>` with the older magrittr pipe `%>%`.** You may see `%>%` in older tidyverse tutorials and Stack Overflow answers — it behaves almost identically, but `|>` is built into base R itself (no `library()` call needed) and is now the standard choice for new code.
+- **Forgetting the pipe inserts as the *first* argument only.** `participants |> filter(age >= 65)` becomes `filter(participants, age >= 65)` — `participants` always lands in the first argument slot. If a function's data argument isn't first, the plain pipe can't simply slot it in.
+- **Piping into something that isn't a function call.** `participants |> age` is an error — the right-hand side of `|>` must be a function call like `filter(...)` or `head(...)`, not a bare column reference.
+:::
+
+## Practice Problem
+
+Rewrite `arrange(select(participants, id, age, bmi), desc(bmi))` as a piped chain using `|>`, and confirm with `identical()` that both versions produce the same result.
+
+## Challenge Problem
+
+Write a three-step pipeline that starts from `participants`, filters to non-smokers (`smoker == "No"`), sorts by `age` ascending, and keeps only the `id`, `age`, and `county` columns — using `|>` to chain `filter()`, `arrange()`, and `select()` in that order.
+
+## Key Takeaways
+
+- `x |> f()` is exactly equivalent to `f(x)` — the pipe inserts its left-hand side as the function's first argument.
+- Chained pipes read top-to-bottom, in the actual order operations happen — the opposite of nested function calls, which read inside-out.
+- The native pipe `|>` is built into base R (since R 4.1) and requires no package; you may also encounter the older, package-based `%>%` pipe in existing code.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What is `participants |> filter(age >= 65)` equivalent to?
+   a) `filter(age >= 65, participants)`
+   b) `filter(participants, age >= 65)`
+   c) `age >= 65 |> filter(participants)`
+   d) None of these — the pipe changes the result
+
+2. **True or false.** The native pipe `|>` requires `library(magrittr)` or `library(dplyr)` to work.
+
+3. **Predict the output.** What would `participants |> nrow()` return?
+
+4. **Find the error.**
+   ```r
+   participants |> age
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `filter(participants, age >= 65)` — the pipe's left side becomes the first argument.
+2. **False.** The native pipe `|>` is built into base R (since version 4.1) and needs no package.
+3. `100` — the number of rows in `participants`, since `nrow()` takes a data frame and `participants` is piped in as that argument.
+4. The right-hand side of `|>` must be a function call, not a bare column reference. `age` alone isn't a function call, so this errors; you'd need something like `participants |> pull(age)` (or simply `participants$age`) instead.
+
+</details>
+:::

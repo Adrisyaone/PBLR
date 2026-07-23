@@ -1,0 +1,126 @@
+# Colors, Grouping, and Legends {#sec-colors-and-legends}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 7's cross-tabulation found smoking rates differ notably by sex (19.2% women, 31.2% men), but blood pressure doesn't differ much by smoking status on its own (129.61 mmHg for non-smokers, 130.54 for smokers). Your professor wants to see the BMI-blood pressure scatter plot from Page 1 again — but this time with smokers and non-smokers visually distinguished, to check by eye whether the two groups occupy different regions of the plot.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Map a third variable to color, adding a visual grouping dimension to a plot, complete with an automatically generated legend.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- `aes()` has mapped variables to `x` and `y` so far. Could a third variable be mapped to a different visual property — like color — using that same `aes()` function?
+- If two groups (smokers and non-smokers) are colored differently on the same plot, would you expect `ggplot2` to automatically generate a legend explaining which color means what?
+:::
+
+## The R Concept
+
+Mapping a categorical variable to `color` (for points and lines) or `fill` (for bars and boxes) inside `aes()` adds a grouping dimension to a plot, with a legend generated automatically:
+
+```r
+ggplot(data = df, aes(x = x_col, y = y_col, color = grouping_column)) +
+  geom_point()
+```
+
+No extra step is needed for the legend — `ggplot2` builds it automatically from the color mapping, labeled with the grouping column's actual category values.
+
+## Demonstration
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+ggplot(data = participants, mapping = aes(x = bmi, y = systolic_bp, color = smoker)) +
+  geom_point()
+```
+
+This produces the same scatter plot as Page 1, but now every point is colored by smoking status, with a legend on the side labeled "smoker" showing which color corresponds to "Yes" and which to "No." Visually, the two colors appear thoroughly intermixed across the plot rather than occupying separate regions — consistent with smokers' and non-smokers' mean blood pressure (130.54 vs. 129.61) being nearly identical.
+
+## Explore
+
+Try mapping `color = county` instead of `color = smoker` on the same plot. With 5 counties instead of 2 smoking categories, `ggplot2` automatically assigns 5 distinct colors and builds a legend with 5 entries — no additional code needed beyond changing which column is mapped.
+
+## Solve the Problem
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+bmi_bp_by_smoker <- ggplot(data = participants, mapping = aes(x = bmi, y = systolic_bp, color = smoker)) +
+  geom_point() +
+  labs(
+    title = "BMI and Blood Pressure by Smoking Status",
+    x = "Body Mass Index (BMI)",
+    y = "Systolic Blood Pressure (mmHg)",
+    color = "Current Smoker"
+  ) +
+  theme_minimal()
+
+bmi_bp_by_smoker
+```
+
+Note `labs(color = "Current Smoker")` renames the legend title itself (from the default "smoker" to a more readable "Current Smoker") — `labs()` can relabel any aesthetic, not just axes.
+
+## Interpret the Result
+
+Coloring by smoking status doesn't reveal any visually obvious separation between the two groups on this plot — smokers and non-smokers scatter across the same overall region of BMI and blood pressure values. This visual finding is consistent with Level 7's numeric result: smoking status and blood pressure showed little relationship in this sample. A color mapping doesn't manufacture a pattern that isn't there — it simply makes an existing (or absent) pattern easier to check by eye.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Using `color` for a continuous numeric variable when a distinct palette is expected.** Mapping `color` to a categorical variable (like `smoker`) gives discrete colors with a labeled legend; mapping it to a continuous variable (like `age`) instead produces a color *gradient* — a genuinely different kind of legend and visual encoding.
+- **Confusing `color` and `fill`.** `color` controls outlines and point colors (used for `geom_point()`, `geom_line()`); `fill` controls the interior color of shapes with area (used for `geom_bar()`, `geom_boxplot()`) — using the wrong one for a given geom often produces no visible change at all.
+- **Adding a color mapping and assuming it reveals a meaningful group difference.** Sometimes, as here, coloring by a group reveals *no* visible separation — that's a legitimate and useful finding (echoing Level 7's weak smoking-blood pressure relationship), not a failed plot.
+:::
+
+## Practice Problem
+
+Recreate the BMI-blood pressure scatter plot with `color = sex` instead of `color = smoker`. Does mapping sex reveal any more visible separation than smoking status did?
+
+## Challenge Problem
+
+Build a boxplot of `bmi` by `county` (Page 5's technique), adding `fill = county` to color each box differently. Since `county` is already mapped to `x`, is a `fill` legend actually necessary here, or would it be redundant with the x-axis labels? Explain your reasoning.
+
+## Key Takeaways
+
+- Mapping a variable to `color` (or `fill`) inside `aes()` adds a grouping dimension to any plot, with a legend generated automatically.
+- `color` applies to outlines and points; `fill` applies to the interior of shapes with area, like bars and boxes.
+- A color mapping that reveals no visible group separation is still a legitimate and informative result — it doesn't mean the plot failed.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does mapping `color = smoker` inside `aes()` do?
+   a) Changes the plot's background color
+   b) Colors points differently based on smoking status, with an automatic legend
+   c) Removes non-smokers from the plot
+   d) Requires a separate `legend()` function call
+
+2. **True or false.** `color` and `fill` always produce the same visual effect, regardless of which geom is used.
+
+3. **Predict the output.** If you map `color = county` (5 categories) instead of `color = smoker` (2 categories), how many legend entries would you expect?
+
+4. **Find the error.**
+   ```r
+   ggplot(data = participants, aes(x = smoker, y = bmi)) +
+     geom_boxplot(color = county)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Colors points differently based on smoking status, with an automatic legend.
+2. **False.** `color` affects outlines/points, while `fill` affects the interior of shapes with area — for a `geom_boxplot()`, `fill` typically produces a more visible effect than `color`.
+3. 5 legend entries, one per county.
+4. `color = county` is placed outside `aes()`, so `ggplot2` tries to interpret `county` as a literal fixed value rather than a column mapping, which errors. It should be inside `aes()`: `geom_boxplot(aes(fill = county))` (using `fill`, since boxplots have an interior area).
+
+</details>
+:::

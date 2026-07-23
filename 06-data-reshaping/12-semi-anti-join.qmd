@@ -1,0 +1,170 @@
+# `semi_join()` and `anti_join()` {#sec-semi-anti-join}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor asks two more specific questions, neither of which needs any *columns* combined from the second file — just a **filtered view** of the first file, based on whether a match exists elsewhere. First: "Show me only baseline participants who *do* have a follow-up record — but keep just the baseline columns, nothing from follow-up." Second: "Show me exactly which baseline participants were lost to follow-up — again, baseline columns only."
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Filter one data frame based on whether its key matches another, without adding any of the second data frame's columns, using `dplyr::semi_join()` and `dplyr::anti_join()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Every join so far (`left_join()`, `inner_join()`, `right_join()`, `full_join()`) *added columns* from the second data frame. If a function only *filtered rows* of the first data frame instead, would its result need any new columns at all?
+- If `semi_join()` keeps rows *with* a match, what would you expect its natural counterpart to keep instead?
+:::
+
+## The R Concept
+
+**`semi_join()`** keeps only the rows of the first data frame that **have** a matching key in the second — but adds none of the second data frame's columns:
+
+```r
+semi_join(df1, df2, by = "key_column")
+```
+
+```r
+semi_join(baseline, followup, by = "id")
+```
+
+**`anti_join()`** does the opposite: it keeps only the rows of the first data frame that **do not** have a matching key in the second — again, adding no new columns:
+
+```r
+anti_join(df1, df2, by = "key_column")
+```
+
+```r
+anti_join(baseline, followup, by = "id")
+```
+
+Both are **filtering joins** — unlike `left_join()`/`inner_join()`/`right_join()`/`full_join()` (all "mutating joins" that add columns), `semi_join()` and `anti_join()` only ever return a subset of the first data frame's own rows and columns.
+
+## Demonstration
+
+```r
+library(dplyr)
+
+baseline <- read.csv("data/baseline_enrollment.csv")
+followup <- read.csv("data/followup_visit.csv")
+
+has_followup <- semi_join(baseline, followup, by = "id")
+
+nrow(has_followup)
+```
+
+```
+[1] 15
+```
+
+```r
+names(has_followup)
+```
+
+```
+[1] "id"           "age"          "sex"          "county"       "baseline_bmi"
+```
+
+15 rows — the participants with a follow-up match — but notice: only `baseline`'s own 5 columns, with nothing from `followup` attached (unlike `inner_join()`, which would have added `followup_sbp` and `followup_smoker` too).
+
+```r
+lost_to_followup <- anti_join(baseline, followup, by = "id")
+
+lost_to_followup$id
+```
+
+```
+[1] 16 17 18 19 20
+```
+
+## Explore
+
+Try `anti_join(followup, baseline, by = "id")` — reversing which file is first. Confirm this returns the 5 *new recruits* (ids 21-25) instead of the 5 dropouts — `anti_join()`'s result depends entirely on which data frame is listed first, exactly like every join so far.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+baseline <- read.csv("data/baseline_enrollment.csv")
+followup <- read.csv("data/followup_visit.csv")
+
+lost_to_followup <- anti_join(baseline, followup, by = "id")
+new_recruits <- anti_join(followup, baseline, by = "id")
+
+lost_to_followup[, c("id", "county", "age")]
+```
+
+```
+   id      county age
+16 16   Millbrook  45
+17 17  Springvale  79
+18 18     Oakford  26
+19 19 Cedar Falls  80
+20 20     Oakford  55
+```
+
+```r
+new_recruits$id
+```
+
+```
+[1] 21 22 23 24 25
+```
+
+Two clean, separate reports for your professor: exactly the 5 baseline participants lost to follow-up (ids 16-20, ages ranging from 26 to 80), and exactly the 5 new recruits who joined only at follow-up (ids 21-25) — each extracted with a single filtering join, no unwanted columns attached.
+
+## Interpret the Result
+
+`semi_join()` and `anti_join()` answer "which rows match (or don't)?" without the complexity of merged, `NA`-filled columns — often exactly what's needed when the goal is identifying *who* falls into a group, not analyzing their combined data. Compare this to Page 10's `inner_join()`, which answers a related but different question ("give me the matched data, combined") by adding columns rather than just filtering rows.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Reaching for `inner_join()` when you only needed a filter.** If your goal is just "which participants match," `semi_join()` gives a cleaner result than `inner_join()` followed by manually dropping the unwanted follow-up columns.
+- **Forgetting `anti_join()`'s direction matters enormously.** `anti_join(baseline, followup, ...)` (dropouts) and `anti_join(followup, baseline, ...)` (new recruits) answer completely different questions — mixing them up reverses which group you're actually reporting on.
+- **Expecting `semi_join()` to add any columns at all.** Unlike every other join in this level, `semi_join()`'s result never has more columns than its *first* argument — if you need `followup`'s columns too, `semi_join()` is the wrong tool; reach for `inner_join()` instead.
+:::
+
+## Practice Problem
+
+Use `semi_join(followup, baseline, by = "id")` to find which follow-up participants also have a baseline record. How many are there, and does this match `inner_join()`'s row count from Page 10?
+
+## Challenge Problem
+
+Confirm that `nrow(semi_join(baseline, followup, by = "id")) + nrow(anti_join(baseline, followup, by = "id"))` equals `nrow(baseline)` exactly. Explain in words why this must always be true for any two data frames and any key column.
+
+## Key Takeaways
+
+- `semi_join(df1, df2, by = "key")` keeps only `df1`'s rows that have a match in `df2`, with none of `df2`'s columns added.
+- `anti_join(df1, df2, by = "key")` keeps only `df1`'s rows that have **no** match in `df2` — again, no new columns.
+- Both are filtering joins, distinct from the "mutating joins" (`left_join()`, `inner_join()`, `right_join()`, `full_join()`) that combine columns from both data frames.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** How many columns does `semi_join(baseline, followup, by = "id")` return, if `baseline` has 5 columns and `followup` has 3?
+   a) 8 (5 + 3)
+   b) 5 (only `baseline`'s columns)
+   c) 3 (only `followup`'s columns)
+   d) 2 (only the shared key and one other)
+
+2. **True or false.** `anti_join(baseline, followup, by = "id")` and `anti_join(followup, baseline, by = "id")` return the same rows.
+
+3. **Predict the output.** Given 20 baseline ids and 15 with a follow-up match, how many rows would `anti_join(baseline, followup, by = "id")` return?
+
+4. **Short answer.** When would you prefer `semi_join()` over `inner_join()`, even though both only keep matching rows?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** 5 — `semi_join()` never adds columns from the second data frame, regardless of how many it has.
+2. **False.** The two calls answer different questions entirely — dropouts (baseline-only) versus new recruits (followup-only) — and generally return completely different rows.
+3. 5 rows — the baseline ids (16-20) with no matching follow-up record.
+4. When you only need to know *which* rows match, not to actually combine data from both files — `semi_join()` avoids adding unwanted columns that you'd otherwise have to `select()` away after an `inner_join()`.
+
+</details>
+:::

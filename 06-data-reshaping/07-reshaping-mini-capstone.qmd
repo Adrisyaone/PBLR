@@ -1,0 +1,151 @@
+# Reshaping Mini-Capstone: Change Across Visits {#sec-reshaping-mini-capstone}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor's real question, at last stated plainly: "By county, how much did blood pressure change on average between the first and last visit?" Answering this needs visit 1 and visit 3 side by side in the *same row* so you can subtract them — but you also want the flexibility to pick "first and last visit" through filtering, rather than hardcoding column names like `sbp_visit1` and `sbp_visit3` directly.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Chain `pivot_longer()`, `filter()`, `pivot_wider()`, and `mutate()` together in one pipeline to compute a per-participant change score, then summarise it by county.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- To compute `visit3 - visit1` with `mutate()` (Level 5), do both values need to be in the same row, or can they be in different rows?
+- If you go to long format first, could you `filter()` down to just the two visits you care about, *before* pivoting back to wide to align them side by side for subtraction?
+:::
+
+## The R Concept
+
+A reshaping pipeline often goes **wide → long → (filter/analyze) → wide** again: long format makes it easy to `filter()` down to exactly the visits you want, and pivoting back to wide afterward aligns the remaining visits side by side so you can compute a per-row difference with `mutate()`:
+
+```r
+df |>
+  pivot_longer(cols = ..., names_to = "visit", values_to = "value") |>
+  filter(visit %in% c("first_visit", "last_visit")) |>
+  pivot_wider(names_from = visit, values_from = value) |>
+  mutate(change = last_visit - first_visit)
+```
+
+## Demonstration
+
+```r
+library(dplyr)
+library(tidyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+bp_change <- bp_wide |>
+  pivot_longer(cols = starts_with("sbp_visit"), names_to = "visit", names_prefix = "sbp_", values_to = "sbp") |>
+  filter(visit %in% c("visit1", "visit3")) |>
+  pivot_wider(names_from = visit, values_from = sbp) |>
+  filter(!is.na(visit3)) |>
+  mutate(change = visit3 - visit1)
+
+head(bp_change[, c("id", "county", "visit1", "visit3", "change")], 5)
+```
+
+```
+  id      county visit1 visit3 change
+1  1     Oakford    125    117     -8
+2  2   Riverdale    123    129      6
+3  3     Oakford    130    124     -6
+4  4   Millbrook    117    116     -1
+5  5   Millbrook    139    138     -1
+```
+
+Filtering out the 2 participants missing a `visit3` reading before computing `change` (via `filter(!is.na(visit3))`) avoids `NA` change values contaminating the county averages next.
+
+## Explore
+
+Try skipping the `filter(visit %in% c("visit1", "visit3"))` step and pivoting all three visits wide instead. Confirm you'd then need `mutate(change = visit3 - visit1)` regardless — `visit2` would just sit unused in the result, since `mutate()` only references the columns you actually name.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+library(tidyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+county_change_summary <- bp_wide |>
+  pivot_longer(cols = starts_with("sbp_visit"), names_to = "visit", names_prefix = "sbp_", values_to = "sbp") |>
+  filter(visit %in% c("visit1", "visit3")) |>
+  pivot_wider(names_from = visit, values_from = sbp) |>
+  filter(!is.na(visit3)) |>
+  mutate(change = visit3 - visit1) |>
+  group_by(county) |>
+  summarise(n = n(), mean_change = round(mean(change), 2)) |>
+  arrange(mean_change)
+
+county_change_summary
+```
+
+```
+# A tibble: 5 x 3
+  county          n mean_change
+  <chr>       <int>       <dbl>
+1 Springvale      6      -10.17
+2 Cedar Falls     4       -8.00
+3 Millbrook       4       -3.50
+4 Riverdale       6       -2.67
+5 Oakford         6       -1.17
+```
+
+Springvale shows the largest average blood pressure decrease from visit 1 to visit 3 (-10.17), followed by Cedar Falls (-8.00) — though Cedar Falls' figure rests on just 4 complete participants and Millbrook's on only 4 as well (2 of Millbrook's 6 participants dropped out before visit 3).
+
+## Interpret the Result
+
+Every county in this subset shows a mean *decrease* in blood pressure from visit 1 to visit 3, consistent with the mild simulated treatment effect built into this dataset — but the size of that decrease varies meaningfully by county, from Oakford's modest -1.17 to Springvale's much larger -10.17. As always (Level 5), the smaller counties' averages (Cedar Falls and Millbrook, both n=4 after dropout) deserve more caution than Oakford, Riverdale, or Springvale's more stable n=6 estimates.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Computing `change` before removing missing `visit3` values.** `mutate(change = visit3 - visit1)` with a missing `visit3` correctly produces `NA` for `change` — but if you forget to `filter(!is.na(visit3))` (or handle it in `summarise()` with `na.rm = TRUE`), those `NA`s can silently propagate into a `NA` group mean.
+- **Reshaping all three visits when only two are needed.** Including `visit2` in the `pivot_wider()` step doesn't break anything, but it does create an unused column — filtering down to just the visits you need (as done here) keeps the pipeline focused and avoids confusion.
+- **Interpreting a mean change without checking group size.** A -8.00 mean drop in a county of 4 people carries much more uncertainty than a -1.17 mean drop in a county of 6 — reshaping and chaining code correctly is necessary, but not sufficient, for a trustworthy conclusion.
+:::
+
+## Practice Problem
+
+Repeat this pipeline for `weight` instead of `sbp` (reshape the `weight_visit1`/`weight_visit2`/`weight_visit3` columns, filter to visit1 and visit3, compute `change`, and summarise by county). Does weight show a consistent decrease across counties, similar to blood pressure?
+
+## Challenge Problem
+
+Modify the pipeline to compute change between `visit1` and `visit2` instead of `visit1` and `visit3`. Compare the resulting county rankings — does the county with the largest early change (`visit1` to `visit2`) also have the largest overall change (`visit1` to `visit3`)?
+
+## Key Takeaways
+
+- A common reshaping pattern is wide → long (to filter flexibly) → wide again (to align values side by side for a row-wise calculation).
+- Always resolve missing values from dropout or incomplete follow-up *before* they propagate into a downstream group summary.
+- A per-county (or per-group) summary is only as trustworthy as its underlying sample size — reshaping code correctly doesn't guarantee the resulting numbers deserve equal confidence.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Why reshape to long format before filtering to specific visits, rather than just selecting wide columns directly?
+   a) It's required by R syntax
+   b) It lets you filter by visit as an actual value, which generalizes better than hardcoding column names
+   c) Long format uses less memory
+   d) There's no reason; both approaches are identical
+
+2. **True or false.** `mutate(change = visit3 - visit1)` will produce `NA` for any row where `visit3` is missing.
+
+3. **Predict the output.** In `county_change_summary`, which county has the smallest-magnitude mean change (closest to zero)?
+
+4. **Short answer.** Why does `Cedar Falls`' -8.00 mean change deserve more caution than `Oakford`'s or `Springvale`'s figures, even though all three are computed the same way?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** It lets you filter by visit as an actual value (`filter(visit %in% c(...))`), which generalizes to any pair of visits rather than hardcoding specific column names.
+2. **True.** Arithmetic involving a missing value produces `NA` by default, matching the rule from every earlier level.
+3. Oakford, with a mean change of -1.17 (closest to zero).
+4. Cedar Falls' mean rests on only 4 participants (this subset's smallest county), making its average considerably less stable than Oakford's or Springvale's, both based on 6 participants.
+
+</details>
+:::

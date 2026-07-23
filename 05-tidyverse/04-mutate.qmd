@@ -1,0 +1,156 @@
+# `mutate()` {#sec-mutate}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Back in Level 4, you built `pulse_pressure` and `bmi_category` with base R's `df$new_col <- ...` pattern, one assignment line per new variable. Your professor now wants three new variables added at once — pulse pressure, BMI category, and a hypertension flag — and typing three separate `participants$` assignment lines, one after another, feels repetitive for something that's really one coherent step: "add these derived variables to the dataset."
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Create one or more new columns in a single, unified step using `dplyr::mutate()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 4, what did `participants$pulse_pressure <- participants$systolic_bp - participants$diastolic_bp` do?
+- If a single function could create several new columns at once, each specified by name, would you expect to need `participants$` repeated in front of every column reference inside it?
+:::
+
+## The R Concept
+
+**`mutate()`** creates (or modifies) one or more columns at once, using column names directly with no `df$` prefix — and, crucially, later new columns *within the same `mutate()` call* can reference earlier ones:
+
+```r
+mutate(df,
+  new_col1 = <calculation>,
+  new_col2 = <calculation using new_col1>
+)
+```
+
+```r
+mutate(participants,
+  pulse_pressure = systolic_bp - diastolic_bp,
+  is_hypertensive = as.numeric(systolic_bp >= 130)
+)
+```
+
+This mirrors Level 4's `case_when()` and `ifelse()` exactly in spirit — `mutate()` is simply the tidyverse's version of "assign a new column," the same way `filter()` was the tidyverse's version of logical row indexing.
+
+## Demonstration
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+participants_new <- mutate(participants,
+  pulse_pressure = systolic_bp - diastolic_bp,
+  is_hypertensive = as.numeric(systolic_bp >= 130)
+)
+
+names(participants_new)
+```
+
+```
+[1] "id"              "age"             "sex"             "county"
+[5] "systolic_bp"     "diastolic_bp"    "bmi"             "smoker"
+[9] "pulse_pressure"  "is_hypertensive"
+```
+
+```r
+head(participants_new[, c("systolic_bp", "diastolic_bp", "pulse_pressure", "is_hypertensive")], 3)
+```
+
+```
+  systolic_bp diastolic_bp pulse_pressure is_hypertensive
+1         125           79             46               0
+2         123           80             43               0
+3         130           77             53               1
+```
+
+## Explore
+
+Try referencing a just-created column within the same `mutate()` call: `mutate(participants, pulse_pressure = systolic_bp - diastolic_bp, high_pp = as.numeric(pulse_pressure > 50))`. Confirm `high_pp` correctly uses `pulse_pressure`, even though both were created in the very same call — `mutate()` processes its arguments in order, top to bottom.
+
+## Solve the Problem
+
+```r
+library(dplyr)
+
+participants <- read.csv("data/participants.csv")
+
+participants <- mutate(participants,
+  pulse_pressure = systolic_bp - diastolic_bp,
+  bmi_category = case_when(
+    bmi < 18.5 ~ "Underweight",
+    bmi < 25   ~ "Normal",
+    bmi < 30   ~ "Overweight",
+    TRUE       ~ "Obese"
+  ),
+  is_hypertensive = as.numeric(systolic_bp >= 130)
+)
+
+table(participants$bmi_category, useNA = "always")
+```
+
+```
+Normal Obese Overweight Underweight       <NA>
+    28    25         39           3           5
+```
+
+All three derived variables from your professor's request were added in a single `mutate()` call, and the `bmi_category` counts (28 Normal, 25 Obese, 39 Overweight, 3 Underweight, 5 missing) exactly match the counts you first computed with nested `ifelse()` back in Level 2 — the same result, produced more readably.
+
+## Interpret the Result
+
+Three new derived variables — `pulse_pressure`, `bmi_category`, and `is_hypertensive` — now exist in `participants`, all added in one step whose logic is easy to read top to bottom, rather than three disconnected `participants$... <- ...` lines scattered through a script.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `mutate()` returns a new data frame.** Like `filter()`, `select()`, and `arrange()`, `mutate()` doesn't modify `participants` in place — you must reassign the result (`participants <- mutate(participants, ...)`) to keep the new columns.
+- **Assuming column order within `mutate()` doesn't matter.** It does — a later argument can reference an earlier one *within the same call* (as in the Explore step), but not the reverse; arguments are evaluated top to bottom, in the order written.
+- **Recreating Level 4's `case_when()` logic from scratch instead of reusing it.** `mutate()` doesn't replace `case_when()`, `ifelse()`, or arithmetic — it's the *container* they go inside; all of Level 4's conditional tools remain exactly as useful here.
+:::
+
+## Practice Problem
+
+Use `mutate()` to add a `bp_ratio` column (`systolic_bp / diastolic_bp`) and an `age_group` column (`"Senior"` for 65+, `"Non-senior"` otherwise, using `ifelse()`) in a single call.
+
+## Challenge Problem
+
+Use `mutate()` to add a `risk_score` column that equals `1` for every hypertension criterion a participant meets, summed across being 65+, having BMI 30+, and being a current smoker (hint: this needs three separate `as.numeric()` comparisons added together within one `mutate()` expression). Report the maximum `risk_score` observed in the dataset.
+
+## Key Takeaways
+
+- `mutate(df, new_col = ...)` creates or modifies one or more columns at once, using bare column names with no `df$` prefix.
+- Later columns within the same `mutate()` call can reference earlier ones, evaluated top to bottom.
+- Like other dplyr verbs, `mutate()` returns a new data frame — reassign the result to keep the changes.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `mutate(df, x2 = x * 2)` do?
+   a) Removes column `x`
+   b) Creates a new column `x2` equal to `x` times 2
+   c) Filters rows where `x` equals 2
+   d) Renames `x` to `x2`
+
+2. **True or false.** Within a single `mutate()` call, a later column can reference one created earlier in the same call.
+
+3. **Predict the output.** After `df <- mutate(df, y = x + 1)`, if the original `df` had no column `y`, does `df` now have one?
+
+4. **Write the code.** Write the `mutate()` call to add a column `bmi_rounded` equal to `round(bmi, 0)`.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Creates a new column `x2` equal to `x` times 2.
+2. **True.** `mutate()` evaluates its arguments in order, so later ones can reference earlier ones within the same call.
+3. Yes — since the result was reassigned back to `df`, the new `y` column now exists.
+4. `mutate(df, bmi_rounded = round(bmi, 0))`
+
+</details>
+:::

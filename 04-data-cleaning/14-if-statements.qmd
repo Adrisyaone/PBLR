@@ -1,0 +1,157 @@
+# Conditional Statements: `if` {#sec-if-statements}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your supervisor asks you to write a short script that checks whether the study has reached its enrollment target of 100 participants, and prints a different message depending on the answer: `"Enrollment complete"` if so, or `"Still recruiting"` if not. This isn't about transforming a column of data — it's about making your *script itself* behave differently depending on a single condition.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Use `if` (and `else`) to make a single decision in your code, executing different blocks depending on whether a condition is `TRUE` or `FALSE`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 1, what does a comparison like `nrow(participants) == 100` produce?
+- Is checking "has enrollment reached 100, yes or no" the same kind of question as the column-wide, per-row conditions you've used throughout this level, or is it a single, one-time decision?
+:::
+
+## The R Concept
+
+**`if`** evaluates a single logical condition and runs a block of code only if that condition is `TRUE`; an optional **`else`** provides an alternative block for when it's `FALSE`:
+
+```r
+if (condition) {
+  # runs only if condition is TRUE
+} else {
+  # runs only if condition is FALSE
+}
+```
+
+This is a genuinely different tool from the vectorized comparisons you've used throughout this level (`df$col >= 130`, applied to every row at once). `if` expects a **single** `TRUE` or `FALSE` value — not a whole vector — and controls which block of code *runs*, rather than producing a new column of results.
+
+```r
+if (nrow(participants) == 100) {
+  print("Enrollment complete")
+} else {
+  print("Still recruiting")
+}
+```
+
+## Demonstration
+
+```r
+n_enrolled <- 100
+
+if (n_enrolled == 100) {
+  print("Enrollment complete")
+} else {
+  print("Still recruiting")
+}
+```
+
+```
+[1] "Enrollment complete"
+```
+
+```r
+n_enrolled <- 87
+
+if (n_enrolled == 100) {
+  print("Enrollment complete")
+} else {
+  print("Still recruiting")
+}
+```
+
+```
+[1] "Still recruiting"
+```
+
+## Explore
+
+Try passing a whole vector's worth of values into an `if` condition, like `if (c(TRUE, FALSE)) { print("test") }`, rather than a single value. In current versions of R, this produces an error — `if`'s condition must be a single, length-one logical value, not a vector — a helpful guardrail that stops you from confusing `if` (a single decision) with the vectorized, per-row tools (`ifelse()`, next page) that this level has used throughout.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+if (nrow(participants) == 100) {
+  print("Enrollment complete")
+} else {
+  print("Still recruiting")
+}
+```
+
+```
+[1] "Enrollment complete"
+```
+
+## Interpret the Result
+
+The script correctly reports `"Enrollment complete"` because `nrow(participants)` is exactly `100` — a single, one-time decision about the *dataset as a whole*, genuinely different from asking "which individual participants meet a condition," the per-row question every earlier page in this level has answered with vectorized comparisons.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Trying to use `if` on an entire column at once.** `if (participants$age >= 65)` fails, because `participants$age >= 65` is a vector of 100 values, not one — `if` needs a single `TRUE`/`FALSE`. For per-row decisions across a whole column, you want `ifelse()` (next page), not `if`.
+- **Forgetting curly braces for multi-line blocks.** A single-line `if` can skip the braces (`if (x) print("yes")`), but as soon as more than one line needs to run conditionally, `{ }` are required to group them together.
+- **Confusing `if`/`else` (a programming control-flow structure) with `ifelse()` (a vectorized function).** They sound almost identical and solve related but distinct problems — this level's next three pages exist specifically to make that distinction clear.
+:::
+
+## Practice Problem
+
+Write an `if`/`else` block that prints `"Sample size is adequate"` if `nrow(participants)` is at least 50, and `"Sample size may be too small"` otherwise.
+
+## Challenge Problem
+
+Write an `if`/`else if`/`else` block (a third option, `else if`, chains an additional condition) that checks `mean(participants$age, na.rm = TRUE)` and prints `"Younger sample"` if under 40, `"Older sample"` if 60 or above, and `"Middle-aged sample"` otherwise.
+
+## Key Takeaways
+
+- `if`/`else` makes a single, one-time decision in your code based on one `TRUE`/`FALSE` condition — not a per-row operation across a whole column.
+- `if`'s condition must be a single logical value; passing a vector produces an error, a useful guardrail against confusing it with vectorized tools.
+- `if`/`else` and `ifelse()` (next page) are related but distinct tools, and this level's next few pages build out the full picture of when to use each.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What kind of condition does `if` expect?
+   a) A vector of any length
+   b) A single `TRUE` or `FALSE` value
+   c) A character string
+   d) A data frame
+
+2. **True or false.** `if` can be used directly on an entire column of a data frame to make a per-row decision.
+
+3. **Predict the output.**
+   ```r
+   x <- 42
+   if (x > 100) {
+     print("big")
+   } else {
+     print("small")
+   }
+   ```
+
+4. **Find the error.**
+   ```r
+   if (participants$age >= 65) {
+     print("senior")
+   }
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A single `TRUE` or `FALSE` value.
+2. **False.** `if` requires a single logical value; a whole column is a vector of 100 values, which `if` cannot evaluate directly — that's exactly what `ifelse()` is for.
+3. `[1] "small"`
+4. `participants$age >= 65` is a vector (100 values), not a single value — `if` cannot evaluate it directly. The fix is to use `ifelse()` for a per-row result, or reduce the condition to a single value (like `any()` or `all()`) if a one-time decision is genuinely intended.
+
+</details>
+:::

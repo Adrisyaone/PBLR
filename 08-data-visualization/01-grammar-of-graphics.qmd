@@ -1,0 +1,123 @@
+# The Grammar of Graphics {#sec-grammar-of-graphics}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 7 found a weak positive correlation (0.16) between BMI and systolic blood pressure using `cor()` — a single number. Your professor wants to actually **see** that relationship: a picture showing every participant's BMI plotted against their blood pressure, so the pattern (or lack of one) is visible at a glance rather than summarized into one coefficient.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Build your first plot using `ggplot2`'s "grammar of graphics" — a system for describing any chart as data, a coordinate mapping, and a visual representation.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- To plot BMI against blood pressure, which variable would naturally belong on the x-axis, and which on the y-axis?
+- A correlation number (Level 7) summarizes a relationship in one value. What might a plot show you that a single number like `0.16` cannot?
+:::
+
+## The R Concept
+
+**`ggplot2`** (part of the tidyverse) builds every plot from the same three ingredients, specified in layers:
+
+```r
+ggplot(data = df, mapping = aes(x = x_column, y = y_column)) +
+  geom_point()
+```
+
+- `ggplot(data = df)` says *which data frame* to plot.
+- `aes(x = ..., y = ...)` ("aesthetic mapping") says *which columns* map to *which visual properties* — here, position on the x- and y-axes.
+- `geom_point()` says *how* to represent each row — as a point, for a scatter plot.
+
+These pieces are combined with `+`, not `|>` — `ggplot2` predates the tidyverse's pipe-based style and uses its own layering syntax, adding one visual element at a time.
+
+## Demonstration
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+ggplot(data = participants, mapping = aes(x = bmi, y = systolic_bp)) +
+  geom_point()
+```
+
+This produces a scatter plot: one point per participant, BMI along the x-axis and systolic blood pressure along the y-axis. Consistent with Level 7's weak correlation (0.16), the points form a loose, scattered cloud without a strong visible upward or downward trend — a picture that confirms, rather than contradicts, what `cor()` already reported numerically.
+
+## Explore
+
+Try swapping which variable goes on which axis: `aes(x = systolic_bp, y = bmi)`. The overall shape of the scattered cloud looks similar either way (correlation doesn't have a "direction" in that sense) — but by convention, the variable you consider more likely to *predict* or *explain* the other (here, BMI) usually goes on the x-axis.
+
+## Solve the Problem
+
+```r
+library(ggplot2)
+
+participants <- read.csv("data/participants.csv")
+
+bmi_bp_plot <- ggplot(data = participants, mapping = aes(x = bmi, y = systolic_bp)) +
+  geom_point()
+
+bmi_bp_plot
+```
+
+Saving the plot to a named object (`bmi_bp_plot`) — rather than only ever creating and immediately displaying it — lets you keep building on it in later pages (adding a title, a trend line, or color grouping) without retyping the base layer each time.
+
+## Interpret the Result
+
+The scatter plot visually confirms Level 7's numeric finding: BMI and systolic blood pressure show only a weak relationship in this sample — points are spread broadly across the plot rather than clustering along a clear diagonal line. A plot like this is often more convincing to a non-technical audience than a bare correlation coefficient, since the absence of a strong pattern is immediately visible rather than requiring the reader to interpret what "0.16" means.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `library(ggplot2)`.** Like every tidyverse package, `ggplot2` must be loaded before use — `ggplot()` alone won't be recognized otherwise.
+- **Using `%>%` or `|>` between `ggplot2` layers instead of `+`.** `ggplot2` layers combine with `+`, not the pipe — a very common point of confusion for anyone who has just learned Level 5's and 6's `|>`-based chaining.
+- **Putting `aes()` mappings outside `aes()`.** Writing `geom_point(x = bmi, y = systolic_bp)` (without `aes()`) tries to treat `bmi` and `systolic_bp` as fixed values, not column mappings, and typically produces an error — column mappings always belong inside `aes()`.
+:::
+
+## Practice Problem
+
+Build a scatter plot of `age` (x-axis) against `systolic_bp` (y-axis). Based on Level 7's correlation (-0.22), would you expect a stronger or weaker visible pattern than the BMI-blood pressure plot above?
+
+## Challenge Problem
+
+Build a scatter plot of `systolic_bp` against `diastolic_bp`. Given Level 7's much stronger correlation (0.92) between these two variables, describe in words how you'd expect this plot's point pattern to look different from the BMI-blood pressure plot above.
+
+## Key Takeaways
+
+- Every `ggplot2` plot starts with `ggplot(data = df, aes(x = ..., y = ...))`, then adds a `geom_*()` layer describing how to represent the data visually.
+- `aes()` maps data columns to visual properties (position, color, size, etc.); `ggplot2` layers are combined with `+`, not the pipe.
+- A plot can make a numeric relationship (like a correlation coefficient) immediately visible in a way a single number cannot.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `aes(x = bmi, y = systolic_bp)` specify?
+   a) That `bmi` and `systolic_bp` should be added together
+   b) Which columns map to the x- and y-axis positions
+   c) The plot's title
+   d) The colors of each point
+
+2. **True or false.** `ggplot2` layers are combined using the pipe operator (`|>`).
+
+3. **Predict the output.** What geometry (geom) would you add to represent each row as a single point on a scatter plot?
+
+4. **Find the error.**
+   ```r
+   ggplot(data = participants) +
+     geom_point(x = bmi, y = systolic_bp)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Which columns map to the x- and y-axis positions.
+2. **False.** `ggplot2` layers are combined with `+`, not the pipe.
+3. `geom_point()`.
+4. The column mappings are missing `aes()` — writing `geom_point(x = bmi, y = systolic_bp)` doesn't tell `ggplot2` these are column names to map. It should be `geom_point(mapping = aes(x = bmi, y = systolic_bp))`, or better, specify `aes()` once in the initial `ggplot()` call.
+
+</details>
+:::

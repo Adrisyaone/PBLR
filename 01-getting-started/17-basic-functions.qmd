@@ -1,0 +1,171 @@
+# Basic Functions {#sec-basic-functions}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You are working as a public health intern. Your supervisor hands you a list of the ages of 100 study participants and asks: "Can you calculate the average age for me? I need it for the report by end of day." You have never used R before, and you're staring at a list of 100 numbers wondering how you're supposed to add them all up and divide by 100 without doing it by hand.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Calculate and report the mean age of the study participants using R — correctly, even though a few participants didn't report their age.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- What information do you actually need to answer this question — where would the ages be stored?
+- How would you calculate a mean manually, in plain arithmetic terms (what do you add, and what do you divide by)?
+- If R already has tools built to do exactly this, would you rather write that arithmetic out by hand, or ask R to do it directly?
+:::
+
+## The R Concept
+
+A **function** in R is a named, reusable set of instructions that takes some input (called **arguments**), does something with it, and returns a result. You've already used a few without a formal introduction — `class()`, `is.na()`, `paste()`, `round()` — every one of those is a function.
+
+The general pattern is always:
+
+```r
+function_name(argument1, argument2, ...)
+```
+
+Today's function is **`mean()`**, which calculates the arithmetic average of a set of numbers:
+
+```r
+mean(x)
+```
+
+Here, `x` is the argument — the numbers you want averaged, typically stored as a **vector** (a single object holding multiple values, created with `c()` — you'll study vectors properly in Level 2, but you need a first taste of them right now to solve this problem).
+
+```r
+ages <- c(34, 51, 29, 62)   # a vector holding four ages
+mean(ages)
+```
+
+Common mistakes with functions in general: forgetting the parentheses (`mean` alone just shows you the function's code, it doesn't run it), mismatching parentheses, and — as you're about to see — not knowing about optional arguments that change a function's behavior, like `na.rm`.
+
+## Demonstration
+
+```r
+# A small vector of ages, standing in for your 100 participants
+ages <- c(34, 51, 29, 62, 45)
+
+mean(ages)
+```
+
+```
+[1] 44.2
+```
+
+Now, what happens with missing data, as flagged on the previous page?
+
+```r
+ages_with_missing <- c(34, 51, NA, 62, 45)
+mean(ages_with_missing)
+```
+
+```
+[1] NA
+```
+
+## Explore
+
+Add a second `NA` to `ages_with_missing` and rerun `mean()` — does the result change, or is it still simply `NA`? Now look up `mean()`'s help page (you'll learn the proper way to do this on the very next page) and notice it lists an argument called `na.rm`, short for "NA remove," which defaults to `FALSE`.
+
+```r
+mean(ages_with_missing, na.rm = TRUE)
+```
+
+```
+[1] 48
+```
+
+Setting `na.rm = TRUE` tells `mean()` to exclude any `NA` values before calculating — averaging only the participants who actually reported an age, rather than refusing to answer at all.
+
+## Solve the Problem
+
+Your supervisor's 100 participants, represented here as a smaller stand-in vector for demonstration (in Level 3, you'll import the real, full 100-row file directly):
+
+```r
+# Ages of study participants - a few did not report their age
+participant_ages <- c(45, 62, 38, NA, 29, 71, 54, NA, 33, 48)
+
+mean(participant_ages, na.rm = TRUE)
+```
+
+```
+[1] 47.5
+```
+
+```r
+# How many participants were actually included in that average?
+sum(!is.na(participant_ages))
+```
+
+```
+[1] 8
+```
+
+You now have both numbers your supervisor actually needs: the mean age itself, and — just as important for an honest report — how many of the 100 participants that mean was actually based on.
+
+## Interpret the Result
+
+The mean age of the study participants who reported their age was **47.5 years**, based on 8 of the 10 participants in this example (2 had missing age data and were excluded). In your final report, you would note this exclusion explicitly — for example: "Mean age was 47.5 years (n = 8; 2 participants had missing age data)" — rather than silently reporting a number without disclosing that some participants were left out of the calculation.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `na.rm = TRUE` when data has missing values.** `mean(x)` alone silently returns `NA` the moment even a single value is missing — a frequent source of "why is my result NA?!" confusion for beginners.
+- **Forgetting the parentheses entirely.** Typing `mean` without `()` shows you R's internal code for the function, rather than running it — always include the parentheses, even with no visible arguments inside.
+- **Assuming `na.rm = TRUE` fixes the underlying data problem.** It only excludes missing values from *this specific calculation* — it doesn't fill them in, explain why they're missing, or make them not-missing elsewhere in your dataset.
+- **Reporting a mean without reporting how many observations it's based on.** A mean of 47.5 means something different if it's based on 98 of 100 participants versus 8 of 100 — always report the sample size alongside any summary statistic.
+:::
+
+## Practice Problem
+
+A second batch of participant systolic blood pressure readings is `bp <- c(118, 132, NA, 145, 128, NA, 121)`. Calculate the mean blood pressure, correctly excluding the missing values, and report how many readings that mean is based on.
+
+## Challenge Problem
+
+Your supervisor now asks for the mean age *and* the mean systolic blood pressure, but adds: "Actually, I only want this for participants who don't have missing data in either variable — a complete-case analysis." Using `participant_ages` and a matching-length `bp_readings <- c(118, 132, 140, NA, 128, 155, 121, 130, NA, 142)`, think through (in words, not yet code — this is coming properly in Level 4) what "removing a participant only if either value is missing" would actually require, beyond just calling `na.rm = TRUE` separately on each variable.
+
+## Key Takeaways
+
+- A function takes arguments in parentheses and returns a result; `mean()` calculates the arithmetic average of a numeric vector.
+- By default, `mean()` returns `NA` if any value is missing — a safety behavior, not a bug — and `na.rm = TRUE` tells it to exclude missing values instead.
+- Always report the sample size a summary statistic is based on, especially when missing data caused some observations to be excluded.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `na.rm = TRUE` do inside `mean()`?
+   a) Removes all values from the vector
+   b) Excludes missing values before calculating the mean
+   c) Converts missing values to zero
+   d) Rounds the result
+
+2. **True or false.** `mean(c(10, 20, NA))` returns `15` by default (without `na.rm`).
+
+3. **Predict the output.**
+   ```r
+   x <- c(5, 10, NA, 15)
+   mean(x, na.rm = TRUE)
+   ```
+
+4. **Write the code.** Given `readings <- c(22, NA, 28, 31, NA)`, write the code to calculate the mean, correctly excluding missing values, and separately count how many readings were missing.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Excludes missing values before calculating the mean.
+2. **False.** By default, `mean()` returns `NA` if any value in the vector is missing; it does not silently skip it.
+3. `[1] 10` — the mean of `5, 10, 15` (the `NA` is excluded).
+4.
+   ```r
+   mean(readings, na.rm = TRUE)
+   sum(is.na(readings))
+   ```
+
+</details>
+:::

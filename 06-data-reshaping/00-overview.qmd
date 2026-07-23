@@ -1,0 +1,27 @@
+# Level 6 — Data Reshaping {.unnumbered}
+
+::: {.pbl-box .pbl-problem}
+**Where this level is headed**
+
+Health data rarely arrives in the shape you need for your specific question. A longitudinal study might store each visit as a new row or a new column depending on who exported it, and two files collected by different teams a year apart need to be combined without losing or duplicating a single participant. Reshaping isn't just about `pivot_longer()` and `pivot_wider()` — it's about understanding what links your datasets together in the first place.
+:::
+
+## What you'll build toward
+
+You'll start with a repeated-measures dataset — blood pressure and weight recorded across three clinic visits for 28 participants, arriving one row per participant with a column per visit ("wide" format). You'll reshape it to one row per participant-visit combination ("long" format) for tidy analysis, split and combine compound columns, and reshape multiple measurements at once. Then you'll shift to a second, equally common real-world problem: combining two *separate* files — a baseline enrollment file and a one-year follow-up file — using every major type of `dplyr` join, and finish with a capstone that reshapes and joins in a single pipeline.
+
+## Topics in this level
+
+- Wide format vs. long format — what each looks like and when each is useful
+- `pivot_longer()` and `pivot_wider()`
+- `separate()` and `unite()` — splitting and combining columns
+- Reshaping multiple measurements at once with `.value`
+- Keys, and one-to-one vs. one-to-many relationships
+- `left_join()`, `inner_join()`, `right_join()`, `full_join()`
+- `semi_join()` and `anti_join()`
+- A combined reshaping-and-joining capstone
+
+## A preview mission
+
+Your mission across this level: reshape a three-visit blood pressure dataset to compute how much each participant's blood pressure changed over time, then merge a baseline enrollment file with a follow-up visit file — collected a year apart, by different teams — into one analysis-ready dataset without losing or duplicating a single participant.
+

@@ -1,0 +1,21 @@
+id,age,sex,county,baseline_bmi
+1,46,Female,Oakford,35.1
+2,53,Female,Riverdale,27.7
+3,59,Female,Oakford,28.3
+4,49,Female,Millbrook,30.4
+5,61,Female,Millbrook,21.5
+6,18,Female,Riverdale,24.0
+7,62,Male,Riverdale,19.7
+8,68,Female,Millbrook,29.7
+9,33,Male,Springvale,22.4
+10,36,Male,Millbrook,NA
+11,62,Female,Riverdale,38.6
+12,39,Female,Cedar Falls,29.1
+13,NA,Female,Springvale,29.1
+14,41,Male,Riverdale,29.4
+15,35,Female,Springvale,33.3
+16,45,Female,Millbrook,30.4
+17,79,Female,Springvale,21.1
+18,26,Male,Oakford,29.1
+19,80,Female,Cedar Falls,28.4
+20,55,Male,Oakford,18.6
