@@ -1,0 +1,143 @@
+# Regression Diagnostics {#sec-regression-diagnostics}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Every `lm()` result so far has been reported at face value — coefficients, p-values, R-squared. But `lm()`'s p-values are only trustworthy if certain assumptions roughly hold: that the residuals (prediction errors) are approximately normally distributed, and that they're spread out evenly regardless of the predicted value. Your professor asks: how would you actually check whether Page 5's model meets these assumptions, rather than just trusting the output blindly?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Check a fitted regression model's residuals for approximate normality and constant variance, using both a numeric test and a visual check.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- A **residual** is the difference between an observed value and the model's prediction for that row. If `lm()`'s assumptions hold well, would you expect residuals to be scattered evenly, or to show an obvious pattern?
+- Level 11 Page 1 used `shapiro.test()` conceptually to check normality. Could the same test be applied to a model's residuals instead of raw data?
+:::
+
+## The R Concept
+
+**`residuals(model)`** extracts every observation's prediction error. Two common diagnostic checks:
+
+```r
+shapiro.test(residuals(model))       # tests residual normality
+plot(model, which = 1)               # residuals vs. fitted values (constant variance check)
+```
+
+A `shapiro.test()` p-value above 0.05 suggests no strong evidence against normality (Level 11 Page 1's same logic, applied to residuals instead of raw data). For constant variance ("homoscedasticity"), the **Breusch-Pagan test** (from the `lmtest` package) formalizes what a residuals-vs-fitted plot shows visually:
+
+```r
+library(lmtest)
+bptest(model)
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
+complete_rows$smoker_binary <- as.numeric(complete_rows$smoker == "Yes")
+
+model_big <- lm(systolic_bp ~ age + bmi + smoker_binary, data = complete_rows)
+
+shapiro.test(residuals(model_big))
+```
+
+```
+
+	Shapiro-Wilk normality test
+
+data:  residuals(model_big)
+W = 0.98499, p-value = 0.4303
+```
+
+## Explore
+
+Try `plot(model_big, which = 1)` (a residuals-vs-fitted plot) and `plot(model_big, which = 2)` (a Q-Q plot) — the two most common visual diagnostics. A Q-Q plot with points falling roughly along the diagonal line supports the same normality conclusion the Shapiro-Wilk test gives numerically.
+
+## Solve the Problem
+
+```r
+library(lmtest)
+
+participants <- read.csv("data/participants.csv")
+
+complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
+complete_rows$smoker_binary <- as.numeric(complete_rows$smoker == "Yes")
+
+model_big <- lm(systolic_bp ~ age + bmi + smoker_binary, data = complete_rows)
+
+shapiro.test(residuals(model_big))$p.value
+bptest(model_big)
+```
+
+```
+[1] 0.4303420
+```
+
+```
+
+	studentized Breusch-Pagan test
+
+data:  model_big
+BP = 1.262, df = 3, p-value = 0.7382
+```
+
+Both diagnostic tests come back reassuring: Shapiro-Wilk's p-value (0.430) shows no significant evidence against residual normality, and Breusch-Pagan's p-value (0.738) shows no significant evidence against constant variance. Neither test result *proves* the assumptions hold perfectly — but neither raises a red flag either.
+
+## Interpret the Result
+
+This model's residuals behave close to what `lm()` assumes: roughly normal and roughly evenly spread. That means the p-values reported throughout Pages 1-5 (for `age`, `bmi`, `smoker_binary`, and the model comparisons) can be reasonably trusted — if either diagnostic test had come back strongly significant instead, it would be a signal to interpret those p-values with real caution, or consider a different modeling approach entirely.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Treating a non-significant diagnostic test as definitive proof assumptions are perfectly met.** `shapiro.test()` and `bptest()` failing to detect a violation isn't the same as guaranteeing there isn't one, especially in smaller samples (n = 85 here) where these tests have limited power to detect subtle problems.
+- **Skipping diagnostics entirely because a model's coefficients "look reasonable."** A model's coefficients and p-values can look perfectly plausible even when its underlying assumptions are badly violated — diagnostics are a required step, not an optional one, for any model whose conclusions matter.
+- **Running diagnostics but never acting on a bad result.** If a diagnostic test flags a real problem (severe non-normality or non-constant variance), the appropriate response is usually to reconsider the model — a data transformation, a different type of model, or robust standard errors — not to report the flawed model's p-values unchanged.
+:::
+
+## Practice Problem
+
+Run `shapiro.test()` and `bptest()` on Page 1's simpler two-predictor model (`systolic_bp ~ age + bmi`). Do both diagnostics still look reassuring?
+
+## Challenge Problem
+
+Run `plot(model_big, which = 1)` and describe, in your own words, what an *ideal* residuals-vs-fitted plot looks like (in terms of the spread and pattern of points), versus what a *problematic* one (indicating non-constant variance) would look like instead.
+
+## Key Takeaways
+
+- `shapiro.test(residuals(model))` checks whether a regression model's residuals are approximately normally distributed.
+- `bptest(model)` (from the `lmtest` package) formally tests for constant variance ("homoscedasticity") across the range of predicted values.
+- A non-significant diagnostic test result supports (but never definitively proves) that a model's assumptions are reasonably met — always pair numeric diagnostic tests with a visual check like `plot(model)`.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `shapiro.test(residuals(model))` check?
+   a) Whether the predictors are correlated with each other
+   b) Whether the model's residuals are approximately normally distributed
+   c) Whether the model has enough predictors
+   d) Whether the outcome variable has missing values
+
+2. **True or false.** A non-significant Breusch-Pagan test result definitively proves a model has constant variance with no possible exceptions.
+
+3. **Predict the output.** If `bptest()` returns a p-value of 0.738, is there strong evidence of non-constant variance in the residuals?
+
+4. **Short answer.** Why is it important to pair a numeric diagnostic test (like `shapiro.test()`) with a visual check (like a Q-Q plot)?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Whether the model's residuals are approximately normally distributed.
+2. **False.** A non-significant result supports, but never definitively proves, that the assumption holds — especially in smaller samples where the test has limited power.
+3. No — a p-value of 0.738 is far above 0.05, showing no significant evidence of non-constant variance.
+4. Numeric tests provide an overall summary, but a visual check can reveal patterns (like a specific range of values behaving oddly) that a single p-value might not fully capture — used together, they give a more complete diagnostic picture.
+
+</details>
+:::

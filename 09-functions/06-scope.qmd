@@ -1,0 +1,163 @@
+# Variable Scope {#sec-scope}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Inside `describe_numeric()` (Page 3), you used a variable name `x` for the input, and inside `is_at_risk()` (Page 5), you used `age` and `sbp`. But `participants` also has actual columns called `age`! After calling these functions, you check `age` in your R console — and it doesn't exist as a standalone object at all, even though you just used that exact name inside a function. What's going on?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand variable *scope* — which parts of your code can see, and be affected by, a given variable — and why functions don't leak their internal variables into your main workspace.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If a function's argument is named `age`, and you also have a column called `participants$age`, do you think R gets confused about which "age" you mean inside the function?
+- After a function finishes running, would you expect variables created *inside* it to still exist afterward, in your main R session?
+:::
+
+## The R Concept
+
+Every function call creates its own **local scope** — a private workspace for variables created or received as arguments inside that function. Variables inside a function's local scope:
+
+- Are **isolated** from your main ("global") workspace — a variable named `age` inside a function has no connection to any `age` object outside it, even if they share the exact same name.
+- **Disappear** once the function finishes running — they exist only for the duration of that one function call.
+- Can **read** variables from the global environment if not shadowed by a local one of the same name, but cannot **modify** the global version by simply assigning to a same-named local variable.
+
+```r
+age <- 100   # global variable
+
+check_age <- function(age) {
+  age <- age + 1   # this only changes the LOCAL copy of age
+  age
+}
+
+check_age(30)   # returns 31
+age             # still 100 - completely unaffected
+```
+
+## Demonstration
+
+```r
+age <- 100
+
+check_age <- function(age) {
+  age <- age + 1
+  age
+}
+
+check_age(30)
+```
+
+```
+[1] 31
+```
+
+```r
+age
+```
+
+```
+[1] 100
+```
+
+Even though the function's argument is also named `age`, and the function reassigns `age` internally, the *global* `age` (100) is completely untouched — the function's `age` was always a separate, local copy that ceased to exist the moment the function finished.
+
+## Explore
+
+Try defining `local_total <- 0` inside a function body, running the function, and then checking whether `local_total` exists in your main environment afterward (it won't — `exists("local_total")` will return `FALSE`). Variables created inside a function's body are just as local as its arguments.
+
+## Solve the Problem
+
+```r
+pct_missing <- function(x) {
+  n_missing <- sum(is.na(x))       # local variable, exists only inside this call
+  n_total <- length(x)             # also local
+  n_missing / n_total * 100
+}
+
+participants <- read.csv("data/participants.csv")
+
+pct_missing(participants$age)
+```
+
+```
+[1] 6
+```
+
+```r
+exists("n_missing")
+```
+
+```
+[1] FALSE
+```
+
+`n_missing` and `n_total` were created and used entirely inside `pct_missing()`'s local scope — after the function call finishes, `exists("n_missing")` confirms they never leaked into your main workspace at all.
+
+## Interpret the Result
+
+This isolation is a genuine safety feature, not a limitation: it means you can freely reuse short, convenient variable names like `x`, `n`, or `age` inside any function without ever worrying about accidentally overwriting an important variable of the same name in your main script. Functions act as self-contained units — what happens inside, stays inside, unless you explicitly return a value out.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Expecting a function to modify a global variable by assigning to a same-named local one.** `check_age()`'s internal `age <- age + 1` only ever changes the local copy — to actually update something in your main workspace, the function would need to `return()` the new value and you'd need to reassign it yourself (`age <- check_age(age)`).
+- **Assuming variables created inside a function are available for debugging afterward.** If a function errors partway through, its local variables (like `n_missing` above) are simply gone — this is why printing intermediate values *during* development (before wrapping code in a function) is often easier for debugging than trying to inspect a function's internals after the fact.
+- **Reusing a global variable's exact name as a function argument and assuming this causes a conflict.** As shown above, this is actually completely safe — R always prioritizes the local (argument) version inside the function body, with no naming conflict at all.
+:::
+
+## Practice Problem
+
+Write a small function that takes an argument called `bmi`, adds 1 to it internally, and returns the result. Call it with `participants$bmi[1]` as the argument, then confirm that `participants$bmi[1]` itself is completely unchanged afterward.
+
+## Challenge Problem
+
+Predict, without running any code, what this snippet prints for each line:
+
+```r
+total <- 10
+add_five <- function(total) {
+  total <- total + 5
+  total
+}
+print(add_five(total))
+print(total)
+```
+
+Then run it to confirm your prediction.
+
+## Key Takeaways
+
+- Every function call creates its own local scope — variables inside it (arguments and internally created ones alike) are isolated from your main workspace.
+- A function can read global variables it hasn't shadowed, but assigning to a same-named local variable never modifies the global version.
+- Local variables disappear once a function finishes running, which is a safety feature protecting your main workspace from accidental modification.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** After `check_age(30)` runs (as defined above), what is the value of the global `age`?
+   a) 31
+   b) 30
+   c) 100 (unchanged)
+   d) `NULL`
+
+2. **True or false.** Variables created inside a function's body continue to exist in your main workspace after the function finishes running.
+
+3. **Predict the output.** If a function argument is named `x`, and your main workspace also has a variable called `x`, does the function's internal use of `x` affect the global one?
+
+4. **Short answer.** Why is it considered safe practice to reuse short variable names like `x` or `n` inside many different functions?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** 100 — the global `age` is completely unaffected by the function's local reassignment.
+2. **False.** Local variables exist only for the duration of the function call and disappear once it finishes.
+3. No — the function's `x` is entirely local and isolated from any global variable of the same name, unless the function explicitly returns a value that you then reassign to the global `x` yourself.
+4. Because each function call creates its own isolated local scope, reusing a name like `x` in one function has no effect on any variable of the same name used elsewhere, including in your main workspace or inside other functions.
+
+</details>
+:::

@@ -1,0 +1,157 @@
+# Categorical Predictors in Regression {#sec-categorical-predictors}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 11 Page 10 used `aov()` to test whether blood pressure differs across the five counties, getting F = 0.539, p = 0.708. But `aov()` and `lm()` are more closely related than they look — a categorical predictor can be put directly into `lm()` too. Your professor asks you to run county as a regression predictor and explain what its coefficients actually mean, since a county isn't a number.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Use a categorical (factor) variable directly as an `lm()` predictor, and interpret its dummy-coded coefficients relative to a reference level.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- `county` has 5 possible values (Level 2). If R can't multiply a coefficient by a text label, how might it represent 5 categories using numbers instead?
+- If one county is chosen as a "baseline" for comparison, how many separate coefficients would the other 4 counties need?
+:::
+
+## The R Concept
+
+When a character or factor column is used as an `lm()` predictor, R automatically converts it into **dummy variables**: one reference category (alphabetically first, by default) is "baked into" the intercept, and every other category gets its own coefficient representing its difference *from that reference category*.
+
+```r
+model <- lm(numeric_outcome ~ categorical_variable, data = df)
+summary(model)
+```
+
+With 5 counties, R creates 4 dummy coefficients (not 5) — the reference county's mean is exactly the model's intercept.
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+bp_county_lm <- lm(systolic_bp ~ county, data = participants)
+
+summary(bp_county_lm)
+```
+
+```
+
+Call:
+lm(formula = systolic_bp ~ county, data = participants)
+
+Residuals:
+    Min      1Q  Median      3Q     Max
+-32.158 -12.658  -1.158  11.877  46.929
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)
+(Intercept)      128.1579     4.3719  29.314  < 2e-16 ***
+countyMillbrook    5.1421     6.1051   0.842    0.402
+countyOakford      1.5480     6.3621   0.243    0.808
+countyRiverdale   -3.8008     6.7122  -0.566    0.573
+countySpringvale   3.3036     5.7517   0.574    0.567
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 19.06 on 91 degrees of freedom
+  (4 observations deleted due to missingness)
+Multiple R-squared:  0.02314,	Adjusted R-squared: -0.0198
+F-statistic: 0.5388 on 4 and 91 DF,  p-value: 0.7076
+```
+
+## Explore
+
+Notice `Cedar Falls` never appears as its own coefficient — it's alphabetically first, so R used it as the reference level, and its mean (128.16) *is* the intercept. Try `levels(factor(participants$county))` to confirm which category R would treat as the reference.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+bp_county_lm <- lm(systolic_bp ~ county, data = participants)
+
+coef(bp_county_lm)
+```
+
+```
+     (Intercept)  countyMillbrook    countyOakford  countyRiverdale countySpringvale
+      128.157895         5.142105         1.547988        -3.800752         3.303644
+```
+
+```r
+# Reconstruct Millbrook's predicted mean from the coefficients
+coef(bp_county_lm)["(Intercept)"] + coef(bp_county_lm)["countyMillbrook"]
+```
+
+```
+[1] 133.3
+```
+
+```r
+summary(bp_county_lm)$fstatistic
+```
+
+```
+    value    numdf    dendf
+0.5388230 4.0000000 91.0000000
+```
+
+Cedar Falls' mean (128.16, the intercept) plus Millbrook's coefficient (5.14) reconstructs exactly Millbrook's raw mean from Level 5's `group_by(county)` table (133.30) — the dummy coefficients are nothing more than "difference from the reference county." The overall F-statistic (0.539, p = 0.708) exactly matches Level 11's `aov()` result, because a one-way ANOVA *is* a regression on a categorical predictor.
+
+## Interpret the Result
+
+None of the four county coefficients are statistically significant (all p-values well above 0.05), and the overall F-test confirms no significant difference in blood pressure across counties overall — identical conclusions to Level 11's ANOVA, just reached through `lm()`'s dummy-coding lens instead. This equivalence is not a coincidence: `aov()` is, mathematically, a special case of `lm()` for exactly this kind of categorical-predictor question.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Treating a categorical coefficient like a numeric one.** `countyMillbrook`'s coefficient (5.14) doesn't mean "each additional unit of Millbrook adds 5.14 mmHg" — categories aren't numeric, so this coefficient exclusively means "Millbrook's mean is 5.14 higher than the reference county's mean."
+- **Forgetting the reference category is invisible in the coefficient table.** Cedar Falls has no row of its own — its information is folded entirely into the intercept, which is easy to miss if you only skim the coefficient names.
+- **Assuming R always picks the reference level you'd want.** R defaults to alphabetical order, which may not be the most clinically meaningful baseline — `relevel(factor(county), ref = "Riverdale")` (Level 2's factor concept) would let you choose a different, more meaningful reference county instead.
+:::
+
+## Practice Problem
+
+Fit `lm(bmi ~ county, data = participants)` and identify which county (if any) has a statistically significant BMI difference from the reference category.
+
+## Challenge Problem
+
+Use `relevel(factor(participants$county), ref = "Riverdale")` inside a new `lm(systolic_bp ~ relevel(factor(county), ref = "Riverdale"), data = participants)` call. Do the individual coefficients change? Does the overall F-statistic and p-value change? Explain why one changes and the other doesn't.
+
+## Key Takeaways
+
+- A categorical predictor in `lm()` is automatically dummy-coded: one reference level becomes the intercept, and every other level gets a coefficient representing its difference from that reference.
+- A one-way ANOVA (Level 11, Page 10) and a regression on a single categorical predictor are mathematically the same test — `aov()`'s F-statistic and `lm()`'s overall F-statistic match exactly.
+- The choice of reference level changes individual coefficients' interpretation, but never changes the model's overall fit or F-test.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** With 5 categories in a predictor, how many dummy coefficients does R create (beyond the intercept)?
+   a) 5
+   b) 4
+   c) 1
+   d) 0
+
+2. **True or false.** The reference category's mean value is not shown anywhere in the coefficient table.
+
+3. **Predict the output.** If the intercept is 128.16 and `countySpringvale`'s coefficient is 3.30, what is Springvale's predicted mean blood pressure?
+
+4. **Short answer.** Why do a one-way ANOVA and a regression on a single categorical predictor produce the exact same F-statistic and p-value?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** 4 — one category is always absorbed into the intercept as the reference.
+2. **False.** The reference category's mean *is* shown — it's exactly the intercept value.
+3. 128.16 + 3.30 = 131.46.
+4. Both methods partition the same total variation into "between-group" and "within-group" components and test the same null hypothesis (all group means are equal) — ANOVA and single-categorical-predictor regression are two notations for the same underlying statistical model.
+
+</details>
+:::

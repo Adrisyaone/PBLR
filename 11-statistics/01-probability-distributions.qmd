@@ -1,0 +1,155 @@
+# Probability and the Normal Distribution {#sec-probability-distributions}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 8's histogram of `bmi` looked roughly bell-shaped — clustered around the mean, tapering off symmetrically on both sides. Your professor asks: if BMI genuinely follows something close to a **normal distribution**, could you predict what proportion of participants have BMI over 30, using only the mean and standard deviation — without directly counting rows in the data at all?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Use R's normal distribution functions (`pnorm()`, `qnorm()`, `dnorm()`) to compute probabilities from a theoretical distribution, and compare them against what the actual data shows.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- A normal distribution is fully described by just two numbers. Which two summary statistics from Level 7 do you think those are?
+- If BMI followed a normal distribution exactly, would you expect the proportion of participants above any given cutoff to be *exactly* predictable from the mean and SD alone?
+:::
+
+## The R Concept
+
+The **normal distribution** ("bell curve") is defined entirely by its mean and standard deviation. R's `pnorm()` computes the probability of a value falling below a cutoff, under a normal distribution with a given mean and SD:
+
+```r
+pnorm(cutoff, mean = mu, sd = sigma)              # P(X <= cutoff)
+1 - pnorm(cutoff, mean = mu, sd = sigma)           # P(X > cutoff)
+```
+
+`qnorm()` works in reverse — given a probability, it returns the corresponding cutoff value ("quantile function," extending Level 7's `quantile()` to a theoretical distribution rather than actual data):
+
+```r
+qnorm(0.95, mean = mu, sd = sigma)   # the value below which 95% of a normal distribution falls
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+bmi_mean <- mean(participants$bmi, na.rm = TRUE)
+bmi_sd <- sd(participants$bmi, na.rm = TRUE)
+
+bmi_mean
+```
+
+```
+[1] 27.12316
+```
+
+```r
+bmi_sd
+```
+
+```
+[1] 4.639157
+```
+
+```r
+# theoretical probability of BMI > 30, assuming a normal distribution
+1 - pnorm(30, mean = bmi_mean, sd = bmi_sd)
+```
+
+```
+[1] 0.2676
+```
+
+## Explore
+
+Try comparing this theoretical prediction against the actual data: `mean(participants$bmi > 30, na.rm = TRUE)`. The two numbers won't match exactly — real data never follows a theoretical distribution perfectly — but a close match suggests the normal approximation is reasonable for this variable.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+bmi_mean <- mean(participants$bmi, na.rm = TRUE)
+bmi_sd <- sd(participants$bmi, na.rm = TRUE)
+
+theoretical_prop <- 1 - pnorm(30, mean = bmi_mean, sd = bmi_sd)
+empirical_prop <- mean(participants$bmi > 30, na.rm = TRUE)
+
+theoretical_prop
+```
+
+```
+[1] 0.2676
+```
+
+```r
+empirical_prop
+```
+
+```
+[1] 0.2632
+```
+
+The theoretical prediction (26.76%) and the actual empirical proportion (26.32%) are remarkably close — under a one-percentage-point difference — strong evidence that BMI in this sample is well-approximated by a normal distribution with mean 27.12 and SD 4.64.
+
+## Interpret the Result
+
+This close agreement matters beyond curiosity: many of the statistical tests in the rest of this level (t-tests, linear regression) formally *assume* the data (or, more precisely, certain quantities derived from it) follows something close to a normal distribution. Confirming that assumption is reasonable here — rather than blindly trusting it — is good statistical practice, not a formality to skip.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `pnorm()` gives a cumulative probability (P(X ≤ cutoff)), not P(X = cutoff) or P(X > cutoff) directly.** To get "greater than," you must subtract from 1: `1 - pnorm(cutoff, ...)`, exactly as done above.
+- **Assuming every numeric variable is normally distributed without checking.** Some variables (income, hospital length of stay, and many others) are heavily skewed and poorly approximated by a normal distribution — always compare the theoretical prediction against the actual data, as this page did, rather than assuming normality by default.
+- **Mixing up `pnorm()` and `qnorm()`.** `pnorm()` takes a value and returns a probability; `qnorm()` takes a probability and returns a value — they're inverses of each other, and using the wrong one produces a nonsensical result (e.g., `qnorm()` given a value over 1 errors, since probabilities can't exceed 1).
+:::
+
+## Practice Problem
+
+Use `pnorm()` to compute the theoretical probability that a participant's systolic blood pressure is below 110, using the sample mean and SD from Level 7. Compare it against the actual empirical proportion in the data.
+
+## Challenge Problem
+
+Use `qnorm(0.90, mean = bmi_mean, sd = bmi_sd)` to find the BMI value below which 90% of a normal distribution with this sample's mean and SD would fall. Then check what percentage of participants in the actual data fall below that same cutoff, using `mean(participants$bmi < cutoff, na.rm = TRUE)`.
+
+## Key Takeaways
+
+- The normal distribution is fully described by its mean and standard deviation; `pnorm()` computes probabilities and `qnorm()` computes cutoff values, inverses of each other.
+- Comparing a theoretical (normal-distribution) prediction against the actual empirical proportion in real data is a simple, useful check of whether the normal approximation is reasonable.
+- Many statistical tests later in this level assume approximate normality — checking this assumption, rather than blindly trusting it, is good practice.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `pnorm(30, mean = 27.12, sd = 4.64)` compute?
+   a) The probability that X equals exactly 30
+   b) The probability that X is less than or equal to 30
+   c) The value below which 30% of the distribution falls
+   d) The standard deviation of the distribution
+
+2. **True or false.** A normal distribution is fully described by its mean and standard deviation alone.
+
+3. **Predict the output.** What would `1 - pnorm(30, mean = 27.12, sd = 4.64)` represent?
+
+4. **Find the error.**
+   ```r
+   pnorm(0.95, mean = bmi_mean, sd = bmi_sd)
+   # intended: find the BMI value below which 95% of the distribution falls
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The probability that X is less than or equal to 30.
+2. **True.** Unlike many other distributions, a normal distribution requires only these two parameters to be fully specified.
+3. The probability that a value from this distribution exceeds 30 (P(X > 30)).
+4. `pnorm()` takes a value and returns a probability — the intended calculation (finding a value from a probability) requires the inverse function, `qnorm()`. It should be `qnorm(0.95, mean = bmi_mean, sd = bmi_sd)`.
+
+</details>
+:::

@@ -1,0 +1,144 @@
+# What Is a Function? {#sec-what-is-a-function}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Since Level 1, you've typed `mean(participants$age, na.rm = TRUE)` without ever asking what `mean()` actually *is* — you just trust it takes a vector in and gives a number back. Now your professor asks you to compute something `mean()` doesn't do: the percentage of missing values in a column. There's no built-in `pct_missing()` function in R. You'll have to build the tool yourself.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand what a function fundamentally is — a reusable, named piece of code that takes input and produces output — as preparation for writing your own.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- When you call `mean(participants$age, na.rm = TRUE)`, what goes *in* (the input), and what comes *out* (the output)?
+- If you had to explain `sum(is.na(x)) / length(x) * 100` to a colleague as a single reusable idea, what would you want to name it?
+:::
+
+## The R Concept
+
+A **function** is a named, reusable block of code that takes zero or more **inputs** (called *arguments* or *parameters*), does something with them, and produces an **output** (called the *return value*). Every function you've used since Level 1 — `mean()`, `sum()`, `read.csv()`, `filter()`, `ggplot()` — follows this exact same pattern:
+
+```r
+function_name(input1, input2, ...)   # produces some output
+```
+
+`mean(participants$age, na.rm = TRUE)` takes a vector (`participants$age`) and a setting (`na.rm = TRUE`) as input, and returns a single number as output. There is nothing magical about built-in functions — they're written in exactly the same style you're about to learn to write your own functions in.
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+# Using a built-in function - input goes in, output comes out
+mean(participants$age, na.rm = TRUE)
+```
+
+```
+[1] 47.42553
+```
+
+```r
+# The pattern you'll replicate: some calculation, wrapped up and named
+sum(is.na(participants$age)) / length(participants$age) * 100
+```
+
+```
+[1] 6
+```
+
+The second line computes the percentage of missing `age` values by hand — exactly the calculation you'd want to name and reuse, the same way someone once wrote `mean()` so you'd never have to type `sum(x) / length(x)` yourself.
+
+## Explore
+
+Try running `sum(is.na(participants$systolic_bp)) / length(participants$systolic_bp) * 100` and `sum(is.na(participants$bmi)) / length(participants$bmi) * 100`. Notice you're retyping the same pattern with only the column name changing — exactly the repetition a function is meant to eliminate.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+age_pct_missing <- sum(is.na(participants$age)) / length(participants$age) * 100
+bp_pct_missing <- sum(is.na(participants$systolic_bp)) / length(participants$systolic_bp) * 100
+bmi_pct_missing <- sum(is.na(participants$bmi)) / length(participants$bmi) * 100
+
+age_pct_missing
+```
+
+```
+[1] 6
+```
+
+```r
+bp_pct_missing
+```
+
+```
+[1] 4
+```
+
+```r
+bmi_pct_missing
+```
+
+```
+[1] 5
+```
+
+Three correct answers (6%, 4%, 5% missing) — but three nearly identical lines of code, differing only in which column is referenced. This is precisely the kind of repetition the next page's custom function will eliminate.
+
+## Interpret the Result
+
+`age`, `systolic_bp`, and `bmi` are each missing a small percentage of their values (6%, 4%, and 5% respectively) — useful individually, but the *process* of computing each one was identical. Recognizing "I keep typing the same pattern with only one thing changing" is the signal that a function belongs here — the same signal that should have applied a hundred times over across every prior level, now finally something you can act on.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Assuming built-in and custom functions work fundamentally differently.** They don't — `mean()` and a function you write yourself both take input and produce output the exact same way; the only difference is who wrote them and when.
+- **Not noticing repeated code as a signal to write a function.** Copy-pasting the same calculation three times with one small change (Page 1's `age`/`systolic_bp`/`bmi` example) is the clearest sign a function is overdue — the next page turns exactly this repetition into one reusable tool.
+- **Confusing a function's *definition* with *calling* it.** Writing a function (next page) and calling it are two separate steps — defining `pct_missing <- function(x) {...}` doesn't run anything by itself; you still have to call `pct_missing(participants$age)` afterward to get a result.
+:::
+
+## Practice Problem
+
+Compute the percentage missing for `diastolic_bp` and `smoker` by hand, using the same `sum(is.na(x)) / length(x) * 100` pattern. Confirm both are 0%, since Level 7 found no missing values in either column.
+
+## Challenge Problem
+
+Before reading the next page, try to write out in plain English (not R code) the steps a function called `pct_missing` would need to perform, given any column as input. What would its single input be? What single output would it produce?
+
+## Key Takeaways
+
+- A function takes input (arguments) and produces output (a return value) — every function you've used since Level 1 follows this same basic pattern.
+- Built-in functions like `mean()` and functions you write yourself work identically in kind — the only difference is authorship.
+- Retyping the same calculation with only one small change is the clearest signal that code belongs in a function instead.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What are a function's inputs called?
+   a) Return values
+   b) Arguments (or parameters)
+   c) Comments
+   d) Vectors
+
+2. **True or false.** Built-in functions like `mean()` work fundamentally differently from functions a user writes.
+
+3. **Predict the output.** What would `sum(is.na(participants$diastolic_bp)) / length(participants$diastolic_bp) * 100` return, given `diastolic_bp` has no missing values?
+
+4. **Short answer.** What's the clearest signal that a repeated piece of code should be turned into a function?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Arguments (or parameters).
+2. **False.** Built-in and user-written functions work identically in kind — both take input and produce output the same way.
+3. `0` — with no missing values, the calculation gives 0%.
+4. Typing the same (or nearly the same) calculation more than once, with only a small piece — like a column name — changing between repetitions.
+
+</details>
+:::

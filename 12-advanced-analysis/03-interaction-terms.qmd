@@ -1,0 +1,152 @@
+# Interaction Terms {#sec-interaction-terms}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Page 1's model assumed age's effect on blood pressure is the *same* for smokers and non-smokers — it only ever estimated one single age coefficient for everyone. But what if aging affects blood pressure differently depending on smoking status? Your professor asks: does age's relationship with blood pressure actually depend on whether someone smokes?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Fit a regression with an interaction term, and interpret whether one predictor's effect changes depending on another predictor's value.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If age's effect on blood pressure were identical for smokers and non-smokers, would you expect an interaction term between them to be statistically significant, or not?
+- Page 1's model estimated one age slope for the whole dataset. How many different age slopes would a model need if smokers and non-smokers truly aged differently?
+:::
+
+## The R Concept
+
+An **interaction term**, written `predictor1 * predictor2` in an `lm()` formula, tests whether one predictor's effect depends on another's value:
+
+```r
+model <- lm(outcome ~ predictor1 * predictor2, data = df)
+summary(model)
+```
+
+`x1 * x2` is shorthand for `x1 + x2 + x1:x2` — it includes both main effects *and* their interaction. The interaction coefficient (`x1:x2`) is the key number: if it's statistically significant, `x1`'s effect genuinely differs depending on `x2`'s value.
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+bp_interaction_model <- lm(systolic_bp ~ age * smoker, data = participants)
+
+summary(bp_interaction_model)
+```
+
+```
+
+Call:
+lm(formula = systolic_bp ~ age * smoker, data = participants)
+
+Residuals:
+    Min      1Q  Median      3Q     Max
+-35.858 -13.412  -1.198  12.677  44.500
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)
+(Intercept)       144.8631     7.7593  18.669  < 2e-16 ***
+smokerYes          -8.6409    14.2813  -0.605    0.547
+age                -0.3352     0.1586  -2.114    0.037 *
+age:smokerYes       0.1859     0.2823   0.659    0.512
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 18.62 on 86 degrees of freedom
+  (10 observations deleted due to missingness)
+Multiple R-squared:  0.05368,	Adjusted R-squared:  0.02067
+F-statistic: 1.626 on 3 and 86 DF,  p-value: 0.1892
+```
+
+## Explore
+
+Try computing the predicted slope for smokers directly: `age`'s coefficient (−0.335) plus `age:smokerYes`'s coefficient (0.186) gives the *smokers'* age slope (−0.149), while non-smokers keep the plain `age` coefficient (−0.335) as their slope. Compare how different those two slopes really are.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+bp_interaction_model <- lm(systolic_bp ~ age * smoker, data = participants)
+
+coef(bp_interaction_model)["age"]                                        # non-smoker slope
+coef(bp_interaction_model)["age"] + coef(bp_interaction_model)["age:smokerYes"]  # smoker slope
+```
+
+```
+       age
+-0.3352289
+```
+
+```
+      age
+-0.1493318
+```
+
+```r
+summary(bp_interaction_model)$coefficients["age:smokerYes", "Pr(>|t|)"]
+```
+
+```
+[1] 0.5119558
+```
+
+The interaction term's p-value (0.512) is far from significant — despite the two slopes looking numerically different (−0.335 for non-smokers vs. −0.149 for smokers), this sample doesn't provide strong statistical evidence that age's effect on blood pressure genuinely differs by smoking status.
+
+## Interpret the Result
+
+The interaction term isn't statistically significant, meaning this data doesn't support the idea that aging affects blood pressure differently for smokers versus non-smokers — the apparent slope difference (−0.335 vs. −0.149) is plausibly just sampling noise around one true, shared age effect. This is a useful negative result: it justifies Page 1's simpler model (one shared age slope for everyone) over a more complicated one that assumes smokers and non-smokers age differently.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Interpreting the main effect of `age` alone as "the" age effect once an interaction is in the model.** Once `age:smoker` is included, plain `age`'s coefficient specifically means "the age slope for the reference group (non-smokers)" — not an overall age effect averaged across everyone.
+- **Adding an interaction term without first checking if it's significant.** A non-significant interaction (like this one, p = 0.512) should usually be dropped in favor of the simpler main-effects-only model (Page 1) — keeping insignificant interactions needlessly complicates the model without improving it.
+- **Confusing "the two slopes look numerically different" with "the difference is statistically significant."** −0.335 and −0.149 aren't identical numbers, but the interaction test (p = 0.512) shows this sample can't distinguish that difference from pure chance.
+:::
+
+## Practice Problem
+
+Fit `lm(systolic_bp ~ bmi * smoker, data = participants)`. Is BMI's effect on blood pressure significantly different between smokers and non-smokers?
+
+## Challenge Problem
+
+Fit `lm(bmi ~ age * sex, data = participants)`, testing whether age's relationship with BMI differs by sex. Report the interaction term's coefficient and p-value, and explain in plain language what a significant (or non-significant) result would mean.
+
+## Key Takeaways
+
+- `predictor1 * predictor2` in an `lm()` formula tests whether one predictor's effect on the outcome depends on the other predictor's value.
+- A significant interaction term means the two group-specific slopes are meaningfully different; a non-significant one supports using a simpler, shared-slope model instead.
+- Once an interaction term is in a model, a main effect's coefficient describes that predictor's effect only for the reference level of the other variable, not an overall effect.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does a significant `age:smoker` interaction coefficient indicate?
+   a) Age and smoking are correlated with each other
+   b) Age's effect on the outcome differs depending on smoking status
+   c) Smoking has no effect on the outcome
+   d) The model has too many predictors
+
+2. **True or false.** `x1 * x2` in an `lm()` formula includes both main effects and their interaction.
+
+3. **Predict the output.** If `age`'s coefficient is −0.335 and `age:smokerYes`'s coefficient is 0.186, what is the estimated age slope specifically for smokers?
+
+4. **Short answer.** Why should a non-significant interaction term usually be dropped in favor of a simpler main-effects-only model?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Age's effect on the outcome differs depending on smoking status.
+2. **True.** `x1 * x2` is shorthand for `x1 + x2 + x1:x2`.
+3. −0.335 + 0.186 = −0.149.
+4. A non-significant interaction means the data doesn't support the extra complexity of separate slopes for each group — keeping it would make the model harder to interpret without any real gain in explanatory power, and Page 5 shows how to confirm this formally with a nested model comparison.
+
+</details>
+:::

@@ -1,0 +1,165 @@
+# Default Argument Values {#sec-default-arguments}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You want a function that reports a numeric variable's mean and standard deviation, rounded for a clean report — but different reports need different precision: a quick internal check might want whole numbers, while a final publication table wants 2 decimal places. Writing two separate functions (`describe_rounded` and `describe_precise`) for what's really the same calculation feels wasteful.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Give a function argument a default value, so it works sensibly when called with fewer arguments, while still allowing that default to be overridden.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If most of the time you want 2 decimal places, but occasionally want more or fewer, would you rather type `digits = 2` every single time, or have `2` be assumed unless you say otherwise?
+- From Level 2, `mean(x, na.rm = TRUE)` — is `na.rm` required, or does it have some default value if you omit it entirely?
+:::
+
+## The R Concept
+
+A **default argument value** is specified with `=` directly in the function definition, and is used automatically whenever that argument is omitted from the call:
+
+```r
+function_name <- function(x, digits = 2) {
+  # digits is 2 unless the caller specifies otherwise
+}
+```
+
+```r
+describe_numeric <- function(x, digits = 2) {
+  c(
+    mean = round(mean(x, na.rm = TRUE), digits),
+    sd = round(sd(x, na.rm = TRUE), digits)
+  )
+}
+```
+
+Calling `describe_numeric(participants$age)` uses `digits = 2` automatically; calling `describe_numeric(participants$age, digits = 0)` overrides it explicitly. This is exactly the same pattern behind `mean(x, na.rm = TRUE)`'s `na.rm` argument, which defaults to `FALSE` unless you explicitly set it to `TRUE`.
+
+## Demonstration
+
+```r
+describe_numeric <- function(x, digits = 2) {
+  c(
+    mean = round(mean(x, na.rm = TRUE), digits),
+    sd = round(sd(x, na.rm = TRUE), digits)
+  )
+}
+
+participants <- read.csv("data/participants.csv")
+
+describe_numeric(participants$age)
+```
+
+```
+ mean    sd
+47.43 15.03
+```
+
+```r
+describe_numeric(participants$age, digits = 0)
+```
+
+```
+mean   sd
+  47   15
+```
+
+Calling the function with no `digits` argument at all uses the default (2 decimal places); explicitly passing `digits = 0` overrides that default, rounding to whole numbers instead.
+
+## Explore
+
+Try `describe_numeric(participants$bmi, digits = 4)`. Confirm the function happily accepts any value for `digits`, not just 0 or 2 — the default is only ever a *fallback*, never a restriction on what values are allowed.
+
+## Solve the Problem
+
+```r
+describe_numeric <- function(x, digits = 2) {
+  c(
+    mean = round(mean(x, na.rm = TRUE), digits),
+    sd = round(sd(x, na.rm = TRUE), digits)
+  )
+}
+
+participants <- read.csv("data/participants.csv")
+
+describe_numeric(participants$systolic_bp)
+```
+
+```
+  mean     sd
+129.84  18.87
+```
+
+```r
+describe_numeric(participants$systolic_bp, digits = 1)
+```
+
+```
+ mean    sd
+129.8  18.9
+```
+
+Both calls compute the exact same underlying mean and SD — only the rounding precision changes, controlled entirely by whether `digits` is left at its default (2) or explicitly overridden (1).
+
+## Interpret the Result
+
+`describe_numeric()` now serves both the quick-internal-check case (default 2 decimals) and the more precise or more rounded reporting case (any `digits` value explicitly requested), without needing two separate functions or repeating the `round()`-wrapped calculation twice. A well-chosen default lets the common case stay simple, while still leaving full flexibility available when needed.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Choosing a default that silently produces wrong-looking results for typical use.** A poorly chosen default (like `digits = 10`) could produce overly precise, hard-to-read output for the common case — defaults should reflect what's usually wanted, not just any arbitrary value.
+- **Forgetting default arguments can reference other arguments.** More advanced function definitions can have one default depend on another argument's value — while not needed here, it's worth knowing defaults aren't limited to fixed constants.
+- **Assuming a default value means an argument can never be changed.** A default is only what's used *if omitted* — every default-valued argument remains fully overridable at the calling site, exactly as shown with `digits = 0` and `digits = 1` above.
+:::
+
+## Practice Problem
+
+Modify `pct_missing()` from Page 2 to accept a `digits` argument with a default of `1`, rounding its result before returning it. Test it on `participants$age` both with and without specifying `digits`.
+
+## Challenge Problem
+
+Write a function called `flag_high_bp` that takes a numeric vector of systolic blood pressure values and a `threshold` argument defaulting to `130` (Level 4's hypertension cutoff), returning `TRUE`/`FALSE` for each value indicating whether it exceeds the threshold. Test it once with the default threshold, and once with `threshold = 140` (a stricter cutoff), and compare how many values are flagged under each.
+
+## Key Takeaways
+
+- A default argument value (`argument = default_value` in the function definition) is used automatically whenever that argument is omitted from a call.
+- Defaults make the common case simple to call, while every default remains fully overridable when a different value is needed.
+- This is the exact same pattern behind built-in functions like `mean(x, na.rm = TRUE)`, whose `na.rm` argument defaults to `FALSE`.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** In `function(x, digits = 2)`, when is `digits` equal to `2`?
+   a) Always, regardless of how the function is called
+   b) Only when the caller explicitly writes `digits = 2`
+   c) Whenever the caller omits the `digits` argument entirely
+   d) Never — defaults are just documentation, not actual behavior
+
+2. **True or false.** A default argument value can always be overridden by the caller.
+
+3. **Predict the output.** Given `describe_numeric <- function(x, digits = 2) {...}`, what would `digits` equal inside a call to `describe_numeric(participants$bmi)`?
+
+4. **Find the error.**
+   ```r
+   describe_numeric <- function(x, digits) {
+     c(mean = round(mean(x, na.rm = TRUE), digits))
+   }
+   describe_numeric(participants$age)
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** Whenever the caller omits the `digits` argument entirely.
+2. **True.** A default is only ever a fallback for when an argument is omitted — it never prevents the caller from specifying a different value.
+3. `2` — the default value, since the call didn't specify `digits`.
+4. `digits` has no default value here, so calling `describe_numeric(participants$age)` without specifying `digits` produces an error (`argument "digits" is missing, with no default`). Adding `digits = 2` (or any default) to the function definition would fix this.
+
+</details>
+:::

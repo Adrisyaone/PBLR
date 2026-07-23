@@ -1,0 +1,144 @@
+# Accumulating Results in a Loop {#sec-accumulating-results}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+The previous page's loop printed each county's participant count, but the moment it finished, all five printed values were gone — nothing was saved. Your professor wants the actual counts stored somewhere usable afterward: for further calculation, for plotting, for anything beyond just looking at printed text.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Store, or "accumulate," results produced inside a loop into a vector you can use after the loop finishes.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If you wanted to save one number per loop iteration, and the loop runs 5 times, how many "slots" would you need to store all the results?
+- Would it make sense to create an empty results container *before* the loop starts, or only after it finishes?
+:::
+
+## The R Concept
+
+To accumulate results, create an empty (or appropriately sized) vector **before** the loop starts, then assign into a specific position of it during each iteration:
+
+```r
+results <- vector("numeric", length(some_vector))   # pre-allocate
+
+for (i in seq_along(some_vector)) {
+  results[i] <- some_calculation(some_vector[i])
+}
+```
+
+`seq_along(x)` generates the sequence `1, 2, 3, ..., length(x)` — useful for looping by *position* (needed here, since you must know which slot in `results` to fill on each iteration) rather than by value directly.
+
+## Demonstration
+
+```r
+counties <- unique(participants$county)
+
+county_counts <- vector("numeric", length(counties))   # pre-allocate 5 empty slots
+names(county_counts) <- counties                        # label each slot
+
+for (i in seq_along(counties)) {
+  county_counts[i] <- sum(participants$county == counties[i])
+}
+
+county_counts
+```
+
+```
+    Oakford   Riverdale   Millbrook  Springvale Cedar Falls
+         17          16          21          26          20
+```
+
+Unlike the previous page's `print()`-only loop, `county_counts` now genuinely exists as a named vector after the loop finishes — usable for further calculations, exactly like any other vector from Level 2.
+
+## Explore
+
+Try `sum(county_counts)` after running the loop above. It should equal `100`, confirming the accumulated counts across all five counties correctly sum to the full sample size — a useful sanity check whenever accumulating results across groups that should account for the whole dataset.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+numeric_columns <- c("age", "systolic_bp", "diastolic_bp", "bmi")
+
+pct_missing_results <- vector("numeric", length(numeric_columns))
+names(pct_missing_results) <- numeric_columns
+
+for (i in seq_along(numeric_columns)) {
+  col_name <- numeric_columns[i]
+  col_values <- participants[[col_name]]
+  pct_missing_results[i] <- sum(is.na(col_values)) / length(col_values) * 100
+}
+
+pct_missing_results
+```
+
+```
+        age systolic_bp diastolic_bp         bmi
+          6           4            0           5
+```
+
+The exact same percentages Level 9's `sapply(participants, pct_missing)` produced — but built here explicitly, one column at a time, with the result accumulated into a pre-allocated vector rather than handled automatically.
+
+## Interpret the Result
+
+`pct_missing_results` now exists as a genuine, reusable vector, matching the missing-value percentages already established in Level 9 (6% age, 4% systolic BP, 0% diastolic BP, 5% BMI) — confirming the explicit loop-and-accumulate approach and Level 9's `sapply()` shortcut agree exactly, as they should, since they're computing the identical thing by different means.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Growing a vector inside the loop instead of pre-allocating it.** Writing `results <- c(results, new_value)` inside a loop (rather than pre-allocating `results` at the correct size beforehand) works, but is slower and considered poor style for larger loops — pre-allocating with `vector("numeric", n)` first is the more robust habit to build.
+- **Looping over values instead of positions when position matters.** `for (col_name in numeric_columns)` (looping by value) makes it harder to know *which slot* of a pre-allocated results vector to fill — `for (i in seq_along(numeric_columns))` (looping by position) solves this directly, since `i` gives you both the current position and (via indexing) the current value.
+- **Forgetting to name the results vector.** `pct_missing_results` without `names()` assigned would just be an unlabeled vector of four numbers — much harder to interpret than one clearly labeled by column name.
+:::
+
+## Practice Problem
+
+Write a loop that accumulates the mean value of each numeric column (`age`, `systolic_bp`, `diastolic_bp`, `bmi`) into a named results vector, using `seq_along()` and pre-allocation as shown above.
+
+## Challenge Problem
+
+Modify the county-count loop above to also accumulate each county's mean `systolic_bp` into a second pre-allocated vector, alongside the participant counts. Confirm your accumulated means match Level 5's `group_by(county) + summarise()` results (Cedar Falls 128.16, Millbrook 133.30, Oakford 129.71, Riverdale 124.36, Springvale 131.46).
+
+## Key Takeaways
+
+- Accumulating results requires creating a container (typically pre-allocated with `vector()`) before the loop starts, then assigning into a specific position during each iteration.
+- `seq_along(x)` generates position indices (`1, 2, ..., length(x)`), useful whenever you need to know *which slot* to fill, not just the current value.
+- Pre-allocating a results vector at the correct size is more efficient and more robust than growing a vector one element at a time inside a loop.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `seq_along(c("a", "b", "c"))` return?
+   a) `c("a", "b", "c")`
+   b) `c(1, 2, 3)`
+   c) `3`
+   d) `c(0, 1, 2)`
+
+2. **True or false.** Values printed with `print()` inside a loop are automatically available in a vector after the loop finishes.
+
+3. **Predict the output.** If `results <- vector("numeric", 5)` before a loop runs, what are the initial values of `results`, before any assignment happens?
+
+4. **Find the error.**
+   ```r
+   pct_missing_results <- vector("numeric", length(numeric_columns))
+   for (col_name in numeric_columns) {
+     pct_missing_results[col_name] <- sum(is.na(participants[[col_name]])) / nrow(participants) * 100
+   }
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `c(1, 2, 3)` — the position indices, not the values themselves.
+2. **False.** `print()` only displays values as the loop runs — nothing is saved to a vector unless explicitly assigned into one.
+3. All zeros: `c(0, 0, 0, 0, 0)` — `vector("numeric", 5)` pre-allocates 5 slots, each initialized to `0`.
+4. This isn't strictly wrong — R allows indexing a vector by name (`pct_missing_results[col_name]`), which would actually work correctly here despite looping by value instead of position — but it's a more fragile pattern than looping with `seq_along()`, since `results[col_name]` silently creates a new named element if `col_name` doesn't already exist as one of the vector's names, rather than erroring on a genuine mismatch.
+
+</details>
+:::

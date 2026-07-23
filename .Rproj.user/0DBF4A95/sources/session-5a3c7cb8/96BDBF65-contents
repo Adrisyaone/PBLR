@@ -1,0 +1,138 @@
+# Logistic Regression for a Binary Outcome {#sec-logistic-regression}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Page 9's `lm()` predicted a continuous outcome (blood pressure) from age. But `smoker` is a **binary** outcome ("Yes"/"No") — not a continuous number `lm()` is designed to predict. Your professor asks whether age and BMI together predict the *probability* of being a smoker — a question `lm()` isn't built to answer directly, since a straight line can predict values below 0 or above 1, which make no sense as probabilities.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Fit a logistic regression model using `glm()` to predict a binary outcome, and interpret its coefficients as odds ratios.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+-   Why might a straight line (`lm()`) be a poor fit for predicting something that must always be between 0 and 1, like a probability?
+-   Level 5's `is_at_risk()` and `is.numeric(x)` used `TRUE`/`FALSE` values. If R can treat `TRUE` as `1` and `FALSE` as `0` (Level 2), could `smoker == "Yes"` become a numeric 0/1 outcome for modeling?
+:::
+
+## The R Concept
+
+**`glm()`** ("generalized linear model") with `family = binomial` fits a **logistic regression** — a model for a binary (0/1) outcome that always predicts a valid probability between 0 and 1:
+
+``` r
+model <- glm(outcome_binary ~ predictor1 + predictor2, data = df, family = binomial)
+summary(model)
+```
+
+Logistic regression coefficients are on a "log-odds" scale, which is hard to interpret directly — exponentiating them (`exp(coef(model))`) converts them into **odds ratios**, a much more interpretable quantity: an odds ratio above 1 means higher values of the predictor are associated with higher odds of the outcome; below 1 means lower odds.
+
+## Demonstration
+
+```{r}
+participants <- read.csv("data/participants.csv")
+
+participants$smoker_binary <- as.numeric(participants$smoker == "Yes")
+
+smoker_model <- glm(smoker_binary ~ age + bmi, data = participants, family = binomial)
+
+summary(smoker_model)
+```
+
+
+
+
+## Explore
+
+Try `exp(coef(smoker_model))` to convert the coefficients into odds ratios. An odds ratio near 1.00 (for either `age` or `bmi`) indicates that predictor has little association with the odds of being a smoker — very different from an odds ratio of, say, 2.0 (doubled odds) or 0.5 (halved odds).
+
+## Solve the Problem
+
+``` r
+participants <- read.csv("data/participants.csv")
+
+participants$smoker_binary <- as.numeric(participants$smoker == "Yes")
+
+smoker_model <- glm(smoker_binary ~ age + bmi, data = participants, family = binomial)
+
+exp(coef(smoker_model))
+```
+
+```         
+(Intercept)         age         bmi
+  0.4009245   1.0089595   0.9769487
+```
+
+``` r
+exp(confint(smoker_model))
+```
+
+```         
+                 2.5 %    97.5 %
+(Intercept) 0.01698651 8.9573952
+age         0.97654895 1.0430263
+bmi         0.88132002 1.0821256
+```
+
+Neither `age` (OR = 1.009, 95% CI: 0.977-1.043) nor `bmi` (OR = 0.977, 95% CI: 0.881-1.082) has an odds ratio confidence interval excluding 1 — both intervals comfortably contain 1.0, meaning neither predictor shows a statistically significant association with smoking status in this sample.
+
+## Interpret the Result
+
+Neither age nor BMI meaningfully predicts smoking status in this sample: both odds ratios sit very close to 1.00 (1.009 and 0.977), and both p-values (0.590 and 0.655) are far from significant. This is consistent with everything found earlier in the course — Level 7's cross-tabulations and Page 7's chi-square test both suggested weak, non-significant relationships involving smoking status, and this logistic regression confirms the same conclusion using two predictors simultaneously rather than one categorical comparison at a time.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+-   **Interpreting logistic regression coefficients directly, without exponentiating first.** The raw coefficients (like `age`'s 0.0089) are on a log-odds scale, not directly interpretable as "probability change per unit" — `exp(coef(model))` is required to get the more interpretable odds ratio.
+-   **Forgetting `family = binomial` is required.** Without it, `glm()` defaults to ordinary linear regression (equivalent to `lm()`), which is inappropriate for a 0/1 outcome and can predict nonsensical values like -0.3 or 1.4 as a "probability."
+-   **Treating a non-significant model as proof age and BMI have no relationship to smoking whatsoever, in any population.** As with every non-significant result in this level, this only means *this particular sample* of 89 participants doesn't provide strong evidence of an association — not a universal claim about the true, broader relationship.
+:::
+
+## Practice Problem
+
+Fit a logistic regression predicting `smoker_binary` from `age` alone (no `bmi`). Compare its age coefficient and p-value to the two-predictor model above — does adding `bmi` change age's estimated association much?
+
+## Challenge Problem
+
+Fit a logistic regression predicting a **hypertension** binary outcome (`systolic_bp >= 130`, Level 4's threshold) from `age` and `bmi`. Compare the resulting odds ratios and p-values to the smoker model in this page — does either predictor show a stronger (or weaker) association with hypertension than with smoking status?
+
+## Key Takeaways
+
+-   `glm(outcome ~ predictors, data = df, family = binomial)` fits a logistic regression for a binary (0/1) outcome, always predicting a valid probability between 0 and 1.
+-   Logistic regression coefficients are on a log-odds scale — `exp(coef(model))` converts them into odds ratios, a far more interpretable quantity.
+-   An odds ratio's 95% confidence interval containing 1.0 indicates no statistically significant association, exactly analogous to a correlation's confidence interval containing 0 (Page 8).
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1.  **Multiple choice.** Why is `lm()` inappropriate for predicting a binary (0/1) outcome directly?
+
+    a)  `lm()` cannot handle numeric predictors
+    b)  `lm()` can predict values outside the valid 0-to-1 probability range
+    c)  `lm()` requires exactly one predictor
+    d)  There is no actual problem with using `lm()` this way
+
+2.  **True or false.** An odds ratio of exactly 1.00 indicates no association between the predictor and the outcome's odds.
+
+3.  **Predict the output.** If a predictor's odds ratio 95% confidence interval is (0.88, 1.08), would you conclude that predictor is statistically significantly associated with the outcome?
+
+4.  **Find the error.**
+
+    ``` r
+    # "The age coefficient of 0.0089 means each additional year increases the probability of smoking by 0.89%."
+    ```
+
+<details class="pbl-answer">
+
+<summary>Show answers</summary>
+
+1.  **b)** `lm()` can predict values outside the valid 0-to-1 probability range, which makes no sense for a binary outcome.
+2.  **True.** An odds ratio of exactly 1.00 means the predictor has no association with the odds of the outcome.
+3.  No — a confidence interval containing 1.0 (as (0.88, 1.08) does) indicates no statistically significant association.
+4.  Raw logistic regression coefficients are on a log-odds scale, not a direct percentage-probability scale — the coefficient must first be exponentiated (`exp(0.0089) ≈ 1.009`) to get the odds ratio, and even then, an odds ratio doesn't translate directly into a simple percentage-point change in probability the way this statement implies.
+
+</details>
+:::

@@ -1,0 +1,140 @@
+# Looping Over a Data Frame's Columns {#sec-looping-over-columns}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 9's `sapply(participants, pct_missing)` computed missing-value percentages for every column in one call — convenient, but it hid exactly *how* R visits each column in turn. Your professor asks you to write out that same process explicitly with a `for` loop, printing a formatted summary line for each column — partly to build your understanding of what `sapply()` is actually doing underneath.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Loop over every column of a data frame explicitly, using `names()` and double-bracket indexing.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 2, what does `names(participants)` return?
+- If `col_name` holds a column name as text (like `"age"`), how would you access that actual column's values — `participants$col_name`, or something else?
+:::
+
+## The R Concept
+
+Looping over a data frame's columns means looping over its **column names**, then using **double-bracket indexing** (`df[[col_name]]`) to access each column's actual values — `df$col_name` doesn't work here, because `$` requires the literal column name typed directly, not a variable holding that name as text:
+
+```r
+for (col_name in names(df)) {
+  column_values <- df[[col_name]]
+  # code using column_values
+}
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+for (col_name in names(participants)) {
+  print(col_name)
+}
+```
+
+```
+[1] "id"
+[1] "age"
+[1] "sex"
+[1] "county"
+[1] "systolic_bp"
+[1] "diastolic_bp"
+[1] "bmi"
+[1] "smoker"
+```
+
+The loop visits all 8 column names in order — but printing just the *names* isn't very useful yet; the next step is using each name to access that column's actual values.
+
+## Explore
+
+Try `participants$col_name` inside the loop (instead of `participants[[col_name]]`) and see what happens. Since `col_name` is a variable holding text like `"age"`, `$` looks for a column *literally named* `col_name`, which doesn't exist — `df[[col_name]]` is what correctly uses the *value* of `col_name` to select a column.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+for (col_name in names(participants)) {
+  column_values <- participants[[col_name]]
+  pct_miss <- round(sum(is.na(column_values)) / length(column_values) * 100, 1)
+  print(paste0(col_name, ": ", pct_miss, "% missing"))
+}
+```
+
+```
+[1] "id: 0% missing"
+[1] "age: 6% missing"
+[1] "sex: 0% missing"
+[1] "county: 0% missing"
+[1] "systolic_bp: 4% missing"
+[1] "diastolic_bp: 0% missing"
+[1] "bmi: 5% missing"
+[1] "smoker: 0% missing"
+```
+
+Exactly the same missing-value percentages Level 9's `sapply(participants, pct_missing)` produced — now built with an explicit `for` loop over column names, using `[[ ]]` to access each column's actual values by name.
+
+## Interpret the Result
+
+This confirms what `sapply()` was doing internally all along: visiting each column by name, applying a calculation, and (in `sapply()`'s case) automatically collecting the results into a vector. Writing the loop out explicitly makes every step visible — useful for understanding, debugging, or handling situations more complex than a single function call per column can express cleanly.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Using `$` with a variable holding a column name.** `participants$col_name` looks for a literal column called `col_name`, not the column whose name is *stored in* the `col_name` variable — this is one of the most common loop-over-columns mistakes, and `[[ ]]` is the fix.
+- **Forgetting `names()` returns column names as text, not the columns themselves.** `for (col_name in names(participants))` gives you `col_name` as a string like `"age"` — you still need `participants[[col_name]]` to get the actual values.
+- **Writing a loop when `sapply()`/`map_dbl()` (Level 9) would be simpler for a single, uniform calculation.** This page's loop is intentionally the "long way" to build understanding — for straightforward one-function-per-column tasks, Level 9's shortcuts remain the more practical everyday choice.
+:::
+
+## Practice Problem
+
+Write a `for` loop over `names(participants)` that prints each column's `class()` (Level 2), similar to how Page 4's `sapply(participants, class)` worked in Level 9.
+
+## Challenge Problem
+
+Modify the missing-value loop above to only print a line for columns that actually have at least one missing value (hint: wrap the `print()` line in an `if (pct_miss > 0) {...}` check, combining this level's loops with Level 4's conditionals). Confirm only `age`, `systolic_bp`, and `bmi` produce output.
+
+## Key Takeaways
+
+- Looping over a data frame's columns means looping over `names(df)`, then using `df[[col_name]]` (not `df$col_name`) to access each column's values by a name stored in a variable.
+- `$` requires the literal column name typed directly; `[[ ]]` works with a variable holding that name as text — an essential distinction for this kind of loop.
+- Writing a loop explicitly (rather than using `sapply()`/`map()`) trades conciseness for step-by-step visibility, useful for understanding or for tasks too complex for a single function call per column.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Inside `for (col_name in names(df))`, how do you correctly access the column named by `col_name`?
+   a) `df$col_name`
+   b) `df[[col_name]]`
+   c) `df(col_name)`
+   d) `col_name(df)`
+
+2. **True or false.** `df$col_name` and `df[[col_name]]` always produce the same result, regardless of whether `col_name` is a variable or a literal name.
+
+3. **Predict the output.** What would `names(participants)` return as its very first element?
+
+4. **Find the error.**
+   ```r
+   for (col_name in names(participants)) {
+     print(participants$col_name)
+   }
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `df[[col_name]]`.
+2. **False.** `df$col_name` looks for a column literally named `col_name`; `df[[col_name]]` uses the *value* stored in the `col_name` variable to select the column — these behave very differently when `col_name` is a variable.
+3. `"id"` — the first column in `participants`.
+4. `participants$col_name` looks for a column literally named `"col_name"`, which doesn't exist, rather than using the value stored in the loop variable `col_name`. It should be `participants[[col_name]]`.
+
+</details>
+:::

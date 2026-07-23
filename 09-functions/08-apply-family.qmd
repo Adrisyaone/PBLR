@@ -1,0 +1,165 @@
+# Applying a Function Across Columns: `sapply()` and `lapply()` {#sec-apply-family}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You have `pct_missing()` (Page 2), a working function for one column at a time. But `participants` has 8 columns, and typing `pct_missing(participants$id)`, `pct_missing(participants$age)`, `pct_missing(participants$sex)` ... eight separate times is exactly the repetition functions were supposed to eliminate in the first place. You need to apply `pct_missing()` to *every column at once*, automatically.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Apply a function across every column of a data frame at once using `sapply()` and `lapply()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Level 2 introduced vectorized operations like `x + 1`, which apply automatically to every element of a vector. Could a *function* similarly be applied automatically to every *column* of a data frame?
+- A data frame is really a list of columns underneath. If a function could be applied to every element of a list, would that also apply it to every column of a data frame?
+:::
+
+## The R Concept
+
+**`sapply()`** ("simplify apply") applies a function to every element of a vector or list — including every column of a data frame — and simplifies the result into a vector when possible:
+
+```r
+sapply(df, function_name)
+```
+
+**`lapply()`** ("list apply") does the exact same thing, but always returns a **list** instead of simplifying — useful when the results don't simplify neatly into a single vector:
+
+```r
+lapply(df, function_name)
+```
+
+## Demonstration
+
+```r
+pct_missing <- function(x) {
+  sum(is.na(x)) / length(x) * 100
+}
+
+participants <- read.csv("data/participants.csv")
+
+sapply(participants, pct_missing)
+```
+
+```
+         id         age         sex      county systolic_bp diastolic_bp
+          0           6           0           0           4            0
+        bmi      smoker
+          5           0
+```
+
+One call, `sapply(participants, pct_missing)`, applied `pct_missing()` to all 8 columns automatically — no more retyping `pct_missing(participants$...)` eight separate times.
+
+```r
+lapply(participants, pct_missing)
+```
+
+```
+$id
+[1] 0
+
+$age
+[1] 6
+
+$sex
+[1] 0
+... (output continues as a list, one entry per column)
+```
+
+`lapply()` produces the same underlying values, but as a list (one named entry per column) rather than `sapply()`'s simplified named vector.
+
+## Explore
+
+Try `sapply(participants, class)` — applying the built-in `class()` function (Level 2) across every column instead of `pct_missing()`. This confirms `sapply()` works with *any* function, built-in or custom, as long as it's designed to take a single column as input.
+
+## Solve the Problem
+
+```r
+pct_missing <- function(x) {
+  sum(is.na(x)) / length(x) * 100
+}
+
+participants <- read.csv("data/participants.csv")
+
+missing_report <- sapply(participants, pct_missing)
+
+missing_report
+```
+
+```
+         id         age         sex      county systolic_bp diastolic_bp
+          0           6           0           0           4            0
+        bmi      smoker
+          5           0
+```
+
+```r
+missing_report[missing_report > 0]
+```
+
+```
+        age systolic_bp         bmi
+          6           4           5
+```
+
+`sapply()` computed the missing-value percentage for all 8 columns in one call, and a follow-up logical filter (`missing_report > 0`, Level 2) immediately narrows the result down to just the 3 columns that actually have any missingness — `age` (6%), `systolic_bp` (4%), and `bmi` (5%).
+
+## Interpret the Result
+
+This is exactly the level's opening mission delivered: `pct_missing()` was written once (Page 2), and `sapply()` applied it across the entire dataset automatically — no repetition, no retyping the calculation eight times, and the result immediately usable for further filtering (`missing_report > 0`) to focus attention on only the columns that need it.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `sapply()` and `lapply()` pass one column at a time to the function, not the whole data frame at once.** `pct_missing()` receives `participants$age` as its `x` on one call, then `participants$systolic_bp` on the next — never the entire `participants` data frame in a single call.
+- **Expecting `sapply()` to always return a clean vector.** `sapply()` simplifies when it can, but if a function's results don't have a consistent length or type across every column, `sapply()` falls back to returning a list — the same result `lapply()` would have given directly.
+- **Applying a function written for a single value (like `bp_category()`, Page 4) directly to an entire column without `sapply()`.** `bp_category()`'s `if` statement expects one number, not a vector — calling `bp_category(participants$systolic_bp)` directly errors; wrapping it as `sapply(participants$systolic_bp, bp_category)` (or vectorizing the function itself) is what correctly applies it across every value.
+:::
+
+## Practice Problem
+
+Use `sapply(participants, class)` to check the storage type of every column. Which columns are `"character"`, and which are `"integer"` or `"numeric"`?
+
+## Challenge Problem
+
+Write a function called `n_unique` that returns the number of distinct non-missing values in a vector (hint: use `length(unique(...))` combined with removing `NA`s first). Apply it with `sapply()` across every column of `participants`, and confirm `county` shows exactly 5 distinct values, matching Level 4's finding.
+
+## Key Takeaways
+
+- `sapply(df, function_name)` applies a function to every column of a data frame, simplifying the result into a vector when possible.
+- `lapply(df, function_name)` does the same thing but always returns a list, useful when results don't simplify neatly.
+- Both `sapply()` and `lapply()` pass one column at a time to the function — the function itself is still written exactly as if handling a single vector, exactly as on Pages 2-4.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `sapply(participants, pct_missing)` do?
+   a) Applies `pct_missing()` to the entire data frame as one single input
+   b) Applies `pct_missing()` separately to each column, simplifying the results into a vector
+   c) Filters `participants` to only rows with missing values
+   d) Modifies `participants` in place
+
+2. **True or false.** `lapply()` always returns a simplified vector, exactly like `sapply()`.
+
+3. **Predict the output.** Given `sapply(participants, pct_missing)`'s result, what would `missing_report["bmi"]` return?
+
+4. **Find the error.**
+   ```r
+   bp_category(participants$systolic_bp)
+   # intended: classify every participant's blood pressure at once
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Applies `pct_missing()` separately to each column, simplifying the results into a vector.
+2. **False.** `lapply()` always returns a list; `sapply()` attempts to simplify the result into a vector (or matrix) when possible.
+3. `5` — the percentage of missing `bmi` values.
+4. `bp_category()` (Page 4) was written expecting a single value, using `if`, which errors on a vector input. It should be wrapped with `sapply()`: `sapply(participants$systolic_bp, bp_category)`, applying the single-value function across every element correctly.
+
+</details>
+:::

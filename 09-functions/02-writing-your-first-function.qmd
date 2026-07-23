@@ -1,0 +1,168 @@
+# Writing Your First Function {#sec-writing-your-first-function}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You've identified the repeated pattern (previous page): `sum(is.na(x)) / length(x) * 100`. Now you need to actually turn it into a real, callable tool — something you can invoke as `pct_missing(participants$age)` the same way you'd call `mean(participants$age)`, instead of retyping the full calculation every time.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Write your own function using R's `function()` keyword, with a defined input and a returned output.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Looking at `sum(is.na(x)) / length(x) * 100`, what single input (`x`) does this calculation need to run?
+- If a function's last line is a value (not assigned to anything), do you think R automatically treats that as the function's output?
+:::
+
+## The R Concept
+
+A function is created with the `function()` keyword, listing its argument names in parentheses, followed by a block of code in curly braces `{}`:
+
+```r
+function_name <- function(argument1, argument2) {
+  # code using argument1 and argument2
+  result   # the last evaluated expression is returned automatically
+}
+```
+
+R automatically returns whatever the **last line** of the function evaluates to — no explicit `return()` needed, though it's allowed and sometimes used for clarity or to exit early:
+
+```r
+pct_missing <- function(x) {
+  sum(is.na(x)) / length(x) * 100
+}
+```
+
+## Demonstration
+
+```r
+pct_missing <- function(x) {
+  sum(is.na(x)) / length(x) * 100
+}
+
+participants <- read.csv("data/participants.csv")
+
+pct_missing(participants$age)
+```
+
+```
+[1] 6
+```
+
+```r
+pct_missing(participants$systolic_bp)
+```
+
+```
+[1] 4
+```
+
+```r
+pct_missing(participants$bmi)
+```
+
+```
+[1] 5
+```
+
+The exact same three answers as the previous page (6%, 4%, 5%) — but now produced by calling one short, named function three times, instead of retyping the full calculation each time.
+
+## Explore
+
+Try `pct_missing(participants$diastolic_bp)`. Confirm it correctly returns `0`, exactly matching your hand calculation from the previous page's practice problem — your function works on *any* vector passed to it, not just the ones you tested first.
+
+## Solve the Problem
+
+```r
+pct_missing <- function(x) {
+  sum(is.na(x)) / length(x) * 100
+}
+
+participants <- read.csv("data/participants.csv")
+
+pct_missing(participants$id)
+```
+
+```
+[1] 0
+```
+
+```r
+pct_missing(participants$smoker)
+```
+
+```
+[1] 0
+```
+
+```r
+pct_missing(participants$county)
+```
+
+```
+[1] 0
+```
+
+`id`, `smoker`, and `county` all correctly return `0` — none of these columns have any missing values, and `pct_missing()` handles them exactly as correctly as it handled the columns that *did* have missing data, without needing any special-casing.
+
+## Interpret the Result
+
+`pct_missing()` now works as a genuine, general-purpose tool — callable on any column in `participants`, or in any other dataset entirely, without ever needing to see or modify its internal code again. This is the core payoff of writing a function: the calculation was written once, correctly, and now every future use of it is just a short function call.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting the curly braces `{}` for multi-line functions.** A single-line function body can skip the braces (`pct_missing <- function(x) sum(is.na(x)) / length(x) * 100`), but any function with more than one line needs `{}` to group them together.
+- **Assuming a function needs an explicit `return()` to produce output.** R automatically returns the last evaluated expression — `return()` is optional and mainly useful for exiting a function early (covered later in this level) or for clarity in longer functions.
+- **Confusing the argument name (`x`) with any specific column.** `x` inside the function body is just a placeholder name — it takes on whatever value is passed in when the function is called (`participants$age`, `participants$bmi`, or anything else), and has no meaning outside the function itself.
+:::
+
+## Practice Problem
+
+Write a function called `range_width` that takes a numeric vector `x` and returns the difference between its maximum and minimum values (using `na.rm = TRUE` inside), then test it on `participants$bmi`.
+
+## Challenge Problem
+
+Write a function called `mean_and_sd` that takes a numeric vector `x` and returns *both* the mean and standard deviation as a named vector (hint: `c(mean = ..., sd = ...)`), handling missing values appropriately. Test it on `participants$age` and confirm both values match Level 7's earlier findings (mean 47.43, SD 15.03).
+
+## Key Takeaways
+
+- A function is created with `function(arguments) { code }`, and is called later by name with actual values in place of its arguments.
+- R automatically returns the last evaluated expression from a function — an explicit `return()` is optional, not required.
+- Once written and tested, a function becomes a reusable tool that works on any appropriate input, not just the specific examples used while building it.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does R return from a function by default, with no explicit `return()`?
+   a) Nothing — an error occurs
+   b) The first evaluated expression
+   c) The last evaluated expression
+   d) `NULL`, always
+
+2. **True or false.** Curly braces `{}` are required for every function, even one-line ones.
+
+3. **Predict the output.** Given `pct_missing <- function(x) sum(is.na(x)) / length(x) * 100`, what would `pct_missing(c(1, NA, 3, NA))` return?
+
+4. **Find the error.**
+   ```r
+   pct_missing <- function(x)
+     sum(is.na(x)) / length(x) * 100
+     cat("Done!")
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** The last evaluated expression.
+2. **False.** A single-line function body can omit the curly braces; they're only required when the body spans multiple lines that need to be grouped together.
+3. `50` — 2 of the 4 values are `NA`, so `2 / 4 * 100 = 50`.
+4. Without curly braces, only the very next single line (`sum(is.na(x)) / length(x) * 100`) is treated as the function's body — the `cat("Done!")` line runs separately, outside the function, every time this code is sourced, rather than being part of `pct_missing()`'s behavior. Wrapping both lines in `{}` would fix this ambiguity.
+
+</details>
+:::

@@ -376,5 +376,125 @@
   },
   "08-data-visualization/11-visualization-capstone.qmd": {
     "11-visualization-capstone.html": "659b2ced"
+  },
+  "09-functions/01-what-is-a-function.qmd": {
+    "01-what-is-a-function.html": "8704c85e"
+  },
+  "09-functions/02-writing-your-first-function.qmd": {
+    "02-writing-your-first-function.html": "40abea73"
+  },
+  "09-functions/03-default-arguments.qmd": {
+    "03-default-arguments.html": "07650ad4"
+  },
+  "09-functions/04-conditionals-in-functions.qmd": {
+    "04-conditionals-in-functions.html": "60820158"
+  },
+  "09-functions/05-multiple-arguments.qmd": {
+    "05-multiple-arguments.html": "c269d1b7"
+  },
+  "09-functions/06-scope.qmd": {
+    "06-scope.html": "04c4e124"
+  },
+  "09-functions/07-anonymous-functions.qmd": {
+    "07-anonymous-functions.html": "959d8425"
+  },
+  "09-functions/08-apply-family.qmd": {
+    "08-apply-family.html": "f3d6625c"
+  },
+  "09-functions/09-purrr-map.qmd": {
+    "09-purrr-map.html": "1c7851bd"
+  },
+  "09-functions/10-error-handling.qmd": {
+    "10-error-handling.html": "b0935cd6"
+  },
+  "09-functions/11-functions-capstone.qmd": {
+    "11-functions-capstone.html": "8a0f93d8"
+  },
+  "10-loops/01-for-loops.qmd": {
+    "01-for-loops.html": "c3d0d8e4"
+  },
+  "10-loops/02-accumulating-results.qmd": {
+    "02-accumulating-results.html": "baad3285"
+  },
+  "10-loops/03-while-loops.qmd": {
+    "03-while-loops.html": "08cb3a39"
+  },
+  "10-loops/04-looping-over-columns.qmd": {
+    "04-looping-over-columns.html": "a7b419ce"
+  },
+  "10-loops/05-nested-loops.qmd": {
+    "05-nested-loops.html": "f20afce6"
+  },
+  "10-loops/06-vapply-tapply.qmd": {
+    "06-vapply-tapply.html": "269dfc47"
+  },
+  "10-loops/07-loops-vs-vectorization.qmd": {
+    "07-loops-vs-vectorization.html": "a0b9eef9"
+  },
+  "10-loops/08-automation-capstone.qmd": {
+    "08-automation-capstone.html": "a75d2895"
+  },
+  "11-statistics/01-probability-distributions.qmd": {
+    "01-probability-distributions.html": "015b1f85"
+  },
+  "11-statistics/02-central-limit-theorem.qmd": {
+    "02-central-limit-theorem.html": "c5d8b5fd"
+  },
+  "11-statistics/03-confidence-intervals.qmd": {
+    "03-confidence-intervals.html": "2b6e3bc4"
+  },
+  "11-statistics/04-one-sample-t-test.qmd": {
+    "04-one-sample-t-test.html": "30b87ade"
+  },
+  "11-statistics/05-two-sample-t-test.qmd": {
+    "05-two-sample-t-test.html": "334f3b5b"
+  },
+  "11-statistics/06-paired-t-test.qmd": {
+    "06-paired-t-test.html": "beb67c8d"
+  },
+  "11-statistics/07-chi-square-test.qmd": {
+    "07-chi-square-test.html": "f189d619"
+  },
+  "11-statistics/08-correlation-test.qmd": {
+    "08-correlation-test.html": "c9b44fa6"
+  },
+  "11-statistics/09-simple-linear-regression.qmd": {
+    "09-simple-linear-regression.html": "57c63989"
+  },
+  "11-statistics/10-anova.qmd": {
+    "10-anova.html": "f3891888"
+  },
+  "11-statistics/11-logistic-regression.qmd": {
+    "11-logistic-regression.html": "b1c55672"
+  },
+  "11-statistics/12-statistics-capstone.qmd": {
+    "12-statistics-capstone.html": "7bc2dac0"
+  },
+  "12-advanced-analysis/01-multiple-regression.qmd": {
+    "01-multiple-regression.html": "81499714"
+  },
+  "12-advanced-analysis/02-categorical-predictors.qmd": {
+    "02-categorical-predictors.html": "a97e1f91"
+  },
+  "12-advanced-analysis/03-interaction-terms.qmd": {
+    "03-interaction-terms.html": "9124a242"
+  },
+  "12-advanced-analysis/04-confounding-adjustment.qmd": {
+    "04-confounding-adjustment.html": "4239a779"
+  },
+  "12-advanced-analysis/05-model-comparison.qmd": {
+    "05-model-comparison.html": "2d809eff"
+  },
+  "12-advanced-analysis/06-regression-diagnostics.qmd": {
+    "06-regression-diagnostics.html": "ad778db9"
+  },
+  "12-advanced-analysis/07-multicollinearity.qmd": {
+    "07-multicollinearity.html": "7360d1e9"
+  },
+  "12-advanced-analysis/08-prediction.qmd": {
+    "08-prediction.html": "e8e333bd"
+  },
+  "12-advanced-analysis/09-advanced-analysis-capstone.qmd": {
+    "09-advanced-analysis-capstone.html": "873f6783"
   }
 }

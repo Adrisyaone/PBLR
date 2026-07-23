@@ -1,0 +1,134 @@
+# Multicollinearity {#sec-multicollinearity}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Page 1's challenge problem asked you to add `diastolic_bp` to a model that already contains `age` and `bmi` — but Level 7 found systolic and diastolic blood pressure are very strongly correlated (0.92). When two predictors in the same model are that strongly related to *each other* (not just to the outcome), their individual coefficients can become unstable and hard to trust. Your professor wants a formal way to detect this problem before it silently distorts a model's conclusions.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Detect multicollinearity — when predictors in a model are highly correlated with each other — using the variance inflation factor (VIF).
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If two predictors in a model are nearly interchangeable (highly correlated with each other), would you expect the model to be very confident, or very uncertain, about splitting credit between them?
+- Page 1's demonstration model used `age`, `bmi`, and `smoker` together. Do you expect these three predictors to be strongly correlated with *each other*, or largely independent?
+:::
+
+## The R Concept
+
+The **variance inflation factor (VIF)** measures how much a predictor's coefficient variance is "inflated" due to its correlation with the other predictors in the model. It's computed, for each predictor, by regressing it on all the *other* predictors and applying:
+
+$$VIF = \frac{1}{1 - R^2}$$
+
+where $R^2$ comes from that auxiliary regression. A VIF near 1 indicates little correlation with other predictors (no problem); VIFs above about 5-10 are commonly flagged as concerning.
+
+```r
+library(car)
+vif(model)
+```
+
+## Demonstration
+
+```r
+library(car)
+
+participants <- read.csv("data/participants.csv")
+
+complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
+complete_rows$smoker_binary <- as.numeric(complete_rows$smoker == "Yes")
+
+model_big <- lm(systolic_bp ~ age + bmi + smoker_binary, data = complete_rows)
+
+vif(model_big)
+```
+
+```
+          age           bmi smoker_binary
+     1.004025      1.001726      1.003712
+```
+
+## Explore
+
+Try manually reproducing `age`'s VIF: regress `age` on the other two predictors (`lm(age ~ bmi + smoker_binary)`), pull out that model's R-squared, and compute `1 / (1 - r_squared)`. You should get the same value `vif()` reported.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
+complete_rows$smoker_binary <- as.numeric(complete_rows$smoker == "Yes")
+
+age_aux_model <- lm(age ~ bmi + smoker_binary, data = complete_rows)
+age_r_squared <- summary(age_aux_model)$r.squared
+
+age_r_squared
+1 / (1 - age_r_squared)
+```
+
+```
+[1] 0.004008406
+```
+
+```
+[1] 1.004025
+```
+
+This manually-computed VIF (1.004) matches `vif()`'s reported value exactly, confirming the formula. All three predictors' VIFs (1.004, 1.002, 1.004) sit right around 1 — essentially no multicollinearity at all between age, BMI, and smoking status in this sample.
+
+## Interpret the Result
+
+Age, BMI, and smoking status are each close to independent of one another in this dataset — knowing a participant's age tells you almost nothing about their BMI or smoking status, and vice versa. This means Page 1's model coefficients can be trusted individually: each predictor's estimated effect isn't being distorted by overlap with the others. This would *not* have been true for a model including both `systolic_bp` and `diastolic_bp` as predictors of some other outcome, given their 0.92 correlation (Page 1's challenge problem) — that combination would likely show high VIFs instead.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Confusing a predictor's correlation with the *outcome* with its correlation with *other predictors*.** VIF only measures the second kind — a predictor can be weakly related to the outcome (low R-squared contribution) while still being perfectly fine on the VIF front, and vice versa.
+- **Assuming a low VIF for one predictor means the whole model is problem-free.** VIF is computed separately for *each* predictor — always check every predictor's VIF, not just one.
+- **Panicking over any VIF above 1.** A VIF of 1 means zero correlation with other predictors, which is rare in real data — commonly-used thresholds (5 or 10) allow for realistic, moderate correlation before flagging a genuine problem.
+:::
+
+## Practice Problem
+
+Fit `lm(systolic_bp ~ age + bmi + diastolic_bp, data = participants)` (Page 1's challenge problem) and compute `vif()` for this model. Which predictor has the highest VIF, and does it exceed the common threshold of 5?
+
+## Challenge Problem
+
+Level 7 found systolic and diastolic blood pressure are correlated at 0.92. Using the VIF formula from this page, calculate approximately what VIF you'd mathematically expect for two predictors correlated at exactly 0.92 in a two-predictor model (hint: for two predictors, $R^2$ in the auxiliary regression equals the squared correlation between them). Compare your hand-calculated estimate to what `vif()` actually reports for the model in the practice problem above.
+
+## Key Takeaways
+
+- Multicollinearity occurs when predictors in the same model are highly correlated with *each other*, not with the outcome — it can make individual coefficients unstable and hard to interpret.
+- `vif(model)` (from the `car` package) computes the variance inflation factor for every predictor; values near 1 indicate little concern, while values above roughly 5-10 are commonly flagged.
+- VIF is calculated per-predictor by regressing each one on all the others in the model and applying $VIF = 1 / (1 - R^2)$.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does a high VIF for a predictor indicate?
+   a) That predictor is strongly correlated with the outcome variable
+   b) That predictor is highly correlated with other predictors in the same model
+   c) The model has too few predictors
+   d) The outcome variable has missing values
+
+2. **True or false.** A VIF of exactly 1 means a predictor has zero correlation with the other predictors in the model.
+
+3. **Predict the output.** If `age`, `bmi`, and `smoker_binary` all have VIFs close to 1.00, does this model show a multicollinearity problem?
+
+4. **Short answer.** Why would including both `systolic_bp` and `diastolic_bp` as predictors in the same model (for some other outcome) likely produce high VIFs for both?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** That predictor is highly correlated with other predictors in the same model.
+2. **True.** A VIF of 1 corresponds to an auxiliary $R^2$ of 0 — no correlation with the other predictors at all.
+3. No — VIFs close to 1.00 indicate essentially no multicollinearity among these three predictors.
+4. Systolic and diastolic blood pressure are correlated at 0.92 (Level 7) — regressing either one on the other predictors (including the other blood pressure measure) would produce a very high auxiliary R-squared, and therefore a high VIF for both, since each is largely predictable from the other.
+
+</details>
+:::

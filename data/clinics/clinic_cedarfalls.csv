@@ -1,0 +1,21 @@
+id,age,sex,county,systolic_bp,diastolic_bp,bmi,smoker
+12,39,Female,Cedar Falls,152,96,29.1,No
+19,80,Female,Cedar Falls,109,79,28.4,No
+23,29,Female,Cedar Falls,144,94,NA,No
+27,NA,Female,Cedar Falls,139,78,28.7,No
+32,56,Male,Cedar Falls,122,75,35.7,No
+49,63,Male,Cedar Falls,156,105,28.3,No
+51,66,Male,Cedar Falls,133,77,34.5,No
+58,41,Male,Cedar Falls,106,63,22.8,No
+60,53,Female,Cedar Falls,104,57,29.7,No
+63,49,Male,Cedar Falls,148,86,30.6,Yes
+66,60,Male,Cedar Falls,132,86,31.2,No
+68,62,Male,Cedar Falls,117,65,29.6,No
+74,50,Female,Cedar Falls,140,91,27.8,No
+76,28,Male,Cedar Falls,114,74,31.2,Yes
+78,54,Male,Cedar Falls,116,78,27.8,No
+82,39,Female,Cedar Falls,153,98,25.8,No
+85,51,Female,Cedar Falls,NA,73,21.8,No
+86,60,Female,Cedar Falls,125,70,30.2,No
+88,36,Male,Cedar Falls,117,74,24.4,Yes
+90,45,Male,Cedar Falls,108,63,22.4,No

@@ -1,0 +1,141 @@
+# The Paired t-Test {#sec-paired-t-test}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 6 and Level 8 both found that blood pressure appeared to drop across the three-visit study — mean systolic BP fell from 124.96 at visit 1 to 120.69 by visit 3. But that comparison used *different means* across all participants at each visit. Your professor wants something stronger: for the *same* 26 participants who completed both visit 1 and visit 3, is the average within-person drop statistically significant?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Test whether paired, before-and-after measurements from the same individuals differ significantly, using a paired t-test.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- A paired t-test compares two measurements taken on the *same* individuals. How is this fundamentally different from Page 5's two-sample t-test, which compared two separate *groups* of different people?
+- If every single participant's blood pressure dropped by exactly 5 points from visit 1 to visit 3, would that be stronger or weaker evidence than if some dropped a lot, some rose slightly, but the *average* drop was still 5?
+:::
+
+## The R Concept
+
+A **paired t-test** analyzes the *differences* between two measurements taken on the same individuals, testing whether the mean difference is significantly different from zero:
+
+```r
+t.test(measurement_time1, measurement_time2, paired = TRUE)
+```
+
+The `paired = TRUE` argument is essential — without it, R would (incorrectly) treat the two measurements as independent groups (Page 5's test), losing the crucial information that each pair of values comes from the *same* participant.
+
+## Demonstration
+
+```r
+library(tidyr)
+library(dplyr)
+
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+# Keep only participants with both visit 1 and visit 3 recorded
+complete_visits <- bp_wide[bp_wide$sbp_visit3 != "", ]
+
+t.test(complete_visits$sbp_visit1, complete_visits$sbp_visit3, paired = TRUE)
+```
+
+```
+
+	Paired t-test
+
+data:  complete_visits$sbp_visit1 and complete_visits$sbp_visit3
+t = 3.3639, df = 25, p-value = 0.002479
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 1.938809 8.061191
+sample estimates:
+mean difference
+              5
+```
+
+## Explore
+
+Try running the same two visit-1 and visit-3 values through Page 5's *unpaired* `t.test(..., paired = FALSE)` instead. Notice the p-value changes — a paired test is typically more powerful when the measurements are genuinely linked (the same person's own before-and-after change), since it removes person-to-person variability that has nothing to do with the change itself.
+
+## Solve the Problem
+
+```r
+bp_wide <- read.csv("data/bp_visits_wide.csv")
+
+complete_visits <- bp_wide[bp_wide$sbp_visit3 != "", ]
+
+paired_result <- t.test(complete_visits$sbp_visit1, complete_visits$sbp_visit3, paired = TRUE)
+
+paired_result$estimate
+```
+
+```
+mean difference
+              5
+```
+
+```r
+paired_result$p.value
+```
+
+```
+[1] 0.002479479
+```
+
+Among the 26 participants with complete visit 1 and visit 3 data, blood pressure dropped by an average of exactly 5 points — and this drop is highly statistically significant (p = 0.0025), providing strong evidence this isn't just random fluctuation.
+
+## Interpret the Result
+
+Unlike Page 5's smoking comparison (p = 0.83, no significant difference), this paired result shows genuine statistical evidence: the average 5-point systolic blood pressure decrease from visit 1 to visit 3, among the same 26 participants, is very unlikely to have arisen purely by chance. This formally confirms what Level 6's reshaping analysis and Level 8's line plot both suggested visually and numerically — a real within-person improvement across the study's visits.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting `paired = TRUE`.** Running `t.test(complete_visits$sbp_visit1, complete_visits$sbp_visit3)` without `paired = TRUE` incorrectly analyzes the two visits as independent groups, discarding the fact that each visit-1 value is linked to a specific visit-3 value from the *same* participant — this typically produces a different (and less appropriately powered) result.
+- **Including participants with a missing visit in a paired test.** A paired test requires a complete pair for every included participant — the 2 participants who dropped out before visit 3 (Level 6) must be excluded, exactly as `complete_visits` does here by filtering first.
+- **Confusing "statistically significant improvement" with "clinically meaningful improvement."** A 5-point average drop is statistically well-established here — but whether a 5 mmHg change matters clinically is a separate, domain-specific judgment, echoing Page 4's significance-versus-importance distinction.
+:::
+
+## Practice Problem
+
+Run a paired t-test comparing `sbp_visit1` and `sbp_visit2` (rather than `sbp_visit3`) for all 28 participants (no filtering needed, since neither visit 1 nor visit 2 has any missing values in this dataset). Is the visit 1-to-visit 2 change also statistically significant?
+
+## Challenge Problem
+
+Compare the paired t-test's p-value (visit 1 vs. visit 3) to what you'd get treating the same two columns as an *unpaired* two-sample comparison (Page 5's approach, ignoring the pairing). Which test produces stronger evidence of a difference, and explain why pairing typically increases a test's statistical power when measurements are genuinely linked.
+
+## Key Takeaways
+
+- A paired t-test analyzes within-individual differences between two linked measurements, testing whether the mean difference significantly differs from zero.
+- `paired = TRUE` is essential — omitting it treats linked measurements as independent groups, losing statistical power and answering a different question.
+- Pairing typically increases a test's power to detect a real effect, since it removes person-to-person variability unrelated to the actual change being measured.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** When is a paired t-test the appropriate choice over a two-sample t-test?
+   a) When comparing two entirely different groups of people
+   b) When comparing two measurements taken on the same individuals
+   c) When the sample size is very large
+   d) Never — they are always interchangeable
+
+2. **True or false.** Omitting `paired = TRUE` when comparing two linked measurements will still produce a mathematically valid, equally appropriate result.
+
+3. **Predict the output.** If every one of the 26 participants had exactly the same 5-point blood pressure drop (no variation at all), would you expect the p-value to be smaller or larger than what was actually found?
+
+4. **Short answer.** Why must participants with a missing visit 3 be excluded from this paired analysis, rather than simply included with a missing value?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** When comparing two measurements taken on the same individuals.
+2. **False.** Omitting `paired = TRUE` treats the two sets of measurements as independent groups, discarding the linkage between each pair and typically changing (and often weakening) the statistical result.
+3. Smaller — with zero variation in the difference across participants, the evidence for a genuine, consistent effect would be even stronger, producing a smaller p-value than the actual result (which has some participant-to-participant variability in the size of the drop).
+4. A paired test requires a complete pair (both visit 1 and visit 3) for every included participant — a participant with a missing visit 3 has no difference to compute at all, so they cannot contribute a valid pair to the analysis.
+
+</details>
+:::

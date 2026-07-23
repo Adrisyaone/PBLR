@@ -1,0 +1,149 @@
+# When to Loop, and When to Vectorize {#sec-loops-vs-vectorization}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+You now know several ways to repeat a calculation: `for` loops, `while` loops, `sapply()`/`map()` (Level 9), and vectorized arithmetic (Level 2, `x + y` applied to entire vectors at once). A new team member asks you: "Should I write a `for` loop to compute `pulse_pressure` for every participant, or is there a better way?" You realize you've never explicitly compared these options against each other.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Understand when a `for` loop is genuinely necessary, and when R's vectorized operations make a loop unnecessary and slower.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 2 and Level 4, how did you compute `pulse_pressure <- participants$systolic_bp - participants$diastolic_bp`? Did that line need a loop at all?
+- If each row's calculation doesn't depend on any *other* row's result, does the calculation genuinely need to happen one row at a time, in order?
+:::
+
+## The R Concept
+
+R's arithmetic and comparison operators (`+`, `-`, `*`, `/`, `>=`, `==`, and more) are **vectorized** — they automatically apply to every element of a vector at once, internally implemented in fast, compiled code rather than R's slower loop interpreter:
+
+```r
+participants$pulse_pressure <- participants$systolic_bp - participants$diastolic_bp   # vectorized - no loop needed
+```
+
+Writing an explicit `for` loop to do the exact same thing works, but is both slower and more verbose:
+
+```r
+pulse_pressure <- vector("numeric", nrow(participants))
+for (i in seq_len(nrow(participants))) {
+  pulse_pressure[i] <- participants$systolic_bp[i] - participants$diastolic_bp[i]
+}
+```
+
+The general rule: **if a calculation for one row never depends on another row's result, it can be vectorized** — and should be, since R's vectorized operations are both faster and more readable than an equivalent loop.
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+# Vectorized - one line, no loop
+pulse_pressure_vectorized <- participants$systolic_bp - participants$diastolic_bp
+
+# Explicit loop - same result, more code
+pulse_pressure_loop <- vector("numeric", nrow(participants))
+for (i in seq_len(nrow(participants))) {
+  pulse_pressure_loop[i] <- participants$systolic_bp[i] - participants$diastolic_bp[i]
+}
+
+identical(pulse_pressure_vectorized, pulse_pressure_loop)
+```
+
+```
+[1] TRUE
+```
+
+Both approaches produce the exact same result — `identical()` confirms it — but the vectorized version is one readable line, while the loop needed pre-allocation (Page 2) and manual indexing to achieve the same outcome.
+
+## Explore
+
+Think back to Page 3's `while` loop question: "how many oldest participants must be removed before the mean age drops below 40?" Could that particular question be answered with a single vectorized line, with no loop at all? Consider why the answer depends on a *changing* dataset at each step (each removal affects what the "current mean" even is) — a genuine case where a loop is actually necessary.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+# This CAN be vectorized - each row's flag doesn't depend on any other row
+at_risk_vectorized <- participants$age >= 65 & participants$systolic_bp >= 130
+sum(at_risk_vectorized, na.rm = TRUE)
+```
+
+```
+[1] 4
+```
+
+```r
+# This CANNOT be simply vectorized - each step depends on the previous step's result
+ages <- sort(participants$age[!is.na(participants$age)], decreasing = TRUE)
+removed_count <- 0
+while (mean(ages) >= 40) {
+  ages <- ages[-1]
+  removed_count <- removed_count + 1
+}
+removed_count
+```
+
+```
+[1] 29
+```
+
+The at-risk flag (Level 5's flagship mission) is naturally vectorized, since each participant's flag depends only on their own age and blood pressure. The removal question (Page 3) genuinely requires a loop, since each iteration's "current mean" depends entirely on what was removed in every *previous* iteration — there's no way to compute "removals needed" for all rows independently and simultaneously.
+
+## Interpret the Result
+
+The distinction is exactly this: vectorize whenever each result is independent of every other result (the vast majority of data cleaning and analysis tasks across this entire course); reach for an explicit loop only when a calculation is genuinely **sequential** — each step depending on the state left behind by the previous one, as in Page 3's iterative removal question.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Writing a `for` loop out of habit for tasks that are naturally vectorized.** Nearly every calculation from Levels 1-9 (`pulse_pressure`, `bmi_category`, `is_at_risk`) was vectorized without ever needing an explicit loop — defaulting to a loop for these tasks adds unnecessary code and reduced performance.
+- **Assuming loops are always "wrong" and should never be used.** Page 3's mean-age removal question is a genuine counterexample — some calculations are inherently sequential and cannot be vectorized away, no matter how much R idiom is applied.
+- **Not recognizing the signal that a loop is genuinely needed.** The clearest sign: does computing row `i`'s result require knowing the result from row `i-1` (or an evolving running total/condition)? If yes, a loop (or a specialized sequential function) is likely necessary; if no, vectorize.
+:::
+
+## Practice Problem
+
+Is computing `bmi_category` for every participant (Level 4's `case_when()` logic) naturally vectorizable, or does it require a loop? Justify your answer using the "does row `i` depend on any other row" test from this page.
+
+## Challenge Problem
+
+Consider a hypothetical running total: "the cumulative number of participants enrolled so far, in the order they appear in the dataset." Is this naturally vectorized, or does it require a loop (or a specialized function like `cumsum()`)? Research `cumsum()` and explain how it relates to this level's loop-versus-vectorize distinction.
+
+## Key Takeaways
+
+- R's vectorized operators (`+`, `-`, `>=`, `==`, and more) automatically apply to every element of a vector at once, and are both faster and more readable than an equivalent explicit loop.
+- The test for whether a task can be vectorized: does each row's result depend only on that row's own values, or does it depend on another row's result (or an evolving state across iterations)?
+- Loops remain genuinely necessary for sequential calculations, like Page 3's iterative removal question — but the majority of everyday data tasks across this course have been, and should be, vectorized.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** Which of these is the best test for whether a calculation can be vectorized?
+   a) Whether the data frame has more than 10 rows
+   b) Whether each row's result depends only on that row's own values
+   c) Whether the column is numeric or character
+   d) Whether a loop would be shorter to write
+
+2. **True or false.** A `for` loop and a vectorized operation can produce identical results, differing mainly in speed and code length.
+
+3. **Predict the output.** Is computing `is_at_risk(participants$age, participants$systolic_bp)` (Level 9) naturally vectorizable?
+
+4. **Short answer.** Why does Page 3's "remove oldest participants until mean age drops below 40" question require a loop rather than a vectorized one-line solution?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Whether each row's result depends only on that row's own values (versus depending on another row's result or an evolving state).
+2. **True.** As demonstrated with `pulse_pressure`, both approaches can produce `identical()` results — the choice affects performance and readability, not correctness.
+3. Yes — each participant's at-risk flag depends only on their own `age` and `systolic_bp`, with no dependency on any other participant's values.
+4. Each iteration's "current mean" depends entirely on which participants were removed in every previous iteration — there's no way to know in advance, independently for each row, whether it will end up removed, since that depends on the evolving state of the shrinking dataset as the loop proceeds.
+
+</details>
+:::

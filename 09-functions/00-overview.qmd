@@ -6,22 +6,22 @@
 Copy-pasting the same three lines of code for fifty variables is how errors sneak into real research. This level teaches you to write your own functions — turning a repeated task into a single, reliable, reusable tool.
 :::
 
-## What's coming
+## What you'll build toward
 
-- What a function is and how to use one
-- Writing your first function: inputs, outputs, defaults
-- Conditional logic inside functions
-- Anonymous functions
-- `purrr::map()`, `map_dbl()`, `map_chr()`, `map_df()`
+You've called dozens of functions since Level 1 — `mean()`, `filter()`, `pivot_longer()`, `ggplot()` — without ever writing one yourself. This level flips that around: you'll write your own functions from scratch, give them default arguments, add conditional logic and validation inside them, and then apply a single function across many columns at once with base R's `sapply()`/`lapply()` and the tidyverse's `purrr::map()` family.
 
-::: {.pbl-box .pbl-mission}
-**A preview mission**
+## Topics in this level
 
-Your mission: you have 50 variables and need the percentage of missing data for every single one. Write it once, run it fifty times, automatically.
-:::
+- What a function actually is, and how R's built-in functions you already use are no different in kind from ones you'll write yourself
+- Writing your first function: inputs (arguments), outputs (return values)
+- Default argument values
+- Conditional logic inside a function
+- Variable scope — what a function can and can't see or change outside itself
+- Anonymous ("throwaway") functions
+- `sapply()` and `lapply()` for applying a function across many columns
+- `purrr::map()`, `map_dbl()`, and `map_chr()`
+- Basic error handling with `stop()` and `warning()`
 
-::: {.callout-note}
-## Status
+## A preview mission
 
-This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
-:::
+Your mission across this level: `participants.csv` has 8 columns, several with their own missing-value rate (6% for `age`, 4% for `systolic_bp`, 5% for `bmi`). Write a single function that computes "percent missing" for one column, then apply it across every column in the dataset at once — write it once, run it on all 8 columns automatically, rather than retyping `sum(is.na(...)) / nrow(...) * 100` eight separate times.

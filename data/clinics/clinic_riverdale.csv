@@ -1,0 +1,17 @@
+id,age,sex,county,systolic_bp,diastolic_bp,bmi,smoker
+2,53,Female,Riverdale,123,80,27.7,No
+6,18,Female,Riverdale,117,64,24.0,No
+7,62,Male,Riverdale,110,64,19.7,No
+11,62,Female,Riverdale,NA,84,38.6,No
+14,41,Male,Riverdale,128,81,29.4,No
+25,53,Female,Riverdale,167,100,26.6,No
+30,59,Male,Riverdale,95,55,21.9,Yes
+34,47,Female,Riverdale,NA,81,28.8,No
+39,33,Male,Riverdale,112,64,25.6,Yes
+44,62,Female,Riverdale,138,94,27.2,No
+53,37,Female,Riverdale,145,100,35.8,Yes
+61,59,Male,Riverdale,90,54,34.2,No
+79,NA,Male,Riverdale,149,96,26.0,Yes
+84,67,Female,Riverdale,134,79,26.8,No
+94,47,Female,Riverdale,114,73,23.4,No
+96,69,Female,Riverdale,119,78,22.3,No

@@ -1,0 +1,193 @@
+# Level 9 Capstone: A Complete Data Quality Report {#sec-functions-capstone}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Your professor's final request for this level: a single, reusable "data quality report" tool — one function that, applied to any column, reports what type it is, what percentage is missing, and either its mean/SD (numeric columns) or its number of distinct categories (character columns). It needs to validate its input, handle both column types correctly, and apply across every column in `participants` in one call.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Combine everything from this level — conditionals, default arguments, scope, and function application (`map_chr()`) — into one polished, reusable function.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Page 4, how would you write a conditional that behaves differently for a numeric column versus a character column, using `is.numeric()`?
+- From Page 10, what check would you add first, before any calculation, to make sure the function fails clearly on invalid input rather than silently?
+:::
+
+## The R Concept
+
+A complete, well-built function combines every idea from this level: input validation (Page 10) first, then conditional logic (Page 4) branching on the input's type, using default arguments (Page 3) for adjustable behavior, all wrapped as one named, reusable tool (Page 2) that can be applied across many columns at once (Page 8-9):
+
+```r
+column_report <- function(x, digits = 2) {
+  if (length(x) == 0) {
+    stop("x has length 0 - cannot build a report")
+  }
+  pct_miss <- round(sum(is.na(x)) / length(x) * 100, digits)
+
+  if (is.numeric(x)) {
+    paste0("numeric | ", pct_miss, "% missing | mean = ",
+           round(mean(x, na.rm = TRUE), digits), ", sd = ",
+           round(sd(x, na.rm = TRUE), digits))
+  } else {
+    paste0("character | ", pct_miss, "% missing | ",
+           length(unique(x[!is.na(x)])), " unique values")
+  }
+}
+```
+
+## Demonstration
+
+```r
+column_report <- function(x, digits = 2) {
+  if (length(x) == 0) {
+    stop("x has length 0 - cannot build a report")
+  }
+  pct_miss <- round(sum(is.na(x)) / length(x) * 100, digits)
+
+  if (is.numeric(x)) {
+    paste0("numeric | ", pct_miss, "% missing | mean = ",
+           round(mean(x, na.rm = TRUE), digits), ", sd = ",
+           round(sd(x, na.rm = TRUE), digits))
+  } else {
+    paste0("character | ", pct_miss, "% missing | ",
+           length(unique(x[!is.na(x)])), " unique values")
+  }
+}
+
+participants <- read.csv("data/participants.csv")
+
+column_report(participants$age)
+```
+
+```
+[1] "numeric | 6% missing | mean = 47.43, sd = 15.03"
+```
+
+```r
+column_report(participants$county)
+```
+
+```
+[1] "character | 0% missing | 5 unique values"
+```
+
+One function, correctly branching between numeric and character summaries depending entirely on the column's type — exactly the behavior your professor asked for.
+
+## Explore
+
+Try `column_report(participants$smoker)` and `column_report(participants$bmi)`. Confirm the numeric branch and character branch each produce sensible, correctly formatted output — and try `column_report(numeric(0))` to confirm the `stop()` check still works exactly as it did on Page 10.
+
+## Solve the Problem
+
+```r
+library(purrr)
+
+column_report <- function(x, digits = 2) {
+  if (length(x) == 0) {
+    stop("x has length 0 - cannot build a report")
+  }
+  pct_miss <- round(sum(is.na(x)) / length(x) * 100, digits)
+
+  if (is.numeric(x)) {
+    paste0("numeric | ", pct_miss, "% missing | mean = ",
+           round(mean(x, na.rm = TRUE), digits), ", sd = ",
+           round(sd(x, na.rm = TRUE), digits))
+  } else {
+    paste0("character | ", pct_miss, "% missing | ",
+           length(unique(x[!is.na(x)])), " unique values")
+  }
+}
+
+participants <- read.csv("data/participants.csv")
+
+full_report <- map_chr(participants, column_report)
+
+full_report
+```
+
+```
+                    id                    age                    sex
+"numeric | 0% missing... "numeric | 6% missing... "character | 0% mi...
+                county            systolic_bp           diastolic_bp
+"character | 0% mi...  "numeric | 4% missing...  "numeric | 0% missing...
+                   bmi                 smoker
+"numeric | 5% missing... "character | 0% mi...
+```
+
+```r
+full_report["age"]
+```
+
+```
+                                                  age
+"numeric | 6% missing | mean = 47.43, sd = 15.03"
+```
+
+```r
+full_report["county"]
+```
+
+```
+                                          county
+"character | 0% missing | 5 unique values"
+```
+
+One `map_chr()` call generated a complete, correctly branched report for all 8 columns at once — the exact tool your professor asked for, built entirely from pieces developed one at a time across this level.
+
+## Interpret the Result
+
+`column_report()` correctly identifies `age`, `systolic_bp`, `diastolic_bp`, and `bmi` as numeric (reporting mean and SD), and `sex`, `county`, and `smoker` as character (reporting the count of distinct categories) — with `id`, though numeric, also handled correctly by the same branch, even though a mean and SD of an ID number isn't particularly meaningful. This is worth noting as a real limitation: the function correctly determines *type*, but doesn't know which numeric columns are meaningfully continuous (like `age`) versus arbitrary identifiers (like `id`) — a distinction still requiring your own judgment as the analyst.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Assuming a function that runs without errors is automatically producing meaningful output.** `column_report(participants$id)` runs successfully and reports a mean and SD, but an ID column's "average" isn't a meaningful statistic — a function correctly executing its logic isn't the same as that logic being the right thing to compute for every column.
+- **Forgetting `is.numeric()` and `is.character()` aren't the only possible column types.** This function's `if (is.numeric(x)) {...} else {...}` treats everything non-numeric as the character branch — a logical (`TRUE`/`FALSE`) or factor column would fall into that same `else` branch, potentially producing a less appropriate summary than a dedicated branch for that type would.
+- **Building one big function instead of composing several small, tested ones.** `column_report()` reuses ideas (validation, conditionals, rounding) developed and tested separately across this level's earlier pages — building complex functionality out of smaller, already-verified pieces is more reliable than writing one large function from scratch in a single attempt.
+:::
+
+## Practice Problem
+
+Modify `column_report()` to accept a `digits` value of `1` instead of the default `2`, and confirm the numeric branch's mean/SD values change precision accordingly for `participants$systolic_bp`.
+
+## Challenge Problem
+
+Extend `column_report()` with a third branch specifically for logical (`TRUE`/`FALSE`) columns, reporting the percentage `TRUE` instead of a mean/SD or unique-value count. Since `participants` doesn't currently have a logical column, first create one with `mutate(is_senior = age >= 65)` (Level 5) to test your new branch.
+
+## Key Takeaways
+
+- A well-built function combines input validation, conditional branching, sensible defaults, and clear return values — each individually simple, together forming a genuinely useful tool.
+- A function running without error doesn't guarantee its output is meaningful for every possible input — type-checking logic (`is.numeric()`) doesn't know which numeric columns are conceptually continuous versus arbitrary identifiers.
+- Building complex functionality by composing smaller, already-tested pieces (as this capstone did, reusing ideas from Pages 2-10) is more reliable than writing one large function from scratch.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `column_report()`'s `if (is.numeric(x))` branch handle?
+   a) Only columns explicitly named "numeric"
+   b) Any column where `is.numeric()` returns `TRUE`, like `age` or `bmi`
+   c) Character columns only
+   d) Columns with no missing values
+
+2. **True or false.** A function running without producing an error guarantees its output is meaningful for every input.
+
+3. **Predict the output.** What would `column_report(participants$sex)` report, given `sex` has 2 distinct values and no missing data?
+
+4. **Short answer.** Why is `id`'s mean and SD, while technically computed correctly, not a particularly meaningful piece of information?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Any column where `is.numeric()` returns `TRUE` — this includes `id`, `age`, `systolic_bp`, `diastolic_bp`, and `bmi`.
+2. **False.** A function can execute successfully and still produce output that isn't meaningful for a particular input, as `column_report(participants$id)` demonstrates.
+3. `"character | 0% missing | 2 unique values"`.
+4. `id` is an arbitrary identifier, not a meaningfully continuous measurement — its "average" value (50.5) doesn't describe anything about the participants themselves, unlike `age`'s mean, which genuinely summarizes a real characteristic of the sample.
+
+</details>
+:::

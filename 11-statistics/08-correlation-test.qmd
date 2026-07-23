@@ -1,0 +1,140 @@
+# Testing a Correlation for Significance {#sec-correlation-test}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 7's `cor()` reported a correlation of 0.16 between BMI and systolic blood pressure — a weak relationship, but `cor()` alone never told you whether even that weak relationship was statistically distinguishable from a true correlation of exactly zero. Your professor asks directly: is this 0.16 genuine evidence of a relationship, or could a correlation this size easily appear by chance alone in a sample of 91 participants?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Test whether a correlation coefficient is statistically significantly different from zero, using `cor.test()`.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If BMI and blood pressure were truly completely unrelated in the broader population, would you expect a sample correlation of *exactly* 0.00, or something close to but not exactly 0?
+- Level 7's `cor()` gave you a single number (0.16). What additional piece of information would you need to know whether that number is statistically meaningful?
+:::
+
+## The R Concept
+
+**`cor.test()`** tests whether a correlation coefficient is significantly different from zero, producing both a p-value and a confidence interval — exactly the same hypothesis-testing logic as the t-tests earlier in this level, applied to a correlation instead of a mean:
+
+```r
+cor.test(x, y)
+```
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+cor.test(participants$bmi, participants$systolic_bp)
+```
+
+```
+
+	Pearson's product-moment correlation
+
+data:  participants$bmi and participants$systolic_bp
+t = 1.5596, df = 89, p-value = 0.1224
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.04432528  0.35705926
+sample estimates:
+      cor
+0.1631085
+```
+
+## Explore
+
+Notice the 95% confidence interval for the correlation (-0.044 to 0.357) **contains 0** — meaning "no correlation at all" remains a plausible value given this data. Compare this to a hypothetical situation where the interval didn't contain 0 at all (as you'll see with a different variable pair in the Solve section) — that would indicate a statistically significant relationship.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+bmi_bp_test <- cor.test(participants$bmi, participants$systolic_bp)
+sbp_dbp_test <- cor.test(participants$systolic_bp, participants$diastolic_bp)
+
+bmi_bp_test$p.value
+```
+
+```
+[1] 0.1223918
+```
+
+```r
+sbp_dbp_test$p.value
+```
+
+```
+[1] 4.119909e-40
+```
+
+```r
+sbp_dbp_test$estimate
+```
+
+```
+      cor
+0.9203873
+```
+
+The BMI-blood pressure correlation (0.16) is *not* statistically significant (p = 0.122) — consistent with Level 8's plot showing no clear visual trend. The systolic-diastolic correlation (0.92), by contrast, is overwhelmingly significant (p is a vanishingly small number, effectively zero for practical purposes — R's printed test output would show this as `p-value < 2.2e-16`), exactly as expected for two blood pressure readings taken from the same measurement.
+
+## Interpret the Result
+
+This confirms, formally, what Level 7 and Level 8 already suggested visually and numerically: the weak BMI-blood pressure relationship in this sample (r = 0.16) is not statistically distinguishable from no relationship at all, given only 91 data points. The much stronger systolic-diastolic relationship (r = 0.92), on the other hand, is statistically significant beyond any reasonable doubt — a useful contrast for recognizing what a genuinely strong, clearly non-zero correlation's test result looks like.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Interpreting `cor()`'s raw coefficient alone as sufficient evidence.** A correlation of 0.16, by itself, says nothing about statistical significance — Level 7 intentionally stopped short of this conclusion, since `cor()` alone cannot tell you whether the true population correlation could plausibly be zero.
+- **Assuming a non-significant correlation of 0.16 and an even weaker one of 0.05 provide identical evidence.** They don't necessarily — sample size matters enormously; a correlation of 0.16 in a much larger sample could easily be statistically significant, while the same 0.16 here (n=91) is not.
+- **Forgetting `cor.test()` assumes a roughly linear relationship (Pearson correlation).** If two variables have a strong *curved* (non-linear) relationship, Pearson's correlation and its significance test can both understate the true strength of that relationship — always look at a scatter plot (Level 8) alongside any correlation test.
+:::
+
+## Practice Problem
+
+Run `cor.test()` on `age` and `bmi`. Is this correlation statistically significant? Compare the confidence interval to the BMI-blood pressure result above.
+
+## Challenge Problem
+
+Run `cor.test()` on `age` and `systolic_bp` (Level 7 found r = -0.22). Determine whether this correlation is statistically significant, and compare its p-value and confidence interval to the BMI-blood pressure test in this page's Solve section. Which relationship has stronger statistical evidence behind it, despite both being described as "weak" by Level 7's rough correlation-strength guide?
+
+## Key Takeaways
+
+- `cor.test(x, y)` tests whether a correlation coefficient is statistically significantly different from zero, providing both a p-value and a confidence interval.
+- A weak-looking correlation (like 0.16) can still be reported alongside its significance test — a small coefficient and a non-significant result often go together, but sample size determines exactly where that boundary falls.
+- Always pair a correlation test with a scatter plot (Level 8) — Pearson correlation and its significance test both assume a roughly linear relationship.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `cor.test()` add beyond what `cor()` (Level 7) provides?
+   a) A different correlation coefficient
+   b) A p-value and confidence interval for the correlation
+   c) A scatter plot of the two variables
+   d) Nothing — they are identical
+
+2. **True or false.** A correlation coefficient of 0.16 is always statistically significant, regardless of sample size.
+
+3. **Predict the output.** If a correlation's 95% confidence interval is (-0.044, 0.357), would you expect the corresponding p-value to be above or below 0.05?
+
+4. **Short answer.** Why is it possible for two "weak" correlations (say, 0.16 and -0.22) to differ in whether they're statistically significant?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** A p-value and confidence interval for the correlation, indicating whether it's statistically distinguishable from zero.
+2. **False.** Statistical significance depends on both the correlation's size and the sample size — the same coefficient can be significant in a larger sample and non-significant in a smaller one.
+3. Above 0.05 — a confidence interval containing 0 corresponds to a non-significant result.
+4. Statistical significance for a correlation depends on both its magnitude and the sample size (and specifically the resulting t-statistic, which combines both) — two correlations of similar rough magnitude can still produce different p-values if their underlying sample sizes differ, or if one happens to sit closer to the boundary of significance than the other.
+
+</details>
+:::

@@ -1,0 +1,137 @@
+# `for` Loops {#sec-for-loops}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 9's `sapply()` and `map_dbl()` applied a function across columns automatically, hiding the actual mechanics of "do this once per item" from view. Your professor asks a more basic question: before you had `sapply()`, how would you print each of the five county names in `participants$county`'s distinct values, one at a time, explicitly controlling each step yourself?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Write a `for` loop that repeats a block of code once for each element of a vector.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If you wanted to print each of 5 county names one at a time, how many times would the code inside your loop need to run?
+- Does a `for` loop need to know in advance exactly how many times it will run, before it starts?
+:::
+
+## The R Concept
+
+A **`for` loop** repeats a block of code once for every element in a vector, giving each element a temporary name you choose:
+
+```r
+for (item in vector) {
+  # code using item, repeated once per element of vector
+}
+```
+
+Each time through the loop, `item` takes on the next value in `vector`, in order, until every element has been used once.
+
+## Demonstration
+
+```r
+counties <- c("Cedar Falls", "Millbrook", "Oakford", "Riverdale", "Springvale")
+
+for (county in counties) {
+  print(county)
+}
+```
+
+```
+[1] "Cedar Falls"
+[1] "Millbrook"
+[1] "Oakford"
+[1] "Riverdale"
+[1] "Springvale"
+```
+
+The loop ran exactly 5 times — once per county name — printing each one in the same order it appeared in `counties`, with `county` taking on each successive value automatically.
+
+## Explore
+
+Try looping over `1:5` instead of the county names: `for (i in 1:5) { print(i * 10) }`. Confirm the loop runs exactly 5 times, with `i` taking values 1 through 5 in order — the loop variable doesn't have to be a meaningful real-world value; it's often just a counter.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+distinct_counties <- unique(participants$county)
+
+for (county in distinct_counties) {
+  n_participants <- sum(participants$county == county)
+  print(paste(county, ":", n_participants, "participants"))
+}
+```
+
+```
+[1] "Oakford : 17 participants"
+[1] "Riverdale : 16 participants"
+[1] "Millbrook : 21 participants"
+[1] "Springvale : 26 participants"
+[1] "Cedar Falls : 20 participants"
+```
+
+The loop ran once per distinct county (in the order `unique()` first encountered them in the data, not alphabetically), computing and printing each county's participant count — matching exactly the counts Level 4's `table()` and Level 5's `count()` already established.
+
+## Interpret the Result
+
+This `for` loop reproduces information you already had from `table(participants$county)` (Level 4) — but explicitly, one county at a time, with full control over exactly what happens on each iteration (here, a custom formatted sentence rather than a bare count). This explicitness is both the loop's strength (you can do anything inside it) and its verbosity (Level 9's `sapply()`/`map()` would get you the raw counts in one line, without a loop at all).
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting a `for` loop's results disappear unless explicitly saved.** `print()` inside the loop displays each value as it runs, but doesn't save anything — if you need the results *after* the loop finishes, you must store them somewhere (Page 2 covers exactly this).
+- **Looping over the wrong thing.** `for (county in nrow(participants))` loops over a single number (the row count), not over each county — a common typo-like mistake is looping over a summary of the data instead of the data (or its distinct values) itself.
+- **Assuming a `for` loop is always the best tool.** As Level 9 showed, `sapply()`/`map()` often replace a `for` loop entirely, more concisely — `for` loops remain most useful when you need explicit step-by-step control, or when later steps depend on earlier ones (Page 7 explores this distinction further).
+:::
+
+## Practice Problem
+
+Write a `for` loop over `unique(participants$smoker)` that prints each smoking status alongside its count, similar to the county example above.
+
+## Challenge Problem
+
+Write a `for` loop over `1:5` that prints the squares of 1 through 5 (`i^2`). Then rewrite the same task using `sapply(1:5, function(i) i^2)` (Level 9) and confirm both approaches produce the same 5 values, just via different mechanics.
+
+## Key Takeaways
+
+- `for (item in vector) { ... }` repeats a block of code once per element of `vector`, with `item` taking each successive value in turn.
+- A `for` loop's results are not automatically saved anywhere — anything you want to keep must be explicitly stored (next page).
+- `for` loops offer full explicit control at the cost of verbosity — Level 9's `sapply()`/`map()` often replace simple loops more concisely, but loops remain useful for more complex, step-dependent tasks.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** In `for (county in counties) { print(county) }`, how many times does the loop run?
+   a) Exactly once
+   b) Once per element of `counties`
+   c) Infinitely, until manually stopped
+   d) Zero times, since nothing is returned
+
+2. **True or false.** Values printed inside a `for` loop are automatically saved to a vector for later use.
+
+3. **Predict the output.** How many times would `for (i in 1:5) { print(i) }` print a value?
+
+4. **Find the error.**
+   ```r
+   for (county in nrow(participants)) {
+     print(county)
+   }
+   # intended: print each distinct county name
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Once per element of `counties` — 5 times, for 5 county names.
+2. **False.** `print()` only displays values as the loop runs; nothing is saved unless you explicitly store it (Page 2).
+3. 5 times, printing `1`, `2`, `3`, `4`, `5` in order.
+4. `nrow(participants)` is a single number (100), so the loop runs only once, printing `100` — not once per distinct county. It should loop over `unique(participants$county)` instead.
+
+</details>
+:::

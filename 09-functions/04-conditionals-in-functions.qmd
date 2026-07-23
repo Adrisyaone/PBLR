@@ -1,0 +1,171 @@
+# Conditional Logic Inside Functions {#sec-conditionals-in-functions}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 4's `case_when()` classified blood pressure into categories (Normal, Elevated, Stage 1, Stage 2) directly inside a `mutate()` call on the whole `participants` data frame. Your professor now wants to classify a *single* blood pressure value on the spot — during a live conversation, not by re-running a full data-cleaning pipeline — using the exact same category boundaries.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Write a function containing `if`/`else if`/`else` conditional logic (Level 4), reusable for classifying any single value.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 4, what were the four systolic blood pressure category boundaries (Normal, Elevated, Stage 1, Stage 2)?
+- If a function's body contains an `if`/`else if`/`else` chain, and each branch's last line is a category name, would you expect the function to return whichever branch actually ran?
+:::
+
+## The R Concept
+
+A function's body can contain the exact same `if`/`else if`/`else` logic (Level 4) you'd use outside a function — the only difference is that the result becomes the function's return value:
+
+```r
+classify <- function(x) {
+  if (x < threshold1) {
+    "Category A"
+  } else if (x < threshold2) {
+    "Category B"
+  } else {
+    "Category C"
+  }
+}
+```
+
+```r
+bp_category <- function(sbp) {
+  if (sbp < 120) {
+    "Normal"
+  } else if (sbp < 130) {
+    "Elevated"
+  } else if (sbp < 140) {
+    "Stage 1"
+  } else {
+    "Stage 2"
+  }
+}
+```
+
+Whichever branch actually runs becomes the function's return value automatically — R returns the last evaluated expression, exactly as on Page 2, and here that last expression differs depending on which `if`/`else if` branch was taken.
+
+## Demonstration
+
+```r
+bp_category <- function(sbp) {
+  if (sbp < 120) {
+    "Normal"
+  } else if (sbp < 130) {
+    "Elevated"
+  } else if (sbp < 140) {
+    "Stage 1"
+  } else {
+    "Stage 2"
+  }
+}
+
+bp_category(115)
+```
+
+```
+[1] "Normal"
+```
+
+```r
+bp_category(145)
+```
+
+```
+[1] "Stage 2"
+```
+
+`bp_category()` correctly classifies both a normal reading (115) and a high one (145) — usable instantly for any single value, without needing a data frame or a `mutate()` call at all.
+
+## Explore
+
+Try `bp_category(120)` and `bp_category(129)` — both should return `"Elevated"`, since the boundaries use `<` (strictly less than), meaning the *lower* bound of each category belongs to that category, not the one before it. Confirm this matches Level 4's `case_when()` boundary logic exactly.
+
+## Solve the Problem
+
+```r
+bp_category <- function(sbp) {
+  if (sbp < 120) {
+    "Normal"
+  } else if (sbp < 130) {
+    "Elevated"
+  } else if (sbp < 140) {
+    "Stage 1"
+  } else {
+    "Stage 2"
+  }
+}
+
+participants <- read.csv("data/participants.csv")
+
+# Apply it to every non-missing systolic_bp value using sapply (previewed properly on Page 8)
+bp_categories <- sapply(participants$systolic_bp[!is.na(participants$systolic_bp)], bp_category)
+
+table(bp_categories)
+```
+
+```
+bp_categories
+Elevated   Normal  Stage 1  Stage 2
+      18       32       17       29
+```
+
+Exactly the same category counts (18 Elevated, 32 Normal, 17 Stage 1, 29 Stage 2) as Level 4's `case_when()`-based `mutate()` produced on the full data frame — confirming the function-based, single-value approach and the data-frame-wide `case_when()` approach agree perfectly.
+
+## Interpret the Result
+
+`bp_category()` reproduces Level 4's classification logic exactly, but packaged as a reusable tool that works on one value at a time — useful in contexts where you don't want to build (or don't have) a full data frame, like classifying a single new reading as it comes in. The matching counts (18/32/17/29) confirm the function was written correctly, cross-checked against a completely different implementation from an earlier level.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Getting boundary conditions backwards inside a function, same as in Level 4.** `sbp < 120` versus `sbp <= 120` produces different classifications right at the boundary value 120 — the same care needed for `case_when()` conditions applies identically inside a function's `if` statements.
+- **Forgetting `else` needs to handle every remaining case.** If the final `else` branch were missing, a systolic BP of 150 (falling through every `if`/`else if` condition) would return `NULL` instead of a category — always ensure the final `else` genuinely catches everything not handled above it.
+- **Passing a vector to a function written for a single value.** `bp_category()` as written expects one number at a time — passing an entire column directly (`bp_category(participants$systolic_bp)`) doesn't work as intended, because `if` in R expects a single logical value, not a vector; `sapply()` (Page 8) is what applies a single-value function across an entire column correctly.
+:::
+
+## Practice Problem
+
+Write a function called `age_group` that takes a single age value and returns `"Senior"` for ages 65 and older, `"Adult"` for ages 18-64, using `if`/`else`. Test it on a few individual values.
+
+## Challenge Problem
+
+Modify `bp_category()` to also handle a `"Low"` category for `sbp < 90` (add this as the very first condition checked), and re-run it across `participants$systolic_bp`. Given the minimum recorded systolic BP is exactly 90, would you expect this new category to ever actually appear in the results?
+
+## Key Takeaways
+
+- A function's body can contain the same `if`/`else if`/`else` logic used outside a function (Level 4) — whichever branch runs becomes the function's automatic return value.
+- Boundary conditions (`<` versus `<=`) require the same care inside a function as they do in any standalone conditional.
+- Cross-checking a function's output against a previously verified result (like Level 4's `case_when()` counts) is a reliable way to confirm the function was written correctly.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** In `bp_category()`, what does the function return for `sbp = 135`?
+   a) `"Normal"`
+   b) `"Elevated"`
+   c) `"Stage 1"`
+   d) `"Stage 2"`
+
+2. **True or false.** A missing final `else` branch could cause a function to return `NULL` for values not covered by any earlier condition.
+
+3. **Predict the output.** What would `bp_category(119)` and `bp_category(120)` each return?
+
+4. **Short answer.** Why does cross-checking `bp_category()`'s counts (18/32/17/29) against Level 4's `case_when()` counts provide good evidence the function is correct?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** `"Stage 1"` — 135 is at least 130 but less than 140.
+2. **True.** If no `if`/`else if` condition matches and there's no final `else`, the function returns `NULL` for that input, rather than a meaningful category.
+3. `bp_category(119)` returns `"Normal"` (since 119 < 120); `bp_category(120)` returns `"Elevated"` (since 120 is not less than 120, so it falls to the next condition).
+4. Two independently written implementations (Level 4's `case_when()` inside `mutate()`, and this level's `if`/`else if` function) producing identical counts on the same data is strong evidence neither has a logic error — if either had a boundary mistake, the two counts would very likely disagree.
+
+</details>
+:::

@@ -1,0 +1,138 @@
+# Predicting New Data with `predict()` {#sec-prediction}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Every model so far has only described the 100 participants already in the dataset. But a clinician using this model in practice would ask a forward-looking question instead: "for a *new* 50-year-old patient with a BMI of 28, what blood pressure would this model predict?" Your professor asks you to use the fitted model to answer exactly that kind of question, for patients not in the original dataset at all.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Use a fitted regression model to predict the outcome for new, hypothetical combinations of predictor values, complete with a confidence interval.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- To predict blood pressure for a new patient, what pieces of information would the model need — the same predictors used to fit it, or something else entirely?
+- Would you expect a prediction interval for one *specific new individual* to be narrower or wider than a confidence interval for the *average* patient with the same characteristics?
+:::
+
+## The R Concept
+
+**`predict(model, newdata = ...)`** generates predictions for new rows of predictor values that don't need to be part of the original dataset — as long as `newdata` is a data frame with the same column names as the model's predictors.
+
+```r
+new_patients <- data.frame(age = 50, bmi = 28, smoker_binary = c(0, 1))
+predict(model, newdata = new_patients, interval = "confidence")
+```
+
+`interval = "confidence"` gives a range for the **average** outcome at those predictor values; `interval = "prediction"` gives a (necessarily wider) range for a **single new individual**, since an individual's outcome is less certain than a group average.
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
+complete_rows$smoker_binary <- as.numeric(complete_rows$smoker == "Yes")
+
+model_big <- lm(systolic_bp ~ age + bmi + smoker_binary, data = complete_rows)
+
+new_patients <- data.frame(age = c(50, 50), bmi = c(28, 28), smoker_binary = c(0, 1))
+
+predict(model_big, newdata = new_patients, interval = "confidence")
+```
+
+```
+       fit      lwr      upr
+1 128.1298 123.2902 132.9694
+2 129.5004 121.2342 137.7666
+```
+
+## Explore
+
+Try `interval = "prediction"` instead of `"confidence"` for the same `new_patients`. Compare the width of the prediction interval to the confidence interval above — the prediction interval should be noticeably wider, since it accounts for individual-level variability on top of uncertainty about the average.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
+complete_rows$smoker_binary <- as.numeric(complete_rows$smoker == "Yes")
+
+model_big <- lm(systolic_bp ~ age + bmi + smoker_binary, data = complete_rows)
+
+new_patients <- data.frame(age = c(50, 50), bmi = c(28, 28), smoker_binary = c(0, 1))
+
+predict(model_big, newdata = new_patients, interval = "confidence")
+predict(model_big, newdata = new_patients, interval = "prediction")
+```
+
+```
+       fit      lwr      upr
+1 128.1298 123.2902 132.9694
+2 129.5004 121.2342 137.7666
+```
+
+```
+       fit      lwr      upr
+1 128.1298  90.2957 165.9640
+2 129.5004  91.0773 167.9234
+```
+
+For a hypothetical 50-year-old, BMI-28 patient, the model predicts an average systolic blood pressure of 128.1 mmHg (non-smoker) or 129.5 mmHg (smoker) — both close together, consistent with `smoker_binary`'s non-significant coefficient (Page 1). The 95% confidence interval for the *average* such patient (123.3-133.0) is far narrower than the 95% prediction interval for one *specific* new patient (90.3-166.0) — individual blood pressure varies far more than the average does.
+
+## Interpret the Result
+
+The two interval types answer genuinely different questions: the confidence interval says "the *average* 50-year-old, BMI-28 patient's blood pressure is somewhere between about 123 and 133 mmHg," while the prediction interval says "any *one* new patient matching that description could plausibly have a blood pressure anywhere from about 90 to 166 mmHg." The enormous width of the prediction interval is an honest reflection of how much individual variation this model leaves unexplained (recall Page 1's R-squared of only 0.087) — a clinician using this model for one specific patient should treat that wide range, not the narrower confidence interval, as the realistic uncertainty.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Reporting a confidence interval when a prediction interval is what's actually needed.** If the question is about one specific new individual (not a group average), `interval = "prediction"` is the honest choice — using the narrower confidence interval instead would understate how uncertain that individual's prediction really is.
+- **Passing `newdata` with different column names than the model's predictors.** `predict()` matches by column name — if the model used `smoker_binary` but `newdata` has a column called `smoker`, `predict()` will fail or silently ignore it, so column names must match exactly.
+- **Extrapolating far outside the range of the original data.** Predicting for an age or BMI value nowhere near what the original 85-100 participants had is far less trustworthy — the model has no real information about relationships in that unobserved range.
+:::
+
+## Practice Problem
+
+Use `predict()` to compare predicted blood pressure for a 30-year-old versus a 70-year-old, both with BMI 25 and non-smoking status. How much does the predicted difference match what you'd expect from the age coefficient alone (age difference × age coefficient)?
+
+## Challenge Problem
+
+Predict blood pressure for a hypothetical patient with an unrealistic age of 5 years old (well outside this dataset's adult-only age range, Level 4). Does the model produce a plausible-looking prediction anyway? Explain why a model will always produce *some* number, even for inputs that don't make clinical sense, and why that's a risk when using `predict()` carelessly.
+
+## Key Takeaways
+
+- `predict(model, newdata = df)` generates predictions for new predictor combinations that don't need to already exist in the original dataset, as long as column names match.
+- `interval = "confidence"` estimates uncertainty around the *average* outcome for given predictor values; `interval = "prediction"` estimates the (always wider) uncertainty for one *specific new individual*.
+- A model will produce a numeric prediction for any input, even nonsensical or far-out-of-range values — `predict()` doesn't automatically warn about extrapolation.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What's the key difference between a confidence interval and a prediction interval from `predict()`?
+   a) They are always identical
+   b) The confidence interval is for the average outcome; the prediction interval is for one new individual
+   c) The prediction interval is always narrower
+   d) Only the confidence interval uses the fitted model's coefficients
+
+2. **True or false.** `predict()` will automatically warn you if `newdata` contains values far outside the range of the original data.
+
+3. **Predict the output.** Would you expect a 95% prediction interval to be wider or narrower than a 95% confidence interval for the same predicted value?
+
+4. **Short answer.** Why might a clinician using this model for one individual patient be misled by looking only at the confidence interval instead of the prediction interval?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** The confidence interval estimates uncertainty for the average outcome; the prediction interval estimates uncertainty for one new individual.
+2. **False.** `predict()` does not automatically flag extrapolation — it will silently produce a numeric prediction for any input, including implausible or out-of-range values.
+3. Wider — a prediction interval accounts for individual-level variability on top of the uncertainty about the average, making it necessarily wider.
+4. The confidence interval (123-133 mmHg here) looks reassuringly narrow, but it only describes the *average* patient — any one individual patient's true blood pressure could reasonably fall anywhere in the much wider prediction interval (90-166 mmHg), and treating the narrow confidence interval as if it applied to a single patient would understate the real uncertainty.
+
+</details>
+:::

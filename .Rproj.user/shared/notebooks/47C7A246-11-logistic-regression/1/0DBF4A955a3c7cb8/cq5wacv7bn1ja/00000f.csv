@@ -1,0 +1,27 @@
+"0","participants <- read.csv(""data/participants.csv"")"
+"0",""
+"0","participants$smoker_binary <- as.numeric(participants$smoker == ""Yes"")"
+"0",""
+"0","smoker_model <- glm(smoker_binary ~ age + bmi, data = participants, family = binomial)"
+"0",""
+"0","summary(smoker_model)"
+"1","
+Call:
+glm(formula = smoker_binary ~ age + bmi, family = binomial, data = participants)
+
+Coefficients:
+             Estimate Std. Error z value Pr(>|z|)
+(Intercept) -0.913984   1.596930  -0.572    0.567
+age          0.008919   0.016554   0.539    0.590
+bmi         -0.023321   0.052168  -0.447    0.655
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 99.543  on 88  degrees of freedom
+Residual deviance: 99.072  on 86  degrees of freedom
+  (11 observations deleted due to missingness)
+AIC: 105.07
+
+Number of Fisher Scoring iterations: 4
+
+"

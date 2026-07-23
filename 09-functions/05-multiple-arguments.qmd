@@ -1,0 +1,142 @@
+# Functions with Multiple Arguments {#sec-multiple-arguments}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 5's flagship mission flagged participants aged 65+ *and* with systolic blood pressure of 130+ — a condition depending on **two** separate values at once, not one. `bp_category()` (previous page) only ever looked at a single value. Your professor now wants a reusable check that takes both age and blood pressure together and decides, in one call, whether a participant counts as "at risk."
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Write a function that accepts multiple arguments, combining them with logical operators (Level 1) to make a single combined decision.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- From Level 5, what exact condition (using `&`) identified the 4 at-risk participants (age 65+ and systolic BP 130+)?
+- If a function needs two separate pieces of information to make one decision, how many arguments would you expect its `function()` definition to list?
+:::
+
+## The R Concept
+
+A function can accept as many arguments as it needs, listed in order, separated by commas:
+
+```r
+function_name <- function(arg1, arg2) {
+  # code using both arg1 and arg2
+}
+```
+
+```r
+is_at_risk <- function(age, sbp, age_cutoff = 65, bp_cutoff = 130) {
+  age >= age_cutoff & sbp >= bp_cutoff
+}
+```
+
+Notice `is_at_risk()` combines two *required* arguments (`age`, `sbp`) with two *optional*, default-valued arguments (`age_cutoff`, `bp_cutoff`, Page 3) — a function can freely mix both kinds.
+
+## Demonstration
+
+```r
+is_at_risk <- function(age, sbp, age_cutoff = 65, bp_cutoff = 130) {
+  age >= age_cutoff & sbp >= bp_cutoff
+}
+
+is_at_risk(70, 145)
+```
+
+```
+[1] TRUE
+```
+
+```r
+is_at_risk(50, 145)
+```
+
+```
+[1] FALSE
+```
+
+The first participant (age 70, BP 145) meets both thresholds and is flagged `TRUE`; the second (age 50, BP 145) fails the age condition alone, so the combined result is `FALSE` — exactly the `&` ("and") logic from Level 1, now packaged inside a reusable function.
+
+## Explore
+
+Try `is_at_risk(70, 145, age_cutoff = 75)`. Since 70 no longer meets a stricter age cutoff of 75, this should return `FALSE` — confirming the default-valued arguments (Page 3) remain fully overridable even in a function with multiple parameters.
+
+## Solve the Problem
+
+```r
+is_at_risk <- function(age, sbp, age_cutoff = 65, bp_cutoff = 130) {
+  age >= age_cutoff & sbp >= bp_cutoff
+}
+
+participants <- read.csv("data/participants.csv")
+
+at_risk_flags <- is_at_risk(participants$age, participants$systolic_bp)
+
+sum(at_risk_flags, na.rm = TRUE)
+```
+
+```
+[1] 4
+```
+
+Because `age >= age_cutoff & sbp >= bp_cutoff` uses R's vectorized `&` operator (Level 2), `is_at_risk()` works correctly whether called on two single numbers or two entire columns at once — no `sapply()` or loop required here, since `&` already compares element-by-element automatically. The result (4 at-risk participants) exactly matches Level 5's `filter(age >= 65 & systolic_bp >= 130)` count.
+
+## Interpret the Result
+
+`is_at_risk()` reproduces Level 5's flagship finding (4 at-risk participants) exactly, but as a named, reusable, customizable tool — the age and blood pressure cutoffs can be adjusted per call without editing the function's internals, unlike Level 5's `filter()` call, which would need its condition rewritten by hand for a different threshold.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Forgetting argument order matters when calling a function positionally.** `is_at_risk(145, 70)` (blood pressure first, age second) silently swaps the two values' roles — always double check argument order, or use named arguments (`is_at_risk(age = 70, sbp = 145)`) to avoid ambiguity entirely.
+- **Assuming every function automatically vectorizes like `is_at_risk()` did here.** This function happened to work correctly on whole columns because `&`, `>=` are already vectorized operators (Level 2) — not every function behaves this way automatically, especially ones containing `if` (Page 4), which expects a single value, not a vector.
+- **Mixing required and default arguments in the wrong order.** In R, arguments with defaults should generally come after arguments without defaults in the function definition — `function(age_cutoff = 65, age, sbp)` would still technically work when called with named arguments, but is much more error-prone and confusing to read.
+:::
+
+## Practice Problem
+
+Write a function called `is_high_risk_smoker` that takes `bmi`, `smoker`, and a `bmi_cutoff` defaulting to `30`, returning `TRUE` if BMI meets or exceeds the cutoff **and** the participant is a current smoker. Test it on the full `participants` data frame and report how many are flagged.
+
+## Challenge Problem
+
+Modify `is_at_risk()` to accept a third required argument, `smoker`, and flag a participant only if **all three** conditions hold: age 65+, systolic BP 130+, **and** current smoker status. How many participants meet this stricter combined definition, compared to the original 4?
+
+## Key Takeaways
+
+- A function can take multiple arguments, listed in order and separated by commas, freely mixing required and default-valued arguments.
+- Whether a function automatically works on whole vectors depends on whether its internal operations (like `&`, `>=`) are already vectorized — this isn't automatic for every function.
+- Named arguments (`is_at_risk(age = 70, sbp = 145)`) avoid the ambiguity of positional argument order, especially as a function's argument count grows.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** In `is_at_risk(age, sbp, age_cutoff = 65, bp_cutoff = 130)`, which arguments are optional?
+   a) `age` and `sbp`
+   b) `age_cutoff` and `bp_cutoff`
+   c) All four are required
+   d) None — all four have defaults
+
+2. **True or false.** Calling `is_at_risk(145, 70)` (with arguments in the wrong order) will produce an error rather than a silently wrong answer.
+
+3. **Predict the output.** What would `is_at_risk(80, 150, age_cutoff = 70, bp_cutoff = 140)` return?
+
+4. **Find the error.**
+   ```r
+   is_at_risk(sbp = 70, 145)
+   # intended: age = 70, sbp = 145
+   ```
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `age_cutoff` and `bp_cutoff` — both have default values, making them optional.
+2. **False.** R doesn't detect that the arguments are "backwards" — it silently treats the first positional value as `age` and the second as `sbp`, producing a plausible-looking but incorrect result rather than an error.
+3. `TRUE` — age 80 ≥ 70 and blood pressure 150 ≥ 140, so both conditions hold.
+4. `sbp` was named explicitly as `70`, so the remaining positional value `145` fills the next unfilled argument, `age` — meaning this call actually evaluates as `age = 145, sbp = 70`, the reverse of what was intended. Mixing named and positional arguments is legal in R, but it's easy to misread; naming both arguments explicitly (`is_at_risk(age = 70, sbp = 145)`) avoids this kind of silent mix-up entirely.
+
+</details>
+:::

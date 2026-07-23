@@ -6,22 +6,22 @@
 Some tasks — cleaning ten site files the same way, running the same table for twelve subgroups — are naturally repetitive. This level covers `for` loops, `while` loops, and the `apply()` family so you never have to do the same thing twice by hand.
 :::
 
-## What's coming
+## What you'll build toward
 
-- Why automation matters in research pipelines
-- `for` and `while` loops
-- Looping over vectors and data frames
-- `apply()`, `lapply()`, `sapply()`, `vapply()`, `tapply()`
-- `purrr::map()` as the tidy alternative to loops
+Level 9 already covered *applying a function you write* across many columns at once (`sapply()`, `purrr::map()`). This level covers the more general tool underneath: the explicit loop — `for` and `while` — plus two base R loop-replacements Level 9 didn't reach (`vapply()`, `tapply()`), and, crucially, when a loop is actually the right tool versus when a vectorized approach (Level 2 onward) is faster and more readable. You'll finish by automating a genuinely repetitive real task: your data arrives as five separate, identically structured clinic files, and you'll write the loop that processes all five in one run.
 
-::: {.pbl-box .pbl-mission}
-**A preview mission**
+## Topics in this level
 
-Your mission: your team collects data from five clinics every month, each landing in an identically structured file. Automate the entire cleaning step so it takes one run, not five.
-:::
+- Why explicit loops matter, even after learning `sapply()`/`map()` in Level 9
+- `for` loops: iterating over a vector or sequence
+- Accumulating results across loop iterations
+- `while` loops: repeating until a condition is no longer true
+- Looping over a data frame's columns
+- Nested loops (a loop inside a loop)
+- `vapply()` (a stricter `sapply()`) and `tapply()` (grouped summaries without `group_by()`)
+- When to loop, and when to prefer a vectorized approach instead
+- A capstone: automating the same cleaning steps across five separate files
 
-::: {.callout-note}
-## Status
+## A preview mission
 
-This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
-:::
+Your mission across this level: your team collects data from five clinics every month, each landing in an identically structured file (`data/clinics/clinic_*.csv`). Automate reading, checking, and combining all five into one dataset with a single loop, so the process takes one run instead of five separate ones — and confirm the combined result exactly reproduces the familiar 100-participant `participants.csv` you've used since Level 1.

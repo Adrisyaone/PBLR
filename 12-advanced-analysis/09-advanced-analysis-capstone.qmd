@@ -1,0 +1,155 @@
+# Level 12 Capstone: Choosing a Final Model {#sec-advanced-analysis-capstone}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+This level built up an increasingly sophisticated toolkit — multiple predictors, categorical predictors, interactions, confounding checks, formal model comparison, diagnostics, and multicollinearity — all applied piece by piece to modeling blood pressure. Your professor now wants a single, final, defensible answer: **what is the best model for predicting systolic blood pressure in this dataset, and why?**
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Pull together every tool from this level into one final, justified modeling decision — and clearly explain why simpler isn't always worse.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- Across this level: did adding BMI and smoking status significantly improve the model over age alone (Page 5)? Did BMI meaningfully confound age's effect (Page 4)? Did an age-smoker interaction matter (Page 3)?
+- If every additional predictor and interaction tested in this level turned out to be unnecessary, what would that suggest about the simplest model already fit back in Level 11, Page 9?
+:::
+
+## The R Concept
+
+Choosing a final model isn't about maximizing R-squared — it's about weighing every piece of evidence gathered so far:
+
+```r
+# Evidence gathered across this level:
+anova(model_age_only, model_age_bmi_smoker)  # Page 5: does the bigger model earn its complexity?
+# confounding check (Page 4): does age's coefficient shift once bmi is added?
+# interaction check (Page 3): does age's effect differ by smoker status?
+# diagnostics (Page 6) and VIF (Page 7): is the simpler model's fit trustworthy?
+```
+
+A model earns extra predictors only when they measurably improve prediction (Page 5), aren't already redundant with what's in the model (Page 7), and aren't hiding a confounding relationship that changes an existing predictor's meaning (Page 4).
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+complete_rows <- participants[complete.cases(participants[, c("age", "bmi", "smoker", "systolic_bp")]), ]
+complete_rows$smoker_binary <- as.numeric(complete_rows$smoker == "Yes")
+
+model_age_only        <- lm(systolic_bp ~ age, data = complete_rows)
+model_age_bmi_smoker  <- lm(systolic_bp ~ age + bmi + smoker_binary, data = complete_rows)
+
+anova(model_age_only, model_age_bmi_smoker)
+AIC(model_age_only, model_age_bmi_smoker)
+```
+
+```
+Analysis of Variance Table
+
+Model 1: systolic_bp ~ age
+Model 2: systolic_bp ~ age + bmi + smoker_binary
+  Res.Df   RSS Df Sum of Sq      F Pr(>F)
+1     83 29818
+2     81 28808  2    1009.7 1.4195 0.2478
+```
+
+```
+                     df      AIC
+model_age_only        3 743.3381
+model_age_bmi_smoker  5 744.4100
+```
+
+## Explore
+
+Review every piece of evidence gathered across this level, side by side:
+
+| Question | Page | Result |
+|---|---|---|
+| Does adding bmi + smoker significantly improve the model? | 5 | No (p = 0.248) |
+| Is age's coefficient confounded by bmi? | 4 | No (2.3% change, under 10% threshold) |
+| Does age's effect interact with smoker status? | 3 | No (interaction p = 0.512) |
+| Are age, bmi, smoker multicollinear? | 7 | No (all VIFs ≈ 1.0) |
+| Does the simpler model pass diagnostics? | 6 | Yes (Shapiro-Wilk p = 0.430, Breusch-Pagan p = 0.738) |
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+model_final <- lm(systolic_bp ~ age, data = participants)
+
+summary(model_final)
+```
+
+```
+
+Call:
+lm(formula = systolic_bp ~ age, data = participants)
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept) 142.1669     6.4332  22.099  < 2e-16 ***
+age          -0.2762     0.1299  -2.127   0.0363 *
+---
+Multiple R-squared:  0.04888,	Adjusted R-squared:  0.03807
+F-statistic: 4.522 on 1 and 88 DF,  p-value: 0.03626
+```
+
+Every piece of evidence gathered this level points the same direction: the simple age-only model, exactly as fit back in Level 11 Page 9, remains the most defensible choice. BMI and smoking status neither significantly improve prediction (Page 5), nor confound age's effect (Page 4), nor interact with age (Page 3) — and there's no multicollinearity concern preventing them from being added if they were needed (Page 7).
+
+## Interpret the Result
+
+This capstone's real lesson isn't a specific number — it's a way of thinking. A more sophisticated model isn't automatically a better one; every additional predictor or interaction term must earn its place with evidence, not just intuition or a marginally higher R-squared. Here, that evidence consistently favored simplicity: age alone predicts blood pressure about as well as age with BMI and smoking status combined, and the added complexity doesn't buy any real predictive power. A good analyst reports this simpler, well-diagnosed model with confidence, rather than a more complicated one that only looks more sophisticated on the surface.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Choosing the model with the highest R-squared without checking whether the difference is meaningful.** Page 1 showed R-squared always favors the bigger model — Page 5's formal test is what actually determines whether that difference matters.
+- **Treating "no confounding, no interaction, no significant improvement" as a disappointing result.** These are genuinely useful findings — they justify keeping the simpler, more interpretable model with confidence, rather than being a failure to find something more complex.
+- **Forgetting to check diagnostics on whichever model is ultimately chosen.** A simpler model isn't automatically exempt from the same normality and constant-variance checks (Page 6) that any model deserves before its p-values are trusted.
+:::
+
+## Practice Problem
+
+Using this level's full toolkit, evaluate whether `county` (Page 2) deserves a place in the final model: does adding it significantly improve the age-only model (via `anova()`, Page 5), and does it introduce any multicollinearity concern (Page 7)?
+
+## Challenge Problem
+
+Write a short paragraph (as if for a methods section) justifying the final choice of `lm(systolic_bp ~ age, data = participants)` as this level's recommended model. Reference the specific evidence from at least three different pages in this level (confounding, interaction, model comparison, diagnostics, or multicollinearity) to support the decision.
+
+## Key Takeaways
+
+- A final model should be chosen using evidence — nested model comparison, confounding checks, interaction tests, diagnostics, and multicollinearity checks — not by maximizing R-squared alone.
+- Sometimes the most defensible final model is also the simplest one; that's a legitimate, well-supported conclusion, not a failure to find something more sophisticated.
+- Every tool introduced in this level (Pages 1-8) exists to help make and justify exactly this kind of final modeling decision, on any dataset, in any future analysis.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** According to this capstone's evidence, which model was ultimately the most defensible choice for predicting blood pressure?
+   a) The model with age, bmi, and smoker together
+   b) The model with age and county together
+   c) The simple age-only model
+   d) The model with an age-smoker interaction
+
+2. **True or false.** A simpler model can be the more defensible choice even when a more complex model has a higher raw R-squared.
+
+3. **Predict the output.** If a nested F-test, a confounding check, and an interaction test all fail to show any effect from adding new predictors, what should generally happen to those predictors?
+
+4. **Short answer.** Explain, in your own words, why "the most sophisticated model" and "the best model" are not always the same thing.
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **c)** The simple age-only model — no evidence across this level supported adding bmi, smoker, county, or an interaction term.
+2. **True.** R-squared mechanically favors more complex models (Page 1); a formal comparison (Page 5) is what determines whether that higher R-squared reflects a genuine, meaningful improvement.
+3. They should generally be left out of the final model — added complexity is only worth keeping when there's real evidence it improves prediction, resolves confounding, or captures a genuine interaction.
+4. A more complex model can look more impressive (more predictors, a marginally higher R-squared) while adding no genuine predictive value and making the results harder to interpret — the "best" model is the one best supported by formal evidence and diagnostics, which is very often the simplest model that adequately explains the data.
+
+</details>
+:::

@@ -1,0 +1,133 @@
+# The Two-Sample t-Test {#sec-two-sample-t-test}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 8's scatter plot colored by smoking status showed smokers and non-smokers scattered across similar blood pressure ranges, with means of 130.54 and 129.61 respectively — a difference of under one point. Your professor asks the natural next question: is that roughly one-point difference statistically meaningful, or is it exactly the kind of small difference you'd expect to see between any two randomly split groups, purely by chance?
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Compare the means of two independent groups using a two-sample t-test.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If smoking status had absolutely no relationship with blood pressure, would you expect the two groups' means to be *exactly* identical, or just *close*?
+- With only 24 smokers compared to 72 non-smokers, would you expect a real underlying difference to be easier or harder to detect statistically, compared to two equally large groups?
+:::
+
+## The R Concept
+
+A **two-sample t-test** compares the means of two independent groups, testing whether their difference is larger than what chance alone would typically produce:
+
+```r
+t.test(numeric_variable ~ grouping_variable, data = df)
+```
+
+By default, R's `t.test()` uses **Welch's t-test**, which doesn't assume the two groups have equal variance — a safer default than the classic "Student's t-test," which does assume equal variance.
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+t.test(systolic_bp ~ smoker, data = participants)
+```
+
+```
+
+	Welch Two Sample t-test
+
+data:  systolic_bp by smoker
+t = -0.21305, df = 41.106, p-value = 0.8323
+alternative hypothesis: true difference in means between group No and group Yes is not equal to 0
+95 percent confidence interval:
+ -9.750700  7.889589
+sample estimates:
+mean in group No mean in group Yes
+         129.6111          130.5417
+```
+
+## Explore
+
+Notice the 95% confidence interval for the difference in means (-9.75 to 7.89) **contains 0** — meaning "no difference at all" is well within the range of plausible values. Compare this to Page 4's one-sample test, where the hypothesized value (120) fell *outside* the confidence interval — here, the hypothesized "no difference" value falls comfortably inside.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+test_result <- t.test(systolic_bp ~ smoker, data = participants)
+
+test_result$p.value
+```
+
+```
+[1] 0.8323397
+```
+
+```r
+test_result$estimate
+```
+
+```
+mean in group No mean in group Yes
+         129.6111          130.5417
+```
+
+A p-value of 0.83 is very large — far above any conventional significance threshold — indicating essentially no evidence that smoking status is associated with a real difference in mean systolic blood pressure in this sample.
+
+## Interpret the Result
+
+The roughly one-point difference in means (130.54 vs. 129.61) is entirely consistent with random sampling variation — not evidence of a real underlying relationship between smoking status and blood pressure in this dataset. This matches Level 8's visual finding exactly: the two groups' points were thoroughly intermixed on the scatter plot, with no visible separation, and the formal test now confirms that visual impression numerically.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Treating a non-significant result as proof there's no effect at all.** A large p-value (0.83) means this sample provides no strong evidence of a difference — it does not prove smoking has *zero* true effect on blood pressure; a larger, more carefully designed study could still detect a real but small effect this sample was too limited to find.
+- **Ignoring unequal group sizes when interpreting results.** With only 24 smokers versus 72 non-smokers, this test has less power to detect a small real difference than if both groups were equally large — a non-significant result here is somewhat less conclusive than the same result from two equally sized, larger groups.
+- **Using the classic equal-variance t-test by default instead of Welch's.** R's default (`t.test()` with no `var.equal` argument) already uses the safer Welch's version — explicitly setting `var.equal = TRUE` (the classic Student's t-test) requires justifying the equal-variance assumption first, which shouldn't be assumed without checking.
+:::
+
+## Practice Problem
+
+Test whether mean `bmi` differs significantly between smokers and non-smokers. Compare your p-value to this page's blood pressure result — is the evidence for a smoking-BMI relationship stronger or weaker?
+
+## Challenge Problem
+
+Test whether mean `age` differs significantly between males and females (`age ~ sex`). Report the confidence interval for the difference, and state in a full sentence (as you would in a report) what the result means, following the "not proof of zero effect" caution from this page's Common Mistakes.
+
+## Key Takeaways
+
+- A two-sample t-test compares two independent groups' means, testing whether their observed difference exceeds what chance alone would plausibly produce.
+- R's default `t.test()` uses Welch's t-test, which doesn't assume equal variance between groups — a safer default than the classic equal-variance version.
+- A non-significant result (large p-value) means the sample lacks strong evidence of a difference — it does not prove no real difference exists at all.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What does `t.test(systolic_bp ~ smoker, data = participants)` test?
+   a) Whether `systolic_bp` is normally distributed
+   b) Whether the mean `systolic_bp` differs between smokers and non-smokers
+   c) Whether `smoker` predicts `systolic_bp` using regression
+   d) The correlation between `systolic_bp` and `smoker`
+
+2. **True or false.** A p-value of 0.83 proves that smoking has no effect on blood pressure whatsoever.
+
+3. **Predict the output.** If a confidence interval for a difference in means contains 0, would you expect the corresponding p-value to be above or below 0.05?
+
+4. **Short answer.** Why might unequal group sizes (24 smokers vs. 72 non-smokers) make it harder to detect a real but modest difference between groups?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** Whether the mean `systolic_bp` differs between smokers and non-smokers.
+2. **False.** A large p-value indicates a lack of strong evidence for a difference in this particular sample — it does not prove the true difference is exactly zero.
+3. Above 0.05 — a confidence interval containing 0 (no difference) corresponds to a non-significant result.
+4. Statistical power to detect a real difference depends heavily on sample size in each group — with only 24 smokers, there's more sampling variability in that group's mean than in the 72 non-smokers, making a modest true difference harder to distinguish reliably from chance.
+
+</details>
+:::

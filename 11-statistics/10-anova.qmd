@@ -1,0 +1,129 @@
+# One-Way ANOVA {#sec-anova}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+Level 5's `group_by(county) + summarise()` found blood pressure means ranging from 124.36 (Riverdale) to 133.30 (Millbrook) across the study's five counties — real-looking differences. But Page 5's two-sample t-test only ever compares *two* groups at a time. With five counties, comparing every possible pair (10 separate t-tests) would be tedious, and would inflate the chance of a false positive from running so many tests. Your professor asks for one single test of whether blood pressure differs across *all five* counties at once.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Test whether a numeric variable's mean differs across more than two groups simultaneously, using one-way ANOVA.
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If you wanted to compare blood pressure across all 5 counties using only two-sample t-tests (Page 5), how many separate pairwise comparisons would that require?
+- If blood pressure genuinely didn't differ by county at all, would you still expect the 5 counties' sample means to be spread out a little, or to be exactly identical?
+:::
+
+## The R Concept
+
+**One-way ANOVA** ("analysis of variance") tests whether the means of **three or more** groups differ significantly, using a single overall test rather than multiple pairwise comparisons:
+
+```r
+model <- aov(numeric_variable ~ grouping_variable, data = df)
+summary(model)
+```
+
+ANOVA compares how much variation exists *between* group means to how much variation exists *within* each group — producing an F-statistic and a single overall p-value.
+
+## Demonstration
+
+```r
+participants <- read.csv("data/participants.csv")
+
+bp_county_model <- aov(systolic_bp ~ county, data = participants)
+
+summary(bp_county_model)
+```
+
+```
+            Df Sum Sq Mean Sq F value Pr(>F)
+county       4    783   195.7   0.539  0.708
+Residuals   91  33048   363.2
+```
+
+## Explore
+
+Try `TukeyHSD(bp_county_model)` — a follow-up test that compares every pair of counties individually, *while* adjusting for the fact that multiple comparisons are being made. This is the statistically appropriate way to answer "which specific counties differ," rather than running 10 separate, unadjusted two-sample t-tests.
+
+## Solve the Problem
+
+```r
+participants <- read.csv("data/participants.csv")
+
+bp_county_model <- aov(systolic_bp ~ county, data = participants)
+
+summary(bp_county_model)
+```
+
+```
+            Df Sum Sq Mean Sq F value Pr(>F)
+county       4    783   195.7   0.539  0.708
+Residuals   91  33048   363.2
+```
+
+```r
+summary(lm(systolic_bp ~ county, data = participants))$r.squared
+```
+
+```
+[1] 0.02313655
+```
+
+The F-statistic (0.539) is small, and the p-value (0.708) is far above 0.05 — no statistically significant evidence that mean systolic blood pressure differs across the five counties. County membership explains only about 2.3% of the variation in blood pressure (R-squared = 0.023).
+
+## Interpret the Result
+
+Despite Level 5's grouped means ranging from 124.36 to 133.30 — a roughly 9-point spread that might look meaningful in a table — the ANOVA shows this spread is entirely consistent with random sampling variation across five groups of modest size (16 to 26 participants each). This doesn't mean county is *irrelevant* to blood pressure in the broader population; it means this particular sample doesn't provide strong statistical evidence of a real county-level difference.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Running multiple unadjusted two-sample t-tests instead of one ANOVA.** Testing every pair of 5 counties individually (10 tests) substantially increases the chance of at least one false-positive result appearing purely by chance — ANOVA's single overall test avoids this problem; `TukeyHSD()` handles pairwise follow-up comparisons correctly if needed afterward.
+- **Assuming a non-significant ANOVA means every group is identical.** It means the *overall* test found no significant difference across all groups combined — a follow-up test could still reveal one specific pair with a real difference, though `TukeyHSD()` would be needed to check this properly rather than assumed from the overall ANOVA result alone.
+- **Confusing ANOVA's F-statistic with a t-test's t-statistic.** They're related (an F-statistic here is testing multiple groups simultaneously) but not directly comparable in magnitude — always interpret the p-value, not the raw statistic's size, when judging significance.
+:::
+
+## Practice Problem
+
+Run a one-way ANOVA testing whether `bmi` differs across the five counties. Report the F-statistic, p-value, and R-squared, and compare to the blood pressure result above.
+
+## Challenge Problem
+
+Run `TukeyHSD(bp_county_model)` and examine the adjusted p-value for the Millbrook-Riverdale comparison specifically (the two counties with the largest raw mean difference, Level 5). Is this specific pairwise comparison statistically significant after the multiple-comparison adjustment, even though the overall ANOVA was not?
+
+## Key Takeaways
+
+- One-way ANOVA tests whether three or more groups' means differ significantly, using a single overall F-test rather than multiple pairwise comparisons.
+- A non-significant ANOVA result means the sample lacks strong evidence of an overall difference across groups — it doesn't rule out every possible pairwise difference without a proper follow-up test like `TukeyHSD()`.
+- Running many unadjusted pairwise t-tests instead of one ANOVA inflates the risk of a false-positive finding purely from the number of comparisons made.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** When is one-way ANOVA the appropriate choice over a two-sample t-test?
+   a) When comparing exactly two groups
+   b) When comparing three or more groups' means simultaneously
+   c) When testing a correlation coefficient
+   d) When the outcome variable is categorical
+
+2. **True or false.** Running 10 separate two-sample t-tests to compare 5 groups pairwise is statistically equivalent to running one ANOVA.
+
+3. **Predict the output.** Given an ANOVA p-value of 0.708, would you conclude blood pressure significantly differs across the five counties?
+
+4. **Short answer.** Why does running many pairwise comparisons instead of one overall test increase the risk of a false-positive finding?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** When comparing three or more groups' means simultaneously.
+2. **False.** Multiple unadjusted pairwise tests inflate the overall chance of at least one false-positive result — ANOVA's single test (or a properly adjusted follow-up like `TukeyHSD()`) accounts for this in a way that separate, unadjusted t-tests do not.
+3. No — a p-value of 0.708 is far above 0.05, indicating no statistically significant evidence of a difference across counties.
+4. Each individual test carries some chance (conventionally 5%) of a false-positive result purely by chance — running many such tests compounds this risk, making it increasingly likely that at least one test shows "significance" purely due to chance, even if no real differences exist anywhere.
+
+</details>
+:::

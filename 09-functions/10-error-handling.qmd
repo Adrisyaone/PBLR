@@ -1,0 +1,155 @@
+# Basic Error Handling: `stop()` and `warning()` {#sec-error-handling}
+
+::: {.pbl-box .pbl-problem}
+**The Problem**
+
+A colleague uses your `pct_missing()` function, but accidentally passes it an empty vector (`pct_missing(numeric(0))`) — and it silently returns `NaN` ("not a number", from dividing by zero) instead of a clear error explaining what went wrong. They spend twenty minutes confused about why their report shows `NaN` before realizing the actual mistake was upstream. Your function should have caught this immediately.
+:::
+
+::: {.pbl-box .pbl-mission}
+**Your Mission**
+
+Add basic input validation to a function using `stop()` (for errors that should halt execution) and `warning()` (for concerning-but-not-fatal situations).
+:::
+
+::: {.pbl-box .pbl-think}
+**Think Before Coding**
+
+- If a function receives input that makes its calculation meaningless (like an empty vector), would you rather it fail immediately with a clear message, or silently return a confusing result like `NaN`?
+- What's the difference between a problem serious enough to stop a function entirely, versus one worth flagging but not necessarily fatal?
+:::
+
+## The R Concept
+
+**`stop()`** immediately halts a function's execution and raises an error with a custom message — appropriate when the function genuinely cannot produce a meaningful result:
+
+```r
+if (some_bad_condition) {
+  stop("A clear message explaining what went wrong")
+}
+```
+
+**`warning()`** prints a caution message but lets the function **continue running** — appropriate for situations worth flagging but not necessarily fatal:
+
+```r
+if (some_concerning_condition) {
+  warning("A message noting something worth double-checking")
+}
+```
+
+## Demonstration
+
+```r
+pct_missing <- function(x) {
+  if (length(x) == 0) {
+    stop("x has length 0 - cannot compute percent missing")
+  }
+  sum(is.na(x)) / length(x) * 100
+}
+
+pct_missing(numeric(0))
+```
+
+```
+Error in pct_missing(numeric(0)) : x has length 0 - cannot compute percent missing
+```
+
+Instead of silently returning a confusing `NaN`, the function now stops immediately with a message explaining exactly what went wrong — much easier to debug than discovering an unexplained `NaN` several steps later in a report.
+
+## Explore
+
+Try calling the updated `pct_missing()` on a valid column, like `participants$age`. Confirm it still works exactly as before for legitimate input — `stop()` only interrupts execution when the specific bad condition (`length(x) == 0`) is actually met, not for every call.
+
+## Solve the Problem
+
+```r
+pct_missing <- function(x) {
+  if (length(x) == 0) {
+    stop("x has length 0 - cannot compute percent missing")
+  }
+  if (all(is.na(x))) {
+    warning("Every value in x is missing - result will be 100")
+  }
+  sum(is.na(x)) / length(x) * 100
+}
+
+participants <- read.csv("data/participants.csv")
+
+pct_missing(participants$age)
+```
+
+```
+[1] 6
+```
+
+```r
+pct_missing(c(NA, NA, NA))
+```
+
+```
+Warning message:
+In pct_missing(c(NA, NA, NA)) : Every value in x is missing - result will be 100
+[1] 100
+```
+
+```r
+pct_missing(numeric(0))
+```
+
+```
+Error in pct_missing(numeric(0)) : x has length 0 - cannot compute percent missing
+```
+
+Three different inputs, three different appropriate responses: a valid column runs normally (6%), an all-missing vector runs but with a warning attached (100%, flagged as worth double-checking), and a genuinely invalid empty vector stops execution entirely with a clear explanation.
+
+## Interpret the Result
+
+`pct_missing()` now protects both the function's caller and anyone reading its output: a `stop()`-triggered error message makes an invalid call immediately obvious rather than producing a confusing silent result, while a `warning()` flags a technically valid but concerning result (100% missing) without halting a larger script that might process many columns in a loop.
+
+::: {.pbl-box .pbl-mistake}
+**Common Mistakes**
+
+- **Using `warning()` when the situation actually warrants `stop()`.** A `warning()` lets execution continue — if the function truly cannot produce a meaningful result (like the empty-vector case), continuing anyway just produces a bad result further downstream; `stop()` is the right choice whenever continuing would be actively misleading.
+- **Writing a vague error message.** `stop("Error!")` tells a caller nothing about what actually went wrong or how to fix it — a good `stop()` message states the specific problem, as in `"x has length 0 - cannot compute percent missing"`.
+- **Adding so much validation that a function becomes hard to use for legitimate edge cases.** Not every unusual input needs a `stop()` or `warning()` — reserve them for situations that are genuinely invalid or genuinely worth flagging, not just unusual.
+:::
+
+## Practice Problem
+
+Add a `stop()` check to `bp_category()` (Page 4) that halts execution with a clear message if `sbp` is negative (an impossible blood pressure reading). Test it with a normal value and a negative one.
+
+## Challenge Problem
+
+Modify `is_at_risk()` (Page 5) to `warning()` (not `stop()`) if `age_cutoff` is set below 0 or above 120 (an implausible age threshold), while still allowing the function to run. Explain why `warning()` is more appropriate than `stop()` for this particular situation, compared to the empty-vector case above.
+
+## Key Takeaways
+
+- `stop()` immediately halts a function with a custom error message, appropriate when the function truly cannot produce a meaningful result.
+- `warning()` prints a caution message but allows the function to continue running, appropriate for concerning-but-not-fatal situations.
+- A good error or warning message states the specific problem clearly, helping whoever encounters it fix the actual issue quickly.
+
+::: {.pbl-box .pbl-check}
+**Knowledge Check**
+
+1. **Multiple choice.** What is the key difference between `stop()` and `warning()`?
+   a) `stop()` prints a message and continues; `warning()` halts execution
+   b) `stop()` halts execution; `warning()` prints a message and continues
+   c) They behave identically
+   d) `warning()` can only be used inside `if` statements
+
+2. **True or false.** A function should use `stop()` for every unusual or unexpected input, no matter how minor.
+
+3. **Predict the output.** What would `pct_missing(numeric(0))` do, given the version of the function with the `length(x) == 0` check added?
+
+4. **Short answer.** Why is a specific, descriptive error message (like `"x has length 0 - cannot compute percent missing"`) more useful than a generic one (like `"Error!"`)?
+
+<details class="pbl-answer">
+<summary>Show answers</summary>
+
+1. **b)** `stop()` halts execution with an error; `warning()` prints a message but lets the function continue running.
+2. **False.** Overusing `stop()`/`warning()` for minor or merely unusual inputs makes a function harder to use — reserve them for genuinely invalid or genuinely concerning situations.
+3. It immediately stops with the error message `"x has length 0 - cannot compute percent missing"`, rather than returning a confusing `NaN`.
+4. A specific message tells whoever encounters the error exactly what went wrong and often hints at how to fix it, saving significant debugging time compared to a generic message that provides no clue about the actual problem.
+
+</details>
+:::

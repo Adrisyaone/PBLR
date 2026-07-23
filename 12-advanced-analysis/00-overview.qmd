@@ -3,26 +3,28 @@
 ::: {.pbl-box .pbl-problem}
 **Where this level is headed**
 
-Real epidemiological analysis rarely stops at a single regression line. This level covers the complications that show up in genuine research: confounding, effect modification, missing data, survey weights, longitudinal structure, and mixed models.
+Level 11 fit models with a single predictor at a time: one t-test, one correlation, one simple regression line. Real analyses almost never stop there — a professor asking "does age predict blood pressure" almost always follows up with "yes, but what about BMI and smoking status too? Could one of those be behind the age effect instead?" This level extends `lm()` and `glm()` to multiple predictors at once, and gives you the tools to answer exactly that kind of follow-up honestly.
 :::
 
-## What's coming
+## What this level covers
 
-- Confounding, effect modification, and interaction terms
-- Model diagnostics and multicollinearity
-- Multiple imputation and propensity score matching
-- Survey-weighted and complex survey analysis
-- Mixed-effects models and GEEs
-- Time-to-event analysis with time-varying covariates
+- Fitting multiple regression with more than one numeric predictor at once
+- Using a categorical variable (like `county`) directly as a regression predictor, and reading its dummy-coded coefficients
+- Interaction terms — testing whether one predictor's effect depends on the value of another
+- Confounding and adjustment — checking whether a predictor's effect changes once another variable is controlled for
+- Formally comparing nested models with `anova()` and AIC, instead of eyeballing R-squared
+- Basic regression diagnostics: checking residual normality and constant variance
+- Multicollinearity — what it is, how to detect it, and why it matters
+- Making predictions for new, unobserved data with `predict()`
 
 ::: {.pbl-box .pbl-mission}
 **A preview mission**
 
-Your mission: your regression says smoking predicts disease — but is age secretly driving both? Untangle a confounded research question the way a real epidemiologist would.
+Level 11's simple regression found age predicts systolic blood pressure (Page 9), on its own. Your mission across this level: build up a fuller model — age, BMI, and smoking status together — and find out whether age's effect survives once those other variables are accounted for, or whether it was confounded all along.
 :::
 
 ::: {.callout-note}
-## Status
+## A note on scope
 
-This level's lessons are being built out next, following the same Problem → Think → Learn → Try It → Solve → Interpret → Practice → Challenge structure as Level 1. If you've just finished the level before this one, you're exactly on schedule — keep going.
+This level focuses on the multiple-regression toolkit every analyst reaches for first: multiple predictors, categorical predictors, interactions, confounding, diagnostics, and prediction — all built on the same 100-participant dataset used throughout this course. Topics like multiple imputation, propensity score matching, survey weighting, mixed-effects models, and time-to-event (survival) analysis are genuinely important in public health research, but each requires either specialized data this course's dataset doesn't have (repeated survey waves, censored event times) or a level of mathematical background beyond this course's scope. Consider this level a solid on-ramp to those topics, not the final word on them.
 :::
