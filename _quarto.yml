@@ -6,10 +6,10 @@ project:
 book:
   title: "R for Public Health: A Problem-Based Learning Course"
   subtitle: "From Zero to Advanced R for Epidemiology, Biostatistics, and Health Data Science"
-  author: "Compiled by: Bikram Adhikari"
+  author: "Bikram Adhikari"
   date: today
   search: true
-  repo-url: https://github.com/your-org/R-PBL
+  repo-url: https://github.com/Adrisyaone/PBLR/
   downloads: [pdf]
   sidebar:
     style: floating
@@ -250,6 +250,9 @@ format:
     number-sections: true
     code-fold: false
     highlight-style: github
+
+language:
+  title-block-author-single: "Compiled by"
 
 execute:
   echo: true

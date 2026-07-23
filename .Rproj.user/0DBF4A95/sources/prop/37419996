@@ -2,5 +2,7 @@
     "rmdVisualMode": "false",
     "source_window_id": "",
     "Source": "Source",
-    "quartoPreviewFormat": "html"
+    "quartoPreviewFormat": "html",
+    "cursorPosition": "15,0",
+    "scrollLine": "0"
 }
